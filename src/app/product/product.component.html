@@ -1,0 +1,23 @@
+<div class="product">
+  <label>
+    <input [disabled]="!updateMode" [(ngModel)]="product.name"/>
+  </label>
+  <label>
+    <input [disabled]="!updateMode" [(ngModel)]="product.nutrients.proteins"/>
+  </label>
+  <label>
+    <input [disabled]="!updateMode" [(ngModel)]="product.nutrients.carbs"/>
+  </label>
+  <label>
+    <input [disabled]="!updateMode" [(ngModel)]="product.nutrients.fat"/>
+  </label>
+  <label>
+    <input [disabled]="!updateMode" [(ngModel)]="product.nutrients.roughage"/>
+  </label>
+  <label>
+    <input [disabled]="!updateMode" [(ngModel)]="product.kcal"/>
+  </label>
+  <button (click)="update()"><span>{{updateMode ? '&#10003;' : 'Edit'}}</span></button>
+  <button (click)="delete()"><span>Delete</span></button>
+</div>
+
