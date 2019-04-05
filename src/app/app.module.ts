@@ -9,13 +9,17 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { MealsComponent } from './meals/meals.component';
+import { MealDetailsComponent } from './meal-details/meal-details.component';
+import { ProductListComponent } from './product-list/product-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ProductComponent,
     ProductsComponent,
-    MealsComponent
+    MealsComponent,
+    MealDetailsComponent,
+    ProductListComponent
   ],
   imports: [
     BrowserModule,
