@@ -137,5 +137,15 @@
       }
     }
   },
-  "defaultProject": "dietsheet"
+  "defaultProject": "dietsheet",
+  "schematics": {
+    "@schematics/angular": {
+      "component": {
+        "spec": false
+      },
+      "module": {
+        "routing": true
+      }
+    }
+  }
 }
