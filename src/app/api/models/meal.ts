@@ -1,13 +1,7 @@
-import { Product } from './product';
+import { Ingredient } from './ingredient';
 
-export class Meal {
+export interface Meal {
   id: number;
   name: string;
   ingredients: Ingredient[];
-}
-
-export class Ingredient {
-  id: number;
-  product: Product;
-  amount: number;
 }
