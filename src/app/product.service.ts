@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import {Observable} from 'rxjs';
-import {Product} from './product';
+import { Observable } from 'rxjs';
+import { Product } from './api/models/product';
 
 const httpOptions = {
   headers: new HttpHeaders(
