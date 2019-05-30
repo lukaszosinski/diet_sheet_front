@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Ingredient, Meal } from '../../api/models/meal';
+import { Meal } from '../../api/models/meal';
+import { Ingredient } from '../../api/models/ingredient';
 
 
 @Component({

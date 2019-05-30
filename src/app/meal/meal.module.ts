@@ -3,8 +3,7 @@ import { NgModule } from '@angular/core';
 import { MealRoutingModule } from './meal-routing.module';
 import { MealsComponent } from './meals/meals.component';
 import { MealDetailsComponent } from './meal-details/meal-details.component';
-import { SharedModule } from '../shared/shared.module';
-import { ProductModule } from '../product/product.module';
+import { SharedLazyModule } from '../shared/shared-lazy.module';
 
 @NgModule({
   declarations: [
@@ -13,8 +12,7 @@ import { ProductModule } from '../product/product.module';
   ],
   imports: [
     MealRoutingModule,
-    SharedModule,
-    ProductModule,
+    SharedLazyModule,
   ]
 })
 export class MealModule {}
