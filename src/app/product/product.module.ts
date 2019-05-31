@@ -16,5 +16,8 @@ import { SharedLazyModule } from '../shared/shared-lazy.module';
     ProductRoutingModule,
     SharedLazyModule,
   ],
+  exports: [
+    ProductListComponent
+  ]
 })
 export class ProductModule {}
