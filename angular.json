@@ -137,15 +137,5 @@
       }
     }
   },
-  "defaultProject": "dietsheet",
-  "schematics": {
-    "@schematics/angular": {
-      "component": {
-        "spec": false
-      },
-      "module": {
-        "routing": true
-      }
-    }
-  }
+  "defaultProject": "dietsheet"
 }
