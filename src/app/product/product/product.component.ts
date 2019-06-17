@@ -8,8 +8,8 @@ import { Product } from '../../api/models/product';
 })
 export class ProductComponent implements OnInit {
 
-  @Input() product: Product;
-  @Input() updateMode: boolean;
+  @Input() product: Product | undefined;
+  @Input() updateMode = false;
   @Output() deleteRequest = new EventEmitter<Product>();
   @Output() applyRequest = new EventEmitter<Product>();
 

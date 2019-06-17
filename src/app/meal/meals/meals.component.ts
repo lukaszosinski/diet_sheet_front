@@ -9,22 +9,22 @@ import { MealService } from '../../api/services/meal.service';
 })
 export class MealsComponent implements OnInit {
 
-  meals: Meal[];
-  selectedMeal: Meal;
+  meals: Meal[] = [];
+  selectedMeal: Meal | undefined;
 
   constructor(private mealService: MealService) { }
 
-  ngOnInit() {
-    this.getMeals();
+  ngOnInit(): void {
+    this.downloadMeals();
   }
 
-  public onSelect(meal: Meal) {
+  public onSelect(meal: Meal): void {
     this.selectedMeal = meal;
   }
 
-  private getMeals() {
+  private downloadMeals(): void {
     this.mealService.getMeals().subscribe(meals => {
       this.meals = meals;
-    })
+    });
   }
 }

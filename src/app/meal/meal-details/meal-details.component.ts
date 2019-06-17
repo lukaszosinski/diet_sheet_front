@@ -10,11 +10,12 @@ import { Ingredient } from '../../api/models/ingredient';
 })
 export class MealDetailsComponent implements OnInit {
 
-  @Input() meal: Meal;
-  @Input() updateMode: boolean;
+  @Input() meal: Meal | undefined;
+  @Input() updateMode = false;
   @Output() applyRequest = new EventEmitter<Meal>();
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
   }
@@ -27,7 +28,7 @@ export class MealDetailsComponent implements OnInit {
   }
 
   deleteIngredient(ingredient: Ingredient): void {
-
+    console.log(ingredient);
   }
 
 }

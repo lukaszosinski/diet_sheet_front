@@ -1,7 +1,7 @@
 import { Nutrients } from './nutrients';
 
 export interface Product {
-  id: number;
+  id?: number;
   name: string;
   nutrients: Nutrients;
   kcal: number;
