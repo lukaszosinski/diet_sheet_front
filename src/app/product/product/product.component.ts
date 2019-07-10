@@ -1,5 +1,5 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Product} from '../product';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Product } from '../../api/models/product';
 
 @Component({
   selector: 'app-product',
@@ -8,8 +8,8 @@ import {Product} from '../product';
 })
 export class ProductComponent implements OnInit {
 
-  @Input() product: Product;
-  @Input() updateMode: boolean;
+  @Input() product: Product | undefined;
+  @Input() updateMode = false;
   @Output() deleteRequest = new EventEmitter<Product>();
   @Output() applyRequest = new EventEmitter<Product>();
 

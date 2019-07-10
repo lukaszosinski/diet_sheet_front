@@ -1,5 +1,6 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Ingredient, Meal} from "../meal";
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Meal } from '../../api/models/meal';
+import { Ingredient } from '../../api/models/ingredient';
 
 
 @Component({
@@ -9,11 +10,12 @@ import {Ingredient, Meal} from "../meal";
 })
 export class MealDetailsComponent implements OnInit {
 
-  @Input() meal: Meal;
-  @Input() updateMode: boolean;
+  @Input() meal: Meal | undefined;
+  @Input() updateMode = false;
   @Output() applyRequest = new EventEmitter<Meal>();
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
   }
@@ -26,7 +28,7 @@ export class MealDetailsComponent implements OnInit {
   }
 
   deleteIngredient(ingredient: Ingredient): void {
-
+    console.log(ingredient);
   }
 
 }

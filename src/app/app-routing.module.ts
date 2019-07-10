@@ -1,16 +1,14 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import {ProductsComponent} from "./products/products.component";
-import {MealsComponent} from "./meals/meals.component";
+import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  {path: '', redirectTo: '/meals', pathMatch: 'full'},
-  {path: 'products', component: ProductsComponent},
-  {path: 'meals', component: MealsComponent}
+  { path: 'products', loadChildren: './product/product.module#ProductModule' },
+  { path: 'meals', loadChildren: './meal/meal.module#MealModule' },
+  { path: '', redirectTo: 'meals', pathMatch: 'full' },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
