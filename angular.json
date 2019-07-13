@@ -142,6 +142,9 @@
       "component": {
         "spec": false
       },
+      "service": {
+        "spec": false
+      },
       "module": {
         "routing": true
       }
