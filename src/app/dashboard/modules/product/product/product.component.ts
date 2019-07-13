@@ -1,10 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Product } from '../../api/models/product';
+import { Product } from '../../../../api/models/product';
 
 @Component({
-  selector: 'app-product',
+  selector: 'diet-product',
   templateUrl: './product.component.html',
-  styleUrls: ['./product.component.scss']
+  styleUrls: [ './product.component.scss' ]
 })
 export class ProductComponent implements OnInit {
 

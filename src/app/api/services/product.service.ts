@@ -7,7 +7,7 @@ import { Product } from '../models/product';
 const httpOptions = {
   headers: new HttpHeaders(
     { 'Content-Type': 'application/json' },
-    )
+  )
 };
 
 @Injectable({
@@ -17,7 +17,7 @@ export class ProductService {
 
   private productsUrl = 'http://localhost:8080/product/';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getProducts(): Observable<Product[]> {
     return this.http.get<Product[]>(this.productsUrl);

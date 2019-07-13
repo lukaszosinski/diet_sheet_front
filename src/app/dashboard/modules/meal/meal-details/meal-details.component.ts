@@ -1,12 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Meal } from '../../api/models/meal';
-import { Ingredient } from '../../api/models/ingredient';
+import { Meal } from '../../../../api/models/meal';
+import { Ingredient } from '../../../../api/models/ingredient';
 
 
 @Component({
-  selector: 'app-meal-details',
+  selector: 'diet-meal-details',
   templateUrl: './meal-details.component.html',
-  styleUrls: ['./meal-details.component.scss']
+  styleUrls: [ './meal-details.component.scss' ]
 })
 export class MealDetailsComponent implements OnInit {
 
@@ -14,8 +14,7 @@ export class MealDetailsComponent implements OnInit {
   @Input() updateMode = false;
   @Output() applyRequest = new EventEmitter<Meal>();
 
-  constructor() {
-  }
+  constructor() {}
 
   ngOnInit() {
   }

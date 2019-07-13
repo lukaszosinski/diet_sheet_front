@@ -1,20 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductService } from '../../api/services/product.service';
-import { Product } from '../../api/models/product';
-import { Nutrients } from '../../api/models/nutrients';
+import { Product } from '../../../../api/models/product';
+import { ProductService } from '../../../../api/services/product.service';
+import { Nutrients } from '../../../../api/models/nutrients';
 
 @Component({
-  selector: 'app-products',
+  selector: 'diet-products',
   templateUrl: './products.component.html',
-  styleUrls: ['./products.component.scss']
+  styleUrls: [ './products.component.scss' ]
 })
 export class ProductsComponent implements OnInit {
 
   products: Product[] = [];
   productToAdd: Product | undefined;
 
-  constructor(private productService: ProductService) {
-  }
+  constructor(private productService: ProductService) {}
 
   ngOnInit() {
     this.downloadProducts();
