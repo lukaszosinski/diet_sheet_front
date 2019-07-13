@@ -3,8 +3,10 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { SharedModule } from './shared/shared.module';
+import { SharedModule } from './modules/shared/shared.module';
 import { TranslateModule } from '@ngx-translate/core';
+import { HttpClientModule } from '@angular/common/http';
+import { translateModuleConfig } from './config/translate-module-config';
 
 @NgModule({
   declarations: [
@@ -14,7 +16,8 @@ import { TranslateModule } from '@ngx-translate/core';
     BrowserModule,
     AppRoutingModule,
     SharedModule,
-    TranslateModule.forRoot(),
+    HttpClientModule,
+    TranslateModule.forRoot(translateModuleConfig)
   ],
   providers: [],
   bootstrap: [ AppComponent ]
