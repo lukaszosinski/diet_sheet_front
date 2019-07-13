@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Product } from '../../../../api/models/product';
-import { ProductService } from '../../../../api/services/product.service';
-import { Nutrients } from '../../../../api/models/nutrients';
+import { Product } from '../../../../../api/models/product';
+import { ProductService } from '../../../../../api/services/product.service';
+import { Nutrients } from '../../../../../api/models/nutrients';
 
 @Component({
   selector: 'diet-products',

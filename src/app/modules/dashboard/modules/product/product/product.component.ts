@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Product } from '../../../../api/models/product';
+import { Product } from '../../../../../api/models/product';
 
 @Component({
   selector: 'diet-product',
