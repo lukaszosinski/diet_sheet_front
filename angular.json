@@ -138,17 +138,46 @@
   },
   "defaultProject": "dietsheet",
   "schematics": {
-    "@schematics/angular": {
+    "@ngrx/schematics": {
       "component": {
         "spec": false,
-        "style": "scss"
+        "style": "scss",
+        "changeDetection": "OnPush",
+        "inlineTemplate": true
       },
       "service": {
         "spec": false
       },
       "module": {
         "routing": true
+      },
+      "action": {
+        "creators": true
+      },
+      "reducer": {
+        "spec": false,
+        "creators": true
+      },
+      "effect": {
+        "creators": true,
+        "spec": false
+      },
+      "feature": {
+        "creators": true
+      },
+      "container": {
+        "changeDetection": "OnPush",
+        "inlineTemplate": true,
+        "spec": false,
+        "styleext": "scss"
+      },
+      "entity": {
+        "creators": true,
+        "spec": false
       }
     }
+  },
+  "cli": {
+    "defaultCollection": "@ngrx/schematics"
   }
 }
