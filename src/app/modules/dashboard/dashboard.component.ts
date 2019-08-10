@@ -1,10 +1,29 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { DashboardNavBarData } from './dashboard-nav-bar/models/dashboard-nav-bar-data';
 import { RoutingService } from '../shared/services/routing.service';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import * as fromApp from '../../reducers';
+import * as fromDashboard from './dashboard.reducer';
+import * as DashboardActions from './dashboard.actions';
 
 @Component({
   selector: 'diet-dashboard',
-  templateUrl: './dashboard.component.html',
+  template: `
+      <div class="diet-dashboard">
+          <div class="diet-dashboard-nav-bar-wrapper">
+              <diet-dashboard-nav-bar [show]="shouldShowNavBar$ | async"
+                                      [items]="navBarData"
+              ></diet-dashboard-nav-bar>
+              <diet-dashboard-nav-bar-trigger-button
+                      (triggered)="onNavBarTriggered()"
+              ></diet-dashboard-nav-bar-trigger-button>
+          </div>
+          <div class="diet-dashboard-content-wrapper">
+              <router-outlet></router-outlet>
+          </div>
+      </div>
+  `,
   styleUrls: [ './dashboard.component.scss' ],
   encapsulation: ViewEncapsulation.None,
 })
@@ -20,13 +39,17 @@ export class DashboardComponent implements OnInit {
       navigationCallback: this.routingService.navigation.dashboard.products.list,
     },
   ];
-  shouldShowNavBar = true;
+  readonly shouldShowNavBar$: Observable<boolean>;
 
-  constructor(private routingService: RoutingService) {}
+  constructor(private routingService: RoutingService,
+              private store: Store<fromApp.AppState>
+  ) {
+    this.shouldShowNavBar$ = this.store.select(fromDashboard.selectShouldShowNavBar);
+  }
 
   ngOnInit() { }
 
   onNavBarTriggered() {
-    this.shouldShowNavBar = !this.shouldShowNavBar;
+    this.store.dispatch(DashboardActions.triggerNavBar());
   }
 }

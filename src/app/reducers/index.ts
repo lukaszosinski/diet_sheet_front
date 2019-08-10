@@ -1,10 +1,11 @@
 import { ActionReducerMap, MetaReducer } from '@ngrx/store';
 import { environment } from '../../environments/environment';
+import * as fromDashboard from '../modules/dashboard/dashboard.reducer';
 
-// tslint:disable-next-line:no-empty-interface
-export interface State {
+export interface AppState {
+  [fromDashboard.dashboardFeatureKey]?: fromDashboard.DashboardState;
 }
 
-export const reducers: ActionReducerMap<State> = {};
+export const reducers: ActionReducerMap<AppState> = {};
 // https://ngrx.io/guide/store/metareducers
-export const metaReducers: MetaReducer<State>[] = !environment.production ? [] : [];
+export const metaReducers: MetaReducer<AppState>[] = !environment.production ? [] : [];
