@@ -150,5 +150,8 @@
         "routing": true
       }
     }
+  },
+  "cli": {
+    "defaultCollection": "@ngrx/schematics"
   }
 }

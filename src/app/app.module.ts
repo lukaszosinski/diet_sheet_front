@@ -7,6 +7,9 @@ import { SharedModule } from './modules/shared/shared.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { HttpClientModule } from '@angular/common/http';
 import { translateModuleConfig } from './config/translate-module-config';
+import { environment } from '../environments/environment';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 @NgModule({
   declarations: [
@@ -17,7 +20,17 @@ import { translateModuleConfig } from './config/translate-module-config';
     AppRoutingModule,
     SharedModule,
     HttpClientModule,
-    TranslateModule.forRoot(translateModuleConfig)
+    TranslateModule.forRoot(translateModuleConfig),
+    StoreModule.forRoot({}, {
+      runtimeChecks: {
+        strictStateImmutability: true,
+        strictActionImmutability: true,
+        strictStateSerializability: true,
+        strictActionSerializability: true,
+      }
+    }),
+    // TODO rozważyć dodanie @ngrx/router-store
+    StoreDevtoolsModule.instrument({ logOnly: !environment.production }),
   ],
   providers: [],
   bootstrap: [ AppComponent ]
