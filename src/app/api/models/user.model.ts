@@ -1,7 +1,7 @@
 // TODO check if model is proper
 export interface User {
   id: number;
-  name: string;
+  username: string;
   password?: string;
   token?: string;
 }
