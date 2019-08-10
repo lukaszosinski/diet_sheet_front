@@ -141,7 +141,9 @@
     "@ngrx/schematics": {
       "component": {
         "spec": false,
-        "style": "scss"
+        "style": "scss",
+        "changeDetection": "OnPush",
+        "inlineTemplate": true
       },
       "service": {
         "spec": false
@@ -161,11 +163,17 @@
         "spec": false
       },
       "feature": {
-        "creators": true,
-        "spec": false
+        "creators": true
+      },
+      "container": {
+        "changeDetection": "OnPush",
+        "inlineTemplate": true,
+        "spec": false,
+        "styleext": "scss"
       },
       "entity": {
-        "creators": true
+        "creators": true,
+        "spec": false
       }
     }
   },
