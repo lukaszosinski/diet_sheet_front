@@ -28,8 +28,6 @@ import { StoreRouterConnectingModule } from '@ngrx/router-store';
       runtimeChecks: {
         strictStateImmutability: true,
         strictActionImmutability: true,
-        strictStateSerializability: true,
-        strictActionSerializability: true,
       }
     }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
