@@ -1,0 +1,18 @@
+<div class="products">
+  <h3>Your products:</h3>
+  <diet-product
+    *ngFor="let product of products"
+    [product]="product"
+    [updateMode]="false"
+    (deleteRequest)="delete($event)"
+    (applyRequest)="update($event)">
+  </diet-product>
+  <diet-product
+    *ngIf="productToAdd"
+    [product]="productToAdd"
+    [updateMode]="true"
+    (deleteRequest)="discard()"
+    (applyRequest)="post()">
+  </diet-product>
+  <button [disabled]="productToAdd!=null" (click)="add()"><span>+</span></button>
+</div>

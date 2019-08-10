@@ -10,7 +10,7 @@ export class MealService {
 
   private mealsUrl = 'http://localhost:8080/meal/';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getMeals(): Observable<Meal[]> {
     return this.http.get<Meal[]>(this.mealsUrl);

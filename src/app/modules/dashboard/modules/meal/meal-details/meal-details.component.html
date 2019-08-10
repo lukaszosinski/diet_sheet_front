@@ -1,0 +1,44 @@
+<div class="row">
+  <div class="col">
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Amount [g]</th>
+        <th scope="col">Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let ingredient of meal.ingredients">
+        <th scope="row">{{ingredient.id}}</th>
+        <td>{{ingredient.product.name}}</td>
+        <td>
+          <label>
+            <input
+              [disabled]="!updateMode"
+              class="transparent-input"
+              [(ngModel)]="ingredient.amount">
+          </label>
+        </td>
+        <td>
+          <button
+            [disabled]="!updateMode"
+            (click)="deleteIngredient(ingredient)">
+            <span>Delete</span>
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <button
+      (click)="update()">
+      <span>{{updateMode ? '&#10003;' : 'Edit'}}</span>
+    </button>
+  </div>
+  <!--  TODO: decide what to do with this code :) -->
+  <!--  <div *ngIf="updateMode" class="col-4">-->
+  <!--    <app-product-list ></app-product-list>-->
+  <!--  </div>-->
+</div>
+

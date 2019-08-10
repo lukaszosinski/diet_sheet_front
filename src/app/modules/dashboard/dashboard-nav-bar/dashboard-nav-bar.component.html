@@ -1,0 +1,9 @@
+<div class="diet-dashboard-nav-bar" *ngIf="show">
+  <ul>
+    <li *ngFor="let item of items">
+      <a (click)="redirect(item.navigationCallback)">
+        {{item.translationKey | translate}}
+      </a>
+    </li>
+  </ul>
+</div>

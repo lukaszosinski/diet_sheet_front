@@ -2,13 +2,16 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  { path: 'products', loadChildren: './product/product.module#ProductModule' },
-  { path: 'meals', loadChildren: './meal/meal.module#MealModule' },
-  { path: '', redirectTo: 'meals', pathMatch: 'full' },
+  // {path: 'authorization', loadChildren: () => import('./meal/meal.module').then(m => m.MealModule)},  // TODO
+  { path: 'dashboard', loadChildren: () => import('./modules/dashboard/dashboard.module').then(m => m.DashboardModule) },
+  { path: 'landing-page', loadChildren: () => import('./modules/landing-page/landing-page.module').then(m => m.LandingPageModule) },
+  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+  { path: '*', redirectTo: 'dashboard', pathMatch: 'full' },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  imports: [ RouterModule.forRoot(routes) ],
+  exports: [ RouterModule ]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule {
+}

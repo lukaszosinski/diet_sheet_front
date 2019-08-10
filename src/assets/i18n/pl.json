@@ -1,0 +1,11 @@
+{
+  "DASHBOARD": {
+    "NAVIGATION": {
+      "MEALS": "Posiłki",
+      "PRODUCTS": "Produkty"
+    }
+  },
+  "ERROR": {
+    "MISSING_TRANSLATION": "!!!BRAK TŁUMACZENIA KLUCZA \"{{missingKey}}\"!!!"
+  }
+}

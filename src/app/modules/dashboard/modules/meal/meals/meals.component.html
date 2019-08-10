@@ -1,0 +1,9 @@
+<div class="jumbotron">
+  <h1 class="display-5">Meals:</h1>
+  <ul class="list-group">
+    <li *ngFor="let meal of meals" (click)="onSelect(meal)"
+        class="list-group-item list-group-item-action">{{meal.name}}</li>
+  </ul>
+</div>
+<diet-meal-details *ngIf="selectedMeal" [meal]="selectedMeal"></diet-meal-details>
+

@@ -1,0 +1,35 @@
+$maxContentWidth: 800px;
+$nav-bar-width: 200px;
+
+.diet-dashboard {
+  height: 100%;
+  width: 100%;
+  position: relative;
+
+  &-nav-bar-wrapper {
+    position: absolute;
+    right: 0;
+    height: 100%;
+    width: $nav-bar-width;
+
+    diet-dashboard-nav-bar-trigger-button {
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+  }
+
+  &-content-wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+
+    & > *:nth-child(2) {
+      background: white;
+      flex-grow: 1;
+      max-width: $maxContentWidth;
+    }
+  }
+}
