@@ -1,0 +1,12 @@
+$nav-bar-trigger-size: 40px;
+
+.diet-dashboard-nav-bar-trigger-button {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  width: $nav-bar-trigger-size;
+  height: $nav-bar-trigger-size;
+  text-align: center;
+  vertical-align: center;
+}

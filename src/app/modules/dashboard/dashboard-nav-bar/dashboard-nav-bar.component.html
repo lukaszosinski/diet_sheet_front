@@ -1,4 +1,4 @@
-<div class="dashboard-nav-bar">
+<div class="diet-dashboard-nav-bar" *ngIf="show">
   <ul>
     <li *ngFor="let item of items">
       <a (click)="redirect(item.navigationCallback)">

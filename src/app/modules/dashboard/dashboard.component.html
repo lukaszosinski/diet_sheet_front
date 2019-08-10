@@ -1,8 +1,12 @@
 <div class="diet-dashboard">
-  <diet-dashboard-nav-bar class="diet-dashboard-nav-bar"
-                          [items]="navBarData"
-  >
-  </diet-dashboard-nav-bar>
+  <div class="diet-dashboard-nav-bar-wrapper">
+    <diet-dashboard-nav-bar [show]="shouldShowNavBar"
+                            [items]="navBarData"
+    ></diet-dashboard-nav-bar>
+    <diet-dashboard-nav-bar-trigger-button
+      (triggered)="onNavBarTriggered()"
+    ></diet-dashboard-nav-bar-trigger-button>
+  </div>
   <div class="diet-dashboard-content-wrapper">
     <router-outlet></router-outlet>
   </div>

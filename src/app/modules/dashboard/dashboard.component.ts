@@ -20,10 +20,13 @@ export class DashboardComponent implements OnInit {
       navigationCallback: this.routingService.navigation.dashboard.products.list,
     },
   ];
+  shouldShowNavBar = true;
 
   constructor(private routingService: RoutingService) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
+  onNavBarTriggered() {
+    this.shouldShowNavBar = !this.shouldShowNavBar;
+  }
 }
