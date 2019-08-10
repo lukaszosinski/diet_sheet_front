@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { DashboardNavBarData } from './dashboard-nav-bar/models/dashboard-nav-bar-data';
-import { RoutingService } from '../shared/services/routing.service';
+import { RoutingService } from '../shared/routing/routing.service';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import * as fromApp from '../../reducers';
+import * as fromApp from '../../app.recuder';
 import * as fromDashboard from './dashboard.reducer';
 import * as DashboardActions from './dashboard.actions';
 

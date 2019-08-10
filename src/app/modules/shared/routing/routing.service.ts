@@ -4,6 +4,7 @@ import { NavigationExtras, Router, UrlTree } from '@angular/router';
 @Injectable({
   providedIn: 'root'
 })
+// TODO navigation could be made using https://ngrx.io/guide/migration/v4#ngrxrouter-store
 export class RoutingService {
 
   readonly navigation: NavigationTree;

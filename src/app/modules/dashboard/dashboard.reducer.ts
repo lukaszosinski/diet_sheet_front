@@ -1,6 +1,6 @@
 import { Action, createFeatureSelector, createReducer, createSelector, on } from '@ngrx/store';
 import * as DashboardActions from './dashboard.actions';
-import * as fromApp from '../../reducers';
+import * as fromApp from '../../app.recuder';
 
 
 export const dashboardFeatureKey = 'dashboard';

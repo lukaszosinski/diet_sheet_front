@@ -10,7 +10,7 @@ import { translateModuleConfig } from './config/translate-module-config';
 import { environment } from '../environments/environment';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { metaReducers, reducers } from './reducers';
+import { metaReducers, reducers } from './app.recuder';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 
 @NgModule({
