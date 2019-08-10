@@ -10,6 +10,7 @@ import { translateModuleConfig } from './config/translate-module-config';
 import { environment } from '../environments/environment';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { metaReducers, reducers } from './reducers';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     SharedModule,
     HttpClientModule,
     TranslateModule.forRoot(translateModuleConfig),
-    StoreModule.forRoot({}, {
+    StoreModule.forRoot(reducers, {
+      metaReducers,
       runtimeChecks: {
         strictStateImmutability: true,
         strictActionImmutability: true,
@@ -30,7 +32,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
       }
     }),
     // TODO rozważyć dodanie @ngrx/router-store
-    StoreDevtoolsModule.instrument({ logOnly: !environment.production }),
+    !environment.production ? StoreDevtoolsModule.instrument() : [],
   ],
   providers: [],
   bootstrap: [ AppComponent ]
