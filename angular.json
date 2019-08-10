@@ -138,7 +138,7 @@
   },
   "defaultProject": "dietsheet",
   "schematics": {
-    "@schematics/angular": {
+    "@ngrx/schematics": {
       "component": {
         "spec": false,
         "style": "scss"
@@ -148,6 +148,24 @@
       },
       "module": {
         "routing": true
+      },
+      "action": {
+        "creators": true
+      },
+      "reducer": {
+        "spec": false,
+        "creators": true
+      },
+      "effect": {
+        "creators": true,
+        "spec": false
+      },
+      "feature": {
+        "creators": true,
+        "spec": false
+      },
+      "entity": {
+        "creators": true
       }
     }
   },
