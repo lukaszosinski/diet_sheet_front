@@ -4,9 +4,12 @@ import { DashboardComponent } from './dashboard.component';
 
 
 const routes: Routes = [
-  { path: '', component: DashboardComponent },
-  { path: 'products', loadChildren: () => import('./modules/product/product.module').then(m => m.ProductModule) },
-  { path: 'meals', loadChildren: () => import('./modules/meal/meal.module').then(m => m.MealModule) },
+  {
+    path: '', component: DashboardComponent, children: [
+      { path: 'products', loadChildren: () => import('./modules/product/product.module').then(m => m.ProductModule) },
+      { path: 'meals', loadChildren: () => import('./modules/meal/meal.module').then(m => m.MealModule) },
+    ]
+  },
 ];
 
 @NgModule({

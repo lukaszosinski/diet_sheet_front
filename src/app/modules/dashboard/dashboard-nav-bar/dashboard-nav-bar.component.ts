@@ -8,7 +8,7 @@ import { DashboardNavBarData } from './models/dashboard-nav-bar-data';
 })
 export class DashboardNavBarComponent implements OnInit {
 
-  @Input() data: DashboardNavBarData[] = [];
+  @Input() items: DashboardNavBarData[] = [];
 
   constructor() { }
 

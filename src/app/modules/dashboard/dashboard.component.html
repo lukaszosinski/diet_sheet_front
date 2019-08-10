@@ -1,8 +1,9 @@
-<div class="diet-dashboard-wrapper">
-  <diet-dashboard-nav-bar
-    [data]="navBarData"
-  ></diet-dashboard-nav-bar>
-  <div class="diet-dashboard-content">
+<div class="diet-dashboard">
+  <diet-dashboard-nav-bar class="diet-dashboard-nav-bar"
+                          [items]="navBarData"
+  >
+  </diet-dashboard-nav-bar>
+  <div class="diet-dashboard-content-wrapper">
     <router-outlet></router-outlet>
   </div>
 </div>

@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { DashboardNavBarData } from './dashboard-nav-bar/models/dashboard-nav-bar-data';
 import { RoutingService } from '../shared/services/routing.service';
 
 @Component({
   selector: 'diet-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: [ './dashboard.component.scss' ]
+  styleUrls: [ './dashboard.component.scss' ],
+  encapsulation: ViewEncapsulation.None,
 })
 export class DashboardComponent implements OnInit {
 

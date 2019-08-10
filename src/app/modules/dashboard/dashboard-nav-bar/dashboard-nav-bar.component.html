@@ -1,6 +1,6 @@
 <div class="dashboard-nav-bar">
   <ul>
-    <li *ngFor="let item of data">
+    <li *ngFor="let item of items">
       <a (click)="redirect(item.navigationCallback)">
         {{item.translationKey | translate}}
       </a>
