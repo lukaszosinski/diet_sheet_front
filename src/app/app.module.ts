@@ -11,6 +11,7 @@ import { environment } from '../environments/environment';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { metaReducers, reducers } from './reducers';
+import { StoreRouterConnectingModule } from '@ngrx/router-store';
 
 @NgModule({
   declarations: [
@@ -31,8 +32,8 @@ import { metaReducers, reducers } from './reducers';
         strictActionSerializability: true,
       }
     }),
-    // TODO rozważyć dodanie @ngrx/router-store
     !environment.production ? StoreDevtoolsModule.instrument() : [],
+    StoreRouterConnectingModule.forRoot(),
   ],
   providers: [],
   bootstrap: [ AppComponent ]
