@@ -4,9 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { User } from '../models/user.model';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class AuthorizationService {
 
   private readonly baseUrl = environment.apiUrl;

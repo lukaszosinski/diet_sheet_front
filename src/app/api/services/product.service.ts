@@ -10,9 +10,7 @@ const httpOptions = {
   )
 };
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class ProductService {
 
   private productsUrl = 'http://localhost:8080/product/';

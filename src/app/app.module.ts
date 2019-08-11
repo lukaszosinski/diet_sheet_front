@@ -5,7 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SharedModule } from './modules/shared/shared.module';
 import { TranslateModule } from '@ngx-translate/core';
-import { HttpClientModule } from '@angular/common/http';
 import { translateModuleConfig } from './config/translate-module-config';
 import { environment } from '../environments/environment';
 import { StoreModule } from '@ngrx/store';
@@ -13,6 +12,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { metaReducers, reducers } from './app.recuder';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { EffectsModule } from '@ngrx/effects';
+import { ApiModule } from './api/api.module';
 
 @NgModule({
   declarations: [
@@ -22,7 +22,7 @@ import { EffectsModule } from '@ngrx/effects';
     BrowserModule,
     AppRoutingModule,
     SharedModule,
-    HttpClientModule,
+    ApiModule.forRoot(),
     TranslateModule.forRoot(translateModuleConfig),
     StoreModule.forRoot(reducers, {
       metaReducers,
@@ -35,7 +35,9 @@ import { EffectsModule } from '@ngrx/effects';
     EffectsModule.forRoot([]),
     StoreRouterConnectingModule.forRoot(),
   ],
-  providers: [],
+  providers: [
+    ApiModule.getServiceProviders(),
+  ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule {
