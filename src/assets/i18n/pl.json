@@ -2,7 +2,8 @@
   "DASHBOARD": {
     "NAVIGATION": {
       "MEALS": "Posiłki",
-      "PRODUCTS": "Produkty"
+      "PRODUCTS": "Produkty",
+      "SIGN_OUT": "Wyloguj się"
     }
   },
   "ERROR": {

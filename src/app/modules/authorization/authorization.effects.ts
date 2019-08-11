@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 
-import { map, mergeMap } from 'rxjs/operators';
+import { map, mergeMap, tap } from 'rxjs/operators';
 
 import * as AuthorizationActions from './authorization.actions';
 import { AuthorizationService } from '../../api/services/authorization.service';
 import { catchApiError } from '../shared/utils/ngrx-utils';
+import { RoutingService } from '../shared/routing/routing.service';
 
 
 @Injectable()
@@ -36,8 +37,16 @@ export class AuthorizationEffects {
     ))
   ));
 
+  signOutSuccess$ = createEffect(() => this.actions$.pipe(
+    ofType(AuthorizationActions.signOutSuccess),
+    tap(() => this.routingService.navigation.landingPage.go())
+    ),
+    { dispatch: false }
+  );
+
   constructor(private actions$: Actions,
               private authorizationService: AuthorizationService,
+              private routingService: RoutingService,
   ) {}
 
 }

@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import * as fromApp from '../../app.recuder';
 import * as fromDashboard from './dashboard.reducer';
 import * as DashboardActions from './dashboard.actions';
-import { signIn, signUp } from '../authorization/authorization.actions';
+import * as fromAuthorization from '../authorization/authorization.actions';
 
 @Component({
   selector: 'diet-dashboard',
@@ -50,18 +50,18 @@ export class DashboardComponent implements OnInit {
     this.shouldShowNavBar$ = this.store.select(fromDashboard.selectShouldShowNavBar);
   }
 
-  ngOnInit() { }
+  ngOnInit(): void { }
 
-  onNavBarTriggered() {
+  onNavBarTriggered(): void {
     this.store.dispatch(DashboardActions.triggerNavBar());
   }
 
   // TODO MOVE
-  signIn() {
-    this.store.dispatch(signIn({ username: 'asdasdas', password: 'asdasdasdasdasd' }));
+  signIn(): void {
+    this.store.dispatch(fromAuthorization.signIn({ username: 'asdasdas', password: 'asdasdasdasdasd' }));
   }
 
-  signUp() {
-    this.store.dispatch(signUp({ username: 'asdasdas', password: 'asdasdasdasdasd' }));
+  signUp(): void {
+    this.store.dispatch(fromAuthorization.signUp({ username: 'asdasdas', password: 'asdasdasdasdasd' }));
   }
 }
