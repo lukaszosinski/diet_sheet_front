@@ -1,26 +1,27 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ApiResponse } from '../models/api-response.model';
-import { User } from '../models/user.model';
 import { environment } from '../../../environments/environment';
+import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthorizationService {
 
+  private readonly baseUrl = environment.apiUrl;
+
   constructor(private http: HttpClient) { }
 
-  signUp({ username, password }: Partial<User>): Observable<ApiResponse<string>> {
-    return this.http.post<ApiResponse<string>>(environment.apiUrl + 'public/user', { username, password }, {});
+  signUp(body: { username: string, password: string }): Observable<User & { token: string }> {
+    return this.http.post<User & { token: string }>(this.baseUrl + 'public/user', body);
   }
 
-  signIn({ username, password }: Partial<User>): Observable<ApiResponse<string>> {
-    return this.http.post<ApiResponse<string>>(environment.apiUrl + 'public/session', { username, password }, {});
+  signIn(body: { username: string, password: string }): Observable<User & { token: string }> {
+    return this.http.post<User & { token: string }>(this.baseUrl + 'public/session', body, {});
   }
 
-  signOut(): Observable<ApiResponse<boolean>> {
-    return this.http.delete<ApiResponse<boolean>>(environment.apiUrl + 'session', {});
+  signOut(): Observable<boolean> {
+    return this.http.delete<boolean>(this.baseUrl + 'session', {});
   }
 }

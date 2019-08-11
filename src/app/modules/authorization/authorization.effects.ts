@@ -5,10 +5,8 @@ import { catchError, map, mergeMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 
 import * as AuthorizationActions from './authorization.actions';
-import { AuthorizationService } from '../../api/services/authorization.service';
-import { ApiResponse } from '../../api/models/api-response.model';
 import { ApiError } from '../../api/models/api-error.model';
-import { User } from '../../api/models/user.model';
+import { AuthorizationService } from '../../api/services/authorization.service';
 
 
 @Injectable()
@@ -16,16 +14,16 @@ export class AuthorizationEffects {
 
   signUp$ = createEffect(() => this.actions$.pipe(
     ofType(AuthorizationActions.signUp),
-    mergeMap((user: Partial<User>) => this.authorizationService.signUp(user).pipe(
-      map((response: ApiResponse<string>) => AuthorizationActions.signUpSuccess({ authorizationToken: response.body })),
+    mergeMap(({ username, password }) => this.authorizationService.signUp({ username, password }).pipe(
+      map((response) => AuthorizationActions.signUpSuccess({ authorizationToken: response.token })),
       catchError((apiError: ApiError) => of(AuthorizationActions.signUpError(apiError)))
     ))
   ));
 
   signIn$ = createEffect(() => this.actions$.pipe(
     ofType(AuthorizationActions.signIn),
-    mergeMap((user: Partial<User>) => this.authorizationService.signIn(user).pipe(
-      map((response: ApiResponse<string>) => AuthorizationActions.signInSuccess({ authorizationToken: response.body })),
+    mergeMap(({ username, password }) => this.authorizationService.signIn({ username, password }).pipe(
+      map((response) => AuthorizationActions.signInSuccess({ authorizationToken: response.token })),
       catchError((apiError: ApiError) => of(AuthorizationActions.signInError(apiError)))
     ))
   ));
