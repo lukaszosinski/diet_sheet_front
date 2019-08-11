@@ -1,6 +1,7 @@
 import { Action, createFeatureSelector, createReducer, createSelector, on } from '@ngrx/store';
 import * as AuthorizationActions from './authorization.actions';
 import * as fromApp from '../../app.recuder';
+import * as ErrorResponseActions from '../../api/http-interceptors/error-response/error-response.actions';
 
 export const authorizationFeatureKey = 'authorization';
 
@@ -10,19 +11,28 @@ export interface State {
 
 const authorizationTokenStorageKey = 'authorization';
 
-function getAuthorizationTokenFromStorage(): string | undefined {
-  return localStorage.getItem(authorizationTokenStorageKey) || undefined;
-}
-
 export const initialState: State = {
-  authorizationToken: getAuthorizationTokenFromStorage(),
+  authorizationToken: localStorage.getItem(authorizationTokenStorageKey) || undefined,
 };
 
 const authorizationReducer = createReducer(
   initialState,
-  on(AuthorizationActions.signUpSuccess, (state, { authorizationToken }) => ({ ...state, authorizationToken })),
-  on(AuthorizationActions.signInSuccess, (state, { authorizationToken }) => ({ ...state, authorizationToken })),
-  on(AuthorizationActions.signOutSuccess, state => ({ ...state, authorizationToken: undefined })),
+  on(
+    AuthorizationActions.signUpSuccess,
+    AuthorizationActions.signInSuccess,
+    (state, { authorizationToken }) => {
+      localStorage.setItem(authorizationTokenStorageKey, authorizationToken);
+      return { ...state, authorizationToken };
+    }
+  ),
+  on(
+    AuthorizationActions.signOutSuccess,
+    ErrorResponseActions.unauthorized,
+    state => {
+      localStorage.removeItem(authorizationTokenStorageKey);
+      return { ...state, authorizationToken: undefined };
+    }
+  ),
 );
 
 export function reducer(state: State | undefined, action: Action) {
