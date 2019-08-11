@@ -5,7 +5,7 @@ import { map, mergeMap } from 'rxjs/operators';
 
 import * as AuthorizationActions from './authorization.actions';
 import { AuthorizationService } from '../../api/services/authorization.service';
-import { NgrxUtils } from '../shared/utils/ngrx-utils';
+import { catchApiError } from '../shared/utils/ngrx-utils';
 
 
 @Injectable()
@@ -15,7 +15,7 @@ export class AuthorizationEffects {
     ofType(AuthorizationActions.signUp),
     mergeMap(({ username, password }) => this.authorizationService.signUp({ username, password }).pipe(
       map((response) => AuthorizationActions.signUpSuccess({ authorizationToken: response.token })),
-      NgrxUtils.catchApiError(AuthorizationActions.signUpError)
+      catchApiError(AuthorizationActions.signUpError)
     ))
     )
   );
@@ -24,7 +24,7 @@ export class AuthorizationEffects {
     ofType(AuthorizationActions.signIn),
     mergeMap(({ username, password }) => this.authorizationService.signIn({ username, password }).pipe(
       map((response) => AuthorizationActions.signInSuccess({ authorizationToken: response.token })),
-      NgrxUtils.catchApiError(AuthorizationActions.signInError)
+      catchApiError(AuthorizationActions.signInError)
     ))
   ));
 
@@ -32,7 +32,7 @@ export class AuthorizationEffects {
     ofType(AuthorizationActions.signOut),
     mergeMap(() => this.authorizationService.signOut().pipe(
       map(() => AuthorizationActions.signOutSuccess()),
-      NgrxUtils.catchApiError(AuthorizationActions.signOutError)
+      catchApiError(AuthorizationActions.signOutError)
     ))
   ));
 

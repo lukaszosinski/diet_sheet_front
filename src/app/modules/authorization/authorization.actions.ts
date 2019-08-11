@@ -1,7 +1,6 @@
 import { createAction, props } from '@ngrx/store';
-import { NgrxUtils } from '../shared/utils/ngrx-utils';
+import { createApiErrorAction } from '../shared/utils/ngrx-utils';
 
-const createApiErrorAction = NgrxUtils.createApiErrorAction;
 
 export const signUp = createAction('[Authorization] Sign up', props<{ username: string, password: string }>());
 
