@@ -1,5 +1,6 @@
-import { Action, createReducer, on } from '@ngrx/store';
+import { Action, createFeatureSelector, createReducer, createSelector, on } from '@ngrx/store';
 import * as AuthorizationActions from './authorization.actions';
+import * as fromApp from '../../app.recuder';
 
 export const authorizationFeatureKey = 'authorization';
 
@@ -27,3 +28,9 @@ const authorizationReducer = createReducer(
 export function reducer(state: State | undefined, action: Action) {
   return authorizationReducer(state, action);
 }
+
+export const selectAuthorization = createFeatureSelector<fromApp.AppState, State>(authorizationFeatureKey);
+export const selectAuthorizationToken = createSelector(
+  selectAuthorization,
+  (state: State) => state.authorizationToken
+);
