@@ -7,6 +7,7 @@ import * as AuthorizationActions from './authorization.actions';
 import { AuthorizationService } from '../../api/services/authorization.service';
 import { catchApiError } from '../shared/utils/ngrx-utils';
 import { RoutingService } from '../shared/routing/routing.service';
+import * as ErrorResponseActions from '../../api/http-interceptors/error-response/error-response.actions';
 
 
 @Injectable()
@@ -37,8 +38,8 @@ export class AuthorizationEffects {
     ))
   ));
 
-  signOutSuccess$ = createEffect(() => this.actions$.pipe(
-    ofType(AuthorizationActions.signOutSuccess),
+  redirectOnSignOut$ = createEffect(() => this.actions$.pipe(
+    ofType(AuthorizationActions.signOutSuccess, ErrorResponseActions.unauthorized),
     tap(() => this.routingService.navigation.landingPage.go())
     ),
     { dispatch: false }
