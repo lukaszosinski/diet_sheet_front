@@ -6,7 +6,6 @@ import { Observable } from 'rxjs';
 import * as fromApp from '../../app.recuder';
 import * as fromDashboard from './dashboard.reducer';
 import * as DashboardActions from './dashboard.actions';
-import * as fromAuthorization from '../authorization/authorization.actions';
 
 @Component({
   selector: 'diet-dashboard',
@@ -23,8 +22,6 @@ import * as fromAuthorization from '../authorization/authorization.actions';
           <div class="diet-dashboard-content-wrapper">
               <router-outlet></router-outlet>
           </div>
-          <button (click)="signIn()">signIn</button>
-          <button (click)="signUp()">signUp</button>
       </div>
   `,
   styleUrls: [ './dashboard.component.scss' ],
@@ -54,14 +51,5 @@ export class DashboardComponent implements OnInit {
 
   onNavBarTriggered(): void {
     this.store.dispatch(DashboardActions.triggerNavBar());
-  }
-
-  // TODO MOVE
-  signIn(): void {
-    this.store.dispatch(fromAuthorization.signIn({ username: 'asdasdas', password: 'asdasdasdasdasd' }));
-  }
-
-  signUp(): void {
-    this.store.dispatch(fromAuthorization.signUp({ username: 'asdasdas', password: 'asdasdasdasdasd' }));
   }
 }

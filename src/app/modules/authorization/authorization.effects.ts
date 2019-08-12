@@ -39,8 +39,18 @@ export class AuthorizationEffects {
   ));
 
   redirectOnSignOut$ = createEffect(() => this.actions$.pipe(
-    ofType(AuthorizationActions.signOutSuccess, ErrorResponseActions.unauthorized),
+    ofType(
+      AuthorizationActions.signOutSuccess,
+      ErrorResponseActions.unauthorized,
+    ),
     tap(() => this.routingService.navigation.landingPage.go())
+    ),
+    { dispatch: false }
+  );
+
+  redirectOnSignIn$ = createEffect(() => this.actions$.pipe(
+    ofType(AuthorizationActions.signInSuccess),
+    tap(() => this.routingService.navigation.dashboard.go())
     ),
     { dispatch: false }
   );
