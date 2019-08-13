@@ -13,6 +13,7 @@ import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { EffectsModule } from '@ngrx/effects';
 import { ApiModule } from './api/api.module';
 import { AuthorizationModule } from './modules/authorization/authorization.module';
+import { SharedModule } from './modules/shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { AuthorizationModule } from './modules/authorization/authorization.modul
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     EffectsModule.forRoot([]),
     StoreRouterConnectingModule.forRoot(),
+    SharedModule,
   ],
   providers: [
     ApiModule.getServiceProviders(),

@@ -22,6 +22,7 @@ export class RoutingService {
       },
       landingPage: {
         go: this.goToLandingPage.bind(this),
+        signUp: this.goToSignUp.bind(this),
       }
     };
   }
@@ -45,6 +46,10 @@ export class RoutingService {
   private goToLandingPage(): Promise<boolean> {
     return this.navigateByUrl('landing-page');
   }
+
+  private goToSignUp(): Promise<boolean> {
+    return this.navigateByUrl('landing-page/sign-up');
+  }
 }
 
 export interface NavigationTree {
@@ -59,6 +64,7 @@ export interface NavigationTree {
   };
   landingPage: {
     go: NavigationCallback,
+    signUp: NavigationCallback,
   };
 }
 

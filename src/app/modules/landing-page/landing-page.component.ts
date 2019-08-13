@@ -1,28 +1,24 @@
-import { Component, OnInit } from '@angular/core';
-import * as fromAuthorization from '../authorization/authorization.actions';
-import { AppState } from '../../app.recuder';
-import { Store } from '@ngrx/store';
+import { Component } from '@angular/core';
+import { RoutingService } from '../shared/routing/routing.service';
 
 @Component({
   selector: 'diet-landing-page',
   template: `
-      <button (click)="signIn()">signIn</button>
-      <button (click)="signUp()">signUp</button>
+      <div class="diet-landing-page-content">
+          <h1>{{'LANDING_PAGE.WELCOME' | translate}}</h1>
+          <div class="diet-landing-page-authorization">
+              <diet-sign-in></diet-sign-in>
+              <diet-button (click)="goToSignUp()">{{'LANDING_PAGE.SIGN_UP' | translate }}</diet-button>
+          </div>
+      </div>
   `,
   styleUrls: [ './landing-page.component.scss' ]
 })
-export class LandingPageComponent implements OnInit {
+export class LandingPageComponent {
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private routing: RoutingService) {}
 
-  ngOnInit() {
-  }
-
-  signIn(): void {
-    this.store.dispatch(fromAuthorization.signIn({ username: 'asdasdas', password: 'asdasdasdasdasd' }));
-  }
-
-  signUp(): void {
-    this.store.dispatch(fromAuthorization.signUp({ username: 'asdasdas', password: 'asdasdasdasdasd' }));
+  goToSignUp(): void {
+    this.routing.navigation.landingPage.signUp();
   }
 }
