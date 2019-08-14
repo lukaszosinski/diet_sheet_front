@@ -11,12 +11,12 @@ export class ErrorResponseHttpInterceptor implements HttpInterceptor {
 
   constructor(private store: Store<AppState>) {}
 
-  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     return next.handle(request).pipe(
       catchError((error: HttpErrorResponse) => {
         const { status } = error;
         if (status === 401) {
-          this.store.dispatch(ErrorResponseActions.unauthorized);
+          this.store.dispatch(ErrorResponseActions.unauthorized(error));
         }
         return throwError(error);
       })
