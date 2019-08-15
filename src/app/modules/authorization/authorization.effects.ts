@@ -5,9 +5,9 @@ import { map, mergeMap, tap } from 'rxjs/operators';
 
 import * as AuthorizationActions from './authorization.actions';
 import { AuthorizationService } from '../../api/services/authorization.service';
-import { catchApiError } from '../shared/utils/ngrx-utils';
 import { RoutingService } from '../shared/routing/routing.service';
 import * as ErrorResponseActions from '../../api/http-interceptors/error-response/error-response.actions';
+import { catchApiError } from '../../api/api.actions';
 
 
 @Injectable()

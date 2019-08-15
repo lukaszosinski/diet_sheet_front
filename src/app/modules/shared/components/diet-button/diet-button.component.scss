@@ -12,7 +12,7 @@
     padding: 0.25rem;
     border: none;
     border-radius: 0.5rem;
-    box-shadow: rgba(0, 0, 0, 0.2) 1px 2px 5px 1px;
+    box-shadow: transparentize($primary, 0.5) 1px 2px 5px 1px;
     outline: none;
     font-weight: 600;
 
@@ -22,6 +22,7 @@
     &:not(:disabled) {
       &:hover, &:focus {
         background: darken($primary, 10);
+        box-shadow: transparentize($primary, 0.2) 1px 2px 5px 1px;
       }
     }
 
@@ -33,10 +34,5 @@
 
 :host.diet-button-secondary > .diet-button-wrapper > button {
   background: #fff;
-  border: 2px solid $primary;
   color: #554b4b;
-
-  &:hover, &:focus {
-    box-shadow: rgba(0, 0, 0, 0.3) 1px 2px 5px 2px;
-  }
 }

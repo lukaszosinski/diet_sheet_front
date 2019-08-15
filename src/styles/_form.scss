@@ -1,3 +1,5 @@
+@import "colors.scss";
+
 $formMarginBottom: 0.5rem;
 $formMarginX: 0;
 $formMargin: 0 $formMarginX $formMarginBottom;
@@ -21,13 +23,13 @@ input {
 
   height: 2rem;
   background: #fff;
-  border: 2px solid #ca2643;
+  border: none;
   border-radius: 0.5rem;
-  box-shadow: rgba(0, 0, 0, 0.2) 1px 2px 5px 1px;
+  box-shadow: transparentize($primary, 0.5) 1px 2px 5px 1px;
   outline: none;
 
   &:hover, &:focus {
-    box-shadow: rgba(0, 0, 0, 0.3) 1px 2px 5px 2px;
+    box-shadow: transparentize($primary, 0.2) 1px 2px 5px 1px;
   }
 
   &.ng-touched.ng-invalid {

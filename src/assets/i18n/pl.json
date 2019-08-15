@@ -13,7 +13,8 @@
   "LANDING_PAGE": {
     "WELCOME": "Witaj w DIET",
     "SIGN_IN": "Zaloguj się",
-    "SIGN_UP": "Zarejestruj się"
+    "SIGN_UP": "Zarejestruj się",
+    "SIGN_IN_ERROR": "Nieudana próba logowania"
   },
   "ERROR": {
     "MISSING_TRANSLATION": "!!!BRAK TŁUMACZENIA KLUCZA \"{{missingKey}}\"!!!"
