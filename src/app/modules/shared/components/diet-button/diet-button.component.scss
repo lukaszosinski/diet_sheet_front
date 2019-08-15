@@ -1,0 +1,26 @@
+@import 'colors.scss';
+
+.diet-button-wrapper {
+  display: inline-block;
+  min-width: 7rem;
+
+  button {
+    width: 100%;
+    background: #fff;
+    cursor: pointer;
+    height: 2rem;
+    padding: 0.25rem;
+    margin: 2px;
+    border: 2px solid #ca2643;
+    border-radius: 0.5rem;
+    box-shadow: rgba(0, 0, 0, 0.2) 0 0 2px 2px;
+    outline: none;
+    font-weight: 600;
+    color: #554b4b;
+
+    &:hover, &:focus {
+      background: $primary;
+      color: $backgroundColor
+    }
+  }
+}

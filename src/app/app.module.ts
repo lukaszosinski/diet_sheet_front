@@ -1,17 +1,19 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { AppRoutingModule } from './app-routing.module';
+import { AppRoutingModule } from './routing/app-routing.module';
 import { AppComponent } from './app.component';
-import { SharedModule } from './modules/shared/shared.module';
 import { TranslateModule } from '@ngx-translate/core';
-import { HttpClientModule } from '@angular/common/http';
 import { translateModuleConfig } from './config/translate-module-config';
 import { environment } from '../environments/environment';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { metaReducers, reducers } from './app.recuder';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
+import { EffectsModule } from '@ngrx/effects';
+import { ApiModule } from './api/api.module';
+import { AuthorizationModule } from './modules/authorization/authorization.module';
+import { SharedModule } from './modules/shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -19,9 +21,9 @@ import { StoreRouterConnectingModule } from '@ngrx/router-store';
   ],
   imports: [
     BrowserModule,
+    AuthorizationModule,
     AppRoutingModule,
-    SharedModule,
-    HttpClientModule,
+    ApiModule.forRoot(),
     TranslateModule.forRoot(translateModuleConfig),
     StoreModule.forRoot(reducers, {
       metaReducers,
@@ -31,9 +33,13 @@ import { StoreRouterConnectingModule } from '@ngrx/router-store';
       }
     }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
+    EffectsModule.forRoot([]),
     StoreRouterConnectingModule.forRoot(),
+    SharedModule,
   ],
-  providers: [],
+  providers: [
+    ApiModule.getServiceProviders(),
+  ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule {

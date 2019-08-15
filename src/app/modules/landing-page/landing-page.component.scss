@@ -1,0 +1,28 @@
+@import "colors.scss";
+
+.diet-landing-page-content {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+
+  h1 {
+    text-align: center;
+    color: $primary;
+    justify-self: start;
+  }
+
+  .diet-landing-page-authorization {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    & > * {
+      width: 100%;
+    }
+  }
+
+}

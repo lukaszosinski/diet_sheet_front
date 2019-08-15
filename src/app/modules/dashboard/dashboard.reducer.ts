@@ -15,7 +15,7 @@ export const initialState: State = {
 
 const dashboardReducer = createReducer(
   initialState,
-  on(DashboardActions.triggerNavBar, (state) => ({ ...state, shouldShowNavBar: !state.shouldShowNavBar }))
+  on(DashboardActions.triggerNavBar, (state: State) => ({ ...state, shouldShowNavBar: !state.shouldShowNavBar }))
 );
 
 export function reducer(state: State | undefined, action: Action) {

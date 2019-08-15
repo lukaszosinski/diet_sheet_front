@@ -47,9 +47,9 @@ export class DashboardComponent implements OnInit {
     this.shouldShowNavBar$ = this.store.select(fromDashboard.selectShouldShowNavBar);
   }
 
-  ngOnInit() { }
+  ngOnInit(): void { }
 
-  onNavBarTriggered() {
+  onNavBarTriggered(): void {
     this.store.dispatch(DashboardActions.triggerNavBar());
   }
 }

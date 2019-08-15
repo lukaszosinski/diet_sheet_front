@@ -1,15 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { RoutingService } from '../shared/routing/routing.service';
 
 @Component({
   selector: 'diet-landing-page',
-  templateUrl: './landing-page.component.html',
+  template: `
+      <div class="diet-landing-page-content">
+          <h1>{{'LANDING_PAGE.WELCOME' | translate}}</h1>
+          <div class="diet-landing-page-authorization">
+              <diet-sign-in></diet-sign-in>
+              <diet-button (click)="goToSignUp()">{{'LANDING_PAGE.SIGN_UP' | translate }}</diet-button>
+          </div>
+      </div>
+  `,
   styleUrls: [ './landing-page.component.scss' ]
 })
-export class LandingPageComponent implements OnInit {
+export class LandingPageComponent {
 
-  constructor() {}
+  constructor(private routing: RoutingService) {}
 
-  ngOnInit() {
+  goToSignUp(): void {
+    this.routing.navigation.landingPage.signUp();
   }
-
 }

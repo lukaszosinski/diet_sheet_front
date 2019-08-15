@@ -12,12 +12,17 @@ export class RoutingService {
   constructor(private router: Router) {
     this.navigation = {
       dashboard: {
+        go: this.goToDashboard.bind(this),
         products: {
           list: this.goToProductsList.bind(this),
         },
         meals: {
           list: this.goToMealsList.bind(this),
         },
+      },
+      landingPage: {
+        go: this.goToLandingPage.bind(this),
+        signUp: this.goToSignUp.bind(this),
       }
     };
   }
@@ -26,23 +31,40 @@ export class RoutingService {
     return this.router.navigateByUrl(url, extras);
   }
 
-  goToProductsList(): Promise<boolean> {
+  private goToProductsList(): Promise<boolean> {
     return this.navigateByUrl('dashboard/products');
   }
 
-  goToMealsList(): Promise<boolean> {
+  private goToMealsList(): Promise<boolean> {
     return this.navigateByUrl('dashboard/meals');
+  }
+
+  private goToDashboard(): Promise<boolean> {
+    return this.navigateByUrl('dashboard');
+  }
+
+  private goToLandingPage(): Promise<boolean> {
+    return this.navigateByUrl('landing-page');
+  }
+
+  private goToSignUp(): Promise<boolean> {
+    return this.navigateByUrl('landing-page/sign-up');
   }
 }
 
 export interface NavigationTree {
   dashboard: {
+    go: NavigationCallback,
     meals: {
       list: NavigationCallback,
     }
     products: {
       list: NavigationCallback,
     },
+  };
+  landingPage: {
+    go: NavigationCallback,
+    signUp: NavigationCallback,
   };
 }
 

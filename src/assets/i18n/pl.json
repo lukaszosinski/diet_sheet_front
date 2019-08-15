@@ -2,8 +2,14 @@
   "DASHBOARD": {
     "NAVIGATION": {
       "MEALS": "Posiłki",
-      "PRODUCTS": "Produkty"
+      "PRODUCTS": "Produkty",
+      "SIGN_OUT": "Wyloguj się"
     }
+  },
+  "LANDING_PAGE": {
+    "WELCOME": "Witaj w DIET",
+    "SIGN_IN": "Zaloguj się",
+    "SIGN_UP": "Zarejestruj się"
   },
   "ERROR": {
     "MISSING_TRANSLATION": "!!!BRAK TŁUMACZENIA KLUCZA \"{{missingKey}}\"!!!"
