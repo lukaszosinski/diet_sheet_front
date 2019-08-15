@@ -14,6 +14,8 @@ import { EffectsModule } from '@ngrx/effects';
 import { ApiModule } from './api/api.module';
 import { AuthorizationModule } from './modules/authorization/authorization.module';
 import { SharedModule } from './modules/shared/shared.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ApiEffects } from './api/api.effects';
 
 @NgModule({
   declarations: [
@@ -23,6 +25,7 @@ import { SharedModule } from './modules/shared/shared.module';
     BrowserModule,
     AuthorizationModule,
     AppRoutingModule,
+    BrowserAnimationsModule,
     ApiModule.forRoot(),
     TranslateModule.forRoot(translateModuleConfig),
     StoreModule.forRoot(reducers, {
@@ -33,7 +36,7 @@ import { SharedModule } from './modules/shared/shared.module';
       }
     }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
-    EffectsModule.forRoot([]),
+    EffectsModule.forRoot([ ApiEffects ]),
     StoreRouterConnectingModule.forRoot(),
     SharedModule,
   ],

@@ -7,12 +7,22 @@ export const authorizationFeatureKey = 'authorization';
 
 export interface State {
   authorizationToken?: string;
+  processing: {
+    signIn: boolean,
+    signUp: boolean,
+    signOut: boolean,
+  };
 }
 
 const authorizationTokenStorageKey = 'authorization';
 
 export const initialState: State = {
   authorizationToken: localStorage.getItem(authorizationTokenStorageKey) || undefined,
+  processing: {
+    signIn: false,
+    signUp: false,
+    signOut: false,
+  }
 };
 
 const authorizationReducer = createReducer(
@@ -25,9 +35,27 @@ const authorizationReducer = createReducer(
       return { ...state, authorizationToken };
     }
   ),
+  on(AuthorizationActions.signIn, state => ({ ...state, processing: { ...state.processing, signIn: true } })),
+  on(AuthorizationActions.signUp, state => ({ ...state, processing: { ...state.processing, signUp: true } })),
+  on(AuthorizationActions.signOut, state => ({ ...state, processing: { ...state.processing, signOut: true } })),
+  on(
+    AuthorizationActions.signInSuccess,
+    AuthorizationActions.signInError,
+    state => ({ ...state, processing: { ...state.processing, signIn: false } })
+  ),
+  on(
+    AuthorizationActions.signUpSuccess,
+    AuthorizationActions.signUpError,
+    state => ({ ...state, processing: { ...state.processing, signUp: false } })
+  ),
   on(
     AuthorizationActions.signOutSuccess,
+    AuthorizationActions.signOutError,
+    state => ({ ...state, processing: { ...state.processing, signOut: false } })
+  ),
+  on(
     ErrorResponseActions.unauthorized,
+    AuthorizationActions.signOutSuccess,
     state => {
       localStorage.removeItem(authorizationTokenStorageKey);
       return { ...state, authorizationToken: undefined };

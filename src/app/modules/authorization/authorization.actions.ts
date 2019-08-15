@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { createApiErrorAction } from '../shared/utils/ngrx-utils';
+import { createApiErrorAction } from '../../api/api.actions';
 
 
 export const signUp = createAction('[Authorization] Sign up', props<{ username: string, password: string }>());
@@ -12,7 +12,7 @@ export const signIn = createAction('[Authorization] Sign in', props<{ username: 
 
 export const signInSuccess = createAction('[Authorization/API] Sign in SUCCESS', props<{ authorizationToken: string }>());
 
-export const signInError = createApiErrorAction('[Authorization/API] Sign in ERROR');
+export const signInError = createApiErrorAction('[Authorization/API] Sign in ERROR', 'LANDING_PAGE.SIGN_IN_ERROR');
 
 export const signOut = createAction('[Authorization] Sign out');
 

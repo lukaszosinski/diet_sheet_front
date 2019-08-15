@@ -4,14 +4,17 @@ import { HttpClient } from '@angular/common/http';
 
 
 // AoT requires an exported function for factories
-export function HttpLoaderFactory(httpClient: HttpClient) {
+export function HttpLoaderFactory(httpClient: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(httpClient);
 }
 
 export class DietMissingTranslationHandler implements MissingTranslationHandler {
   handle(params: MissingTranslationHandlerParams): string {
     const missingTranslationKey = 'ERROR.MISSING_TRANSLATION';
-    return params.translateService.instant(missingTranslationKey, { missingKey: params.key });
+    if (params.translateService.currentLang) {
+      return params.translateService.instant(missingTranslationKey, { missingKey: params.key });
+    }
+    return `Missing translation: '${params.key}'`;
   }
 }
 
