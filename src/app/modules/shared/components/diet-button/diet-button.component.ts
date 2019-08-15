@@ -4,7 +4,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
   selector: 'diet-button',
   template: `
       <div class="diet-button-wrapper">
-          <button [type]="type">
+          <button [type]="type" [disabled]="disabled">
               <ng-content></ng-content>
           </button>
       </div>
@@ -15,4 +15,5 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 export class DietButtonComponent {
 
   @Input() type: 'submit' | 'button' | 'reset' = 'submit';
+  @Input() disabled: boolean = false;
 }

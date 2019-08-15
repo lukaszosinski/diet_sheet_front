@@ -1,0 +1,40 @@
+$formMarginBottom: 0.5rem;
+$formMarginX: 0;
+$formMargin: 0 $formMarginX $formMarginBottom;
+
+form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  & > * {
+    width: 100%;
+    margin: $formMargin;
+  }
+}
+
+input {
+  display: block;
+  padding: 0.25rem 0.5rem;
+
+  height: 2rem;
+  background: #fff;
+  border: 2px solid #ca2643;
+  border-radius: 0.5rem;
+  box-shadow: rgba(0, 0, 0, 0.2) 1px 2px 5px 1px;
+  outline: none;
+
+  &:hover, &:focus {
+    box-shadow: rgba(0, 0, 0, 0.3) 1px 2px 5px 2px;
+  }
+
+  &.ng-touched.ng-invalid {
+    background: #ecb0b4;
+
+    &::placeholder {
+      color: white;
+    }
+  }
+}

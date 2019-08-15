@@ -1,4 +1,5 @@
 @import "colors.scss";
+@import "form.scss";
 
 .diet-landing-page-content {
   height: 100%;
@@ -12,6 +13,7 @@
     text-align: center;
     color: $primary;
     justify-self: start;
+    margin-bottom: 1rem;
   }
 
   .diet-landing-page-authorization {
@@ -19,6 +21,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    min-width: 15rem;
 
     & > * {
       width: 100%;

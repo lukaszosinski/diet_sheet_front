@@ -1,4 +1,8 @@
 {
+  "COMMON": {
+    "EMAIL": "Email",
+    "PASSWORD": "Hasło"
+  },
   "DASHBOARD": {
     "NAVIGATION": {
       "MEALS": "Posiłki",
