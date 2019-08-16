@@ -16,6 +16,9 @@
       "SIGN_OUT": "Wyloguj się"
     }
   },
+  "DAY_PLAN": {
+    "ADD_PRODUCT": "Dodaj produkt"
+  },
   "LANDING_PAGE": {
     "WELCOME": "Witaj w DIET",
     "SIGN_IN": "Zaloguj się",

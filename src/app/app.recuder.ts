@@ -3,12 +3,14 @@ import { environment } from '../environments/environment';
 import * as fromDashboard from './modules/dashboard/dashboard.reducer';
 import * as fromRouter from './modules/shared/routing/router.reducer';
 import * as fromAuthorization from './modules/authorization/authorization.reducer';
+import * as fromDayPlan from './modules/dashboard/modules/day-plan/day-plan.reducer';
 
 
 export interface AppState {
   [fromRouter.routerFeatureKey]: fromRouter.State;
   [fromAuthorization.authorizationFeatureKey]: fromAuthorization.State;
   [fromDashboard.dashboardFeatureKey]?: fromDashboard.State;
+  [fromDayPlan.dayPlanFeatureKey]?: fromDayPlan.State;
 }
 
 export const reducers: ActionReducerMap<AppState> = {
