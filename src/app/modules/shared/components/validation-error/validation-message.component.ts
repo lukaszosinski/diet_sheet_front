@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, NgZone, OnDestroy } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Input, NgZone, OnDestroy } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR, ValidationErrors } from '@angular/forms';
+import { VALIDATION_ERRORS_KEYS } from './validation-error-keys';
 
 @Component({
   selector: 'diet-validation-message',
@@ -10,13 +11,20 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
   } ],
   template: `
       <ng-container *ngIf="isVisible">
-          asdasd
+          <p>
+              <ng-content></ng-content>
+          </p>
+          <p *ngFor="let errorKey of errorKeys">
+              {{ 'VALIDATION_ERROR.' + errorKey | translate}}
+          </p>
       </ng-container>
   `,
   styleUrls: [ './validation-message.component.scss' ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ValidationMessageComponent implements OnDestroy, ControlValueAccessor {
+
+  @Input() errors?: ValidationErrors;
 
   private mutationObserver: MutationObserver | undefined;
   isVisible: boolean;
@@ -47,6 +55,14 @@ export class ValidationMessageComponent implements OnDestroy, ControlValueAccess
     const isInvalid = classList.contains('ng-invalid');
     const isTouched = classList.contains('ng-touched');
     return isInvalid && isTouched;
+  }
+
+  get errorKeys(): string[] {
+    if (!this.errors) {
+      return [];
+    }
+    return Object.keys(this.errors)
+      .map((key: string) => VALIDATION_ERRORS_KEYS[key] || key);
   }
 
   ngOnDestroy(): void {

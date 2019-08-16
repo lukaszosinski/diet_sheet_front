@@ -12,7 +12,7 @@ import { Observable } from 'rxjs';
   template: `
       <form [formGroup]="signInForm">
           <input id="signInEmail" type="text" formControlName="email" placeholder="{{'COMMON.EMAIL' | translate}}">
-          <diet-validation-message formControlName="email">asdasd</diet-validation-message>
+          <diet-validation-message formControlName="email" [errors]="signInForm.get('email').errors"></diet-validation-message>
 
           <input type="text" formControlName="password" placeholder="{{'COMMON.PASSWORD' | translate}}">
           <diet-button (click)="signIn()"

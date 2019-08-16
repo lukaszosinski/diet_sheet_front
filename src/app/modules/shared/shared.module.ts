@@ -5,6 +5,7 @@ import { DietButtonComponent } from './components/diet-button/diet-button.compon
 import { SnackBarService } from './snack-bar.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ValidationMessageComponent } from './components/validation-error/validation-message.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 @NgModule({
@@ -17,6 +18,7 @@ import { ValidationMessageComponent } from './components/validation-error/valida
     FormsModule,
     ReactiveFormsModule,
     MatSnackBarModule,
+    TranslateModule,
   ],
   exports: [
     FormsModule,
