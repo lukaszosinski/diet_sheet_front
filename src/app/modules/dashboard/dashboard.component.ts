@@ -38,6 +38,10 @@ export class DashboardComponent implements OnInit {
       translationKey: 'DASHBOARD.NAVIGATION.PRODUCTS',
       navigationCallback: this.routingService.navigation.dashboard.products.list,
     },
+    {
+      translationKey: 'DASHBOARD.NAVIGATION.DAY_PLAN',
+      navigationCallback: this.routingService.navigation.dashboard.dayPlan(),
+    },
   ];
   readonly shouldShowNavBar$: Observable<boolean>;
 

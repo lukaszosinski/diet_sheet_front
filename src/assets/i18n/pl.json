@@ -12,6 +12,7 @@
     "NAVIGATION": {
       "MEALS": "Posiłki",
       "PRODUCTS": "Produkty",
+      "DAY_PLAN": "Plan dnia",
       "SIGN_OUT": "Wyloguj się"
     }
   },
@@ -27,6 +28,6 @@
     "email": "Nieprawidłowy adres email"
   },
   "ERROR": {
-    "MISSING_TRANSLATION": "!!!BRAK TŁUMACZENIA KLUCZA \"{{missingKey}}\"!!!"
+    "MISSING_TRANSLATION": "Missing translation: \"{{missingKey}}\"!!!"
   }
 }
