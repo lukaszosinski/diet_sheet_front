@@ -3,15 +3,16 @@ import { Actions, createEffect } from '@ngrx/effects';
 
 import { filter, map, tap } from 'rxjs/operators';
 import { SnackBarService } from '../modules/shared/snack-bar.service';
+import { ApiAction } from './api.actions';
 
 
 @Injectable()
 export class ApiEffects {
 
   showApiErrorMessage$ = createEffect(() => this.actions$.pipe(
-    map((action: unknown) => (action as { errorMessageKey?: string }).errorMessageKey),
+    map((action: Partial<ApiAction>) => action.errorMessageKey),
     filter((errorMessageKey) => !!errorMessageKey),
-    tap((errorMessageKey) => this.snackBar.open(errorMessageKey as string))
+    tap((errorMessageKey: string | undefined) => this.snackBar.open(errorMessageKey as string))
   ), { dispatch: false });
 
   constructor(private actions$: Actions,
