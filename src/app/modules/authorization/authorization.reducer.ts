@@ -27,35 +27,35 @@ export const initialState: State = {
 
 const authorizationReducer = createReducer(
   initialState,
-  on(
-    AuthorizationActions.signUpSuccess,
-    AuthorizationActions.signInSuccess,
+  on(AuthorizationActions.signInSuccess,
     (state, { authorizationToken }) => {
       localStorage.setItem(authorizationTokenStorageKey, authorizationToken);
-      return { ...state, authorizationToken };
+      return { ...state, authorizationToken, processing: { ...state.processing, signIn: false } };
+    }),
+  on(AuthorizationActions.signUpSuccess,
+    (state, { authorizationToken }) => {
+      localStorage.setItem(authorizationTokenStorageKey, authorizationToken);
+      return { ...state, authorizationToken, processing: { ...state.processing, signUp: false } };
+    }),
+  on(AuthorizationActions.signOutSuccess,
+    state => {
+      localStorage.removeItem(authorizationTokenStorageKey);
+      return { ...state, authorizationToken: undefined, processing: { ...state.processing, signOut: false } };
     }
   ),
   on(AuthorizationActions.signIn, state => ({ ...state, processing: { ...state.processing, signIn: true } })),
   on(AuthorizationActions.signUp, state => ({ ...state, processing: { ...state.processing, signUp: true } })),
   on(AuthorizationActions.signOut, state => ({ ...state, processing: { ...state.processing, signOut: true } })),
-  on(
-    AuthorizationActions.signInSuccess,
-    AuthorizationActions.signInError,
+  on(AuthorizationActions.signInError,
     state => ({ ...state, processing: { ...state.processing, signIn: false } })
   ),
-  on(
-    AuthorizationActions.signUpSuccess,
-    AuthorizationActions.signUpError,
+  on(AuthorizationActions.signUpError,
     state => ({ ...state, processing: { ...state.processing, signUp: false } })
   ),
-  on(
-    AuthorizationActions.signOutSuccess,
-    AuthorizationActions.signOutError,
+  on(AuthorizationActions.signOutError,
     state => ({ ...state, processing: { ...state.processing, signOut: false } })
   ),
-  on(
-    ErrorResponseActions.unauthorized,
-    AuthorizationActions.signOutSuccess,
+  on(ErrorResponseActions.unauthorized,
     state => {
       localStorage.removeItem(authorizationTokenStorageKey);
       return { ...state, authorizationToken: undefined };
@@ -63,7 +63,7 @@ const authorizationReducer = createReducer(
   ),
 );
 
-export function reducer(state: State | undefined, action: Action) {
+export function reducer(state: State | undefined, action: Action): State {
   return authorizationReducer(state, action);
 }
 
