@@ -1,16 +1,20 @@
 import { Action, createFeatureSelector, createReducer, on } from '@ngrx/store';
 import * as DayPlanActions from './day-plan.actions';
 import * as fromApp from '../../../../app.recuder';
-import { authorizationFeatureKey } from '../../../authorization/authorization.reducer';
 
 export const dayPlanFeatureKey = 'dayPlan';
 
-// tslint:disable-next-line:no-empty-interface
 export interface State {
-
+  selectedDay: unknown;
+  products: {}[];
+  statistics: {};
 }
 
-export const initialState: State = {};
+export const initialState: State = {
+  selectedDay: {},
+  products: [ {}, {}, {} ],
+  statistics: {},
+};
 
 const dayPlanReducer = createReducer(
   initialState,
@@ -21,4 +25,4 @@ export function reducer(state: State | undefined, action: Action): State {
   return dayPlanReducer(state, action);
 }
 
-export const selectDayPlan = createFeatureSelector<fromApp.AppState, State>(authorizationFeatureKey);
+export const selectDayPlan = createFeatureSelector<fromApp.AppState, State>(dayPlanFeatureKey);
