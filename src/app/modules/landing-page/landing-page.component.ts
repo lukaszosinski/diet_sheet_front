@@ -8,7 +8,8 @@ import { RoutingService } from '../shared/routing/routing.service';
           <h1>{{'LANDING_PAGE.WELCOME' | translate}}</h1>
           <div class="diet-landing-page-authorization">
               <diet-sign-in></diet-sign-in>
-              <diet-button class="diet-button-secondary" (click)="goToSignUp()">{{'LANDING_PAGE.SIGN_UP' | translate }}</diet-button>
+              <diet-button type="button" class="diet-button-secondary"
+                           (click)="goToSignUp()">{{'LANDING_PAGE.SIGN_UP' | translate }}</diet-button>
           </div>
       </div>
   `,
