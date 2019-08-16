@@ -49,7 +49,10 @@ export class AuthorizationEffects {
   );
 
   redirectOnSignIn$ = createEffect(() => this.actions$.pipe(
-    ofType(AuthorizationActions.signInSuccess),
+    ofType(
+      AuthorizationActions.signInSuccess,
+      AuthorizationActions.signUpSuccess
+    ),
     tap(() => this.routingService.navigation.dashboard.go())
     ),
     { dispatch: false }

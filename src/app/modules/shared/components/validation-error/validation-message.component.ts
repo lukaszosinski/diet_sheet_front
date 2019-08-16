@@ -11,9 +11,6 @@ import { VALIDATION_ERRORS_KEYS } from './validation-error-keys';
   } ],
   template: `
       <ng-container *ngIf="isVisible">
-          <p>
-              <ng-content></ng-content>
-          </p>
           <p *ngFor="let errorKey of errorKeys">
               {{ 'VALIDATION_ERROR.' + errorKey | translate}}
           </p>

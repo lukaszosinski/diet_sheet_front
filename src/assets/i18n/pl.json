@@ -1,4 +1,9 @@
 {
+  "AUTHORIZATION": {
+    "SIGN_IN_ERROR": "Wystapił błąd podczas logowania",
+    "SIGN_UP_ERROR": "Wystąpił błąd podczas zakładania konta",
+    "SIGN_OUT_ERROR": "Wystapił błąd podczas wylogowania"
+  },
   "COMMON": {
     "EMAIL": "Email",
     "PASSWORD": "Hasło"
@@ -14,10 +19,12 @@
     "WELCOME": "Witaj w DIET",
     "SIGN_IN": "Zaloguj się",
     "SIGN_UP": "Zarejestruj się",
-    "SIGN_IN_ERROR": "Nieudana próba logowania"
+    "CONFIRM_PASSWORD": "Potwierdź hasło"
   },
   "VALIDATION_ERROR": {
-    "REQUIRED": "Pole wymagane"
+    "required": "Pole wymagane",
+    "passwordsVary": "Hasła nie są takie same",
+    "email": "Nieprawidłowy adres email"
   },
   "ERROR": {
     "MISSING_TRANSLATION": "!!!BRAK TŁUMACZENIA KLUCZA \"{{missingKey}}\"!!!"

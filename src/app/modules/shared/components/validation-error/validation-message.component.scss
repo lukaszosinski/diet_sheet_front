@@ -3,7 +3,7 @@
 
 :host {
   $height: 0.75rem;
-  $topOffset: $height + ($formMarginBottom - $height) / 4;
+  $topOffset: $height + ($formMarginBottom - $height) * 0.6;
   color: $dangerColor;
   margin: 0;
   font-size: $height;

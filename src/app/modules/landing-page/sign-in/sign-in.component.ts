@@ -10,11 +10,13 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'diet-sign-in',
   template: `
-      <form [formGroup]="signInForm">
-          <input id="signInEmail" type="text" formControlName="email" placeholder="{{'COMMON.EMAIL' | translate}}">
-          <diet-validation-message formControlName="email" [errors]="signInForm.get('email').errors"></diet-validation-message>
+      <form [formGroup]="form">
+          <input type="email" autocomplete="email" formControlName="email" placeholder="{{'COMMON.EMAIL' | translate}}">
+          <diet-validation-message formControlName="email" [errors]="form.get('email').errors"></diet-validation-message>
 
-          <input type="text" formControlName="password" placeholder="{{'COMMON.PASSWORD' | translate}}">
+          <input type="password" autocomplete="current-password" formControlName="password" placeholder="{{'COMMON.PASSWORD' | translate}}">
+          <diet-validation-message formControlName="password" [errors]="form.get('password').errors"></diet-validation-message>
+
           <diet-button (click)="signIn()"
                        [disabled]="(state | async).processing.signIn">
               {{'LANDING_PAGE.SIGN_IN' | translate}}
@@ -26,7 +28,7 @@ import { Observable } from 'rxjs';
 })
 export class SignInComponent implements OnInit {
 
-  signInForm: FormGroup = this.fb.group({});
+  form: FormGroup = this.fb.group({});
   readonly state: Observable<fromAuthorization.State>;
 
   constructor(private store: Store<AppState>,
@@ -40,16 +42,16 @@ export class SignInComponent implements OnInit {
   }
 
   private initializeForm(): void {
-    this.signInForm = this.fb.group({
-      email: [ '', Validators.required ],
+    this.form = this.fb.group({
+      email: [ '', [ Validators.required, Validators.email ] ],
       password: [ '', Validators.required ],
     });
   }
 
   signIn(): void {
-    this.signInForm.markAllAsTouched();
-    if (this.signInForm.valid) {
-      const { email, password } = this.signInForm.value;
+    this.form.markAllAsTouched();
+    if (this.form.valid) {
+      const { email, password } = this.form.value;
       this.store.dispatch(AuthorizationActions.signIn({ username: email, password }));
     }
   }
