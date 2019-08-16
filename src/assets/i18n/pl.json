@@ -16,6 +16,9 @@
     "SIGN_UP": "Zarejestruj się",
     "SIGN_IN_ERROR": "Nieudana próba logowania"
   },
+  "VALIDATION_ERROR": {
+    "REQUIRED": "Pole wymagane"
+  },
   "ERROR": {
     "MISSING_TRANSLATION": "!!!BRAK TŁUMACZENIA KLUCZA \"{{missingKey}}\"!!!"
   }
