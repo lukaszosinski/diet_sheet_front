@@ -163,7 +163,8 @@
         "spec": false
       },
       "feature": {
-        "creators": true
+        "creators": true,
+        "spec": false
       },
       "container": {
         "changeDetection": "OnPush",
