@@ -11,7 +11,9 @@ import { Observable } from 'rxjs';
   selector: 'diet-sign-in',
   template: `
       <form [formGroup]="signInForm">
-          <input type="text" formControlName="email" placeholder="{{'COMMON.EMAIL' | translate}}">
+          <input id="signInEmail" type="text" formControlName="email" placeholder="{{'COMMON.EMAIL' | translate}}">
+          <diet-validation-message formControlName="email">asdasd</diet-validation-message>
+
           <input type="text" formControlName="password" placeholder="{{'COMMON.PASSWORD' | translate}}">
           <diet-button (click)="signIn()"
                        [disabled]="(state | async).processing.signIn">
