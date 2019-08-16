@@ -19,6 +19,7 @@ export class RoutingService {
         meals: {
           list: this.goToMealsList.bind(this),
         },
+        dayPlan: this.goToDayPlan.bind(this),
       },
       landingPage: {
         go: this.goToLandingPage.bind(this),
@@ -31,6 +32,18 @@ export class RoutingService {
     return this.router.navigateByUrl(url, extras);
   }
 
+  private goToLandingPage(): Promise<boolean> {
+    return this.navigateByUrl('landing-page');
+  }
+
+  private goToSignUp(): Promise<boolean> {
+    return this.navigateByUrl('landing-page/sign-up');
+  }
+
+  private goToDashboard(): Promise<boolean> {
+    return this.navigateByUrl('dashboard');
+  }
+
   private goToProductsList(): Promise<boolean> {
     return this.navigateByUrl('dashboard/products');
   }
@@ -39,16 +52,8 @@ export class RoutingService {
     return this.navigateByUrl('dashboard/meals');
   }
 
-  private goToDashboard(): Promise<boolean> {
-    return this.navigateByUrl('dashboard');
-  }
-
-  private goToLandingPage(): Promise<boolean> {
-    return this.navigateByUrl('landing-page');
-  }
-
-  private goToSignUp(): Promise<boolean> {
-    return this.navigateByUrl('landing-page/sign-up');
+  private goToDayPlan(): Promise<boolean> {
+    return this.navigateByUrl('dashboard/day-plan');
   }
 }
 
@@ -61,6 +66,7 @@ export interface NavigationTree {
     products: {
       list: NavigationCallback,
     },
+    dayPlan: NavigationCallback,
   };
   landingPage: {
     go: NavigationCallback,
