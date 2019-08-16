@@ -1,6 +1,6 @@
 @import "colors.scss";
 
-$formMarginBottom: 0.5rem;
+$formMarginBottom: 1.25rem;
 $formMarginX: 0;
 $formMargin: 0 $formMarginX $formMarginBottom;
 
@@ -25,18 +25,14 @@ input {
   background: #fff;
   border: none;
   border-radius: 0.5rem;
-  box-shadow: transparentize($primary, 0.5) 1px 2px 5px 1px;
+  box-shadow: transparentize($primaryColor, 0.5) 1px 2px 5px 1px;
   outline: none;
 
   &:hover, &:focus {
-    box-shadow: transparentize($primary, 0.2) 1px 2px 5px 1px;
+    box-shadow: transparentize($primaryColor, 0.2) 1px 2px 5px 1px;
   }
 
   &.ng-touched.ng-invalid {
-    background: #ecb0b4;
-
-    &::placeholder {
-      color: white;
-    }
+    box-shadow: transparentize($dangerColor, 0.2) 1px 2px 5px 2px;
   }
 }

@@ -12,17 +12,17 @@
     padding: 0.25rem;
     border: none;
     border-radius: 0.5rem;
-    box-shadow: transparentize($primary, 0.5) 1px 2px 5px 1px;
+    box-shadow: transparentize($primaryColor, 0.5) 1px 2px 5px 1px;
     outline: none;
     font-weight: 600;
 
-    background: $primary;
+    background: $primaryColor;
     color: $backgroundColor;
 
     &:not(:disabled) {
       &:hover, &:focus {
-        background: darken($primary, 10);
-        box-shadow: transparentize($primary, 0.2) 1px 2px 5px 1px;
+        background: darken($primaryColor, 10);
+        box-shadow: transparentize($primaryColor, 0.2) 1px 2px 5px 1px;
       }
     }
 

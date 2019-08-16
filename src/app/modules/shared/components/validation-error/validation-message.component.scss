@@ -1,0 +1,17 @@
+@import "colors.scss";
+@import "form.scss";
+
+:host {
+  $height: 0.75rem;
+  $topOffset: $height + ($formMarginBottom - $height) / 4;
+  color: $dangerColor;
+  margin: 0;
+  font-size: $height;
+  line-height: $height;
+  position: relative;
+  top: -$topOffset;
+
+  &.ng-touched.ng-invalid {
+    margin-bottom: -$height;
+  }
+}

@@ -70,7 +70,6 @@
     "typedef": [
       true,
       "call-signature",
-      "arrow-call-signature",
       "parameter",
       "property-declaration",
       "array-destructuring"
