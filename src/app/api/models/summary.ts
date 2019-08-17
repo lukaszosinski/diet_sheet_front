@@ -1,4 +1,4 @@
-export interface Nutrients {
+export interface Summary {
   id?: number;
   proteins: number;
   carbs: number;

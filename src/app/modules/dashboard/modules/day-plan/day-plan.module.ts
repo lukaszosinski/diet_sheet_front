@@ -7,7 +7,7 @@ import { SharedLazyModule } from '../../../shared/shared-lazy.module';
 import { StoreModule } from '@ngrx/store';
 import * as fromDayPlan from './day-plan.reducer';
 import { DayPlanCalendarComponent } from './components/day-plan-calendar/day-plan-calendar.component';
-import { DayPlanProductComponent } from './components/day-plan-product/day-plan-product.component';
+import { DayPlanMealComponent } from './components/day-plan-meal/day-plan-meal.component';
 import { DayPlanStatsComponent } from './components/day-plan-stats/day-plan-stats.component';
 
 
@@ -15,7 +15,7 @@ import { DayPlanStatsComponent } from './components/day-plan-stats/day-plan-stat
   declarations: [
     DayPlanComponent,
     DayPlanCalendarComponent,
-    DayPlanProductComponent,
+    DayPlanMealComponent,
     DayPlanStatsComponent,
   ],
   imports: [

@@ -6,13 +6,13 @@ export const dayPlanFeatureKey = 'dayPlan';
 
 export interface State {
   selectedDay: unknown;
-  products: {}[];
+  meals: {}[];
   statistics: {};
 }
 
 export const initialState: State = {
   selectedDay: {},
-  products: [ {}, {}, {} ],
+  meals: [ {}, {}, {} ],
   statistics: {},
 };
 

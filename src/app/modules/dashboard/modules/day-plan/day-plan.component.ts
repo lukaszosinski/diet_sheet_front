@@ -6,10 +6,10 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'diet-day-plan',
   template: `
-      <diet-day-plan-calendar [selectedDay]="(state$ | async).selectedDay"></diet-day-plan-calendar>
-      <ul class="diet-day-plan-product-list">
-          <li *ngFor="let product of (state$ | async).products">
-              <diet-day-plan-product [product]="product"></diet-day-plan-product>
+      <diet-day-plan-calendar [selectedDay]="(state$ | async).selectedDay()"></diet-day-plan-calendar>
+      <ul class="diet-day-plan-meal-list">
+          <li *ngFor="let meal of (state$ | async).meals">
+              <diet-day-plan-meal [meal]="meal"></diet-day-plan-meal>
           </li>
       </ul>
       <button class="diet-day-plan-add-product" title="{{'DAY_PLAN.ADD_PRODUCT' | translate}}">+</button>
