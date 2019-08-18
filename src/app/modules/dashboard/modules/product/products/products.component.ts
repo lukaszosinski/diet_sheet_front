@@ -69,6 +69,7 @@ export class ProductsComponent implements OnInit {
   private createNutrients(): Summary {
     return {
       id: undefined,
+      kcal: 0,
       proteins: 0,
       carbs: 0,
       fat: 0,

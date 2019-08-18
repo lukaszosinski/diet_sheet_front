@@ -17,7 +17,9 @@
     }
   },
   "DAY_PLAN": {
-    "ADD_PRODUCT": "Dodaj produkt"
+    "ADD_MEAL": "Dodaj posiłek",
+    "DELETE_MEAL": "Usuń posiłek",
+    "MARK_MEAL_AS_EATEN" : "Oznacz posiłek jako zjedzony"
   },
   "LANDING_PAGE": {
     "WELCOME": "Witaj w DIET",

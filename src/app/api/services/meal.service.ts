@@ -6,7 +6,7 @@ import { Meal } from '../models/meal';
 @Injectable()
 export class MealService {
 
-  private mealsUrl = 'http://localhost:8080/meal/';
+  private mealsUrl = 'http://localhost:8080/meal';
 
   constructor(private http: HttpClient) {}
 

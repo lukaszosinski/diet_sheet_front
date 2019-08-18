@@ -9,6 +9,7 @@ import * as fromDayPlan from './day-plan.reducer';
 import { DayPlanCalendarComponent } from './components/day-plan-calendar/day-plan-calendar.component';
 import { DayPlanMealComponent } from './components/day-plan-meal/day-plan-meal.component';
 import { DayPlanStatsComponent } from './components/day-plan-stats/day-plan-stats.component';
+import { SummaryComponent } from './components/day-plan-meal/summary/summary.component';
 
 
 @NgModule({
@@ -17,6 +18,7 @@ import { DayPlanStatsComponent } from './components/day-plan-stats/day-plan-stat
     DayPlanCalendarComponent,
     DayPlanMealComponent,
     DayPlanStatsComponent,
+    SummaryComponent,
   ],
   imports: [
     CommonModule,
