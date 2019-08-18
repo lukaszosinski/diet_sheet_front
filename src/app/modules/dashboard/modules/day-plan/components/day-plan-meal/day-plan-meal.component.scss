@@ -5,6 +5,8 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  flex-wrap: nowrap;
+  min-width: 390px;
   padding: 0.25rem 0.5rem;
   background-image: linear-gradient(to right, $primaryColor, #fff);
   margin: 1rem 8rem;
@@ -29,6 +31,7 @@ label {
 
 .meal-content {
     width: 90%;
+  display: block;
 }
 
 button.delete-meal-button {
@@ -41,7 +44,7 @@ button.delete-meal-button {
     width: 1rem;
     position: relative;
     bottom: 1rem;
-    left: 0.75rem;
+    left: 0.5rem;
 }
 
 .meal-checkbox {
