@@ -1,0 +1,76 @@
+@import "colors.scss";
+
+body {
+  margin: 5px;
+}
+
+.calendar {
+  position: relative;
+  padding: 10px 0;
+
+  &-redirect-button,
+  &-list-item {
+    background-color: lighten($backgroundColor, 5);
+    box-shadow: 3px 8px 10px 0 rgba(100, 100, 100, 0.3);
+  }
+
+  &-redirect-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 30px;
+    display: flex;
+    border: none;
+    align-items: center;
+    border-radius: 240px / 180px;
+    padding: 0 10px;
+    background: $warnColor;
+
+    &::after {
+      margin-left: 10px;
+      content: "";
+      width: 0;
+      height: 0;
+      border-left: 7px solid transparent;
+      border-right: 7px solid transparent;
+      border-top: 10px solid $fontColor;
+    }
+  }
+
+  &-list {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-weight: 500;
+
+    &-item {
+      width: 75px;
+      height: 75px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      border-radius: 20%;
+
+      &.calendar-list-item-central {
+        width: 10rem;
+        height: 10rem;
+        border: 0.5rem solid lighten($secondaryColor, 10);
+
+        .calendar-list-item-central-month {
+          font-size: 1.5rem;
+        }
+
+        .calendar-list-item-central-day {
+          font-size: 5rem;
+          color: $secondaryColor;
+        }
+
+        .calendar-list-item-central-day-of-month {
+          font-size: 1.2rem;
+        }
+      }
+    }
+  }
+}
