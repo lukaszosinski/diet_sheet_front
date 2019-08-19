@@ -1,0 +1,65 @@
+@import "colors.scss";
+
+.content-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap;
+  min-width: 390px;
+  padding: 0.25rem 0.5rem;
+  background-image: linear-gradient(to right, $primaryColor, #fff);
+  margin: 1rem 8rem;
+  border: none;
+  border-radius: 1.25rem;
+  box-shadow: transparentize($primaryColor, 0.5) 1px 2px 5px 1px;
+  outline: none;
+
+  &:hover, &:focus {
+    box-shadow: transparentize($primaryColor, 0.2) 1px 2px 5px 1px;
+  }
+
+  text-align: center;
+
+}
+
+label {
+  color: #82373d;
+  display: block;
+
+}
+
+.meal-content {
+    width: 90%;
+  display: block;
+}
+
+button.delete-meal-button {
+    background-image: url(~src/assets/images/icons/X.png);
+    background-color: transparent;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    height: 1rem;
+    width: 1rem;
+    position: relative;
+    bottom: 1rem;
+    left: 0.5rem;
+}
+
+.meal-checkbox {
+  width: 1rem;
+  height: 1rem;
+  background-color: white;
+  border-radius: 50%;
+  vertical-align: middle;
+  border: 1px solid $secondaryColor;
+  -webkit-appearance: none;
+  outline: none;
+  cursor: pointer;
+
+  &:checked {
+    background-color: #e1b628;
+  }
+}
+

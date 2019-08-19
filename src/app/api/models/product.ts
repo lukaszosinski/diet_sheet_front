@@ -1,8 +1,8 @@
-import { Nutrients } from './nutrients';
+import { Summary } from './summary';
 
 export interface Product {
   id?: number;
   name: string;
-  nutrients: Nutrients;
+  nutrients: Summary;
   kcal: number;
 }

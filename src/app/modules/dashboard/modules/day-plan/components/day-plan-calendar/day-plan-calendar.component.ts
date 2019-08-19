@@ -22,5 +22,5 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DayPlanCalendarComponent {
-  @Input() selectedDay?: {};
+  @Input() selectedDate?: Date;
 }
