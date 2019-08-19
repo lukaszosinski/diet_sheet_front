@@ -1,16 +1,31 @@
 @import "colors.scss";
 
-body {
-  margin: 5px;
-}
-
 .calendar {
   position: relative;
-  padding: 10px 0;
+  margin: 0.75rem 0;
+  display: flex;
+  align-items: center;
+
+  &-arrow-left,
+  &-arrow-right {
+    content: "";
+    width: 0;
+    height: 0;
+    border-top: 0.75rem solid transparent;
+    border-bottom: 0.75rem solid transparent;
+    flex: 0 0 auto;
+  }
+
+  &-arrow-left {
+    border-right: 1rem solid $fontColor;
+  }
+
+  &-arrow-right {
+    border-left: 1rem solid $fontColor;
+  }
 
   &-redirect-button,
   &-list-item {
-    background-color: lighten($backgroundColor, 5);
     box-shadow: 3px 8px 10px 0 rgba(100, 100, 100, 0.3);
   }
 
@@ -39,6 +54,7 @@ body {
 
   &-list {
     display: flex;
+    flex: 1 0 auto;
     justify-content: space-around;
     align-items: center;
     font-weight: 500;
@@ -52,6 +68,8 @@ body {
       justify-content: center;
       font-size: 3rem;
       border-radius: 20%;
+      background-color: lighten($backgroundColor, 5);
+      cursor: pointer;
 
       &.calendar-list-item-central {
         width: 10rem;
