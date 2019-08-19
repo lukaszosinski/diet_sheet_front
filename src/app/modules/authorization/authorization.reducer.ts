@@ -76,3 +76,4 @@ export const isAuthorized = createSelector(
   selectAuthorization,
   (state: State) => state.authorizationToken !== undefined
 );
+``;

@@ -1,9 +1,9 @@
 import { Ingredient } from './ingredient';
-import {Summary} from "./summary";
+import { Summary } from './summary';
 
 export interface Meal {
   id: number;
   name: string;
-  summary: Summary
+  summary: Summary;
   ingredients: Ingredient[];
 }

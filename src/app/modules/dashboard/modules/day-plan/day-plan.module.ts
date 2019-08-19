@@ -10,6 +10,8 @@ import { DayPlanCalendarComponent } from './components/day-plan-calendar/day-pla
 import { DayPlanMealComponent } from './components/day-plan-meal/day-plan-meal.component';
 import { DayPlanStatsComponent } from './components/day-plan-stats/day-plan-stats.component';
 import { SummaryComponent } from './components/day-plan-meal/summary/summary.component';
+import { EffectsModule } from '@ngrx/effects';
+import { DayPlanEffects } from './day-plan.effects';
 
 
 @NgModule({
@@ -24,7 +26,8 @@ import { SummaryComponent } from './components/day-plan-meal/summary/summary.com
     CommonModule,
     DayPlanRoutingModule,
     SharedLazyModule,
-    StoreModule.forFeature(fromDayPlan.dayPlanFeatureKey, fromDayPlan.reducer)
+    StoreModule.forFeature(fromDayPlan.dayPlanFeatureKey, fromDayPlan.reducer),
+    EffectsModule.forFeature([ DayPlanEffects ]),
   ]
 })
 export class DayPlanModule {
