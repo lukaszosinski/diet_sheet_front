@@ -6,9 +6,29 @@ $min-app-width: 300px;
 $z-index-nav-bar: 1000;
 $z-index-nav-bar-toggle-button: 1001;
 
+$nav-bar-trigger-size: 40px;
+
+$html-font-size-lg: 16px;
+$html-font-size-md: 15px;
+$html-font-size-sm: 14px;
+$html-font-size-xs: 13px;
+
 html {
   height: 100%;
   overflow: auto;
+  font-size: $html-font-size-lg;
+
+  @media (max-width: 1024px) {
+    font-size: $html-font-size-md;
+  }
+
+  @media (max-width: 640px) {
+    font-size: $html-font-size-sm;
+  }
+
+  @media (max-width: 480px) {
+    font-size: $html-font-size-xs;
+  }
 }
 
 body {

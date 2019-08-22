@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { addDays, getDay } from '../../../../../shared/utils/date-utils';
+import { fromEvent } from 'rxjs';
 
 @Component({
   selector: 'diet-day-plan-calendar',
@@ -14,7 +15,7 @@ import { addDays, getDay } from '../../../../../shared/utils/date-utils';
               >{{previousDayNumber}}</li>
               <li class="calendar-list-item calendar-list-item-central">
                   <ng-container *ngIf="!!selectedDate">
-                      <div class="calendar-list-item-central-month">{{'COMMON.MONTH.' + selectedMonth | translate}}</div>
+                      <div class="calendar-list-item-central-month">{{'COMMON.MONTH.' + selectedMonth | translate | titlecase}}</div>
                       <div class="calendar-list-item-central-day">{{selectedDayNumber}}</div>
                       <div class="calendar-list-item-central-day-of-month">{{'COMMON.DAY.' + selectedDay | translate}}</div>
                   </ng-container>
@@ -29,18 +30,44 @@ import { addDays, getDay } from '../../../../../shared/utils/date-utils';
   styleUrls: [ './day-plan-calendar.component.scss' ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DayPlanCalendarComponent {
+export class DayPlanCalendarComponent implements OnInit {
 
+  private sideListItemsQuantity: number = this.getSideListItemsQuantity();
   @Input() selectedDate?: Date;
-  @Input() sideListItemsQuantity: number = 2;
   @Output() newDaySelected: EventEmitter<Date> = new EventEmitter<Date>();
 
+  constructor(private changeDetectorRef: ChangeDetectorRef) {
+  }
+
+  ngOnInit(): void {
+    fromEvent(window, 'resize')
+      .subscribe((() => {
+        const computedSideListItemsQuantity = this.getSideListItemsQuantity();
+        console.log(computedSideListItemsQuantity, this.sideListItemsQuantity);
+        if (this.sideListItemsQuantity !== computedSideListItemsQuantity) {
+          this.sideListItemsQuantity = computedSideListItemsQuantity;
+          this.changeDetectorRef.markForCheck();
+        }
+      }));
+  }
+
+  private getSideListItemsQuantity(): number {
+    const width = window.innerWidth;
+    if (width <= 450) {
+      return 1;
+    } else if (width <= 750) {
+      return 2;
+    } else {
+      return 3;
+    }
+  }
+
   get previousDayNumbers(): number[] | null[] {
-    const previousDays = Array(this.sideListItemsQuantity).fill(null);
+    const previousDays = Array(this.getSideListItemsQuantity()).fill(null);
     if (!this.selectedDate) {
       return previousDays;
     }
-    return previousDays.map((_, index) => addDays(this.selectedDate as Date, index - this.sideListItemsQuantity).getDate());
+    return previousDays.map((_, index) => addDays(this.selectedDate as Date, index - this.getSideListItemsQuantity()).getDate());
   }
 
   get selectedDayNumber(): number | undefined {
@@ -48,7 +75,7 @@ export class DayPlanCalendarComponent {
   }
 
   get nextDayNumbers(): number[] | null[] {
-    const nextDays = Array(this.sideListItemsQuantity).fill(null);
+    const nextDays = Array(this.getSideListItemsQuantity()).fill(null);
     if (!this.selectedDate) {
       return nextDays;
     }

@@ -9,6 +9,10 @@ $nav-bar-width: 200px;
   position: relative;
 
   &-nav-bar-wrapper {
+
+    &.hidden {
+      z-index: unset;
+    }
     position: absolute;
     z-index: $z-index-nav-bar;
     right: 0;
@@ -27,13 +31,15 @@ $nav-bar-width: 200px;
     width: 100%;
     height: 100%;
     display: flex;
-    align-content: center;
     justify-content: center;
 
     & > *:nth-child(2) {
       background: white;
-      flex-grow: 1;
+      overflow: hidden;
+      width: 100%;
+      height: 100%;
       max-width: $maxContentWidth;
+      padding-top: $nav-bar-trigger-size;
     }
   }
 }

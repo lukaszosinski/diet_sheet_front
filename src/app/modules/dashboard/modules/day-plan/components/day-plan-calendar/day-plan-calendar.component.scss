@@ -2,9 +2,13 @@
 
 .calendar {
   position: relative;
-  margin: 0.75rem 0;
+  margin-bottom: 0.75rem;
   display: flex;
   align-items: center;
+
+  @media(max-width: 450px) {
+    margin-top: 0.75rem;
+  }
 
   &-arrow-left,
   &-arrow-right {
@@ -26,29 +30,34 @@
 
   &-redirect-button,
   &-list-item {
-    box-shadow: 3px 8px 10px 0 rgba(100, 100, 100, 0.3);
+    box-shadow: 3px 8px 10px 0 rgba(100, 100, 100, 0.4);
   }
 
   &-redirect-button {
     position: absolute;
     top: 0;
     right: 0;
-    height: 30px;
+    height: 2rem;
     display: flex;
     border: none;
     align-items: center;
     border-radius: 240px / 180px;
-    padding: 0 10px;
+    padding: 0 0.75rem;
     background: $warnColor;
 
+    @media(max-width: 450px) {
+      top: -0.75rem;
+      font-size: 0.75rem;
+    }
+
     &::after {
-      margin-left: 10px;
+      margin-left: 0.75rem;
       content: "";
       width: 0;
       height: 0;
-      border-left: 7px solid transparent;
-      border-right: 7px solid transparent;
-      border-top: 10px solid $fontColor;
+      border-left: 0.5rem solid transparent;
+      border-right: 0.5rem solid transparent;
+      border-top: 0.75rem solid $fontColor;
     }
   }
 
@@ -60,8 +69,8 @@
     font-weight: 500;
 
     &-item {
-      width: 75px;
-      height: 75px;
+      width: 5rem;
+      height: 5rem;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -70,11 +79,15 @@
       border-radius: 20%;
       background-color: lighten($backgroundColor, 5);
       cursor: pointer;
+      margin: 0 0.25rem;
 
       &.calendar-list-item-central {
-        width: 10rem;
-        height: 10rem;
-        border: 0.5rem solid lighten($secondaryColor, 10);
+        cursor: unset;
+        width: 11rem;
+        height: 11rem;
+        position: relative;
+        border: 0.5rem solid $primaryColor;
+        box-shadow: 3px 8px 10px 2px rgba(100, 100, 100, 0.4), 3px 8px 10px 2px rgba(100, 100, 100, 0.4) inset;
 
         .calendar-list-item-central-month {
           font-size: 1.5rem;
@@ -87,6 +100,26 @@
 
         .calendar-list-item-central-day-of-month {
           font-size: 1.2rem;
+        }
+      }
+    }
+
+    @media(max-width: 450px) {
+      .calendar-list-item.calendar-list-item-central {
+        width: 8rem;
+        height: 8rem;
+
+        .calendar-list-item-central-month {
+          font-size: 1rem;
+        }
+
+        .calendar-list-item-central-day {
+          font-size: 3.5rem;
+          color: $secondaryColor;
+        }
+
+        .calendar-list-item-central-day-of-month {
+          font-size: 0.8rem;
         }
       }
     }
