@@ -1,3 +1,5 @@
+@import 'layout.scss';
+
 $maxContentWidth: 800px;
 $nav-bar-width: 200px;
 
@@ -8,11 +10,13 @@ $nav-bar-width: 200px;
 
   &-nav-bar-wrapper {
     position: absolute;
+    z-index: $z-index-nav-bar;
     right: 0;
     height: 100%;
     width: $nav-bar-width;
 
     diet-dashboard-nav-bar-trigger-button {
+      z-index: $z-index-nav-bar-toggle-button;
       position: absolute;
       top: 0;
       right: 0;
