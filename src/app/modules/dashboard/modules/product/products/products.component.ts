@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../../../../../api/models/product';
 import { ProductService } from '../../../../../api/services/product.service';
-import { Nutrients } from '../../../../../api/models/nutrients';
+import { Summary } from '../../../../../api/models/summary';
 
 @Component({
   selector: 'diet-products',
@@ -66,9 +66,10 @@ export class ProductsComponent implements OnInit {
     };
   }
 
-  private createNutrients(): Nutrients {
+  private createNutrients(): Summary {
     return {
       id: undefined,
+      kcal: 0,
       proteins: 0,
       carbs: 0,
       fat: 0,

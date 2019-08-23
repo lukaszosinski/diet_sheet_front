@@ -10,7 +10,7 @@ export interface State {
 }
 
 export const initialState: State = {
-  shouldShowNavBar: true,
+  shouldShowNavBar: false,
 };
 
 const dashboardReducer = createReducer(

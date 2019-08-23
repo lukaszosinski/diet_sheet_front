@@ -6,7 +6,30 @@
   },
   "COMMON": {
     "EMAIL": "Email",
-    "PASSWORD": "Hasło"
+    "PASSWORD": "Hasło",
+    "DAY": {
+      "0": "niedziela",
+      "1": "poniedziałek",
+      "2": "wtorek",
+      "3": "środa",
+      "4": "czwartek",
+      "5": "piątek",
+      "6": "sobota"
+    },
+    "MONTH": {
+      "0": "styczeń",
+      "1": "luty",
+      "2": "marzec",
+      "3": "kwiecień",
+      "4": "maj",
+      "5": "czerwiec",
+      "6": "lipiec",
+      "7": "sierpień",
+      "8": "wrzesień",
+      "9": "październik",
+      "10": "listopad",
+      "11": "grudzień"
+    }
   },
   "DASHBOARD": {
     "NAVIGATION": {
@@ -17,7 +40,11 @@
     }
   },
   "DAY_PLAN": {
-    "ADD_PRODUCT": "Dodaj produkt"
+    "ADD_MEAL": "Dodaj posiłek",
+    "CALENDAR": "Kalendarz",
+    "DELETE_MEAL": "Usuń posiłek",
+    "MARK_MEAL_AS_EATEN": "Oznacz posiłek jako zjedzony",
+    "LOAD_DAYS_ERROR": "Wystąpił błąd podczas ładowania planu dnia"
   },
   "LANDING_PAGE": {
     "WELCOME": "Witaj w DIET",

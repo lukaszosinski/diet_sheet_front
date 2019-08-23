@@ -7,22 +7,27 @@ import { SharedLazyModule } from '../../../shared/shared-lazy.module';
 import { StoreModule } from '@ngrx/store';
 import * as fromDayPlan from './day-plan.reducer';
 import { DayPlanCalendarComponent } from './components/day-plan-calendar/day-plan-calendar.component';
-import { DayPlanProductComponent } from './components/day-plan-product/day-plan-product.component';
+import { DayPlanMealComponent } from './components/day-plan-meal/day-plan-meal.component';
 import { DayPlanStatsComponent } from './components/day-plan-stats/day-plan-stats.component';
+import { SummaryComponent } from './components/day-plan-meal/summary/summary.component';
+import { EffectsModule } from '@ngrx/effects';
+import { DayPlanEffects } from './day-plan.effects';
 
 
 @NgModule({
   declarations: [
     DayPlanComponent,
     DayPlanCalendarComponent,
-    DayPlanProductComponent,
+    DayPlanMealComponent,
     DayPlanStatsComponent,
+    SummaryComponent,
   ],
   imports: [
     CommonModule,
     DayPlanRoutingModule,
     SharedLazyModule,
-    StoreModule.forFeature(fromDayPlan.dayPlanFeatureKey, fromDayPlan.reducer)
+    StoreModule.forFeature(fromDayPlan.dayPlanFeatureKey, fromDayPlan.reducer),
+    EffectsModule.forFeature([ DayPlanEffects ]),
   ]
 })
 export class DayPlanModule {

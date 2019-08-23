@@ -1,0 +1,148 @@
+@import "colors.scss";
+
+$calendar-margin: 0.75rem;
+$list-arrow-size: 1rem;
+$shadowColor: transparentize(#646464, 0.4);
+$selected-day-size: 11rem;
+
+
+.calendar {
+  position: relative;
+  margin: $calendar-margin 0;
+  display: flex;
+  align-items: center;
+
+  &-arrow-left,
+  &-arrow-right {
+    content: "";
+    border-top: 0.75 * $list-arrow-size solid transparent;
+    border-bottom: 0.75* $list-arrow-size solid transparent;
+    outline: none;
+  }
+
+  &-arrow-left {
+
+    border-right: $list-arrow-size solid $fontColor;
+
+    &:focus, :hover {
+      border-right-color: lighten($fontColor, 20);
+    }
+  }
+
+  &-arrow-right {
+    border-left: $list-arrow-size solid $fontColor;
+
+    &:focus, :hover {
+      border-left-color: lighten($fontColor, 20);
+    }
+  }
+
+  &-redirect-button,
+  &-list-item {
+    box-shadow: 0.1rem 0.2rem 0.5rem 0 $shadowColor;
+  }
+
+  &-redirect-button {
+    position: absolute;
+    top: -$calendar-margin;
+    right: 0;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    border-radius: 240px / 180px;
+    padding: 0 0.75rem;
+    background: $warnColor;
+
+    &:focus, &:hover {
+      outline: none;
+      background: darken($warnColor, 5);
+    }
+
+    &::after {
+      margin-left: 0.75rem;
+      content: "";
+      width: 0;
+      height: 0;
+      border-left: 0.5rem solid transparent;
+      border-right: 0.5rem solid transparent;
+      border-top: 0.75rem solid $fontColor;
+    }
+  }
+
+  &-list {
+    display: flex;
+    flex: 1 0 auto;
+    justify-content: space-around;
+    align-items: center;
+    font-weight: 500;
+
+    &-item {
+      width: 5.5rem;
+      height: 5.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      border-radius: 20%;
+      background-color: lighten($backgroundColor, 5);
+      cursor: pointer;
+      margin: 0 0.25rem;
+
+      &:hover:not(.calendar-list-item-central) {
+        background-color: lighten($backgroundColor, 2);
+      }
+
+      &.calendar-list-item-central {
+        flex-direction: column;
+        cursor: unset;
+        position: relative;
+
+        .calendar-list-item-central-day {
+          color: $secondaryColor;
+        }
+      }
+    }
+  }
+}
+
+@mixin selected-item-sizes($wrapper-size) {
+  .calendar-list-item.calendar-list-item-central {
+    width: $wrapper-size;
+    height: $wrapper-size;
+    border: 0.05 * $wrapper-size solid $primaryColor;
+    box-shadow: 0.015 * $wrapper-size 0.03 * $wrapper-size 0.5rem 0 $shadowColor,
+    0.015 * $wrapper-size 0.03 * $wrapper-size 0.5rem 0 $shadowColor inset;
+
+    .calendar-list-item-central-month {
+      font-size: 0.12 * $wrapper-size;
+    }
+
+    .calendar-list-item-central-day {
+      font-size: 0.5 * $wrapper-size;
+      color: $secondaryColor;
+    }
+
+    .calendar-list-item-central-day-of-month {
+      font-size: 0.12 * $wrapper-size;
+    }
+  }
+}
+
+@include selected-item-sizes(10rem);
+
+@media(max-width: 520px) {
+  $selected-day-size: $selected-day-size * 0.75rem;
+  .calendar {
+    margin-top: 2 * $calendar-margin;
+
+    &-redirect-button {
+      top: -2*$calendar-margin;
+      font-size: 0.75rem;
+    }
+
+    &-list {
+      @include selected-item-sizes(8rem);
+    }
+  }
+}
+
