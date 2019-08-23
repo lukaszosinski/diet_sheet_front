@@ -1,54 +1,61 @@
 @import "colors.scss";
 
-// TODO  DIET-32 - refactor
+$calendar-margin: 0.75rem;
+$list-arrow-size: 1rem;
+$shadowColor: transparentize(#646464, 0.4);
+$selected-day-size: 11rem;
+
+
 .calendar {
   position: relative;
-  margin-bottom: 0.75rem;
+  margin: $calendar-margin 0;
   display: flex;
   align-items: center;
-
-  @media(max-width: 450px) {
-    margin-top: 0.75rem;
-  }
 
   &-arrow-left,
   &-arrow-right {
     content: "";
-    width: 0;
-    height: 0;
-    border-top: 0.75rem solid transparent;
-    border-bottom: 0.75rem solid transparent;
-    flex: 0 0 auto;
+    border-top: 0.75 * $list-arrow-size solid transparent;
+    border-bottom: 0.75* $list-arrow-size solid transparent;
+    outline: none;
   }
 
   &-arrow-left {
-    border-right: 1rem solid $fontColor;
+
+    border-right: $list-arrow-size solid $fontColor;
+
+    &:focus, :hover {
+      border-right-color: lighten($fontColor, 20);
+    }
   }
 
   &-arrow-right {
-    border-left: 1rem solid $fontColor;
+    border-left: $list-arrow-size solid $fontColor;
+
+    &:focus, :hover {
+      border-left-color: lighten($fontColor, 20);
+    }
   }
 
   &-redirect-button,
   &-list-item {
-    box-shadow: 3px 8px 10px 0 rgba(100, 100, 100, 0.4);
+    box-shadow: 0.1rem 0.2rem 0.5rem 0 $shadowColor;
   }
 
   &-redirect-button {
     position: absolute;
-    top: 0;
+    top: -$calendar-margin;
     right: 0;
     height: 2rem;
     display: flex;
-    border: none;
     align-items: center;
     border-radius: 240px / 180px;
     padding: 0 0.75rem;
     background: $warnColor;
 
-    @media(max-width: 450px) {
-      top: -0.75rem;
-      font-size: 0.75rem;
+    &:focus, &:hover {
+      outline: none;
+      background: darken($warnColor, 5);
     }
 
     &::after {
@@ -70,10 +77,9 @@
     font-weight: 500;
 
     &-item {
-      width: 5rem;
-      height: 5rem;
+      width: 5.5rem;
+      height: 5.5rem;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
       font-size: 3rem;
@@ -82,47 +88,61 @@
       cursor: pointer;
       margin: 0 0.25rem;
 
-      &.calendar-list-item-central {
-        cursor: unset;
-        width: 11rem;
-        height: 11rem;
-        position: relative;
-        border: 0.5rem solid $primaryColor;
-        box-shadow: 3px 8px 10px 2px rgba(100, 100, 100, 0.4), 3px 8px 10px 2px rgba(100, 100, 100, 0.4) inset;
-
-        .calendar-list-item-central-month {
-          font-size: 1.5rem;
-        }
-
-        .calendar-list-item-central-day {
-          font-size: 5rem;
-          color: $secondaryColor;
-        }
-
-        .calendar-list-item-central-day-of-month {
-          font-size: 1.2rem;
-        }
+      &:hover:not(.calendar-list-item-central) {
+        background-color: lighten($backgroundColor, 2);
       }
-    }
 
-    @media(max-width: 450px) {
-      .calendar-list-item.calendar-list-item-central {
-        width: 8rem;
-        height: 8rem;
-
-        .calendar-list-item-central-month {
-          font-size: 1rem;
-        }
+      &.calendar-list-item-central {
+        flex-direction: column;
+        cursor: unset;
+        position: relative;
 
         .calendar-list-item-central-day {
-          font-size: 3.5rem;
           color: $secondaryColor;
-        }
-
-        .calendar-list-item-central-day-of-month {
-          font-size: 0.8rem;
         }
       }
     }
   }
 }
+
+@mixin selected-item-sizes($wrapper-size) {
+  .calendar-list-item.calendar-list-item-central {
+    width: $wrapper-size;
+    height: $wrapper-size;
+    border: 0.05 * $wrapper-size solid $primaryColor;
+    box-shadow: 0.015 * $wrapper-size 0.03 * $wrapper-size 0.5rem 0 $shadowColor,
+    0.015 * $wrapper-size 0.03 * $wrapper-size 0.5rem 0 $shadowColor inset;
+
+    .calendar-list-item-central-month {
+      font-size: 0.12 * $wrapper-size;
+    }
+
+    .calendar-list-item-central-day {
+      font-size: 0.5 * $wrapper-size;
+      color: $secondaryColor;
+    }
+
+    .calendar-list-item-central-day-of-month {
+      font-size: 0.12 * $wrapper-size;
+    }
+  }
+}
+
+@include selected-item-sizes(10rem);
+
+@media(max-width: 520px) {
+  $selected-day-size: $selected-day-size * 0.75rem;
+  .calendar {
+    margin-top: 2 * $calendar-margin;
+
+    &-redirect-button {
+      top: -2*$calendar-margin;
+      font-size: 0.75rem;
+    }
+
+    &-list {
+      @include selected-item-sizes(8rem);
+    }
+  }
+}
+
