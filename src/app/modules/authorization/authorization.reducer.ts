@@ -53,7 +53,10 @@ const authorizationReducer = createReducer(
     state => ({ ...state, processing: { ...state.processing, signUp: false } })
   ),
   on(AuthorizationActions.signOutError,
-    state => ({ ...state, processing: { ...state.processing, signOut: false } })
+    state => {
+      localStorage.removeItem(authorizationTokenStorageKey);
+      return { ...state, authorizationToken: undefined, processing: { ...state.processing, signOut: false } };
+    }
   ),
   on(ErrorResponseActions.unauthorized,
     state => {
@@ -76,4 +79,3 @@ export const isAuthorized = createSelector(
   selectAuthorization,
   (state: State) => state.authorizationToken !== undefined
 );
-``;
