@@ -81,7 +81,7 @@ export const selectSelectedDayPlanSummary = createSelector(
   (selectedDay: Day | undefined) => selectedDay ? selectedDay.summary : undefined
 );
 
-export const selectSelectedDayPlanMeals = createSelector(
+export const selectSelectedDayPlanDayMeals = createSelector(
   selectSelectedDayPlan,
-  (selectedDay) => selectedDay ? selectedDay.meals : undefined
+  (selectedDay) => selectedDay ? selectedDay.dayMeals : undefined
 );

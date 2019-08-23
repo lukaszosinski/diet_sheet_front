@@ -5,8 +5,8 @@ import { AppState } from '../../../../app.recuder';
 import * as fromDayPlan from './day-plan.reducer';
 import * as DayPlanActions from './day-plan.actions';
 import { addDays, getDay } from '../../../shared/utils/date-utils';
-import { Meal } from '../../../../api/models/meal';
 import { Summary } from '../../../../api/models/summary';
+import {DayMeal} from "../../../../api/models/dayMeal.model";
 
 @Component({
   selector: 'diet-day-plan',
@@ -17,8 +17,8 @@ import { Summary } from '../../../../api/models/summary';
           ></diet-day-plan-calendar>
           <ng-container *ngIf="(shouldDisplayDayPlan() | async)">
               <ul class="diet-day-plan-meal-list">
-                  <li *ngFor="let meal of (getSelectedDayPlanMeals() | async)">
-                      <diet-day-plan-meal [meal]="meal"></diet-day-plan-meal>
+                  <li *ngFor="let dayMeal of (getSelectedDayPlanDayMeals() | async)">
+                      <diet-day-plan-meal [dayMeal]="dayMeal"></diet-day-plan-meal>
                   </li>
               </ul>
               <button class="diet-day-plan-add-product" title="{{'DAY_PLAN.ADD_PRODUCT' | translate}}">+</button>
@@ -67,8 +67,8 @@ export class DayPlanComponent implements OnInit {
     return this.store.select(fromDayPlan.selectSelectedDayPlanExists);
   }
 
-  getSelectedDayPlanMeals(): Observable<Meal[] | undefined> {
-    return this.store.select(fromDayPlan.selectSelectedDayPlanMeals);
+  getSelectedDayPlanDayMeals(): Observable<DayMeal[] | undefined> {
+    return this.store.select(fromDayPlan.selectSelectedDayPlanDayMeals);
   }
 
   getSelectedDayPlanSummary(): Observable<Summary | undefined> {

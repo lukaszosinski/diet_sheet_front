@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { Meal } from '../../../../../../api/models/meal';
+import {DayMeal} from '../../../../../../api/models/dayMeal.model';
+
 
 @Component({
   selector: 'diet-day-plan-meal',
@@ -7,8 +8,8 @@ import { Meal } from '../../../../../../api/models/meal';
       <div class="content-wrapper">
           <input class="meal-checkbox" type="checkbox" title="{{'DAY_PLAN.MARK_MEAL_AS_EATEN' | translate}}"/>
           <div class="meal-content">
-              <label>{{meal.name}}</label>
-              <diet-summary [summary]="meal.summary"></diet-summary>
+              <label>{{dayMeal.meal.name}}</label>
+              <diet-summary [summary]="dayMeal.meal.summary"></diet-summary>
           </div>
           <button class="delete-meal-button" title="{{'DAY_PLAN.DELETE_MEAL' | translate}}"></button>
       </div>
@@ -17,5 +18,5 @@ import { Meal } from '../../../../../../api/models/meal';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DayPlanMealComponent {
-  @Input() meal?: Meal;
+  @Input() dayMeal?: DayMeal;
 }

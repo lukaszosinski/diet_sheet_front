@@ -1,9 +1,10 @@
-import { Meal } from './meal';
 import { Summary } from './summary';
+import {DayMeal} from "./dayMeal.model";
 
 export interface Day {
-  date: number;
-  meals: Meal[];
   id: number;
+  date: number;
+  dayMeals: DayMeal[];
   summary: Summary;
+  eatenMealsSummary: Summary;
 }
