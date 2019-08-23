@@ -11,10 +11,8 @@ import * as DashboardActions from './dashboard.actions';
   selector: 'diet-dashboard',
   template: `
       <div class="diet-dashboard">
-          <div class="diet-dashboard-nav-bar-wrapper">
-              <diet-dashboard-nav-bar [show]="shouldShowNavBar$ | async"
-                                      [items]="navBarData"
-              ></diet-dashboard-nav-bar>
+          <div class="diet-dashboard-nav-bar-wrapper" [class.hidden]="!(shouldShowNavBar$ | async)">
+              <diet-dashboard-nav-bar [show]="shouldShowNavBar$ | async" [items]="navBarData"></diet-dashboard-nav-bar>
               <diet-dashboard-nav-bar-trigger-button
                       (triggered)="onNavBarTriggered()"
               ></diet-dashboard-nav-bar-trigger-button>

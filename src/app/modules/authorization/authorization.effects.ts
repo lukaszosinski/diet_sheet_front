@@ -41,6 +41,7 @@ export class AuthorizationEffects {
   redirectOnSignOut$ = createEffect(() => this.actions$.pipe(
     ofType(
       AuthorizationActions.signOutSuccess,
+      AuthorizationActions.signOutError,
       ErrorResponseActions.unauthorized,
     ),
     tap(() => this.routingService.navigation.landingPage.go())

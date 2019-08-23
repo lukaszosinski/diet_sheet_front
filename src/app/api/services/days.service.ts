@@ -10,10 +10,8 @@ export class DaysService {
 
   constructor(private http: HttpClient) {}
 
-  getDay(date: Date): Observable<Day> {
-    // /days/byDate?date=12-08-2019
-    // /days?from=12-08-2019&to=15-08-2019
-    return this.http.get<Day>(this.dayUrl + '/byDate', { params: { date: date.toISOString() } });
+  getDaysInRange(dateFrom: Date, dateTo: Date): Observable<Day[]> {
+    const params = { dateFrom: dateFrom.toISOString(), dateTo: dateTo.toISOString() };
+    return this.http.get<Day[]>(this.dayUrl, { params });
   }
-
 }
