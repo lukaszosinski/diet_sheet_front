@@ -5,11 +5,12 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  flex-wrap: nowrap;
-  min-width: 390px;
+  white-space: nowrap;
   padding: 0.25rem 0.5rem;
   background-image: linear-gradient(to right, $primaryColor, #fff);
-  margin: 1rem 8rem;
+  margin-top: 1rem;
+  margin-right: 1rem;
+  margin-left: 1rem;
   border: none;
   border-radius: 1.25rem;
   box-shadow: transparentize($primaryColor, 0.5) 1px 2px 5px 1px;
@@ -18,9 +19,7 @@
   &:hover, &:focus {
     box-shadow: transparentize($primaryColor, 0.2) 1px 2px 5px 1px;
   }
-
   text-align: center;
-
 }
 
 label {
@@ -44,7 +43,7 @@ button.delete-meal-button {
     width: 1rem;
     position: relative;
     bottom: 1rem;
-    left: 0.5rem;
+    left: 0.75rem;
 }
 
 .meal-checkbox {

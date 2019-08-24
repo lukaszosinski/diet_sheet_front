@@ -7,6 +7,8 @@ import * as DayPlanActions from './day-plan.actions';
 import { addDays, getDay } from '../../../shared/utils/date-utils';
 import { Summary } from '../../../../api/models/summary';
 import {DayMeal} from "../../../../api/models/dayMeal.model";
+import {Day} from "../../../../api/models/day";
+import {first} from "rxjs/operators";
 
 @Component({
   selector: 'diet-day-plan',
@@ -18,7 +20,7 @@ import {DayMeal} from "../../../../api/models/dayMeal.model";
           <ng-container *ngIf="(shouldDisplayDayPlan() | async)">
               <ul class="diet-day-plan-meal-list">
                   <li *ngFor="let dayMeal of (getSelectedDayPlanDayMeals() | async)">
-                      <diet-day-plan-meal [dayMeal]="dayMeal"></diet-day-plan-meal>
+                      <diet-day-plan-meal [dayMeal]="dayMeal" (deleteDayMeal)="onDeleteDayMeal($event)" (mealEatenMarkChanged)="onMealEatenMarkChanged($event)"></diet-day-plan-meal>
                   </li>
               </ul>
               <button class="diet-day-plan-add-product" title="{{'DAY_PLAN.ADD_PRODUCT' | translate}}">+</button>
@@ -33,6 +35,7 @@ export class DayPlanComponent implements OnInit {
 
   private readonly PREVIOUS_DAYS_QUANTITY = 3;
   private readonly NEXT_DAYS_QUANTITY = 3;
+
 
   constructor(private store: Store<AppState>) {
   }
@@ -59,6 +62,39 @@ export class DayPlanComponent implements OnInit {
     this.store.dispatch(DayPlanActions.loadDays({ fromDate, toDate }));
   }
 
+  onDeleteDayMeal(dayMealToDelete: DayMeal): void {
+    this.getSelectedDay().pipe(first()).subscribe(selectedDay => {
+      if(!!selectedDay) {
+        let updatedDayMeals = [...selectedDay.dayMeals];
+        const indexToUpdate = updatedDayMeals.findIndex(dayMeal =>
+          dayMeal.id === dayMealToDelete.id
+        );
+        updatedDayMeals.splice(indexToUpdate, 1);
+        selectedDay = {...selectedDay, dayMeals: updatedDayMeals};
+        this.store.dispatch(DayPlanActions.putDay({day: selectedDay}))
+      }
+    });
+  }
+
+  onMealEatenMarkChanged(updatedDayMeal: DayMeal): void {
+    this.getSelectedDay().pipe(first()).subscribe(selectedDay => {
+      if(!!selectedDay) {
+        let updatedDayMeals = [...selectedDay.dayMeals];
+        const indexToUpdate = updatedDayMeals.findIndex(dayMeal =>
+          dayMeal.id === updatedDayMeal.id
+        );
+        updatedDayMeals.splice(indexToUpdate, 1, updatedDayMeal);
+        selectedDay = {...selectedDay, dayMeals: updatedDayMeals};
+        this.store.dispatch(DayPlanActions.putDay({day: selectedDay}))
+      }
+    });
+  }
+
+
+  getSelectedDay(): Observable<Day | undefined> {
+    return this.store.select(fromDayPlan.selectSelectedDay);
+  }
+
   getSelectedDate(): Observable<Date> {
     return this.store.select(fromDayPlan.selectSelectedDate);
   }
@@ -74,4 +110,6 @@ export class DayPlanComponent implements OnInit {
   getSelectedDayPlanSummary(): Observable<Summary | undefined> {
     return this.store.select(fromDayPlan.selectSelectedDayPlanSummary);
   }
+
+
 }

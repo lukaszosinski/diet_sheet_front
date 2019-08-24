@@ -1,7 +1,9 @@
 label, .summary {
   padding: 0.25rem 0.5rem;
   background-color: #fbfcec;
-  margin: 0.25rem;
+  margin-top: 0.25rem;
+  margin-right: 0.25rem;
+  margin-left: 0.25rem;
   border: none;
   border-radius: 0.5rem;
   outline: none;
@@ -9,6 +11,6 @@ label, .summary {
 }
 
 .content-wrapper {
-  display: block;
+  display: inline-block;
   margin: 0.5rem;
 }

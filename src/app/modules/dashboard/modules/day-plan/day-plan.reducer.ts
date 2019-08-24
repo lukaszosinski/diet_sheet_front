@@ -12,6 +12,7 @@ export interface State {
   loadedDays: Day[];
   processing: {
     loadDay: boolean;
+    putDay: boolean;
   };
 }
 
@@ -21,6 +22,7 @@ export const initialState: State = {
   loadedDays: [],
   processing: {
     loadDay: false,
+    putDay: false
   }
 };
 
@@ -48,7 +50,24 @@ const dayPlanReducer = createReducer(
       processing: { ...state.processing, loadDay: false }
     };
   }),
-  on(DayPlanActions.loadDaysError, state => ({ ...state, processing: { ...state.processing, loadDay: false } })),
+  on(DayPlanActions.loadDaysError, state => ({ ...state, processing: { ...state.processing, loadDay: false } })
+  ),
+  on(DayPlanActions.putDay,
+    (state) => {
+      return { ...state, processing: {...state.processing, putDay: true} };
+  }),
+  on(DayPlanActions.putDaySuccess, (state, { day }) => {
+    const indexToUpdate = state.loadedDays.findIndex(d => d.id === day.id);
+    let updatedLoadedDays = [...state.loadedDays];
+    updatedLoadedDays.splice(indexToUpdate, 1, day);
+    return {
+      ...state,
+      selectedDay: findDayByDate(updatedLoadedDays, state.selectedDate),
+      loadedDays: updatedLoadedDays,
+      processing: { ...state.processing, putDay: false }
+    };
+  }),
+  on(DayPlanActions.putDayError, state => ({ ...state, processing: { ...state.processing, putDay: false } }))
 );
 
 function findDayByDate(days: Day[], date: Date): Day | undefined {
@@ -61,10 +80,16 @@ export function reducer(state: State | undefined, action: Action): State {
 
 export const selectDayPlan = createFeatureSelector<fromApp.AppState, State>(dayPlanFeatureKey);
 
+export const selectSelectedDay = createSelector(
+  selectDayPlan,
+  (state: State) => state.selectedDay
+);
+
 export const selectSelectedDate = createSelector(
   selectDayPlan,
   (state: State) => state.selectedDate
 );
+
 
 export const selectSelectedDayPlanExists = createSelector(
   selectDayPlan,

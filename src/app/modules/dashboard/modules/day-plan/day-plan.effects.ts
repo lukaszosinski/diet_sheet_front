@@ -19,8 +19,18 @@ export class DayPlanEffects {
     ))
   ));
 
+  putDay$ = createEffect(() => this.actions$.pipe(
+    ofType(DayPlanActions.putDay),
+    debounceTime(200),
+    mergeMap(( {day} ) => this.daysService.putDay(day).pipe(
+      map(day => fromDay.putDaySuccess({ day })),
+      catchApiError(fromDay.putDayError)
+    ))
+  ));
+
   constructor(private actions$: Actions,
               private daysService: DaysService,
+
   ) {}
 
 }
