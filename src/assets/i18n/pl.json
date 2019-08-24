@@ -47,6 +47,13 @@
     "LOAD_DAYS_ERROR": "Wystąpił błąd podczas ładowania planu dnia",
     "PUT_DAY_ERROR": "Wystąpił błąd podczas aktualizacji dnia"
   },
+  "SUMMARY": {
+    "KCAL": "Kalorie",
+    "PROTEINS": "Białko",
+    "CARBS": "Węglowodany",
+    "FAT": "Tłuszcz",
+    "ROUGHAGE": "Błonnik"
+  },
   "LANDING_PAGE": {
     "WELCOME": "Witaj w DIET",
     "SIGN_IN": "Zaloguj się",

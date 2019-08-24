@@ -1,16 +1,52 @@
-label, .summary {
+.summary-wrapper {
+  margin: 0.5rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.summary {
   padding: 0.25rem 0.5rem;
   background-color: #fbfcec;
-  margin-top: 0.25rem;
+  margin-top: 0.5rem;
   margin-right: 0.25rem;
   margin-left: 0.25rem;
   border: none;
   border-radius: 0.5rem;
   outline: none;
+  display: flex;
+  align-items: center;
+}
+
+.summary-label {
+  display: inline-block;
   text-align: center;
 }
 
-.content-wrapper {
+.label-img {
+  width: 25px;
+  height: 25px;
   display: inline-block;
-  margin: 0.5rem;
+}
+
+.kcal-img {
+  background-image: url(~src/assets/images/icons/kcal.png);
+}
+
+.carbs-img {
+  background-image: url(~src/assets/images/icons/carbs.png);
+}
+
+.fat-img {
+  background-image: url(~src/assets/images/icons/fat.png);
+}
+
+.proteins-img {
+  background-image: url(~src/assets/images/icons/proteins.png);
+}
+
+.roughage-img {
+  background-image: url(~src/assets/images/icons/carbs.png);
 }
