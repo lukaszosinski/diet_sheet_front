@@ -4,8 +4,15 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
 }
+
+@media(max-width: 460px) {
+  .summary-wrapper {
+    flex-wrap: wrap;
+  }
+}
+
 
 .summary {
   padding: 0.25rem 0.5rem;
