@@ -9,6 +9,7 @@ import {AppState} from '../../../../app.recuder';
 import * as fromDayPlan from './day-plan.reducer';
 import {Action, Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
+import {DayMeal} from '../../../../api/models/dayMeal.model';
 
 
 @Injectable()
@@ -29,12 +30,8 @@ export class DayPlanEffects {
     withLatestFrom(this.store.select(fromDayPlan.selectSelectedDay)),
     mergeMap(( [action, selectedDay] ) => {
       if (!!selectedDay) {
-        const dayMealToUpdate = action.dayMeal;
-        const updatedDayMeals = [...selectedDay.dayMeals];
-        const indexToUpdate = updatedDayMeals.findIndex(dayMeal =>
-          dayMeal.id === dayMealToUpdate.id
-        );
-        updatedDayMeals.splice(indexToUpdate, 1, dayMealToUpdate);
+        const idToReplace = action.dayMeal.id;
+        const updatedDayMeals = this.getModifiedCopyOfDayMeals(selectedDay.dayMeals, idToReplace, action.dayMeal);
         selectedDay = {...selectedDay, dayMeals: updatedDayMeals};
         return this.daysService.putDay(selectedDay).pipe(
           map(day => fromDay.putDaySuccess({ day })),
@@ -52,12 +49,8 @@ export class DayPlanEffects {
     mergeMap(( [action, selectedDay] ) => {
       if (!!selectedDay) {
         const idToDelete = action.dayMeal.id;
-        const updatedDayMeals = [...selectedDay.dayMeals];
-        const indexToDelete = updatedDayMeals.findIndex(dayMeal =>
-          dayMeal.id === idToDelete
-        );
-        updatedDayMeals.splice(indexToDelete, 1);
-        selectedDay = {...selectedDay, dayMeals: updatedDayMeals};
+        const modifiedDayMeals = this.getModifiedCopyOfDayMeals(selectedDay.dayMeals, idToDelete);
+        selectedDay = {...selectedDay, dayMeals: modifiedDayMeals};
         return this.daysService.putDay(selectedDay).pipe(
           map(day => fromDay.putDaySuccess({ day })),
           catchApiError(fromDay.putDayError)
@@ -67,6 +60,23 @@ export class DayPlanEffects {
       return new Observable<Action>();
     })
   ));
+
+  private getModifiedCopyOfDayMeals(
+      dayMeals: DayMeal[],
+      idToModify: number,
+      newDayMeal?: DayMeal
+    ): DayMeal[] {
+      const modifiedDayMeals = [...dayMeals];
+      const indexToDelete = modifiedDayMeals.findIndex(dayMeal =>
+        dayMeal.id === idToModify
+      );
+      if (!!newDayMeal) {
+        modifiedDayMeals.splice(indexToDelete, 1, newDayMeal);
+      } else {
+        modifiedDayMeals.splice(indexToDelete, 1);
+      }
+      return modifiedDayMeals;
+  }
 
   constructor(private actions$: Actions,
               private daysService: DaysService,

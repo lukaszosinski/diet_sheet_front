@@ -9,8 +9,8 @@
   padding: 0.25rem 0.5rem;
   background-image: linear-gradient(to right, $primaryColor, #fff);
   margin-top: 1rem;
-  margin-right: 1rem;
-  margin-left: 1rem;
+  margin-right: 10%;
+  margin-left: 10%;
   border: none;
   border-radius: 1.25rem;
   box-shadow: transparentize($primaryColor, 0.5) 1px 2px 5px 1px;
@@ -30,7 +30,7 @@ label {
 }
 
 .meal-content {
-    width: 90%;
+  width: 90%;
   display: block;
 }
 
@@ -45,6 +45,13 @@ button.delete-meal-button {
     position: relative;
     bottom: 1.6rem;
     left: 1rem;
+}
+
+@media(max-width: 570px) {
+  button.delete-meal-button {
+    bottom: 3rem;
+    left: 0.1rem;
+  }
 }
 
 .meal-checkbox {
@@ -63,7 +70,7 @@ button.delete-meal-button {
   }
 }
 
-@media(max-width: 460px) {
+@media(max-width: 570px) {
   button.delete-meal-button {
     bottom: 3rem;
     left: 0.1rem;
