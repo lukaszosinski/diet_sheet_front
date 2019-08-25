@@ -15,7 +15,7 @@ export class DaysService {
     return this.http.get<Day[]>(this.dayUrl, { params });
   }
 
-  putDay(day : Day): Observable<Day> {
-    return this.http.put<Day>(this.dayUrl + '/' + day.id.toString(), day)
+  putDay(day: Day): Observable<Day> {
+    return this.http.put<Day>(this.dayUrl + '/' + day.id.toString(), day);
   }
 }

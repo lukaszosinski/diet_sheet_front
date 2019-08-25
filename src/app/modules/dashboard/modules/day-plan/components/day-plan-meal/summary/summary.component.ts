@@ -1,5 +1,5 @@
 import {Component, ChangeDetectionStrategy, Input} from '@angular/core';
-import {Summary} from "../../../../../../../api/models/summary";
+import {Summary} from '../../../../../../../api/models/summary';
 
 @Component({
   selector: 'diet-summary',
