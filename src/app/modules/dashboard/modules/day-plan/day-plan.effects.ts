@@ -34,8 +34,8 @@ export class DayPlanEffects {
         const updatedDayMeals = this.getModifiedCopyOfDayMeals(selectedDay.dayMeals, idToReplace, action.dayMeal);
         selectedDay = {...selectedDay, dayMeals: updatedDayMeals};
         return this.daysService.putDay(selectedDay).pipe(
-          map(day => fromDay.putDaySuccess({ day })),
-          catchApiError(fromDay.putDayError)
+          map(day => fromDay.updateDaySuccess({ day })),
+          catchApiError(fromDay.updateDayError)
         );
       }
       // TODO Handle error when selectedDay is undefined
@@ -52,8 +52,8 @@ export class DayPlanEffects {
         const modifiedDayMeals = this.getModifiedCopyOfDayMeals(selectedDay.dayMeals, idToDelete);
         selectedDay = {...selectedDay, dayMeals: modifiedDayMeals};
         return this.daysService.putDay(selectedDay).pipe(
-          map(day => fromDay.putDaySuccess({ day })),
-          catchApiError(fromDay.putDayError)
+          map(day => fromDay.updateDaySuccess({ day })),
+          catchApiError(fromDay.updateDayError)
         );
       }
       // TODO Handle error when selectedDay is undefined

@@ -11,7 +11,8 @@ export interface State {
   selectedDay?: Day;
   loadedDays: Day[];
   processing: {
-    loadDay: boolean
+    loadDay: boolean,
+    updateDay: boolean
   };
 }
 
@@ -20,7 +21,8 @@ export const initialState: State = {
   selectedDay: undefined,
   loadedDays: [],
   processing: {
-    loadDay: false
+    loadDay: false,
+    updateDay: false,
   }
 };
 
@@ -48,19 +50,21 @@ const dayPlanReducer = createReducer(
       processing: { ...state.processing, loadDay: false }
     };
   }),
-  on(DayPlanActions.loadDaysError, state => ({ ...state, processing: { ...state.processing, loadDay: false } })
-  ),
-  on(DayPlanActions.putDaySuccess, (state, { day }) => {
+  on(DayPlanActions.loadDaysError, state => ({ ...state, processing: { ...state.processing, loadDay: false } })),
+  on(DayPlanActions.updateSelectedDayDayMeal, state => ({ ...state, processing: { ...state.processing, updateDay: true } })),
+  on(DayPlanActions.deleteSelectedDayDayMeal, state => ({ ...state, processing: { ...state.processing, updateDay: true } })),
+  on(DayPlanActions.updateDaySuccess, (state, { day }) => {
     const indexToUpdate = state.loadedDays.findIndex(d => d.id === day.id);
     const updatedLoadedDays = [...state.loadedDays];
     updatedLoadedDays.splice(indexToUpdate, 1, day);
     return {
       ...state,
       selectedDay: findDayByDate(updatedLoadedDays, state.selectedDate),
-      loadedDays: updatedLoadedDays
+      loadedDays: updatedLoadedDays,
+      processing: { ...state.processing, updateDay: false }
     };
   }),
-  on(DayPlanActions.putDayError, state => ({ ...state}))
+  on(DayPlanActions.updateDayError, state => ({ ...state, processing: { ...state.processing, updateDay: false } }))
 );
 
 function findDayByDate(days: Day[], date: Date): Day | undefined {

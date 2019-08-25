@@ -45,7 +45,7 @@
     "DELETE_MEAL": "Usuń posiłek",
     "MARK_MEAL_AS_EATEN": "Oznacz posiłek jako zjedzony",
     "LOAD_DAYS_ERROR": "Wystąpił błąd podczas ładowania planu dnia",
-    "PUT_DAY_ERROR": "Wystąpił błąd podczas aktualizacji dnia"
+    "UPDATE_DAY_ERROR": "Wystąpił błąd podczas aktualizacji dnia"
   },
   "SUMMARY": {
     "KCAL": "Kalorie",
