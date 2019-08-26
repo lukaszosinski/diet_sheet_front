@@ -11,19 +11,24 @@ import {Summary} from '../../../../../../api/models/summary';
                 title="{{'DAY_PLAN.TOGGLE_SUMMARY' | translate}}">
         </button>
         <div class="summary-element">
-            {{eatenMealsSummary.kcal}} / {{summary.kcal}}
+            <span>{{'SUMMARY.KCAL' | translate}}:</span>
+            <meter min="0" max="{{summary.kcal}}" value="{{eatenMealsSummary.kcal}}"></meter>
         </div>
         <div class="summary-element">
-            {{eatenMealsSummary.proteins}} / {{summary.proteins}}
+            <span>{{'SUMMARY.PROTEINS' | translate}}:</span>
+            <meter min="0" max="{{summary.proteins}}" value="{{eatenMealsSummary.proteins}}"></meter>
         </div>
         <div class="summary-element">
-            {{eatenMealsSummary.carbs}} / {{summary.carbs}}
+            <span>{{'SUMMARY.CARBS' | translate}}:</span>
+            <meter min="0" max="{{summary.carbs}}" value="{{eatenMealsSummary.carbs}}"></meter>
         </div>
         <div class="summary-element">
-            {{eatenMealsSummary.fat}} / {{summary.fat}}
+            <span>{{'SUMMARY.FAT' | translate}}:</span>
+            <meter min="0" max="{{summary.fat}}" value="{{eatenMealsSummary.fat}}"></meter>
         </div>
         <div class="summary-element">
-            {{eatenMealsSummary.roughage}} / {{summary.roughage}}
+            <span>{{'SUMMARY.ROUGHAGE' | translate}}:</span>
+            <meter min="0" max="{{summary.roughage}}" value="{{eatenMealsSummary.roughage}}"></meter>
         </div>
     </div>
   `,
