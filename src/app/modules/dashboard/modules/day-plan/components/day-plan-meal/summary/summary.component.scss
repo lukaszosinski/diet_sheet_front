@@ -1,10 +1,7 @@
 .summary-wrapper {
   margin: 0.5rem;
   display: flex;
-  flex-direction: row;
   justify-content: center;
-  align-items: center;
-  flex-wrap: nowrap;
 }
 
 @media(max-width: 570px) {
@@ -13,29 +10,22 @@
   }
 }
 
-
 .summary {
   padding: 0.25rem 0.5rem;
   background-color: #fbfcec;
-  margin-top: 0.5rem;
-  margin-right: 0.25rem;
-  margin-left: 0.25rem;
-  border: none;
+  margin: 0.5rem 0.25rem 0.25rem;
   border-radius: 0.5rem;
-  outline: none;
   display: flex;
   align-items: center;
 }
 
 .summary-label {
-  display: inline-block;
   text-align: center;
 }
 
 .label-img {
   width: 25px;
   height: 25px;
-  display: inline-block;
 }
 
 .kcal-img {

@@ -68,7 +68,6 @@ export class DayPlanComponent implements OnInit {
   }
 
   onMealEatenMarkChanged(dayMeal: DayMeal, eaten: boolean): void {
-    console.log(eaten);
     const dayMealToUpdate = {...dayMeal, eaten};
     this.store.dispatch(DayPlanActions.updateSelectedDayDayMeal({dayMeal: dayMealToUpdate}));
   }
@@ -88,6 +87,4 @@ export class DayPlanComponent implements OnInit {
   getSelectedDayPlanSummary(): Observable<Summary | undefined> {
     return this.store.select(fromDayPlan.selectSelectedDayPlanSummary);
   }
-
-
 }

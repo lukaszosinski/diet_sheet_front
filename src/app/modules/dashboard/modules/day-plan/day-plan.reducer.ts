@@ -87,7 +87,6 @@ export const selectSelectedDate = createSelector(
   (state: State) => state.selectedDate
 );
 
-
 export const selectSelectedDayPlanExists = createSelector(
   selectDayPlan,
   (state: State) => !!state.selectedDay

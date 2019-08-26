@@ -4,11 +4,10 @@ import {debounceTime, map, mergeMap, withLatestFrom} from 'rxjs/operators';
 import { DaysService } from '../../../../api/services/days.service';
 import { catchApiError } from '../../../../api/api.actions';
 import * as DayPlanActions from './day-plan.actions';
-import * as fromDay from './day-plan.actions';
 import {AppState} from '../../../../app.recuder';
 import * as fromDayPlan from './day-plan.reducer';
-import {Action, Store} from '@ngrx/store';
-import {Observable} from 'rxjs';
+import {Store} from '@ngrx/store';
+import {EMPTY} from 'rxjs';
 import {DayMeal} from '../../../../api/models/dayMeal.model';
 
 
@@ -19,14 +18,13 @@ export class DayPlanEffects {
     ofType(DayPlanActions.loadDays),
     debounceTime(200),
     mergeMap(({ fromDate, toDate }) => this.daysService.getDaysInRange(fromDate, toDate).pipe(
-      map(days => fromDay.loadDaysSuccess({ days })),
-      catchApiError(fromDay.loadDaysError)
+      map(days => DayPlanActions.loadDaysSuccess({ days })),
+      catchApiError(DayPlanActions.loadDaysError)
     ))
   ));
 
   updateSelectedDayDayMeal$ = createEffect(() => this.actions$.pipe(
     ofType(DayPlanActions.updateSelectedDayDayMeal),
-    debounceTime(200),
     withLatestFrom(this.store.select(fromDayPlan.selectSelectedDay)),
     mergeMap(( [action, selectedDay] ) => {
       if (!!selectedDay) {
@@ -34,12 +32,11 @@ export class DayPlanEffects {
         const updatedDayMeals = this.getModifiedCopyOfDayMeals(selectedDay.dayMeals, idToReplace, action.dayMeal);
         selectedDay = {...selectedDay, dayMeals: updatedDayMeals};
         return this.daysService.putDay(selectedDay).pipe(
-          map(day => fromDay.updateDaySuccess({ day })),
-          catchApiError(fromDay.updateDayError)
+          map(day => DayPlanActions.updateDaySuccess({ day })),
+          catchApiError(DayPlanActions.updateDayError)
         );
       }
-      // TODO Handle error when selectedDay is undefined
-      return new Observable<Action>();
+      return EMPTY;
     })
   ));
 
@@ -52,12 +49,11 @@ export class DayPlanEffects {
         const modifiedDayMeals = this.getModifiedCopyOfDayMeals(selectedDay.dayMeals, idToDelete);
         selectedDay = {...selectedDay, dayMeals: modifiedDayMeals};
         return this.daysService.putDay(selectedDay).pipe(
-          map(day => fromDay.updateDaySuccess({ day })),
-          catchApiError(fromDay.updateDayError)
+          map(day => DayPlanActions.updateDaySuccess({ day })),
+          catchApiError(DayPlanActions.updateDayError)
         );
       }
-      // TODO Handle error when selectedDay is undefined
-      return new Observable<Action>();
+      return EMPTY;
     })
   ));
 
@@ -70,6 +66,9 @@ export class DayPlanEffects {
       const indexToDelete = modifiedDayMeals.findIndex(dayMeal =>
         dayMeal.id === idToModify
       );
+      if (indexToDelete === -1) {
+        return modifiedDayMeals;
+      }
       if (!!newDayMeal) {
         modifiedDayMeals.splice(indexToDelete, 1, newDayMeal);
       } else {
