@@ -12,7 +12,7 @@ import {DayMeal} from '../../../../../../api/models/dayMeal.model';
                  title="{{'DAY_PLAN.MARK_MEAL_AS_EATEN' | translate}}"
           />
           <div class="meal-content">
-              <label>{{dayMeal.meal.name}}</label>
+              <span>{{dayMeal.meal.name}}</span>
               <diet-summary [summary]="dayMeal.meal.summary"></diet-summary>
           </div>
           <button class="delete-meal-button" (click)="onDeleteButtonClick()" title="{{'DAY_PLAN.DELETE_MEAL' | translate}}"></button>
@@ -23,8 +23,8 @@ import {DayMeal} from '../../../../../../api/models/dayMeal.model';
 })
 export class DayPlanMealComponent implements OnInit {
   @Input() dayMeal?: DayMeal;
-  @Output() deleteDayMeal: EventEmitter<DayMeal> = new EventEmitter<DayMeal>();
-  @Output() mealEatenMarkChanged: EventEmitter<DayMeal> = new EventEmitter<DayMeal>();
+  @Output() deleteDayMeal: EventEmitter<void> = new EventEmitter<void>();
+  @Output() mealEatenMarkChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   eaten?: boolean;
 
@@ -35,13 +35,12 @@ export class DayPlanMealComponent implements OnInit {
   }
 
   onDeleteButtonClick(): void {
-      this.deleteDayMeal.emit(this.dayMeal);
+      this.deleteDayMeal.emit();
   }
 
   onCheckboxClick(): void {
-    if (!!this.dayMeal && this.eaten !== undefined) {
-      const updatedDayMeal =  {...this.dayMeal, eaten: this.eaten};
-      this.mealEatenMarkChanged.emit(updatedDayMeal);
+    if (!!this.dayMeal) {
+      this.mealEatenMarkChanged.emit(this.eaten);
     }
   }
 }

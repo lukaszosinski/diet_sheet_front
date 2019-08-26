@@ -20,8 +20,8 @@ import {DayMeal} from '../../../../api/models/dayMeal.model';
                   <li *ngFor="let dayMeal of (getSelectedDayPlanDayMeals() | async)">
                       <diet-day-plan-meal
                               [dayMeal]="dayMeal"
-                              (deleteDayMeal)="onDeleteDayMeal($event)"
-                              (mealEatenMarkChanged)="onMealEatenMarkChanged($event)"></diet-day-plan-meal>
+                              (deleteDayMeal)="onDeleteDayMeal(dayMeal)"
+                              (mealEatenMarkChanged)="onMealEatenMarkChanged(dayMeal, $event)"></diet-day-plan-meal>
                   </li>
               </ul>
               <button class="diet-day-plan-add-product" title="{{'DAY_PLAN.ADD_PRODUCT' | translate}}">+</button>
@@ -67,7 +67,9 @@ export class DayPlanComponent implements OnInit {
     this.store.dispatch(DayPlanActions.deleteSelectedDayDayMeal({dayMeal: dayMealToDelete}));
   }
 
-  onMealEatenMarkChanged(dayMealToUpdate: DayMeal): void {
+  onMealEatenMarkChanged(dayMeal: DayMeal, eaten: boolean): void {
+    console.log(eaten);
+    const dayMealToUpdate = {...dayMeal, eaten};
     this.store.dispatch(DayPlanActions.updateSelectedDayDayMeal({dayMeal: dayMealToUpdate}));
   }
 

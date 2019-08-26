@@ -2,16 +2,13 @@
 
 .content-wrapper {
   display: flex;
-  flex-direction: row;
   justify-content: center;
   align-items: center;
-  white-space: nowrap;
   padding: 0.25rem 0.5rem;
   background-image: linear-gradient(to right, $primaryColor, #fff);
   margin-top: 1rem;
   margin-right: 10%;
   margin-left: 10%;
-  border: none;
   border-radius: 1.25rem;
   box-shadow: transparentize($primaryColor, 0.5) 1px 2px 5px 1px;
   outline: none;
@@ -19,19 +16,17 @@
   &:hover, &:focus {
     box-shadow: transparentize($primaryColor, 0.2) 1px 2px 5px 1px;
   }
-  text-align: center;
 }
 
-label {
+span {
   margin: 0.25rem;
   color: #82373d;
   display: block;
-
+  text-align: center
 }
 
 .meal-content {
   width: 90%;
-  display: block;
 }
 
 button.delete-meal-button {
