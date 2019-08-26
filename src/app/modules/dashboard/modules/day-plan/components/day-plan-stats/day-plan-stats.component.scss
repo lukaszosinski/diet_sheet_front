@@ -1,0 +1,48 @@
+@import "colors.scss";
+@import 'layout.scss';
+
+.day-plan-summary-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border-radius: 3rem;
+  box-shadow: transparentize(#ca2043, 0.5) 0px -2px 20px 0px;
+  padding: 0.25rem 0.5rem;
+  background-color: #f4d2b5;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  transform: translateY(10%);
+
+  :last-child {
+    margin-bottom: 5%;
+  }
+}
+
+.day-plan-summary-wrapper-hidden {
+  transform: translateY(65%);
+}
+
+.summary-element {
+  margin: 0.85rem;
+}
+
+.summary-arrow {
+  background-image: url(~src/assets/images/icons/arrow.png);
+  background-color: transparent;
+  background-repeat: no-repeat;
+  border: none;
+  cursor: pointer;
+  height: 25px;
+  width: 25px;
+}
+
+.rotated-summary-arrow {
+  transform: rotate(180deg);
+}
+
+.content-extender {
+  height: 200px;
+}

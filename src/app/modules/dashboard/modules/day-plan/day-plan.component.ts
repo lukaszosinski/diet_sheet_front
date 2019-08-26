@@ -25,7 +25,10 @@ import {DayMeal} from '../../../../api/models/dayMeal.model';
                   </li>
               </ul>
               <button class="diet-day-plan-add-product" title="{{'DAY_PLAN.ADD_PRODUCT' | translate}}">+</button>
-              <diet-day-plan-stats [statistics]="getSelectedDayPlanSummary() | async"></diet-day-plan-stats>
+              <diet-day-plan-stats
+                      [summary]="getSelectedDayPlanSummary() | async"
+                      [eatenMealsSummary]="getSelectedDayPlanEatenMealsSummary() | async">
+              </diet-day-plan-stats>
           </ng-container>
       </div>
   `,
@@ -87,4 +90,10 @@ export class DayPlanComponent implements OnInit {
   getSelectedDayPlanSummary(): Observable<Summary | undefined> {
     return this.store.select(fromDayPlan.selectSelectedDayPlanSummary);
   }
+
+  getSelectedDayPlanEatenMealsSummary(): Observable<Summary | undefined> {
+    return this.store.select(fromDayPlan.selectSelectedDayPlanEatenMealsSummary);
+  }
+
+
 }
