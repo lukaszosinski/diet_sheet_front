@@ -1,5 +1,5 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {DayMeal} from '../../../../../../api/models/dayMeal.model';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { DayMeal } from '../../../../../../api/models/day-meal.model';
 
 
 @Component({

@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import {debounceTime, map, mergeMap, withLatestFrom} from 'rxjs/operators';
+import { debounceTime, map, mergeMap, withLatestFrom } from 'rxjs/operators';
 import { DaysService } from '../../../../api/services/days.service';
 import { catchApiError } from '../../../../api/api.actions';
 import * as DayPlanActions from './day-plan.actions';
-import {AppState} from '../../../../app.recuder';
+import { AppState } from '../../../../app.recuder';
 import * as fromDayPlan from './day-plan.reducer';
-import {Store} from '@ngrx/store';
-import {EMPTY} from 'rxjs';
-import {DayMeal} from '../../../../api/models/dayMeal.model';
+import { Store } from '@ngrx/store';
+import { EMPTY } from 'rxjs';
+import { DayMeal } from '../../../../api/models/day-meal.model';
 
 
 @Injectable()
@@ -36,6 +36,7 @@ export class DayPlanEffects {
           catchApiError(DayPlanActions.updateDayError)
         );
       }
+      console.error(`Action of type ${action.type} can not be called when selectedDay does not exist.`);
       return EMPTY;
     })
   ));
@@ -53,6 +54,7 @@ export class DayPlanEffects {
           catchApiError(DayPlanActions.updateDayError)
         );
       }
+      console.error(`Action of type ${action.type} can not be called when selectedDay does not exist.`);
       return EMPTY;
     })
   ));

@@ -6,7 +6,7 @@ import * as fromDayPlan from './day-plan.reducer';
 import * as DayPlanActions from './day-plan.actions';
 import { addDays, getDay } from '../../../shared/utils/date-utils';
 import { Summary } from '../../../../api/models/summary';
-import {DayMeal} from '../../../../api/models/dayMeal.model';
+import { DayMeal } from '../../../../api/models/day-meal.model';
 
 @Component({
   selector: 'diet-day-plan',

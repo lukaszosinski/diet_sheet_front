@@ -1,7 +1,7 @@
 import { createAction, props } from '@ngrx/store';
 import { Day } from '../../../../api/models/day';
 import { createApiErrorAction } from '../../../../api/api.actions';
-import {DayMeal} from '../../../../api/models/dayMeal.model';
+import { DayMeal } from '../../../../api/models/day-meal.model';
 
 export const selectDay = createAction('[DayPlan] Select Day', props<{ date: Date }>());
 export const loadDays = createAction('[DayPlan] Load Days', props<{ fromDate: Date, toDate: Date }>());
