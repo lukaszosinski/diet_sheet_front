@@ -12,7 +12,7 @@ import { DayMeal } from '../../../../../../api/models/day-meal.model';
                  title="{{'DAY_PLAN.MARK_MEAL_AS_EATEN' | translate}}"
           />
           <div class="meal-content">
-              <span>{{dayMeal.meal.name}}</span>
+              <div class="meal-content-name">{{dayMeal.meal.name}}</div>
               <diet-summary [summary]="dayMeal.meal.summary"></diet-summary>
           </div>
           <button class="delete-meal-button" (click)="onDeleteButtonClick()" title="{{'DAY_PLAN.DELETE_MEAL' | translate}}"></button>
