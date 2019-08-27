@@ -1,4 +1,4 @@
-import { Summary } from './summary';
+import { Summary } from '../../../../api/models/summary';
 
 export interface Product {
   id?: number;
