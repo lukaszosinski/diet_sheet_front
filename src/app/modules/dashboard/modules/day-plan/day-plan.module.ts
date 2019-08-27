@@ -15,6 +15,7 @@ import { DayPlanEffects } from './day-plan.effects';
 import { AddButtonComponent } from './components/add-button/add-button.component';
 import { MatDialogModule } from '@angular/material';
 import { AddMealDialogComponent } from './components/add-meal-dialog/add-meal-dialog.component';
+import { MealModule } from '../meal/meal.module';
 
 
 @NgModule({
@@ -34,6 +35,7 @@ import { AddMealDialogComponent } from './components/add-meal-dialog/add-meal-di
     StoreModule.forFeature(fromDayPlan.dayPlanFeatureKey, fromDayPlan.reducer),
     EffectsModule.forFeature([ DayPlanEffects ]),
     MatDialogModule,
+    MealModule,
   ],
   entryComponents: [
     AddMealDialogComponent,

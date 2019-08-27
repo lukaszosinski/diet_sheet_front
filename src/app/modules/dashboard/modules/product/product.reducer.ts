@@ -1,7 +1,8 @@
-import { Action, createReducer, on } from '@ngrx/store';
+import { Action, createFeatureSelector, createReducer, createSelector, on } from '@ngrx/store';
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 import { Product } from './product.model';
 import * as ProductActions from './product.actions';
+import * as fromApp from '../../../../app.recuder';
 
 export const productsFeatureKey = 'products';
 
@@ -59,13 +60,13 @@ const productReducer = createReducer(
   ),
 );
 
-export function reducer(state: State | undefined, action: Action) {
+export function reducer(state: State | undefined, action: Action): State {
   return productReducer(state, action);
 }
 
-export const {
-  selectIds,
-  selectEntities,
-  selectAll,
-  selectTotal,
-} = adapter.getSelectors();
+export const selectProduct = createFeatureSelector<fromApp.AppState, State>(productsFeatureKey);
+
+export const selectAll = createSelector(
+  selectProduct,
+  adapter.getSelectors().selectAll
+);

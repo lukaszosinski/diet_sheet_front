@@ -7,12 +7,12 @@ import { ProductService } from '../../../../api/services/product.service';
 
 
 @Injectable()
-export class ApiEffects {
+export class ProductEffects {
 
-  showApiErrorMessage$ = createEffect(() => this.actions$.pipe(
+  loadProducts$ = createEffect(() => this.actions$.pipe(
     ofType(ProductActions.loadProducts),
     mergeMap(() => this.productService.getProducts().pipe(
-      map((products) => ProductActions.addProducts({ products })),
+      map((products) => ProductActions.loadProductsSuccess({ products })),
       catchApiError(ProductActions.loadProductsError)
     ))
   ));
