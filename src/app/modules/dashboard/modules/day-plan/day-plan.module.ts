@@ -12,6 +12,7 @@ import { DayPlanStatsComponent } from './components/day-plan-stats/day-plan-stat
 import { SummaryComponent } from './components/day-plan-meal/summary/summary.component';
 import { EffectsModule } from '@ngrx/effects';
 import { DayPlanEffects } from './day-plan.effects';
+import { AddButtonComponent } from './components/add-button/add-button.component';
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import { DayPlanEffects } from './day-plan.effects';
     DayPlanMealComponent,
     DayPlanStatsComponent,
     SummaryComponent,
+    AddButtonComponent,
   ],
   imports: [
     CommonModule,

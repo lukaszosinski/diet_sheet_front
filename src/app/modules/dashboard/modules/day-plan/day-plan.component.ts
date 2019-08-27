@@ -24,7 +24,7 @@ import { DayMeal } from '../../../../api/models/day-meal.model';
                               (mealEatenMarkChanged)="onMealEatenMarkChanged(dayMeal, $event)"></diet-day-plan-meal>
                   </li>
               </ul>
-              <button class="diet-day-plan-add-product" title="{{'DAY_PLAN.ADD_PRODUCT' | translate}}">+</button>
+              <diet-add-button class="diet-day-plan-add-meal" title="{{'DAY_PLAN.ADD_MEAL' | translate}}"></diet-add-button>
               <diet-day-plan-stats [statistics]="getSelectedDayPlanSummary() | async"></diet-day-plan-stats>
           </ng-container>
       </div>

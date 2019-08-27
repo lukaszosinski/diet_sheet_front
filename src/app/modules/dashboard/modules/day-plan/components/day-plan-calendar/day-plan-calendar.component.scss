@@ -2,7 +2,7 @@
 
 $calendar-margin: 0.75rem;
 $list-arrow-size: 1rem;
-$shadowColor: transparentize(#646464, 0.4);
+$light--shadow: $light--shadow;
 $selected-day-size: 11rem;
 
 
@@ -39,7 +39,7 @@ $selected-day-size: 11rem;
 
   &-redirect-button,
   &-list-item {
-    box-shadow: 0.1rem 0.2rem 0.5rem 0 $shadowColor;
+    box-shadow: 0.1rem 0.2rem 0.5rem 0 $light--shadow;
   }
 
   &-redirect-button {
@@ -84,13 +84,13 @@ $selected-day-size: 11rem;
       justify-content: center;
       font-size: 3rem;
       border-radius: 20%;
-      background-color: lighten($backgroundColor, 5);
+      background-color: $light;
       cursor: pointer;
       margin: 0 0.25rem;
       user-select: none;
 
       &:hover:not(.calendar-list-item-central) {
-        background-color: lighten($backgroundColor, 2);
+        background-color: $light--hover;
       }
 
       &.calendar-list-item-central {
@@ -111,8 +111,8 @@ $selected-day-size: 11rem;
     width: $wrapper-size;
     height: $wrapper-size;
     border: 0.05 * $wrapper-size solid $primaryColor;
-    box-shadow: 0.015 * $wrapper-size 0.03 * $wrapper-size 0.5rem 0 $shadowColor,
-    0.015 * $wrapper-size 0.03 * $wrapper-size 0.5rem 0 $shadowColor inset;
+    box-shadow: 0.015 * $wrapper-size 0.03 * $wrapper-size 0.5rem 0 $light--shadow,
+    0.015 * $wrapper-size 0.03 * $wrapper-size 0.5rem 0 $light--shadow inset;
 
     .calendar-list-item-central-month {
       font-size: 0.12 * $wrapper-size;
