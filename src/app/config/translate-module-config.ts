@@ -10,10 +10,6 @@ export function HttpLoaderFactory(httpClient: HttpClient): TranslateHttpLoader {
 
 export class DietMissingTranslationHandler implements MissingTranslationHandler {
   handle(params: MissingTranslationHandlerParams): string {
-    const missingTranslationKey = 'ERROR.MISSING_TRANSLATION';
-    if (params.translateService.currentLang) {
-      return params.translateService.instant(missingTranslationKey, { missingKey: params.key });
-    }
     return `Missing translation: '${params.key}'`;
   }
 }

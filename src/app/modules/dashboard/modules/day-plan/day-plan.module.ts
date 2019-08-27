@@ -13,6 +13,8 @@ import { SummaryComponent } from './components/day-plan-meal/summary/summary.com
 import { EffectsModule } from '@ngrx/effects';
 import { DayPlanEffects } from './day-plan.effects';
 import { AddButtonComponent } from './components/add-button/add-button.component';
+import { MatDialogModule } from '@angular/material';
+import { AddMealDialogComponent } from './components/add-meal-dialog/add-meal-dialog.component';
 
 
 @NgModule({
@@ -23,6 +25,7 @@ import { AddButtonComponent } from './components/add-button/add-button.component
     DayPlanStatsComponent,
     SummaryComponent,
     AddButtonComponent,
+    AddMealDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -30,6 +33,10 @@ import { AddButtonComponent } from './components/add-button/add-button.component
     SharedLazyModule,
     StoreModule.forFeature(fromDayPlan.dayPlanFeatureKey, fromDayPlan.reducer),
     EffectsModule.forFeature([ DayPlanEffects ]),
+    MatDialogModule,
+  ],
+  entryComponents: [
+    AddMealDialogComponent,
   ]
 })
 export class DayPlanModule {
