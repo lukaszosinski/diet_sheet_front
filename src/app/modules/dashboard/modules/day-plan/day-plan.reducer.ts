@@ -49,17 +49,20 @@ const dayPlanReducer = createReducer(
     };
   }),
   on(DayPlanActions.loadDaysError, state => ({ ...state, processing: { ...state.processing, loadDay: false } })),
-  on(DayPlanActions.updateSelectedDayDayMeal, state => ({ ...state, processing: { ...state.processing, updateDay: true } })),
-  on(DayPlanActions.deleteSelectedDayDayMeal, state => ({ ...state, processing: { ...state.processing, updateDay: true } })),
-  on(DayPlanActions.updateDaySuccess, (state, { day }) => {
-    const withUpdatedDay = adapter.updateOne({ id: day.id, changes: day }, state);
+  on(
+    DayPlanActions.updateSelectedDayDayMeal,
+    DayPlanActions.updateDay,
+    DayPlanActions.createDay,
+    state => ({ ...state, processing: { ...state.processing, updateDay: true } })),
+  on(DayPlanActions.upsertDaySuccess, (state, { day }) => {
+    const withUpdatedDay = adapter.upsertOne(day, state);
     return {
       ...withUpdatedDay,
       selectedDay: findDayByDate(withUpdatedDay.entities, state.selectedDate),
       processing: { ...state.processing, updateDay: false }
     };
   }),
-  on(DayPlanActions.updateDayError, state => ({ ...state, processing: { ...state.processing, updateDay: false } }))
+  on(DayPlanActions.upsertDayError, state => ({ ...state, processing: { ...state.processing, updateDay: false } }))
 );
 
 function findDayByDate(days: Dictionary<Day>, date: Date): Day | undefined {
@@ -100,4 +103,9 @@ export const selectSelectedDayPlanSummary = createSelector(
 export const selectSelectedDayPlanDayMeals = createSelector(
   selectSelectedDayPlan,
   (selectedDay) => selectedDay ? selectedDay.dayMeals : undefined
+);
+
+export const selectLoadedDays = createSelector(
+  selectDayPlan,
+  adapter.getSelectors().selectAll
 );

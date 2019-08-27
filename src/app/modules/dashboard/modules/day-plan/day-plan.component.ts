@@ -7,8 +7,12 @@ import * as DayPlanActions from './day-plan.actions';
 import { addDays, getDay } from '../../../shared/utils/date-utils';
 import { Summary } from '../../../../api/models/summary';
 import { DayMeal } from '../../../../api/models/day-meal.model';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatDialogRef } from '@angular/material';
 import { AddMealDialogComponent } from './components/add-meal-dialog/add-meal-dialog.component';
+import { Meal } from '../meal/meal.model';
+import { filter } from 'rxjs/operators';
+import { selectFirst } from '../../../shared/utils/ngrx-utils';
+import { Day } from '../../../../api/models/day';
 
 @Component({
   selector: 'diet-day-plan',
@@ -17,24 +21,23 @@ import { AddMealDialogComponent } from './components/add-meal-dialog/add-meal-di
           <diet-day-plan-calendar [selectedDate]="getSelectedDate() | async"
                                   (newDaySelected)="onNewDaySelected($event)"
           ></diet-day-plan-calendar>
-          <ng-container *ngIf="(shouldDisplayDayPlan() | async)">
-              <ul class="diet-day-plan-meal-list">
-                  <li *ngFor="let dayMeal of (getSelectedDayPlanDayMeals() | async)">
-                      <diet-day-plan-meal
-                              [dayMeal]="dayMeal"
-                              (deleteDayMeal)="onDeleteDayMeal(dayMeal)"
-                              (mealEatenMarkChanged)="onMealEatenMarkChanged(dayMeal, $event)">
-                      </diet-day-plan-meal>
-                  </li>
-              </ul>
-              <diet-add-button
-                      class="diet-day-plan-add-meal"
-                      title="{{'DAY_PLAN.ADD_MEAL' | translate}}"
-                      (click)="onAddMealButtonClick()"
-              >
-              </diet-add-button>
-              <diet-day-plan-stats [statistics]="getSelectedDayPlanSummary() | async"></diet-day-plan-stats>
-          </ng-container>
+          <ul class="diet-day-plan-meal-list" *ngIf="(doesDayPlanExist() | async)">
+              <li *ngFor="let dayMeal of (getSelectedDayPlanDayMeals() | async)">
+                  <diet-day-plan-meal
+                          [dayMeal]="dayMeal"
+                          (deleteDayMeal)="onDeleteDayMeal(dayMeal)"
+                          (mealEatenMarkChanged)="onMealEatenMarkChanged(dayMeal, $event)">
+                  </diet-day-plan-meal>
+              </li>
+          </ul>
+          <diet-add-button
+                  class="diet-day-plan-add-meal"
+                  title="{{'DAY_PLAN.ADD_MEAL' | translate}}"
+                  (click)="onAddMealButtonClick()"
+          >
+          </diet-add-button>
+          <diet-day-plan-stats *ngIf="(doesDayPlanExist() | async)"
+                               [statistics]="getSelectedDayPlanSummary() | async"></diet-day-plan-stats>
       </div>
   `,
   styleUrls: [ './day-plan.component.scss' ],
@@ -86,7 +89,7 @@ export class DayPlanComponent implements OnInit {
     return this.store.select(fromDayPlan.selectSelectedDate);
   }
 
-  shouldDisplayDayPlan(): Observable<boolean> {
+  doesDayPlanExist(): Observable<boolean> {
     return this.store.select(fromDayPlan.selectSelectedDayPlanExists);
   }
 
@@ -99,6 +102,36 @@ export class DayPlanComponent implements OnInit {
   }
 
   onAddMealButtonClick(): void {
-    this.matDialog.open(AddMealDialogComponent, { width: '70vw', height: '70vh' });
+    const dialogRef: MatDialogRef<AddMealDialogComponent, { meal: Meal }> = this.matDialog.open(AddMealDialogComponent, {
+      width: '70vw',
+      height: '70vh'
+    });
+    dialogRef.afterClosed()
+      .pipe(filter(m => !!m))
+      .subscribe(result => this.addDayMealToSelectedDay(result!.meal));
+  }
+
+  private addDayMealToSelectedDay(meal: Meal): void {
+    selectFirst(this.store, fromDayPlan.selectDayPlan).subscribe((state: fromDayPlan.State) => {
+      const dayMeal = { meal, eaten: false } as DayMeal;
+      if (state.selectedDay) {
+        this.appendDayMealToSelectedDay(dayMeal, state.selectedDay);
+      } else {
+        this.createDayWithDayMeal(dayMeal, state.selectedDate);
+      }
+    });
+  }
+
+  private appendDayMealToSelectedDay(dayMeal: DayMeal, selectedDay: Day): void {
+    const updatedDay: Day = {
+      ...selectedDay,
+      dayMeals: [ ...selectedDay.dayMeals, dayMeal ],
+    };
+    this.store.dispatch(DayPlanActions.updateDay({ day: updatedDay }));
+  }
+
+  private createDayWithDayMeal(dayMeal: DayMeal, selectedDate: Date): void {
+    const day = { dayMeals: [ dayMeal ], date: selectedDate.getTime() } as Partial<Day>;
+    this.store.dispatch(DayPlanActions.createDay({ day }));
   }
 }

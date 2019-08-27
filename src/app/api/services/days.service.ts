@@ -18,4 +18,8 @@ export class DaysService {
   putDay(day: Day): Observable<Day> {
     return this.http.put<Day>(this.dayUrl + '/' + day.id.toString(), day);
   }
+
+  createDay(day: Partial<Day>): Observable<Day> {
+    return this.http.post<Day>(this.dayUrl, day);
+  }
 }
