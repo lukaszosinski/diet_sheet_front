@@ -99,6 +99,6 @@ export class DayPlanComponent implements OnInit {
   }
 
   onAddMealButtonClick(): void {
-    this.matDialog.open(AddMealDialogComponent);
+    this.matDialog.open(AddMealDialogComponent, { width: '70vw', height: '70vh' });
   }
 }

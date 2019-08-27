@@ -9,9 +9,11 @@ import { Meal } from '../../../meal/meal.model';
 @Component({
   selector: 'diet-add-meal-dialog',
   template: `
-      <p>
-          add-meal-dialog works!
-      </p>
+      <ul class="diet-add-meal-dialog-list">
+          <li *ngFor="let meal of (meals$ | async)">
+              <diet-meal-with-summary class="diet-add-meal-dialog-list-item-content" [meal]="meal"></diet-meal-with-summary>
+          </li>
+      </ul>
   `,
   styleUrls: [ './add-meal-dialog.component.scss' ],
   changeDetection: ChangeDetectionStrategy.OnPush

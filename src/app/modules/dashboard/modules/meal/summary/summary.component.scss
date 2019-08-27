@@ -1,0 +1,63 @@
+@import "colors.scss";
+
+.summary-wrapper {
+  margin: 0.5rem;
+  display: flex;
+  justify-content: center;
+}
+
+.summary {
+  padding: 0.25rem 0.5rem;
+  background-color: #fbfcec;
+  margin: 0.5rem 0.25rem 0.25rem;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.summary-label {
+  text-align: center;
+  font-size: 0.75rem;
+}
+
+.label-img {
+  width: 1.3rem;
+  height: 1.3rem;
+  background-size: contain;
+}
+
+.kcal-img {
+  background-image: url(../../../../../../assets/images/icons/kcal.png);
+}
+
+.carbs-img {
+  background-image: url(../../../../../../assets/images/icons/carbs.png);
+}
+
+.fat-img {
+  background-image: url(../../../../../../assets/images/icons/fat.png);
+}
+
+.proteins-img {
+  background-image: url(../../../../../../assets/images/icons/proteins.png);
+}
+
+@media (max-width: 400px) {
+  .summary {
+    padding: 0.25rem 0.25rem;
+  }
+}
+
+.summary-wrapper.summary-wrapper--wrap {
+  flex-wrap: wrap;
+
+  .summary {
+    margin: 0.2rem
+  }
+}
+
+.summary-wrapper.summary-wrapper--alternative-theme {
+  .summary {
+    background-color: $backgroundColor;
+  }
+}

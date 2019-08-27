@@ -5,6 +5,6 @@ $warnColor: #e1b627;
 $dangerColor: red;
 $fontColor: #2c2168;
 $light: lighten($backgroundColor, 5);
-$light--hover: lighten($backgroundColor, 2);
+$light--hover: lighten($backgroundColor, 3);
 $light--active: darken($backgroundColor, 2);
 $light--shadow: transparentize(#646464, 0.4);

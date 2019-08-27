@@ -13,6 +13,10 @@ $html-font-size-md: 15px;
 $html-font-size-sm: 14px;
 $html-font-size-xs: 13px;
 
+$breakpoint-md-max-width: 1024px;
+$breakpoint-sm-max-width: 640px;
+$breakpoint-xs-max-width: 480px;
+
 html {
   height: 100%;
   overflow: auto;
