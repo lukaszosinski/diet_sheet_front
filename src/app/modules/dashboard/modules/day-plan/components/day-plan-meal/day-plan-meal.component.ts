@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { DayMeal } from '../../../../../../api/models/day-meal.model';
 
 
@@ -7,8 +7,8 @@ import { DayMeal } from '../../../../../../api/models/day-meal.model';
   template: `
       <div class="content-wrapper">
           <input class="meal-checkbox" type="checkbox"
-                 [(ngModel)]="eaten"
-                 (change)="onCheckboxClick()"
+                 [checked]="dayMeal.eaten"
+                 (change)="onEatenChange()"
                  title="{{'DAY_PLAN.MARK_MEAL_AS_EATEN' | translate}}"
           />
           <div class="meal-content">
@@ -21,26 +21,16 @@ import { DayMeal } from '../../../../../../api/models/day-meal.model';
   styleUrls: [ './day-plan-meal.component.scss' ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DayPlanMealComponent implements OnInit {
-  @Input() dayMeal?: DayMeal;
+export class DayPlanMealComponent {
+  @Input() dayMeal!: DayMeal;
   @Output() deleteDayMeal: EventEmitter<void> = new EventEmitter<void>();
   @Output() mealEatenMarkChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  eaten?: boolean;
-
-  ngOnInit(): void {
-    if (!!this.dayMeal) {
-      this.eaten = this.dayMeal.eaten;
-    }
-  }
-
   onDeleteButtonClick(): void {
-      this.deleteDayMeal.emit();
+    this.deleteDayMeal.emit();
   }
 
-  onCheckboxClick(): void {
-    if (!!this.dayMeal) {
-      this.mealEatenMarkChanged.emit(this.eaten);
-    }
+  onEatenChange(): void {
+    this.mealEatenMarkChanged.emit(!this.dayMeal.eaten);
   }
 }
