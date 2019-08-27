@@ -3,28 +3,29 @@ import * as DayPlanActions from './day-plan.actions';
 import * as fromApp from '../../../../app.recuder';
 import { Day } from '../../../../api/models/day';
 import { isSameDay } from '../../../shared/utils/date-utils';
+import { createEntityAdapter, Dictionary, EntityAdapter, EntityState } from '@ngrx/entity';
 
 export const dayPlanFeatureKey = 'dayPlan';
 
-export interface State {
+export interface State extends EntityState<Day> {
   selectedDate: Date;
   selectedDay?: Day;
-  loadedDays: Day[];
   processing: {
     loadDay: boolean,
     updateDay: boolean
   };
 }
 
-export const initialState: State = {
+export const adapter: EntityAdapter<Day> = createEntityAdapter<Day>();
+
+export const initialState: State = adapter.getInitialState({
   selectedDate: new Date(),
   selectedDay: undefined,
-  loadedDays: [],
   processing: {
     loadDay: false,
     updateDay: false,
   }
-};
+});
 
 const dayPlanReducer = createReducer(
   initialState,
@@ -32,7 +33,7 @@ const dayPlanReducer = createReducer(
     (state, { date }) => ({
       ...state,
       selectedDate: date,
-      selectedDay: findDayByDate(state.loadedDays, date),
+      selectedDay: findDayByDate(state.entities, date),
     })
   ),
   on(DayPlanActions.loadDays,
@@ -40,13 +41,10 @@ const dayPlanReducer = createReducer(
       return { ...state, processing: { ...state.processing, loadDay: true } };
     }),
   on(DayPlanActions.loadDaysSuccess, (state, { days }) => {
-    const daysIds = days.map(d => d.id);
-    const filteredLoadedDays = state.loadedDays.filter(loadedDay => !daysIds.includes(loadedDay.id));
-    const updatedLoadedDays = [ ...days, ...filteredLoadedDays ];
+    const withUpdatedDays = adapter.upsertMany(days, state);
     return {
-      ...state,
-      selectedDay: findDayByDate(updatedLoadedDays, state.selectedDate),
-      loadedDays: updatedLoadedDays,
+      ...withUpdatedDays,
+      selectedDay: findDayByDate(withUpdatedDays.entities, state.selectedDate),
       processing: { ...state.processing, loadDay: false }
     };
   }),
@@ -54,21 +52,18 @@ const dayPlanReducer = createReducer(
   on(DayPlanActions.updateSelectedDayDayMeal, state => ({ ...state, processing: { ...state.processing, updateDay: true } })),
   on(DayPlanActions.deleteSelectedDayDayMeal, state => ({ ...state, processing: { ...state.processing, updateDay: true } })),
   on(DayPlanActions.updateDaySuccess, (state, { day }) => {
-    const indexToUpdate = state.loadedDays.findIndex(d => d.id === day.id);
-    const updatedLoadedDays = [...state.loadedDays];
-    updatedLoadedDays.splice(indexToUpdate, 1, day);
+    const withUpdatedDay = adapter.updateOne({ id: day.id, changes: day }, state);
     return {
-      ...state,
-      selectedDay: findDayByDate(updatedLoadedDays, state.selectedDate),
-      loadedDays: updatedLoadedDays,
+      ...withUpdatedDay,
+      selectedDay: findDayByDate(withUpdatedDay.entities, state.selectedDate),
       processing: { ...state.processing, updateDay: false }
     };
   }),
   on(DayPlanActions.updateDayError, state => ({ ...state, processing: { ...state.processing, updateDay: false } }))
 );
 
-function findDayByDate(days: Day[], date: Date): Day | undefined {
-  return days.find(day => isSameDay(day.date, date.getTime()));
+function findDayByDate(days: Dictionary<Day>, date: Date): Day | undefined {
+  return Object.values(days).find(day => !!day && isSameDay(day.date, date.getTime()));
 }
 
 export function reducer(state: State | undefined, action: Action): State {

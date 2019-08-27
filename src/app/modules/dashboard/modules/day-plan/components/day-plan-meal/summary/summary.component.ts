@@ -1,5 +1,5 @@
-import {Component, ChangeDetectionStrategy, Input} from '@angular/core';
-import {Summary} from '../../../../../../../api/models/summary';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { Summary } from '../../../../../../../api/models/summary';
 
 @Component({
   selector: 'diet-summary',
@@ -20,10 +20,6 @@ import {Summary} from '../../../../../../../api/models/summary';
         <div class="summary" title="{{'SUMMARY.FAT' | translate}}">
             <div class="summary-label">{{summary.fat}}</div>
             <div class="label-img fat-img"></div>
-        </div>
-        <div class="summary" title="{{'SUMMARY.ROUGHAGE' | translate}}">
-            <div class="summary-label">{{summary.roughage}}</div>
-            <div class="label-img roughage-img"></div>
         </div>
     </div>
 

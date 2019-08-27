@@ -1,6 +1,7 @@
 @import "colors.scss";
 
 .content-wrapper {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -18,57 +19,63 @@
   }
 }
 
-span {
-  margin: 0.25rem;
-  color: #82373d;
-  display: block;
-  text-align: center
-}
 
 .meal-content {
   width: 90%;
+
+  .meal-content-name {
+    margin: 0.25rem;
+    color: darken($secondaryColor, 30);
+    text-align: center
+  }
 }
 
-button.delete-meal-button {
-    background-image: url(~src/assets/images/icons/X.png);
-    background-color: transparent;
-    background-repeat: no-repeat;
-    border: none;
-    cursor: pointer;
-    height: 1rem;
-    width: 1rem;
-    position: relative;
-    bottom: 1.6rem;
-    left: 1rem;
-}
+.delete-meal-button {
+  background: transparent url(~src/assets/images/icons/X.png) no-repeat;
+  cursor: pointer;
+  height: 1rem;
+  width: 1rem;
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  outline: none;
 
-@media(max-width: 570px) {
-  button.delete-meal-button {
-    bottom: 3rem;
-    left: 0.1rem;
+  &:focus, &:hover {
+    background-color: transparentize($primaryColor, 0.8);
+    border-radius: 50%;
   }
 }
 
 .meal-checkbox {
+  appearance: none;
   width: 1rem;
   height: 1rem;
   background-color: white;
   border-radius: 50%;
-  vertical-align: middle;
   border: 1px solid $secondaryColor;
-  -webkit-appearance: none;
   outline: none;
   cursor: pointer;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translate(50%, -50%);
+
+  &:focus, &:hover {
+    background-color: lighten($warnColor, 30);
+  }
 
   &:checked {
-    background-color: #e1b628;
+    background-color: lighten($warnColor, 10);
+
+    &:focus, &:hover {
+      background-color: $warnColor;
+    }
   }
 }
 
-@media(max-width: 570px) {
-  button.delete-meal-button {
-    bottom: 3rem;
-    left: 0.1rem;
+@media (max-width: 450px) {
+  .content-wrapper {
+    margin-right: 5%;
+    margin-left: 5%;
   }
 }
-
