@@ -32,6 +32,7 @@ $nav-bar-width: 200px;
     height: 100%;
     display: flex;
     justify-content: center;
+    overflow: auto;
 
     & > *:nth-child(2) {
       background: white;

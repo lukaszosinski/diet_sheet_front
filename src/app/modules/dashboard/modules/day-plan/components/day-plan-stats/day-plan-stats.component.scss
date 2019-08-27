@@ -7,29 +7,35 @@
   justify-content: center;
   align-items: center;
   text-align: center;
-  border-radius: 3rem;
+  border-top-right-radius: 3rem;
+  border-top-left-radius: 3rem;
   box-shadow: transparentize(#ca2043, 0.5) 0px -2px 20px 0px;
   padding: 0.25rem 0.5rem;
   background-color: #f4d2b5;
-  position: absolute;
-  bottom: 0;
+  position: sticky;
   width: 100%;
-  transform: translateY(10%);
-
-  :last-child {
-    margin-bottom: 10%;
-  }
+  bottom: 0;
 }
-
 .day-plan-summary-wrapper-hidden {
-  transform: translateY(80%);
+  transform: translateY(67%);
 }
-
 .summary-element {
   display: flex;
   flex-direction: column;
-  text-align: left;
+  margin: 0.5rem;
   width: 80%;
+}
+
+.summary-element-header-wrapper {
+  display: flex;
+
+  :last-child {
+    margin-left: auto;
+  }
+
+  & span {
+    white-space: pre;
+  }
 }
 
 .summary-arrow {
@@ -71,10 +77,11 @@ meter::-webkit-meter-optimum-value {
   background: #e1b628;
 }
 
-meter::-webkit-meter-suboptimum-value {
-  background: #FFDB1A;
+/* Firefox */
+meter::-moz-meter-bar {
+  border-radius: 3px;
 }
 
-meter::-webkit-meter-even-less-good-value  {
-  background: #CC4600;
+meter:-moz-meter-optimum::-moz-meter-bar {
+  background: #e1b628;
 }

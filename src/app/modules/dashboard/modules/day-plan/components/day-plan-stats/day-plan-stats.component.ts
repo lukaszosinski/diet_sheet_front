@@ -11,24 +11,36 @@ import {Summary} from '../../../../../../api/models/summary';
                 title="{{'DAY_PLAN.TOGGLE_SUMMARY' | translate}}">
         </button>
         <div class="summary-element">
-            <span>{{'SUMMARY.KCAL' | translate}}:</span>
+            <div class="summary-element-header-wrapper">
+                <span>{{'SUMMARY.KCAL' | translate}}: </span>
+                <span>{{eatenMealsSummary.kcal}} kcal</span>
+                <span>{{summary.kcal}} kcal</span>
+            </div>
             <meter min="0" max="{{summary.kcal}}" value="{{eatenMealsSummary.kcal}}"></meter>
         </div>
         <div class="summary-element">
-            <span>{{'SUMMARY.PROTEINS' | translate}}:</span>
+            <div class="summary-element-header-wrapper">
+                <span>{{'SUMMARY.PROTEINS' | translate}}: </span>
+                <span>{{eatenMealsSummary.proteins}} g</span>
+                <span>{{summary.proteins}} g</span>
+            </div>
             <meter min="0" max="{{summary.proteins}}" value="{{eatenMealsSummary.proteins}}"></meter>
         </div>
         <div class="summary-element">
-            <span>{{'SUMMARY.CARBS' | translate}}:</span>
+            <div class="summary-element-header-wrapper">
+                <span>{{'SUMMARY.CARBS' | translate}}: </span>
+                <span>{{eatenMealsSummary.carbs}} g</span>
+                <span>{{summary.carbs}} g</span>
+            </div>
             <meter min="0" max="{{summary.carbs}}" value="{{eatenMealsSummary.carbs}}"></meter>
         </div>
         <div class="summary-element">
-            <span>{{'SUMMARY.FAT' | translate}}:</span>
+            <div class="summary-element-header-wrapper">
+                <span>{{'SUMMARY.FAT' | translate}}: </span>
+                <span>{{eatenMealsSummary.fat}} g</span>
+                <span>{{summary.fat}} g</span>
+            </div>
             <meter min="0" max="{{summary.fat}}" value="{{eatenMealsSummary.fat}}"></meter>
-        </div>
-        <div class="summary-element">
-            <span>{{'SUMMARY.ROUGHAGE' | translate}}:</span>
-            <meter min="0" max="{{summary.roughage}}" value="{{eatenMealsSummary.roughage}}"></meter>
         </div>
     </div>
   `,
