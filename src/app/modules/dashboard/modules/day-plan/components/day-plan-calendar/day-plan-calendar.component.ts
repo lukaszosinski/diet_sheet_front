@@ -43,7 +43,6 @@ export class DayPlanCalendarComponent implements OnInit {
     fromEvent(window, 'resize')
       .subscribe((() => {
         const computedSideListItemsQuantity = this.getSideListItemsQuantity();
-        console.log(computedSideListItemsQuantity, this.sideListItemsQuantity);
         if (this.sideListItemsQuantity !== computedSideListItemsQuantity) {
           this.sideListItemsQuantity = computedSideListItemsQuantity;
           this.changeDetectorRef.markForCheck();

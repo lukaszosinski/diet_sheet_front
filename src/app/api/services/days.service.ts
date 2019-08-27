@@ -14,4 +14,8 @@ export class DaysService {
     const params = { dateFrom: dateFrom.toISOString(), dateTo: dateTo.toISOString() };
     return this.http.get<Day[]>(this.dayUrl, { params });
   }
+
+  putDay(day: Day): Observable<Day> {
+    return this.http.put<Day>(this.dayUrl + '/' + day.id.toString(), day);
+  }
 }

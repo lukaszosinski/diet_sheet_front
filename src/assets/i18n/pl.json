@@ -44,7 +44,15 @@
     "CALENDAR": "Kalendarz",
     "DELETE_MEAL": "Usuń posiłek",
     "MARK_MEAL_AS_EATEN": "Oznacz posiłek jako zjedzony",
-    "LOAD_DAYS_ERROR": "Wystąpił błąd podczas ładowania planu dnia"
+    "LOAD_DAYS_ERROR": "Wystąpił błąd podczas ładowania planu dnia",
+    "UPDATE_DAY_ERROR": "Wystąpił błąd podczas aktualizacji dnia"
+  },
+  "SUMMARY": {
+    "KCAL": "Kalorie",
+    "PROTEINS": "Białko",
+    "CARBS": "Węglowodany",
+    "FAT": "Tłuszcz",
+    "ROUGHAGE": "Błonnik"
   },
   "LANDING_PAGE": {
     "WELCOME": "Witaj w DIET",

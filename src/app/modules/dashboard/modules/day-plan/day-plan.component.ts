@@ -5,8 +5,8 @@ import { AppState } from '../../../../app.recuder';
 import * as fromDayPlan from './day-plan.reducer';
 import * as DayPlanActions from './day-plan.actions';
 import { addDays, getDay } from '../../../shared/utils/date-utils';
-import { Meal } from '../../../../api/models/meal';
 import { Summary } from '../../../../api/models/summary';
+import { DayMeal } from '../../../../api/models/day-meal.model';
 
 @Component({
   selector: 'diet-day-plan',
@@ -17,8 +17,11 @@ import { Summary } from '../../../../api/models/summary';
           ></diet-day-plan-calendar>
           <ng-container *ngIf="(shouldDisplayDayPlan() | async)">
               <ul class="diet-day-plan-meal-list">
-                  <li *ngFor="let meal of (getSelectedDayPlanMeals() | async)">
-                      <diet-day-plan-meal [meal]="meal"></diet-day-plan-meal>
+                  <li *ngFor="let dayMeal of (getSelectedDayPlanDayMeals() | async)">
+                      <diet-day-plan-meal
+                              [dayMeal]="dayMeal"
+                              (deleteDayMeal)="onDeleteDayMeal(dayMeal)"
+                              (mealEatenMarkChanged)="onMealEatenMarkChanged(dayMeal, $event)"></diet-day-plan-meal>
                   </li>
               </ul>
               <button class="diet-day-plan-add-product" title="{{'DAY_PLAN.ADD_PRODUCT' | translate}}">+</button>
@@ -33,6 +36,7 @@ export class DayPlanComponent implements OnInit {
 
   private readonly PREVIOUS_DAYS_QUANTITY = 3;
   private readonly NEXT_DAYS_QUANTITY = 3;
+
 
   constructor(private store: Store<AppState>) {
   }
@@ -59,6 +63,15 @@ export class DayPlanComponent implements OnInit {
     this.store.dispatch(DayPlanActions.loadDays({ fromDate, toDate }));
   }
 
+  onDeleteDayMeal(dayMealToDelete: DayMeal): void {
+    this.store.dispatch(DayPlanActions.deleteSelectedDayDayMeal({dayMeal: dayMealToDelete}));
+  }
+
+  onMealEatenMarkChanged(dayMeal: DayMeal, eaten: boolean): void {
+    const dayMealToUpdate = {...dayMeal, eaten};
+    this.store.dispatch(DayPlanActions.updateSelectedDayDayMeal({dayMeal: dayMealToUpdate}));
+  }
+
   getSelectedDate(): Observable<Date> {
     return this.store.select(fromDayPlan.selectSelectedDate);
   }
@@ -67,8 +80,8 @@ export class DayPlanComponent implements OnInit {
     return this.store.select(fromDayPlan.selectSelectedDayPlanExists);
   }
 
-  getSelectedDayPlanMeals(): Observable<Meal[] | undefined> {
-    return this.store.select(fromDayPlan.selectSelectedDayPlanMeals);
+  getSelectedDayPlanDayMeals(): Observable<DayMeal[] | undefined> {
+    return this.store.select(fromDayPlan.selectSelectedDayPlanDayMeals);
   }
 
   getSelectedDayPlanSummary(): Observable<Summary | undefined> {

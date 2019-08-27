@@ -1,25 +1,26 @@
-import {Component, ChangeDetectionStrategy, Input} from '@angular/core';
-import {Summary} from "../../../../../../../api/models/summary";
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { Summary } from '../../../../../../../api/models/summary';
 
 @Component({
   selector: 'diet-summary',
   template: `
-    <div class="content-wrapper">
-        <label class="summary">
-            {{summary.kcal}}
-        </label>
-        <label class="summary">
-            {{summary.carbs}}
-        </label>
-        <label class="summary">
-            {{summary.proteins}}
-        </label>
-        <label class="summary">
-            {{summary.fat}}
-        </label>
-        <label class="summary">
-            {{summary.roughage}}
-        </label>
+    <div class="summary-wrapper">
+        <div class="summary" title="{{'SUMMARY.KCAL' | translate}}">
+            <div class="summary-label">{{summary.kcal}}</div>
+            <div class="label-img kcal-img"></div>
+        </div>
+        <div class="summary" title="{{'SUMMARY.CARBS' | translate}}">
+            <div class="summary-label">{{summary.carbs}}</div>
+            <div class="label-img carbs-img"></div>
+        </div>
+        <div class="summary" title="{{'SUMMARY.PROTEINS' | translate}}">
+            <div class="summary-label">{{summary.proteins}}</div>
+            <div class="label-img proteins-img"></div>
+        </div>
+        <div class="summary" title="{{'SUMMARY.FAT' | translate}}">
+            <div class="summary-label">{{summary.fat}}</div>
+            <div class="label-img fat-img"></div>
+        </div>
     </div>
 
   `,
