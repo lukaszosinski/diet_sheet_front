@@ -1,12 +1,17 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import {Summary} from '../../../../../../api/models/summary';
+import {Store} from '@ngrx/store';
+import {AppState} from '../../../../../../app.recuder';
+import * as fromDayPlan from '../../day-plan.reducer';
+import * as DayPlanActions from '../../day-plan.actions';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'diet-day-plan-stats',
   template: `
-    <div class="day-plan-summary-wrapper" [ngClass]="{'day-plan-summary-wrapper-hidden':shouldBeHidden==true }">
+    <div class="day-plan-summary-wrapper" [ngClass]="{'day-plan-summary-wrapper-hidden':(shouldShowStats$ | async)==false }">
         <button class="summary-arrow"
-                [ngClass]="{'rotated-summary-arrow': shouldBeHidden==false}"
+                [ngClass]="{'rotated-summary-arrow': (shouldShowStats$ | async)==true}"
                 (click)="onArrowClick()"
                 title="{{'DAY_PLAN.TOGGLE_SUMMARY' | translate}}">
         </button>
@@ -52,13 +57,13 @@ export class DayPlanStatsComponent {
   @Input() summary?: Summary;
   @Input() eatenMealsSummary?: Summary;
 
-  shouldBeHidden: boolean;
+  shouldShowStats$: Observable<boolean>;
 
-  constructor() {
-    this.shouldBeHidden = true;
+  constructor(private store: Store<AppState>) {
+    this.shouldShowStats$ = this.store.select(fromDayPlan.selectShouldShowStats);
   }
 
   onArrowClick(): void {
-    this.shouldBeHidden = !this.shouldBeHidden;
+    this.store.dispatch(DayPlanActions.toggleStats());
   }
 }
