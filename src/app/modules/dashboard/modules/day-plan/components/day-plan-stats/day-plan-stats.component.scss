@@ -19,24 +19,6 @@
 .day-plan-summary-wrapper-hidden {
   transform: translateY(67%);
 }
-.summary-element {
-  display: flex;
-  flex-direction: column;
-  margin: 0.5rem;
-  width: 80%;
-}
-
-.summary-element-header-wrapper {
-  display: flex;
-
-  :last-child {
-    margin-left: auto;
-  }
-
-  & span {
-    white-space: pre;
-  }
-}
 
 .summary-arrow {
   background: url(~src/assets/images/icons/arrow.png) no-repeat;
@@ -48,36 +30,7 @@
   transform: rotate(180deg);
 }
 
-meter {
-  width: 100%;
-  height: 10px;
-  margin: 0.25rem;
-  background: #EEE;
-  box-shadow: 0 2px 3px rgba(0,0,0,0.2) inset;
-  border-radius: 3px;
-}
-
-meter::-webkit-meter-bar {
-  background: #EEE;
-  box-shadow: 0 2px 3px rgba(0,0,0,0.2) inset;
-  border-radius: 3px;
-}
-
-meter::-webkit-meter-optimum-value,
-meter::-webkit-meter-suboptimum-value,
-meter::-webkit-meter-even-less-good-value {
-  border-radius: 3px;
-}
-
-meter::-webkit-meter-optimum-value {
-  background: #e1b628;
-}
-
-/* Firefox */
-meter::-moz-meter-bar {
-  border-radius: 3px;
-}
-
-meter:-moz-meter-optimum::-moz-meter-bar {
-  background: #e1b628;
+.diet-stats-meter {
+  margin: 0.5rem;
+  width: 80%;
 }

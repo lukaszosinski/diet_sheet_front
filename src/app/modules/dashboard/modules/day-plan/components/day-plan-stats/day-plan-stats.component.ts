@@ -1,60 +1,42 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import {Summary} from '../../../../../../api/models/summary';
-import {Store} from '@ngrx/store';
-import {AppState} from '../../../../../../app.recuder';
+import { Summary } from '../../../../../../api/models/summary';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../../../../../app.recuder';
 import * as fromDayPlan from '../../day-plan.reducer';
 import * as DayPlanActions from '../../day-plan.actions';
-import {Observable} from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'diet-day-plan-stats',
   template: `
-    <div class="day-plan-summary-wrapper" [class.day-plan-summary-wrapper-hidden]="!(shouldShowStats$ | async)">
-        <button class="summary-arrow"
-                [class.rotated-summary-arrow]="(shouldShowStats$ | async)"
-                (click)="onArrowClick()"
-                title="{{'DAY_PLAN.TOGGLE_SUMMARY' | translate}}">
-        </button>
-        <div class="summary-element">
-            <div class="summary-element-header-wrapper">
-                <span>{{'SUMMARY.KCAL' | translate}}: </span>
-                <span>{{eatenMealsSummary.kcal}} kcal</span>
-                <span>{{summary.kcal}} kcal</span>
-            </div>
-            <meter min="0" max="{{summary.kcal}}" value="{{eatenMealsSummary.kcal}}"></meter>
-        </div>
-        <div class="summary-element">
-            <div class="summary-element-header-wrapper">
-                <span>{{'SUMMARY.PROTEINS' | translate}}: </span>
-                <span>{{eatenMealsSummary.proteins}} g</span>
-                <span>{{summary.proteins}} g</span>
-            </div>
-            <meter min="0" max="{{summary.proteins}}" value="{{eatenMealsSummary.proteins}}"></meter>
-        </div>
-        <div class="summary-element">
-            <div class="summary-element-header-wrapper">
-                <span>{{'SUMMARY.CARBS' | translate}}: </span>
-                <span>{{eatenMealsSummary.carbs}} g</span>
-                <span>{{summary.carbs}} g</span>
-            </div>
-            <meter min="0" max="{{summary.carbs}}" value="{{eatenMealsSummary.carbs}}"></meter>
-        </div>
-        <div class="summary-element">
-            <div class="summary-element-header-wrapper">
-                <span>{{'SUMMARY.FAT' | translate}}: </span>
-                <span>{{eatenMealsSummary.fat}} g</span>
-                <span>{{summary.fat}} g</span>
-            </div>
-            <meter min="0" max="{{summary.fat}}" value="{{eatenMealsSummary.fat}}"></meter>
-        </div>
-    </div>
+      <div class="day-plan-summary-wrapper" [class.day-plan-summary-wrapper-hidden]="!(shouldShowStats$ | async)">
+          <button class="summary-arrow"
+                  [class.rotated-summary-arrow]="(shouldShowStats$ | async)"
+                  (click)="onArrowClick()"
+                  title="{{'DAY_PLAN.TOGGLE_SUMMARY' | translate}}">
+          </button>
+          <diet-stats-meter *ngFor="let meterData of metersData"
+                            class="diet-stats-meter"
+                            [value]="eatenMealsSummary[meterData.propertyName]"
+                            [max]="summary[meterData.propertyName]"
+                            [meterName]="meterData.translationKey | translate"
+          ></diet-stats-meter>
+      </div>
   `,
   styleUrls: [ './day-plan-stats.component.scss' ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class DayPlanStatsComponent {
-  @Input() summary?: Summary;
+
+  readonly metersData: Readonly<MeterData>[] = [
+    { propertyName: 'kcal', translationKey: 'SUMMARY.KCAL' },
+    { propertyName: 'proteins', translationKey: 'SUMMARY.PROTEINS' },
+    { propertyName: 'carbs', translationKey: 'SUMMARY.CARBS' },
+    { propertyName: 'fat', translationKey: 'SUMMARY.FAT' },
+  ];
+
+  @Input() summary!: Summary;
   @Input() eatenMealsSummary?: Summary;
 
   shouldShowStats$: Observable<boolean>;
@@ -66,4 +48,9 @@ export class DayPlanStatsComponent {
   onArrowClick(): void {
     this.store.dispatch(DayPlanActions.toggleStatsVisibility());
   }
+}
+
+interface MeterData {
+  translationKey: string;
+  propertyName: keyof Summary;
 }
