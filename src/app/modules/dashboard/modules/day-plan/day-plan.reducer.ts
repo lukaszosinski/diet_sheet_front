@@ -62,7 +62,7 @@ const dayPlanReducer = createReducer(
     };
   }),
   on(DayPlanActions.updateDayError, state => ({ ...state, processing: { ...state.processing, updateDay: false } })),
-  on(DayPlanActions.toggleStats, (state: State) => ({ ...state, shouldShowStats: !state.shouldShowStats }))
+  on(DayPlanActions.toggleStatsVisibility, (state: State) => ({ ...state, shouldShowStats: !state.shouldShowStats }))
 );
 
 function findDayByDate(days: Dictionary<Day>, date: Date): Day | undefined {
@@ -97,12 +97,12 @@ export const selectSelectedDayPlan = createSelector(
 
 export const selectSelectedDayPlanSummary = createSelector(
   selectSelectedDayPlan,
-  (selectedDay: Day | undefined) => selectedDay ? selectedDay.summary : undefined
+  (selectedDay: Day | undefined) => selectedDay && selectedDay.summary
 );
 
 export const selectSelectedDayPlanEatenMealsSummary = createSelector(
   selectSelectedDayPlan,
-  (selectedDay: Day | undefined) => selectedDay ? selectedDay.eatenMealsSummary : undefined
+  (selectedDay: Day | undefined) => selectedDay && selectedDay.eatenMealsSummary
 );
 
 export const selectSelectedDayPlanDayMeals = createSelector(

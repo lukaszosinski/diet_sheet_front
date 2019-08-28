@@ -9,9 +9,9 @@ import {Observable} from 'rxjs';
 @Component({
   selector: 'diet-day-plan-stats',
   template: `
-    <div class="day-plan-summary-wrapper" [ngClass]="{'day-plan-summary-wrapper-hidden':(shouldShowStats$ | async)==false }">
+    <div class="day-plan-summary-wrapper" [class.day-plan-summary-wrapper-hidden]="!(shouldShowStats$ | async)">
         <button class="summary-arrow"
-                [ngClass]="{'rotated-summary-arrow': (shouldShowStats$ | async)==true}"
+                [class.rotated-summary-arrow]="(shouldShowStats$ | async)"
                 (click)="onArrowClick()"
                 title="{{'DAY_PLAN.TOGGLE_SUMMARY' | translate}}">
         </button>
@@ -64,6 +64,6 @@ export class DayPlanStatsComponent {
   }
 
   onArrowClick(): void {
-    this.store.dispatch(DayPlanActions.toggleStats());
+    this.store.dispatch(DayPlanActions.toggleStatsVisibility());
   }
 }

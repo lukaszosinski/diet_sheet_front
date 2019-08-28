@@ -9,9 +9,9 @@
   text-align: center;
   border-top-right-radius: 3rem;
   border-top-left-radius: 3rem;
-  box-shadow: transparentize(#ca2043, 0.5) 0px -2px 20px 0px;
+  box-shadow: transparentize($secondaryColor, 0.5) 0px -2px 20px 0px;
   padding: 0.25rem 0.5rem;
-  background-color: #f4d2b5;
+  background-color: $tertiaryColor;
   position: sticky;
   width: 100%;
   bottom: 0;
@@ -39,11 +39,7 @@
 }
 
 .summary-arrow {
-  background-image: url(~src/assets/images/icons/arrow.png);
-  background-color: transparent;
-  background-repeat: no-repeat;
-  border: none;
-  cursor: pointer;
+  background: url(~src/assets/images/icons/arrow.png) no-repeat;
   height: 25px;
   width: 25px;
 }
