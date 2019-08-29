@@ -11,6 +11,7 @@ import { DayPlanMealComponent } from './components/day-plan-meal/day-plan-meal.c
 import { DayPlanStatsComponent } from './components/day-plan-stats/day-plan-stats.component';
 import { EffectsModule } from '@ngrx/effects';
 import { DayPlanEffects } from './day-plan.effects';
+import { StatsMeterComponent } from './components/stats-metter/stats-meter.component';
 import { AddButtonComponent } from './components/add-button/add-button.component';
 import { MatDialogModule } from '@angular/material';
 import { AddMealDialogComponent } from './components/add-meal-dialog/add-meal-dialog.component';
@@ -25,6 +26,7 @@ import { MealModule } from '../meal/meal.module';
     DayPlanStatsComponent,
     AddButtonComponent,
     AddMealDialogComponent,
+    StatsMeterComponent,
   ],
   imports: [
     CommonModule,

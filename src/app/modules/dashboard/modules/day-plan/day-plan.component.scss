@@ -1,11 +1,37 @@
+@import "layout";
+
 .diet-day-plan-wrapper {
-  height: 100%;
+  min-height: 100vh;
   background: url('~src/assets/images/day-plan-background.svg') no-repeat 50% 50%;
   background-size: contain;
   display: flex;
   flex-direction: column;
+
+  .diet-day-plan-calendar {
+    flex: 0 0 auto;
+  }
+
+  .diet-day-plan-meals {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 5rem;
+
+    .diet-day-plan-add-meal {
+      align-self: center;
+      margin-top: 2rem;
+    }
+  }
 }
 
-.diet-day-plan-add-meal {
-  align-self: center;
+.diet-day-plan-stats {
+  max-width: $dashboard-max-width;
+  position: sticky;
+  bottom: 0;
+  transition: bottom 0.3s ease-out, margin 0.3s ease-out;
+
+  &--hidden {
+    bottom: -13.75rem;
+    margin-bottom: -13.75rem;
+  }
 }
