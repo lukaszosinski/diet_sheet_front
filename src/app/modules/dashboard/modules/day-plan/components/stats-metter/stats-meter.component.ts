@@ -5,11 +5,13 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
   template: `
       <div class="diet-stats-meter-wrapper">
           <div class="diet-stats-meter-header">
-              <span>{{meterName}}: </span>
+              <span>{{meterName}}</span>
+          </div>
+          <meter min="0" [max]="max" [value]="value"></meter>
+          <div class="diet-stats-meter-values">
               <span>{{value}} g</span>
               <span>{{max}} g</span>
           </div>
-          <meter min="0" [max]="max" [value]="value"></meter>
       </div>
   `,
   styleUrls: [ './stats-meter.component.scss' ],

@@ -1,16 +1,21 @@
+@import "colors.scss";
+
 .diet-stats-meter-wrapper {
   display: flex;
   flex-direction: column;
 }
 
 .diet-stats-meter-header {
-  display: flex;
+  margin-bottom: 0.5rem;
+}
 
-  :last-child {
-    margin-left: auto;
-  }
+.diet-stats-meter-values {
+  display: flex;
+  justify-content: space-between;
 
   span {
+    margin-top: 0.2rem;
+    font-size: 0.75rem;
     white-space: pre;
   }
 }
@@ -22,8 +27,8 @@ meter {
 
 meter,
 meter::-webkit-meter-bar {
-  background: #EEE;
-  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2) inset;
+  background: #d5bbab;
+  box-shadow: 0.05rem 0.05rem 0.3rem -0.2rem $shadowColor;
 }
 
 meter,
@@ -31,18 +36,20 @@ meter::-webkit-meter-bar,
 meter::-webkit-meter-optimum-value,
 meter::-webkit-meter-suboptimum-value,
 meter::-webkit-meter-even-less-good-value {
-  border-radius: 3px;
+  border-radius: 1.5rem;
 }
 
 meter::-webkit-meter-optimum-value {
-  background: #e1b628;
+  background: $warnColor;
+  box-shadow: 0.05rem 0.05rem 0.5rem -0.2rem $shadowColor;
 }
 
 /* Firefox */
 meter::-moz-meter-bar {
-  border-radius: 3px;
+  border-radius: 1.5rem;
 }
 
 meter:-moz-meter-optimum::-moz-meter-bar {
-  background: #e1b628;
+  background: $warnColor;
+  box-shadow: 0.2rem 0 0.3rem -0.2rem rgba(0, 0, 0, 0.2);
 }
