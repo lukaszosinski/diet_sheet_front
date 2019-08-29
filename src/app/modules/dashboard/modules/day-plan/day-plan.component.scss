@@ -1,5 +1,30 @@
+@import "layout";
+
 .diet-day-plan-wrapper {
-  height: 100%;
+  min-height: 100vh;
   background: url('~src/assets/images/day-plan-background.svg') no-repeat 50% 50%;
   background-size: contain;
+  display: flex;
+  flex-direction: column;
+
+  .diet-day-plan-calendar {
+    flex: 0 0 auto;
+  }
+
+  .diet-day-plan-meal-list {
+    flex: 1 1 auto;
+    margin-bottom: 7rem;
+  }
+}
+
+.diet-day-plan-stats {
+  max-width: $dashboard-max-width;
+  position: sticky;
+  bottom: 0;
+  transition: bottom 0.3s ease-out, margin 0.3s ease-out;
+
+  &--hidden {
+    bottom: -13.75rem;
+    margin-bottom: -13.75rem;
+  }
 }

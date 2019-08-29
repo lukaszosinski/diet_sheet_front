@@ -1,6 +1,5 @@
 @import 'layout.scss';
 
-$maxContentWidth: 800px;
 $nav-bar-width: 200px;
 
 .diet-dashboard {
@@ -32,13 +31,15 @@ $nav-bar-width: 200px;
     height: 100%;
     display: flex;
     justify-content: center;
+    overflow: auto;
+    position: relative;
 
     & > *:nth-child(2) {
+      height: fit-content;
+      min-height: 100%;
       background: white;
-      overflow: hidden;
       width: 100%;
-      height: 100%;
-      max-width: $maxContentWidth;
+      max-width: $dashboard-max-width;
       padding-top: $nav-bar-trigger-size;
     }
   }

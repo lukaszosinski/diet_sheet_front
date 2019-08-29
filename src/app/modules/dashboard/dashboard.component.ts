@@ -17,7 +17,7 @@ import * as DashboardActions from './dashboard.actions';
                       (triggered)="onNavBarTriggered()"
               ></diet-dashboard-nav-bar-trigger-button>
           </div>
-          <div class="diet-dashboard-content-wrapper">
+          <div id="diet-dashboard-content-wrapper" class="diet-dashboard-content-wrapper">
               <router-outlet></router-outlet>
           </div>
       </div>

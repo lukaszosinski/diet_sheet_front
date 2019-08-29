@@ -8,6 +8,7 @@ import { createEntityAdapter, Dictionary, EntityAdapter, EntityState } from '@ng
 export const dayPlanFeatureKey = 'dayPlan';
 
 export interface State extends EntityState<Day> {
+  shouldShowStats: boolean;
   selectedDate: Date;
   selectedDay?: Day;
   processing: {
@@ -19,6 +20,7 @@ export interface State extends EntityState<Day> {
 export const adapter: EntityAdapter<Day> = createEntityAdapter<Day>();
 
 export const initialState: State = adapter.getInitialState({
+  shouldShowStats: false,
   selectedDate: new Date(),
   selectedDay: undefined,
   processing: {
@@ -59,7 +61,8 @@ const dayPlanReducer = createReducer(
       processing: { ...state.processing, updateDay: false }
     };
   }),
-  on(DayPlanActions.updateDayError, state => ({ ...state, processing: { ...state.processing, updateDay: false } }))
+  on(DayPlanActions.updateDayError, state => ({ ...state, processing: { ...state.processing, updateDay: false } })),
+  on(DayPlanActions.toggleStatsVisibility, (state: State) => ({ ...state, shouldShowStats: !state.shouldShowStats }))
 );
 
 function findDayByDate(days: Dictionary<Day>, date: Date): Day | undefined {
@@ -94,10 +97,20 @@ export const selectSelectedDayPlan = createSelector(
 
 export const selectSelectedDayPlanSummary = createSelector(
   selectSelectedDayPlan,
-  (selectedDay: Day | undefined) => selectedDay ? selectedDay.summary : undefined
+  (selectedDay: Day | undefined) => selectedDay && selectedDay.summary
+);
+
+export const selectSelectedDayPlanEatenMealsSummary = createSelector(
+  selectSelectedDayPlan,
+  (selectedDay: Day | undefined) => selectedDay && selectedDay.eatenMealsSummary
 );
 
 export const selectSelectedDayPlanDayMeals = createSelector(
   selectSelectedDayPlan,
   (selectedDay) => selectedDay ? selectedDay.dayMeals : undefined
+);
+
+export const selectShouldShowStats = createSelector(
+  selectDayPlan,
+  (state: State) => state.shouldShowStats
 );
