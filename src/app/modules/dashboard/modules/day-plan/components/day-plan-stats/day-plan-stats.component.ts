@@ -1,17 +1,12 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { Summary } from '../../../../../../api/models/summary';
-import { Store } from '@ngrx/store';
-import { AppState } from '../../../../../../app.recuder';
-import * as fromDayPlan from '../../day-plan.reducer';
-import * as DayPlanActions from '../../day-plan.actions';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'diet-day-plan-stats',
   template: `
       <div class="day-plan-summary-wrapper">
           <button class="summary-arrow"
-                  [class.rotated-summary-arrow]="(shouldShowStats$ | async)"
+                  [class.rotated-summary-arrow]="isExpanded"
                   (click)="onArrowClick()"
                   title="{{'DAY_PLAN.TOGGLE_SUMMARY' | translate}}">
           </button>
@@ -36,17 +31,13 @@ export class DayPlanStatsComponent {
     { propertyName: 'fat', translationKey: 'SUMMARY.FAT' },
   ];
 
+  @Input() isExpanded: boolean = false;
   @Input() summary!: Summary;
   @Input() eatenMealsSummary?: Summary;
-
-  shouldShowStats$: Observable<boolean>;
-
-  constructor(private store: Store<AppState>) {
-    this.shouldShowStats$ = this.store.select(fromDayPlan.selectShouldShowStats);
-  }
+  @Output() toggleExpansion: EventEmitter<void> = new EventEmitter();
 
   onArrowClick(): void {
-    this.store.dispatch(DayPlanActions.toggleStatsVisibility());
+    this.toggleExpansion.emit();
   }
 }
 

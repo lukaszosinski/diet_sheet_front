@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { AppState } from '../../../../app.recuder';
@@ -7,7 +7,8 @@ import * as DayPlanActions from './day-plan.actions';
 import { addDays, getDay } from '../../../shared/utils/date-utils';
 import { Summary } from '../../../../api/models/summary';
 import { DayMeal } from '../../../../api/models/day-meal.model';
-import { map } from 'rxjs/operators';
+import { combineLatest, map } from 'rxjs/operators';
+import { DashboardScrollPositionService } from '../../dashboard-scroll-position.service';
 
 @Component({
   selector: 'diet-day-plan',
@@ -28,7 +29,9 @@ import { map } from 'rxjs/operators';
           <button class="diet-day-plan-add-product" title="{{'DAY_PLAN.ADD_PRODUCT' | translate}}">+</button>
           <diet-day-plan-stats *ngIf="(shouldDisplayDayPlanStats() | async)"
                                class="diet-day-plan-stats"
-                               [class.diet-day-plan-stats--hidden]="!(shouldExpandStats() | async)"
+                               [class.diet-day-plan-stats--hidden]="!shouldExpandStats"
+                               [isExpanded]="shouldExpandStats"
+                               (toggleExpansion)="onToggleExpansion()"
                                [summary]="getSelectedDayPlanSummary() | async"
                                [eatenMealsSummary]="getSelectedDayPlanEatenMealsSummary() | async">
           </diet-day-plan-stats>
@@ -39,16 +42,37 @@ import { map } from 'rxjs/operators';
 })
 export class DayPlanComponent implements OnInit {
 
+  private STATS_EXPAND_SCROLL_THRESHOLD_PX = 20;
   private readonly PREVIOUS_DAYS_QUANTITY = 3;
   private readonly NEXT_DAYS_QUANTITY = 3;
 
+  shouldExpandStats: boolean = false;
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store<AppState>,
+              private dashboardScrollPosition: DashboardScrollPositionService,
+              private changeDetectorRef: ChangeDetectorRef,
+  ) {
+  }
 
   ngOnInit(): void {
     const day = new Date();
     this.selectDay(day);
     this.loadNearbyDays(day);
+    this.checkIfShouldExpandStats()
+      .subscribe((shouldExpandStats) => {
+        if (this.shouldExpandStats !== shouldExpandStats) {
+          this.shouldExpandStats = shouldExpandStats;
+          this.changeDetectorRef.detectChanges();
+        }
+      });
+  }
+
+  private checkIfShouldExpandStats(): Observable<boolean> {
+    return this.store.select(fromDayPlan.selectShouldShowStats)
+      .pipe(
+        combineLatest(this.dashboardScrollPosition.isScrolledToBottom(this.STATS_EXPAND_SCROLL_THRESHOLD_PX)),
+        map(([ shouldShowStats, isScrolledToBottom ]) => shouldShowStats || isScrolledToBottom)
+      );
   }
 
   onNewDaySelected(day: Date): void {
@@ -76,6 +100,10 @@ export class DayPlanComponent implements OnInit {
     this.store.dispatch(DayPlanActions.updateSelectedDayDayMeal({ dayMeal: dayMealToUpdate }));
   }
 
+  onToggleExpansion(): void {
+    this.store.dispatch(DayPlanActions.toggleStatsVisibility());
+  }
+
   shouldDisplayDayPlanMeals(): Observable<boolean> {
     return this.store.select(fromDayPlan.selectSelectedDayPlanExists);
   }
@@ -99,9 +127,5 @@ export class DayPlanComponent implements OnInit {
 
   getSelectedDayPlanEatenMealsSummary(): Observable<Summary | undefined> {
     return this.store.select(fromDayPlan.selectSelectedDayPlanEatenMealsSummary);
-  }
-
-  shouldExpandStats(): Observable<boolean> {
-    return this.store.select(fromDayPlan.selectShouldShowStats);
   }
 }
