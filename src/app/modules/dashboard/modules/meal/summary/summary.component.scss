@@ -1,4 +1,6 @@
 @import "colors.scss";
+@import "layout.scss";
+
 .summary-wrapper {
   display: flex;
   justify-content: center;
@@ -42,21 +44,16 @@
 }
 
 
-@media (max-width: 400px) {
-  .summary {
-    font-size: 0.75rem;
-  }
+@media (max-width: $breakpoint-xs-max-width) {
+  .summary-wrapper.summary-wrapper:not(.summary-wrapper.summary-wrapper--wrap) {
+    .summary {
+      font-size: 0.75rem;
+    }
 
-  .label-img {
-    width: 1.25rem;
-    height: 1.25rem;
-  }
-}
-
-
-@media (max-width: 400px) {
-  .summary {
-    padding: 0.25rem 0.25rem;
+    .label-img {
+      width: 1.25rem;
+      height: 1.25rem;
+    }
   }
 }
 

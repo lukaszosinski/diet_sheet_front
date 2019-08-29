@@ -1,4 +1,5 @@
 @import "colors.scss";
+@import "layout.scss";
 
 .content-wrapper {
   position: relative;
@@ -78,7 +79,7 @@
   }
 }
 
-@media (max-width: 450px) {
+@media (max-width: $breakpoint-xs-max-width) {
   .content-wrapper {
     margin-right: 5%;
     margin-left: 5%;
