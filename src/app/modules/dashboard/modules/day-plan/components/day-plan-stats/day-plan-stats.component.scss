@@ -19,6 +19,11 @@
   height: 1.5rem;
   width: 1.5rem;
   background-size: contain;
+  outline: none;
+
+  &:hover {
+    filter: brightness(1.5);
+  }
 }
 
 .rotated-summary-arrow {
