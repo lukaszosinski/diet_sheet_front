@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { addDays, getDay } from '../../../../../shared/utils/date-utils';
+import { addDays } from '../../../../../shared/utils/date-utils';
 import { fromEvent } from 'rxjs';
 
 @Component({
@@ -10,9 +10,9 @@ import { fromEvent } from 'rxjs';
           <button class="calendar-arrow-left" (click)="onLeftArrowClick()"></button>
           <ul class="calendar-list">
               <li class="calendar-list-item"
-                  *ngFor="let previousDayNumber of previousDayNumbers"
-                  (click)="onSideListItemClick(previousDayNumber)"
-              >{{previousDayNumber}}</li>
+                  *ngFor="let previousDay of previousDays"
+                  (click)="onSideListItemClick(previousDay)"
+              >{{previousDay.getDate()}}</li>
               <li class="calendar-list-item calendar-list-item-central">
                   <ng-container *ngIf="!!selectedDate">
                       <div class="calendar-list-item-central-month">{{'COMMON.MONTH.' + selectedMonth | translate | titlecase}}</div>
@@ -21,8 +21,8 @@ import { fromEvent } from 'rxjs';
                   </ng-container>
               </li>
               <li class="calendar-list-item"
-                  *ngFor="let nextDayNumber of nextDayNumbers"
-                  (click)="onSideListItemClick(nextDayNumber)">{{nextDayNumber}}</li>
+                  *ngFor="let nextDay of nextDays"
+                  (click)="onSideListItemClick(nextDay)">{{nextDay.getDate()}}</li>
           </ul>
           <button class="calendar-arrow-right" (click)="onRightArrowClick()"></button>
       </div>
@@ -61,24 +61,24 @@ export class DayPlanCalendarComponent implements OnInit {
     }
   }
 
-  get previousDayNumbers(): number[] | null[] {
+  get previousDays(): Date[] | null[] {
     const previousDays = Array(this.getSideListItemsQuantity()).fill(null);
     if (!this.selectedDate) {
       return previousDays;
     }
-    return previousDays.map((_, index) => addDays(this.selectedDate as Date, index - this.getSideListItemsQuantity()).getDate());
+    return previousDays.map((_, index) => addDays(this.selectedDate as Date, index - this.getSideListItemsQuantity()));
   }
 
   get selectedDayNumber(): number | undefined {
     return !!this.selectedDate ? this.selectedDate.getDate() : undefined;
   }
 
-  get nextDayNumbers(): number[] | null[] {
+  get nextDays(): Date[] | null[] {
     const nextDays = Array(this.getSideListItemsQuantity()).fill(null);
     if (!this.selectedDate) {
       return nextDays;
     }
-    return nextDays.map((_, index) => addDays(this.selectedDate as Date, index + 1).getDate());
+    return nextDays.map((_, index) => addDays(this.selectedDate as Date, index + 1));
   }
 
   get selectedMonth(): number | undefined {
@@ -101,9 +101,7 @@ export class DayPlanCalendarComponent implements OnInit {
     }
   }
 
-  onSideListItemClick(dayNumber: number): void {
-    const newDay = getDay(new Date());
-    newDay.setDate(dayNumber);
-    this.newDaySelected.emit(newDay);
+  onSideListItemClick(day: Date): void {
+    this.newDaySelected.emit(day);
   }
 }

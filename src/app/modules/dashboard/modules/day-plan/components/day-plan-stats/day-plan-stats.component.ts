@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'diet-day-plan-stats',
   template: `
-      <div class="day-plan-summary-wrapper" [class.day-plan-summary-wrapper-hidden]="!(shouldShowStats$ | async)">
+      <div class="day-plan-summary-wrapper">
           <button class="summary-arrow"
                   [class.rotated-summary-arrow]="(shouldShowStats$ | async)"
                   (click)="onArrowClick()"

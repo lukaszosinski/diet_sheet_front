@@ -6,24 +6,19 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  text-align: center;
   border-top-right-radius: 3rem;
   border-top-left-radius: 3rem;
   box-shadow: transparentize($secondaryColor, 0.5) 0px -2px 20px 0px;
-  padding: 0.25rem 0.5rem;
+  padding-top: 0.5rem;
   background-color: $tertiaryColor;
-  position: sticky;
   width: 100%;
-  bottom: 0;
-}
-.day-plan-summary-wrapper-hidden {
-  transform: translateY(67%);
 }
 
 .summary-arrow {
   background: url(~src/assets/images/icons/arrow.png) no-repeat;
-  height: 25px;
-  width: 25px;
+  height: 1.5rem;
+  width: 1.5rem;
+  background-size: contain;
 }
 
 .rotated-summary-arrow {
