@@ -7,10 +7,10 @@ import {FormGroup} from '@angular/forms';
   template: `
     <div class="product-summary-wrapper" [formGroup]="parentForm">
         <div formGroupName="summary">
-            <input type="text" id="kcal" name="kcal" [formControlName]="'kcal'">
-            <input type="text" id="proteins" name="proteins" [formControlName]="'proteins'">
-            <input type="text" id="carbs" name="carbs" [formControlName]="'carbs'">
-            <input type="text" id="fat" name="fat" [formControlName]="'fat'">
+            <input type="text" name="kcal" formControlName="kcal">
+            <input type="text" name="proteins" formControlName="proteins">
+            <input type="text" name="carbs" formControlName="carbs">
+            <input type="text" name="fat" formControlName="fat">
         </div>
     </div>
   `,

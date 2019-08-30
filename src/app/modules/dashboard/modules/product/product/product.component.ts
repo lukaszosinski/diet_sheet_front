@@ -3,7 +3,7 @@ import {Product} from '../product.model';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../../../../app.recuder';
 import * as ProductActions from '../product.actions';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 
 @Component({
@@ -15,7 +15,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
               <button><span>x</span></button>
           </div>
           <form [formGroup]="form">
-              <input type="text" id="name" name="name" [formControlName]="'name'">
+              <input type="text" name="name" formControlName="name">
               <diet-product-summary [parentForm]="form"></diet-product-summary>
           </form>
       </div>
@@ -33,12 +33,12 @@ export class ProductComponent {
 
   private initializeForm(): void {
     this.form = this.fb.group({
-      name: 'Nowy produkt',
+      name: [undefined, Validators.required],
       summary: this.fb.group({
-        kcal: 0,
-        proteins: 0,
-        carbs: 0,
-        fat: 0
+        kcal: [undefined, Validators.required],
+        proteins: [undefined, Validators.required],
+        carbs: [undefined, Validators.required],
+        fat: [undefined, Validators.required]
       })
     });
   }
