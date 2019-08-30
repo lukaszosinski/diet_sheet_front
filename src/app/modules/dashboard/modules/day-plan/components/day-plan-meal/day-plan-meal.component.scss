@@ -1,13 +1,13 @@
 @import "colors.scss";
 @import "layout.scss";
 
-.content-wrapper {
+.diet-day-plan-meal-wrapper {
   position: relative;
   padding: 0.2rem 1rem 0.65rem;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: linear-gradient(to right, $primaryColor, #fff);
+  background-image: linear-gradient(to right, $primaryColor 0%, $tertiaryColor 90%, $light 100%);
   margin-top: 1rem;
   margin-right: 10%;
   margin-left: 10%;
@@ -17,6 +17,11 @@
 
   &:hover, &:focus {
     box-shadow: transparentize($primaryColor, 0.2) 1px 2px 5px 1px;
+  }
+
+  &--eaten {
+    background-color: $secondaryColor;
+    background-image: none;
   }
 }
 
@@ -54,11 +59,12 @@
 
 .meal-checkbox {
   appearance: none;
-  width: 1.4rem;
-  height: 1.4rem;
+  width: 1.2rem;
+  height: 1.2rem;
+  padding: 0;
   background-color: white;
   border-radius: 50%;
-  border: 0.25rem solid $secondaryColor;
+  border: 0.22rem solid $secondaryColor;
   outline: none;
   cursor: pointer;
   position: absolute;
@@ -80,7 +86,7 @@
 }
 
 @media (max-width: $breakpoint-xs-max-width) {
-  .content-wrapper {
+  .diet-day-plan-meal-wrapper {
     margin-right: 5%;
     margin-left: 5%;
 

@@ -39,7 +39,7 @@ import { Day } from '../../../../api/models/day';
           </div>
           <diet-day-plan-stats *ngIf="(shouldDisplayDayPlanStats() | async)"
                                class="diet-day-plan-stats"
-                               [class.diet-day-plan-stats--hidden]="!(shouldExpandStats() | async)"
+                               [class.diet-day-plan-stats--expanded]="shouldExpandStats() | async"
                                [isExpanded]="shouldExpandStats() | async"
                                (toggleExpansion)="onToggleExpansion()"
                                [summary]="getSelectedDayPlanSummary() | async"

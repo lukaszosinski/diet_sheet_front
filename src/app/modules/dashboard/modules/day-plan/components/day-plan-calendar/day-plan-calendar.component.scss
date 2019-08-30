@@ -107,6 +107,8 @@ $selected-day-size: 11rem;
 
 @mixin selected-item-sizes($wrapper-size) {
   .calendar-list-item.calendar-list-item-central {
+
+    font-family: 'Roboto Slab', serif;
     width: $wrapper-size;
     height: $wrapper-size;
     border: 0.05 * $wrapper-size solid $primaryColor;
@@ -118,6 +120,7 @@ $selected-day-size: 11rem;
     }
 
     .calendar-list-item-central-day {
+      line-height: 0.5 * $wrapper-size;
       font-size: 0.5 * $wrapper-size;
       color: $secondaryColor;
     }

@@ -27,11 +27,12 @@
 .diet-day-plan-stats {
   max-width: $dashboard-max-width;
   position: sticky;
-  bottom: 0;
+  bottom: -13.75rem;
+  margin-bottom: -13.75rem;
   transition: bottom 0.3s ease-out, margin 0.3s ease-out;
 
-  &--hidden {
-    bottom: -13.75rem;
-    margin-bottom: -13.75rem;
+  &--expanded {
+    bottom: 0;
+    margin: 0;
   }
 }

@@ -45,7 +45,9 @@
 
 
 @media (max-width: $breakpoint-xs-max-width) {
-  .summary-wrapper.summary-wrapper:not(.summary-wrapper.summary-wrapper--wrap) {
+  .summary-wrapper:not(.summary-wrapper--wrap) {
+    min-height: 1.75rem;
+
     .summary {
       font-size: 0.75rem;
     }
