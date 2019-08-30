@@ -7,27 +7,31 @@ $z-index-nav-bar: 1000;
 $z-index-nav-bar-toggle-button: 1001;
 
 $nav-bar-trigger-size: 40px;
-$dashboard-max-width: 800px;
+$dashboard-max-width: 950px;
 
 $html-font-size-lg: 16px;
 $html-font-size-md: 15px;
 $html-font-size-sm: 14px;
 $html-font-size-xs: 13px;
 
+$breakpoint-md-max-width: 1024px;
+$breakpoint-sm-max-width: 640px;
+$breakpoint-xs-max-width: 480px;
+
 html {
   height: 100%;
   overflow: auto;
   font-size: $html-font-size-lg;
 
-  @media (max-width: 1024px) {
+  @media (max-width: $breakpoint-md-max-width) {
     font-size: $html-font-size-md;
   }
 
-  @media (max-width: 640px) {
+  @media (max-width: $breakpoint-sm-max-width) {
     font-size: $html-font-size-sm;
   }
 
-  @media (max-width: 480px) {
+  @media (max-width: $breakpoint-xs-max-width) {
     font-size: $html-font-size-xs;
   }
 }

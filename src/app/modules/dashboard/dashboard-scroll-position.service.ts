@@ -1,4 +1,4 @@
-import { Injectable, NgZone } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { fromEvent, Observable } from 'rxjs';
 import { distinctUntilChanged, map, startWith } from 'rxjs/operators';
 
@@ -7,13 +7,9 @@ export class DashboardScrollPositionService {
 
   private DASHBOARD_WRAPPER_ID = 'diet-dashboard-content-wrapper';
 
-  constructor(private ngZone: NgZone) {}
+  constructor() {}
 
   isScrolledToBottom(threshold: number): Observable<boolean> {
-    return this.ngZone.runOutsideAngular(() => this._isScrolledToBottom(threshold));
-  }
-
-  private _isScrolledToBottom(threshold: number): Observable<boolean> {
     return fromEvent(this.getDashboardWrapper(), 'scroll')
       .pipe(
         map(() => this.reachedScrollEnd(threshold)),

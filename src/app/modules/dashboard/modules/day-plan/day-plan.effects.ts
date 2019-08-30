@@ -30,8 +30,8 @@ export class DayPlanEffects {
         const updatedDayMeals = selectedDay.dayMeals.map(d => d.id === action.dayMeal.id ? action.dayMeal : d);
         selectedDay = { ...selectedDay, dayMeals: updatedDayMeals };
         return this.daysService.putDay(selectedDay).pipe(
-          map(day => DayPlanActions.updateDaySuccess({ day })),
-          catchApiError(DayPlanActions.updateDayError)
+          map(day => DayPlanActions.upsertDaySuccess({ day })),
+          catchApiError(DayPlanActions.upsertDayError)
         );
       }
       console.error(`Action of type ${action.type} can not be called when selectedDay does not exist.`);
@@ -47,12 +47,32 @@ export class DayPlanEffects {
         const updatedDayMeals = selectedDay.dayMeals.filter(d => d.id !== action.dayMeal.id);
         selectedDay = { ...selectedDay, dayMeals: updatedDayMeals };
         return this.daysService.putDay(selectedDay).pipe(
-          map(day => DayPlanActions.updateDaySuccess({ day })),
-          catchApiError(DayPlanActions.updateDayError)
+          map(day => DayPlanActions.upsertDaySuccess({ day })),
+          catchApiError(DayPlanActions.upsertDayError)
         );
       }
       console.error(`Action of type ${action.type} can not be called when selectedDay does not exist.`);
       return EMPTY;
+    })
+  ));
+
+  updateDay = createEffect(() => this.actions$.pipe(
+    ofType(DayPlanActions.updateDay),
+    mergeMap(({ day }) => {
+      return this.daysService.putDay(day).pipe(
+        map(dayResp => DayPlanActions.upsertDaySuccess({ day: dayResp })),
+        catchApiError(DayPlanActions.upsertDayError)
+      );
+    })
+  ));
+
+  createDay = createEffect(() => this.actions$.pipe(
+    ofType(DayPlanActions.createDay),
+    mergeMap(({ day }) => {
+      return this.daysService.createDay(day).pipe(
+        map(dayResp => DayPlanActions.upsertDaySuccess({ day: dayResp })),
+        catchApiError(DayPlanActions.upsertDayError)
+      );
     })
   ));
 

@@ -28,7 +28,7 @@ meter {
 meter,
 meter::-webkit-meter-bar {
   background: #d5bbab;
-  box-shadow: 0.05rem 0.05rem 0.3rem -0.2rem $shadowColor;
+  box-shadow: 0.05rem 0.05rem 0.3rem -0.2rem $light--shadow;
 }
 
 meter,
@@ -41,7 +41,7 @@ meter::-webkit-meter-even-less-good-value {
 
 meter::-webkit-meter-optimum-value {
   background: $warnColor;
-  box-shadow: 0.05rem 0.05rem 0.5rem -0.2rem $shadowColor;
+  box-shadow: 0.05rem 0.05rem 0.5rem -0.2rem $light--shadow;
 }
 
 /* Firefox */
@@ -51,5 +51,5 @@ meter::-moz-meter-bar {
 
 meter:-moz-meter-optimum::-moz-meter-bar {
   background: $warnColor;
-  box-shadow: 0.2rem 0 0.3rem -0.2rem rgba(0, 0, 0, 0.2);
+  box-shadow: 0.05rem 0.05rem 0.5rem -0.2rem $light--shadow;
 }

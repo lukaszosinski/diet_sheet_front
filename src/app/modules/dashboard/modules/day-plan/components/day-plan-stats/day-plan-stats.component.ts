@@ -15,6 +15,7 @@ import { Summary } from '../../../../../../api/models/summary';
                             [value]="eatenMealsSummary[meterData.propertyName]"
                             [max]="summary[meterData.propertyName]"
                             [meterName]="meterData.translationKey | translate"
+                            [unit]="meterData.unit"
           ></diet-stats-meter>
       </div>
   `,
@@ -25,10 +26,10 @@ import { Summary } from '../../../../../../api/models/summary';
 export class DayPlanStatsComponent {
 
   readonly metersData: Readonly<MeterData>[] = [
-    { propertyName: 'kcal', translationKey: 'SUMMARY.KCAL' },
-    { propertyName: 'proteins', translationKey: 'SUMMARY.PROTEINS' },
-    { propertyName: 'carbs', translationKey: 'SUMMARY.CARBS' },
-    { propertyName: 'fat', translationKey: 'SUMMARY.FAT' },
+    { propertyName: 'kcal', unit: 'kcal', translationKey: 'SUMMARY.KCAL' },
+    { propertyName: 'proteins', unit: 'g', translationKey: 'SUMMARY.PROTEINS' },
+    { propertyName: 'carbs', unit: 'g', translationKey: 'SUMMARY.CARBS' },
+    { propertyName: 'fat', unit: 'g', translationKey: 'SUMMARY.FAT' },
   ];
 
   @Input() isExpanded: boolean = false;
@@ -44,4 +45,5 @@ export class DayPlanStatsComponent {
 interface MeterData {
   translationKey: string;
   propertyName: keyof Summary;
+  unit: 'g' | 'kcal';
 }

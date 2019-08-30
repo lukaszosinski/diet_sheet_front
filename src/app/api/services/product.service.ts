@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
-import { Product } from '../models/product';
+import { Product } from '../../modules/dashboard/modules/product/product.model';
 
 const httpOptions = {
   headers: new HttpHeaders(

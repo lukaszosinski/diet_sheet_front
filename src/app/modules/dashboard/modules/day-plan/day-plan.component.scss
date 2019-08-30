@@ -11,20 +11,28 @@
     flex: 0 0 auto;
   }
 
-  .diet-day-plan-meal-list {
+  .diet-day-plan-meals {
     flex: 1 1 auto;
-    margin-bottom: 7rem;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 5rem;
+
+    .diet-day-plan-add-meal {
+      align-self: center;
+      margin-top: 2rem;
+    }
   }
 }
 
 .diet-day-plan-stats {
   max-width: $dashboard-max-width;
   position: sticky;
-  bottom: 0;
+  bottom: -13.75rem;
+  margin-bottom: -13.75rem;
   transition: bottom 0.3s ease-out, margin 0.3s ease-out;
 
-  &--hidden {
-    bottom: -13.75rem;
-    margin-bottom: -13.75rem;
+  &--expanded {
+    bottom: 0;
+    margin: 0;
   }
 }

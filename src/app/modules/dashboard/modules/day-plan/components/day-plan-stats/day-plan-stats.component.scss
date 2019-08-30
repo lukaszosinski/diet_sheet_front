@@ -8,9 +8,9 @@
   align-items: center;
   border-top-right-radius: 3rem;
   border-top-left-radius: 3rem;
-  box-shadow: transparentize($secondaryColor, 0.5) 0px -2px 20px 0px;
+  box-shadow: transparentize($primaryColor, 0.5) 0rem -0.25rem 0.5rem -0.1rem;
   padding-top: 0.5rem;
-  background-color: $tertiaryColor;
+  background-color: $light;
   width: 100%;
 }
 

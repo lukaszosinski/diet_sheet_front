@@ -8,3 +8,4 @@ export interface Day {
   summary: Summary;
   eatenMealsSummary: Summary;
 }
+

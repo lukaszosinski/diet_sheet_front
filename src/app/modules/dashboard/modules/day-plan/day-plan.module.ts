@@ -9,10 +9,13 @@ import * as fromDayPlan from './day-plan.reducer';
 import { DayPlanCalendarComponent } from './components/day-plan-calendar/day-plan-calendar.component';
 import { DayPlanMealComponent } from './components/day-plan-meal/day-plan-meal.component';
 import { DayPlanStatsComponent } from './components/day-plan-stats/day-plan-stats.component';
-import { SummaryComponent } from './components/day-plan-meal/summary/summary.component';
 import { EffectsModule } from '@ngrx/effects';
 import { DayPlanEffects } from './day-plan.effects';
 import { StatsMeterComponent } from './components/stats-metter/stats-meter.component';
+import { AddButtonComponent } from './components/add-button/add-button.component';
+import { MatDialogModule } from '@angular/material';
+import { AddMealDialogComponent } from './components/add-meal-dialog/add-meal-dialog.component';
+import { MealModule } from '../meal/meal.module';
 
 
 @NgModule({
@@ -21,7 +24,8 @@ import { StatsMeterComponent } from './components/stats-metter/stats-meter.compo
     DayPlanCalendarComponent,
     DayPlanMealComponent,
     DayPlanStatsComponent,
-    SummaryComponent,
+    AddButtonComponent,
+    AddMealDialogComponent,
     StatsMeterComponent,
   ],
   imports: [
@@ -30,6 +34,11 @@ import { StatsMeterComponent } from './components/stats-metter/stats-meter.compo
     SharedLazyModule,
     StoreModule.forFeature(fromDayPlan.dayPlanFeatureKey, fromDayPlan.reducer),
     EffectsModule.forFeature([ DayPlanEffects ]),
+    MatDialogModule,
+    MealModule,
+  ],
+  entryComponents: [
+    AddMealDialogComponent,
   ]
 })
 export class DayPlanModule {
