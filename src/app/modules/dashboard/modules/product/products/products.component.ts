@@ -1,19 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import { ProductService } from '../../../../../api/services/product.service';
-import { Summary } from '../../../../../api/models/summary';
-import { Product } from '../product.model';
+import {getEmptyProduct, Product} from '../product.model';
+import {Observable} from 'rxjs';
+import {Store} from '@ngrx/store';
+import {AppState} from '../../../../../app.recuder';
+import * as fromProduct from '../product.reducer';
 
 @Component({
   selector: 'diet-products',
-  templateUrl: './products.component.html',
-  styleUrls: [ './products.component.scss' ]
+  template: `
+      <diet-product></diet-product>
+  `,
+  styleUrls: [ './products.component.scss' ],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductsComponent implements OnInit {
 
   products: Product[] = [];
   productToAdd: Product | undefined;
 
-  constructor(private productService: ProductService) {}
+  constructor(private productService: ProductService,
+              private store: Store<AppState>) {}
 
   ngOnInit() {
     this.downloadProducts();
@@ -54,26 +61,11 @@ export class ProductsComponent implements OnInit {
   }
 
   add(): void {
-    this.productToAdd = this.createProduct();
+    this.productToAdd = getEmptyProduct();
   }
 
-  private createProduct(): Product {
-    return {
-      id: undefined,
-      name: '',
-      nutrients: this.createNutrients(),
-      kcal: 0,
-    };
+  getCurrentProduct(): Observable<Product> {
+    return this.store.select(fromProduct.selectCurrentProduct);
   }
 
-  private createNutrients(): Summary {
-    return {
-      id: undefined,
-      kcal: 0,
-      proteins: 0,
-      carbs: 0,
-      fat: 0,
-      roughage: 0,
-    };
-  }
 }

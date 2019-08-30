@@ -33,7 +33,11 @@ export class ProductService {
     return this.http.put<Product>(url, product, httpOptions);
   }
 
-  addProduct(hero: Product): Observable<Product> {
-    return this.http.post<Product>(this.productsUrl, hero, httpOptions);
+  postProduct(product: Product): Observable<Product> {
+    return this.http.post<Product>(this.productsUrl, product, httpOptions);
+  }
+
+  addProduct(product: Product): Observable<Product> {
+    return this.http.post<Product>(this.productsUrl, product, httpOptions);
   }
 }

@@ -27,3 +27,7 @@ export const deleteProduct = createAction('[Product] Delete Product', props<{ id
 export const deleteProducts = createAction('[Product] Delete Products', props<{ ids: string[] }>());
 
 export const clearProducts = createAction('[Product] Clear Products');
+
+export const postProduct = createAction('[Product] Post Product', props<{product: Product}>());
+export const postProductSuccess = createAction('[Product/API] Post Product SUCCESS');
+export const postProductError = createApiErrorAction('[Product/API] Post Products ERROR', 'PRODUCTS.POST_ERROR');
