@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { AppState } from '../../../../app.recuder';
@@ -39,8 +39,8 @@ import { Day } from '../../../../api/models/day';
           </div>
           <diet-day-plan-stats *ngIf="(shouldDisplayDayPlanStats() | async)"
                                class="diet-day-plan-stats"
-                               [class.diet-day-plan-stats--hidden]="!shouldExpandStats"
-                               [isExpanded]="shouldExpandStats"
+                               [class.diet-day-plan-stats--hidden]="!(shouldExpandStats() | async)"
+                               [isExpanded]="shouldExpandStats() | async"
                                (toggleExpansion)="onToggleExpansion()"
                                [summary]="getSelectedDayPlanSummary() | async"
                                [eatenMealsSummary]="getSelectedDayPlanEatenMealsSummary() | async">
@@ -56,11 +56,9 @@ export class DayPlanComponent implements OnInit {
   private readonly PREVIOUS_DAYS_QUANTITY = 3;
   private readonly NEXT_DAYS_QUANTITY = 3;
 
-  shouldExpandStats: boolean = false;
 
   constructor(private store: Store<AppState>,
               private dashboardScrollPosition: DashboardScrollPositionService,
-              private changeDetectorRef: ChangeDetectorRef,
               private matDialog: MatDialog,
   ) {
   }
@@ -69,21 +67,7 @@ export class DayPlanComponent implements OnInit {
     const day = new Date();
     this.selectDay(day);
     this.loadNearbyDays(day);
-    this.checkIfShouldExpandStats()
-      .subscribe((shouldExpandStats) => {
-        if (this.shouldExpandStats !== shouldExpandStats) {
-          this.shouldExpandStats = shouldExpandStats;
-          this.changeDetectorRef.detectChanges();
-        }
-      });
-  }
 
-  private checkIfShouldExpandStats(): Observable<boolean> {
-    return this.store.select(fromDayPlan.selectShouldShowStats)
-      .pipe(
-        combineLatest(this.dashboardScrollPosition.isScrolledToBottom(this.STATS_EXPAND_SCROLL_THRESHOLD_PX)),
-        map(([ shouldShowStats, isScrolledToBottom ]) => shouldShowStats || isScrolledToBottom)
-      );
   }
 
   onNewDaySelected(day: Date): void {
@@ -122,6 +106,14 @@ export class DayPlanComponent implements OnInit {
   shouldDisplayDayPlanStats(): Observable<boolean> {
     return this.store.select(fromDayPlan.selectSelectedDayPlanDayMeals)
       .pipe(map(meals => !!meals && !!meals.length));
+  }
+
+  shouldExpandStats(): Observable<boolean> {
+    return this.store.select(fromDayPlan.selectShouldShowStats)
+      .pipe(
+        combineLatest(this.dashboardScrollPosition.isScrolledToBottom(this.STATS_EXPAND_SCROLL_THRESHOLD_PX)),
+        map(([ shouldShowStats, isScrolledToBottom ]) => shouldShowStats || isScrolledToBottom)
+      );
   }
 
   getSelectedDate(): Observable<Date> {
