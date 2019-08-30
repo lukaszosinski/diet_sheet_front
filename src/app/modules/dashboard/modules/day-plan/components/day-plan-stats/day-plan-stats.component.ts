@@ -26,7 +26,7 @@ import { Summary } from '../../../../../../api/models/summary';
 export class DayPlanStatsComponent {
 
   readonly metersData: Readonly<MeterData>[] = [
-    { propertyName: 'kcal', unit: '', translationKey: 'SUMMARY.KCAL' },
+    { propertyName: 'kcal', unit: 'kcal', translationKey: 'SUMMARY.KCAL' },
     { propertyName: 'proteins', unit: 'g', translationKey: 'SUMMARY.PROTEINS' },
     { propertyName: 'carbs', unit: 'g', translationKey: 'SUMMARY.CARBS' },
     { propertyName: 'fat', unit: 'g', translationKey: 'SUMMARY.FAT' },
@@ -45,5 +45,5 @@ export class DayPlanStatsComponent {
 interface MeterData {
   translationKey: string;
   propertyName: keyof Summary;
-  unit: 'g' | '';
+  unit: 'g' | 'kcal';
 }
