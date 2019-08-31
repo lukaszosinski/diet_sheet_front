@@ -3,6 +3,7 @@
 @import "layout.scss";
 
 $font-size-medium: 1.5rem;
+$inputs-max-width: 68%;
 
 .diet-entity-info {
   display: flex;
@@ -16,7 +17,7 @@ $font-size-medium: 1.5rem;
   &-name {
     $shadowRadio: 5rem;
 
-    width: 70%;
+    width: $inputs-max-width;
     height: 6rem;
     padding: 0 1.5rem 1rem;
     font-size: 1.75 * $font-size-medium;
@@ -48,8 +49,8 @@ $font-size-medium: 1.5rem;
   }
 
   &-description {
+    width: $inputs-max-width;
     $line-height: $font-size-medium + 0.2rem;
-
     height: 6 * $line-height;
     line-height: $line-height;
     font-size: $font-size-medium;
@@ -62,6 +63,21 @@ $font-size-medium: 1.5rem;
 
     &::placeholder {
       //color: $fontColor
+    }
+  }
+}
+
+
+@media (max-width: $breakpoint-xs-max-width) {
+  .diet-entity-info {
+    background-size: 8.5rem 13rem;
+
+    &-name {
+      font-size: 1 * $font-size-medium;
+    }
+
+    &-description {
+      width: auto;
     }
   }
 }

@@ -1,25 +1,23 @@
 @import "colors.scss";
+@import "layout.scss";
 
 .product-details-wrapper {
   height: 100%;
-  padding: 0 3rem 1rem;
+  padding: 0 3rem;
   display: flex;
   flex-direction: column;
+
+  & > * {
+    margin-bottom: 1rem;
+  }
 
   .product-details-header {
     display: flex;
     justify-content: flex-end;
-    margin-bottom: 0.5rem;
   }
 
   .product-details-info {
     flex: 1 1 auto;
-  }
-
-  .product-details-prices-table {
-  }
-
-  .product-details-summary {
   }
 }
 
@@ -45,4 +43,10 @@
     &::placeholder {
       color: $primaryColor;
     }
+}
+
+@media (max-width: $breakpoint-xs-max-width) {
+  .product-details-wrapper {
+    padding: 0 0.25rem;
+  }
 }

@@ -24,8 +24,8 @@ import { Observable, of } from 'rxjs';
           </diet-entity-info>
           <diet-entity-item-table
                   class="product-details-prices-table"
-                  [tableTitle]="'COMMON.INGREDIENTS' | translate"
-                  [columnHeaders]="['COMMON.NAME' | translate, 'COMMON.QUANTITY' | translate]"
+                  [tableTitle]="'PRODUCT.PRICE' | translate"
+                  [columnHeaders]="['PRODUCT.SHOP' | translate]"
                   [items]="getEntityTableItems$() | async"
                   (addButtonClick)="onAddProductPriceClick()">
           </diet-entity-item-table>
@@ -65,7 +65,10 @@ export class ProductDetailsComponent {
   }
 
   getEntityTableItems$(): Observable<DietEntityItem[]> {
-    return of([]);
+    return of([
+      { name: 'Biedronka', quantity: '5', unit: 'zł/kg' },
+      { name: 'Lidl', quantity: '7', unit: 'zł/kg' },
+    ]);
   }
 
   onAddProductPriceClick(): void {
@@ -76,12 +79,12 @@ export class ProductDetailsComponent {
     return this.form.get('summary') as FormGroup;
   }
 
-  onConfirmButtonClick() {
+  onConfirmButtonClick(): void {
     const product: Product = this.form.value;
     this.store.dispatch(ProductActions.createProduct({ product }));
   }
 
-  onCancelButtonClick() {
+  onCancelButtonClick(): void {
     console.log('Cancel button clicked');
   }
 }

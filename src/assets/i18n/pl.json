@@ -67,7 +67,9 @@
   },
   "PRODUCT": {
     "DESCRIPTION_PLACEHOLDER": "Dodaj opis...",
-    "NAME_PLACEHOLDER": "Nazwa produktu"
+    "NAME_PLACEHOLDER": "Nazwa produktu",
+    "PRICE": "Cena",
+    "SHOP": "Sklep"
   },
   "SUMMARY": {
     "KCAL": "Kalorie",

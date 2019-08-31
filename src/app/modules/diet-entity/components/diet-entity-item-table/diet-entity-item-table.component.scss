@@ -1,0 +1,55 @@
+@import "colors.scss";
+@import "mixins.scss";
+@import "layout.scss";
+
+
+.diet-entity-item-table {
+  @include inset-shadow(10rem);
+  border-radius: $default-border-radius;
+  border: 0.35rem solid darken($secondaryColor, 15);
+  padding: 0.5rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &-title {
+    width: 100%;
+    line-height: 3.5rem;
+    font-size: 2.25rem;
+    background: url('src/assets/images/icons/cart.png') no-repeat left top;
+    background-size: contain;
+    padding-left: 5rem;
+    color: $fontSecondary;
+  }
+
+  &-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    .diet-entity-item-table-header-row {
+      color: $primaryColor;
+      font-size: 2rem;
+    }
+
+    .diet-entity-item-table-row {
+      display: flex;
+      color: $fontColor;
+      font-size: 1.5rem;
+
+      &-name {
+        width: 70%;
+
+        &::before {
+          content: '>';
+          height: 1rem;
+          width: 1rem;
+        }
+      }
+
+      &-quantity {
+        width: 30%;
+      }
+    }
+  }
+}

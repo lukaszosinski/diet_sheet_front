@@ -7,7 +7,7 @@ import { FormGroup } from '@angular/forms';
   template: `
       <div class="summary-wrapper" [formGroup]="summaryFormGroup">
           <div class="summary">
-              <input type="number" class="summary-quantity-input" name="kcal" formControlName="kcal" disabled>
+              <input type="number" class="summary-quantity-input" name="kcal" formControlName="kcal" value="234">
               <div class="summary-img kcal-img"></div>
               <div class="summary-label">{{'SUMMARY.KCAL' | translate}}</div>
           </div>

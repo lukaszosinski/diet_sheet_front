@@ -50,3 +50,10 @@
     }
   }
 }
+
+
+@media (max-width: $breakpoint-xs-max-width) {
+  .summary-label {
+    display: none;
+  }
+}
