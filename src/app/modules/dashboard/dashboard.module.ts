@@ -9,6 +9,7 @@ import { SharedLazyModule } from '../shared/shared-lazy.module';
 import { DashboardNavBarTriggerButtonComponent } from './dashboard-nav-bar/dashboard-nav-bar-trigger-button/dashboard-nav-bar-trigger-button.component';
 import { StoreModule } from '@ngrx/store';
 import * as fromDashboard from './dashboard.reducer';
+import { DashboardScrollPositionService } from './dashboard-scroll-position.service';
 
 
 @NgModule({
@@ -18,6 +19,9 @@ import * as fromDashboard from './dashboard.reducer';
     DashboardRoutingModule,
     SharedLazyModule,
     StoreModule.forFeature(fromDashboard.dashboardFeatureKey, fromDashboard.reducer),
+  ],
+  providers: [
+    DashboardScrollPositionService,
   ]
 })
 export class DashboardModule {

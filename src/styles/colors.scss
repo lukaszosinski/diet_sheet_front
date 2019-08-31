@@ -1,11 +1,12 @@
 $backgroundColor: #f4e9e5;
-$primaryColor: #eb5f3d;
-$secondaryColor: #ca2643;
-$warnColor: #e1b627;
+$primaryColor: #e96131;
+$secondaryColor: #c82c42;
+$tertiaryColor: #f6dcc5;
+$warnColor: #f4bd41;
 $dangerColor: red;
 $fontColor: #2c2168;
 $fontSecondary: #284a30;
-$light: lighten($backgroundColor, 5);
-$light--hover: lighten($backgroundColor, 3);
-$light--active: darken($backgroundColor, 2);
+$light: #fcf8f7;
+$light--hover: darken($light, 2);
+$light--active: darken($light, 4);
 $light--shadow: transparentize(#646464, 0.4);

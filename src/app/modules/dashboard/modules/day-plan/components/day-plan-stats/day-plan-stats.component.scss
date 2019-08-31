@@ -1,0 +1,36 @@
+@import "colors.scss";
+@import 'layout.scss';
+
+.day-plan-summary-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-top-right-radius: 3rem;
+  border-top-left-radius: 3rem;
+  box-shadow: transparentize($primaryColor, 0.5) 0rem -0.25rem 0.5rem -0.1rem;
+  padding-top: 0.5rem;
+  background-color: $light;
+  width: 100%;
+}
+
+.summary-arrow {
+  background: url(~src/assets/images/icons/arrow.png) no-repeat;
+  height: 1.5rem;
+  width: 1.5rem;
+  background-size: contain;
+  outline: none;
+
+  &:hover {
+    filter: brightness(1.5);
+  }
+}
+
+.rotated-summary-arrow {
+  transform: rotate(180deg);
+}
+
+.diet-stats-meter {
+  margin: 0.5rem;
+  width: 80%;
+}

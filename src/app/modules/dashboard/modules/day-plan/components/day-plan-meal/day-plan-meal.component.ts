@@ -5,7 +5,7 @@ import { DayMeal } from '../../../../../../api/models/day-meal.model';
 @Component({
   selector: 'diet-day-plan-meal',
   template: `
-      <div class="content-wrapper">
+      <div class="diet-day-plan-meal-wrapper" [class.diet-day-plan-meal-wrapper--eaten]="dayMeal.eaten">
           <input class="meal-checkbox" type="checkbox"
                  [checked]="dayMeal.eaten"
                  (change)="onEatenChange()"

@@ -16,3 +16,5 @@ export const upsertDayError = createApiErrorAction('[DayPlan/API] Update Day ERR
 export const updateSelectedDayDayMeal = createAction('[DayPlan] Update DayMeal', props<{ dayMeal: DayMeal }>());
 export const deleteSelectedDayDayMeal = createAction('[DayPlan] Delete DayMeal', props<{ dayMeal: DayMeal }>());
 
+export const toggleStatsVisibility = createAction('[DayPlan] Toggle Stats visibility');
+
