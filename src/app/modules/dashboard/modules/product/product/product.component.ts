@@ -45,6 +45,6 @@ export class ProductComponent {
 
   createProduct(): void {
     const product: Product = this.form.value;
-    this.store.dispatch(ProductActions.postProduct({product}));
+    this.store.dispatch(ProductActions.createProduct({product}));
   }
 }

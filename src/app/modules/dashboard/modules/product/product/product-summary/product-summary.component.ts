@@ -19,5 +19,5 @@ import {FormGroup} from '@angular/forms';
 })
 export class ProductSummaryComponent {
   @Input() parentForm?: FormGroup;
-  constructor() { }
+  constructor() {}
 }

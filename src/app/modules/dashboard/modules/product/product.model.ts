@@ -5,16 +5,3 @@ export interface Product {
   name: string;
   summary: Summary;
 }
-
-export function getEmptyProduct(): Product {
-  return {
-    name: 'Nowy produkt',
-    summary: {
-      kcal: 0,
-      proteins: 0,
-      carbs: 0,
-      fat: 0,
-      roughage: 0
-    }
-  };
-}

@@ -8,7 +8,7 @@ import { StoreModule } from '@ngrx/store';
 import * as fromProduct from './product.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { ProductEffects } from './product.effects';
-import { ProductSummaryComponent } from './product-summary/product-summary.component';
+import { ProductSummaryComponent } from './product/product-summary/product-summary.component';
 import { ProductComponent } from './product/product.component';
 
 

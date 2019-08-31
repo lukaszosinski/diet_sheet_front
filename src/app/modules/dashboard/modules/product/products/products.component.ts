@@ -1,10 +1,7 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import { ProductService } from '../../../../../api/services/product.service';
-import {getEmptyProduct, Product} from '../product.model';
-import {Observable} from 'rxjs';
-import {Store} from '@ngrx/store';
-import {AppState} from '../../../../../app.recuder';
-import * as fromProduct from '../product.reducer';
+import {Product} from '../product.model';
+
 
 @Component({
   selector: 'diet-products',
@@ -19,8 +16,7 @@ export class ProductsComponent implements OnInit {
   products: Product[] = [];
   productToAdd: Product | undefined;
 
-  constructor(private productService: ProductService,
-              private store: Store<AppState>) {}
+  constructor(private productService: ProductService) {}
 
   ngOnInit() {
     this.downloadProducts();
@@ -53,19 +49,10 @@ export class ProductsComponent implements OnInit {
       console.warn('Product to add is not defined');
       return;
     }
-    this.productService.addProduct(this.productToAdd)
+    this.productService.createProduct(this.productToAdd)
       .subscribe(product => {
         this.products.push(product);
         this.productToAdd = undefined;
       });
   }
-
-  add(): void {
-    this.productToAdd = getEmptyProduct();
-  }
-
-  getCurrentProduct(): Observable<Product> {
-    return this.store.select(fromProduct.selectCurrentProduct);
-  }
-
 }

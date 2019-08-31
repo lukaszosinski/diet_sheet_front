@@ -1,26 +1,24 @@
 import { Action, createFeatureSelector, createReducer, createSelector, on } from '@ngrx/store';
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
-import {getEmptyProduct, Product} from './product.model';
+import {Product} from './product.model';
 import * as ProductActions from './product.actions';
 import * as fromApp from '../../../../app.recuder';
 
 export const productsFeatureKey = 'products';
 
 export interface State extends EntityState<Product> {
-  currentProduct: Product;
   processing: {
     loadProducts: boolean;
-    postProduct: boolean;
+    createProduct: boolean;
   };
 }
 
 export const adapter: EntityAdapter<Product> = createEntityAdapter<Product>();
 
 export const initialState: State = adapter.getInitialState({
-  currentProduct: getEmptyProduct(),
   processing: {
     loadProducts: false,
-    postProduct: false,
+    createProduct: false,
   }
 });
 
@@ -62,21 +60,20 @@ const productReducer = createReducer(
   on(ProductActions.clearProducts,
     state => adapter.removeAll(state)
   ),
-  on(ProductActions.postProduct,
+  on(ProductActions.createProduct,
     (state) => ({
-      ...state, processing: {...state.processing, postProduct: true}
+      ...state, processing: {...state.processing, createProduct: true}
     })
   ),
-  on(ProductActions.postProductSuccess,
-    (state) => ({
+  on(ProductActions.createProductSuccess,
+    (state, action) => adapter.addOne(action.product, {
       ...state,
-      currentProduct: getEmptyProduct(),
-      processing: {...state.processing, postProduct: false}
+      processing: {...state.processing, createProduct: false}
     })
   ),
-  on(ProductActions.postProductError,
+  on(ProductActions.createProductError,
     (state) => ({
-      ...state, processing: {...state.processing, postProduct: false}
+      ...state, processing: {...state.processing, createProduct: false}
     })
   ),
 );
@@ -91,9 +88,4 @@ export const selectProduct = createFeatureSelector<fromApp.AppState, State>(prod
 export const selectAll = createSelector(
   selectProduct,
   adapter.getSelectors().selectAll
-);
-
-export const selectCurrentProduct = createSelector(
-  selectProduct,
-  (state: State) => state.currentProduct
 );
