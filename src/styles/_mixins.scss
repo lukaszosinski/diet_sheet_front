@@ -1,4 +1,5 @@
 @import "colors";
+@import "layout";
 
 @mixin square-button($size) {
   margin: 0.25rem;
@@ -26,6 +27,20 @@
   }
 }
 
-@mixin shadow($elementSize) {
-  box-shadow: 0.015 * $elementSize 0.03 * $elementSize 0.5rem 0 $light--shadow,
+@mixin card($elementSize, $shadowColor: $light--shadow) {
+  box-shadow: 0.015 * $elementSize 0.03 * $elementSize 0.5rem 0 $shadowColor;
+  border-radius: $default-border-radius;
+}
+
+@mixin inset-shadow($shadowRadio, $shadowColor: $light--shadow) {
+  box-shadow: 0.015 * $shadowRadio 0.03 * $shadowRadio 0.5rem 0 $shadowColor,
+  0.015 * $shadowRadio 0.03 * $shadowRadio 0.5rem 0 $shadowColor inset;
+}
+
+@mixin inset-shadow-with-hover($shadowRadio, $shadowColor: $light--shadow) {
+  @include inset-shadow($shadowRadio, $shadowColor);
+
+  &:hover, &:focus {
+    @include inset-shadow($shadowRadio, darken($shadowColor, 20));
+  }
 }

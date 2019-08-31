@@ -11,13 +11,14 @@ import { matchingPasswordsValidator } from '../../shared/validators';
   selector: 'diet-sign-up',
   template: `
       <form [formGroup]="form">
-          <input type="email" formControlName="email" autocomplete="email" placeholder="{{'COMMON.EMAIL' | translate}}">
+          <input class="long-input" type="email" formControlName="email" autocomplete="email" placeholder="{{'COMMON.EMAIL' | translate}}">
           <diet-validation-message formControlName="email" [errors]="form.get('email').errors"></diet-validation-message>
 
-          <input type="password" formControlName="password" autocomplete="new-password" placeholder="{{'COMMON.PASSWORD' | translate}}">
+          <input class="long-input" type="password" formControlName="password" autocomplete="new-password"
+                 placeholder="{{'COMMON.PASSWORD' | translate}}">
           <diet-validation-message formControlName="password" [errors]="form.get('password').errors"></diet-validation-message>
 
-          <input type="password" formControlName="confirmPassword" autocomplete="new-password"
+          <input class="long-input" type="password" formControlName="confirmPassword" autocomplete="new-password"
                  placeholder="{{'LANDING_PAGE.CONFIRM_PASSWORD' | translate}}">
           <diet-validation-message formControlName="confirmPassword"
                                    [errors]="form.get('confirmPassword').errors"></diet-validation-message>

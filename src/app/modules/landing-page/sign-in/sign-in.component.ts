@@ -11,10 +11,11 @@ import { Observable } from 'rxjs';
   selector: 'diet-sign-in',
   template: `
       <form [formGroup]="form">
-          <input type="email" autocomplete="email" formControlName="email" placeholder="{{'COMMON.EMAIL' | translate}}">
+          <input class="long-input" type="email" autocomplete="email" formControlName="email" placeholder="{{'COMMON.EMAIL' | translate}}">
           <diet-validation-message formControlName="email" [errors]="form.get('email').errors"></diet-validation-message>
 
-          <input type="password" autocomplete="current-password" formControlName="password" placeholder="{{'COMMON.PASSWORD' | translate}}">
+          <input class="long-input" type="password" autocomplete="current-password" formControlName="password"
+                 placeholder="{{'COMMON.PASSWORD' | translate}}">
           <diet-validation-message formControlName="password" [errors]="form.get('password').errors"></diet-validation-message>
 
           <diet-button (click)="signIn()"

@@ -2,11 +2,10 @@
 @import "mixins.scss";
 
 .summary-wrapper {
-  @include shadow(5rem);
+  @include card(5rem);
   display: flex;
   background-color: $light;
   min-height: 5rem;
-  border-radius: 2rem;
   justify-content: space-around;
   padding: 0.25rem 2rem;
 
