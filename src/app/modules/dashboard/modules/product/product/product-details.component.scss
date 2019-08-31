@@ -2,13 +2,14 @@
 
 .product-details-wrapper {
   height: 100%;
-  padding: 0 3rem 3rem;
+  padding: 0 3rem 1rem;
   display: flex;
   flex-direction: column;
 
   .product-details-header {
     display: flex;
     justify-content: flex-end;
+    margin-bottom: 0.5rem;
   }
 
   .product-details-info {

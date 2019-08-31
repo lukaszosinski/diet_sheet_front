@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'diet-sign-in',
   template: `
-      <form [formGroup]="form">
+      <form class="diet-form" [formGroup]="form">
           <input class="long-input" type="email" autocomplete="email" formControlName="email" placeholder="{{'COMMON.EMAIL' | translate}}">
           <diet-validation-message formControlName="email" [errors]="form.get('email').errors"></diet-validation-message>
 

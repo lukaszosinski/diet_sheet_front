@@ -10,7 +10,7 @@ import { matchingPasswordsValidator } from '../../shared/validators';
 @Component({
   selector: 'diet-sign-up',
   template: `
-      <form [formGroup]="form">
+      <form class="diet-form" [formGroup]="form">
           <input class="long-input" type="email" formControlName="email" autocomplete="email" placeholder="{{'COMMON.EMAIL' | translate}}">
           <diet-validation-message formControlName="email" [errors]="form.get('email').errors"></diet-validation-message>
 
