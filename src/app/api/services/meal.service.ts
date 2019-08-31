@@ -10,6 +10,11 @@ export class MealService {
 
   constructor(private http: HttpClient) {}
 
+  getMeal(mealId: string): Observable<Meal> {
+    const url = `${this.mealsUrl}/${mealId}`;
+    return this.http.get<Meal>(url);
+  }
+
   getMeals(): Observable<Meal[]> {
     return this.http.get<Meal[]>(this.mealsUrl);
   }

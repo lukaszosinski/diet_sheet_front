@@ -1,14 +1,14 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { distinctUntilChanged, map, tap } from 'rxjs/operators';
+import { concatMap, distinctUntilChanged, filter, map, tap } from 'rxjs/operators';
 import { AppState } from '../../../../../app.recuder';
 import { Store } from '@ngrx/store';
-import * as fromRouter from '../../../../shared/routing/router.reducer';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Meal } from '../meal.model';
-import * as MealActions from '../meal.actions';
 import { DietEntityInfoPlaceholderKeys, DietEntityItem } from '../../../../diet-entity';
+import * as MealActions from '../meal.actions';
+import * as fromMeals from '../meal.reducer';
 
 
 @Component({
@@ -39,7 +39,7 @@ import { DietEntityInfoPlaceholderKeys, DietEntityItem } from '../../../../diet-
   styleUrls: [ './meal-details.component.scss' ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MealDetailsComponent {
+export class MealDetailsComponent implements OnInit {
 
   readonly MEAL_PLACEHOLDER_KEYS: DietEntityInfoPlaceholderKeys = {
     name: 'MEAL.NAME_PLACEHOLDER',
@@ -53,15 +53,14 @@ export class MealDetailsComponent {
               fb: FormBuilder,
   ) {
     this.form = this.createForm(fb);
-    this.store.select(fromRouter.selectRouteParams).pipe(tap(console.log));
   }
 
   private createForm(fb: FormBuilder): FormGroup {
     const summaryForm = fb.group({
-      kcal: [ 1323, Validators.required ],
-      proteins: [ 43, Validators.required ],
-      carbs: [ 12, Validators.required ],
-      fat: [ 12, Validators.required ]
+      kcal: [ undefined, Validators.required ],
+      proteins: [ undefined, Validators.required ],
+      carbs: [ undefined, Validators.required ],
+      fat: [ undefined, Validators.required ]
     });
     summaryForm.disable();
 
@@ -73,13 +72,39 @@ export class MealDetailsComponent {
     });
   }
 
+  ngOnInit(): void {
+    this.loadMeal();
+    this.patchFormIfMealSelected();
+  }
+
+  loadMeal(): void {
+    this.getSelectedMealId$()
+      .pipe(filter(mealId => !!mealId))
+      .subscribe((id) => this.store.dispatch(MealActions.loadMeal({ id: id! })));
+  }
+
+  patchFormIfMealSelected(): void {
+    // unsubscribe
+    this.getSelectedMeal$().subscribe((meal) => this.form.patchValue(meal));
+  }
+
+  getSelectedMeal$(): Observable<Meal> {
+    return this.getSelectedMealId$()
+      .pipe(
+        filter(id => !!id),
+        concatMap((id) => this.store.select(fromMeals.selectMealById(id!))),
+        filter(meal => !!meal),
+        tap(console.log)
+      );
+  }
+
   getMode$(): Observable<MealDetailsComponentMode> {
     return this.getSelectedMealId$().pipe(
       map((mealId) => !!mealId ? MealDetailsComponentMode.EDIT : MealDetailsComponentMode.CREATE)
     );
   }
 
-  getSelectedMealId$(): Observable<number | undefined> {
+  getSelectedMealId$(): Observable<string | undefined> {
     return this.route.params.pipe(
       distinctUntilChanged(),
       map(({ mealId }) => mealId)

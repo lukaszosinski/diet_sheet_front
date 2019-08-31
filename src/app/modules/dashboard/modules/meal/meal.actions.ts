@@ -4,6 +4,8 @@ import { Meal } from './meal.model';
 import { createApiErrorAction } from '../../../../api/api.actions';
 
 
+export const loadMeal = createAction('[Meal/API] Load Meal', props<{ id: string }>());
+
 export const loadMeals = createAction('[Meal/API] Load Meals');
 
 export const loadMealsSuccess = createAction('[Meal/API] Load Meals SUCCESS', props<{ meals: Meal[] }>());

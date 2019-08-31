@@ -46,7 +46,9 @@ const mealReducer = createReducer(
   on(MealActions.deleteMeals,
     (state, action) => adapter.removeMany(action.ids, state)
   ),
-  on(MealActions.loadMeals,
+  on(
+    MealActions.loadMeal,
+    MealActions.loadMeals,
     (state) => ({ ...state, processing: { ...state.processing, loadMeals: true } })
   ),
   on(MealActions.loadMealsError,
@@ -70,3 +72,14 @@ export const selectAll = createSelector(
   selectMeal,
   adapter.getSelectors().selectAll
 );
+
+export const selectEntities = createSelector(
+  selectMeal,
+  adapter.getSelectors().selectEntities
+);
+
+export const selectMealById = (mealId: string) => createSelector(
+  selectEntities,
+  (entities) => entities[mealId]
+);
+
