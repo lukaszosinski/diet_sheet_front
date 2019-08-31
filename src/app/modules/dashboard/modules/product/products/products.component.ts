@@ -1,11 +1,21 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import { ProductService } from '../../../../../api/services/product.service';
 import {Product} from '../product.model';
+import {Store} from '@ngrx/store';
+import * as ProductActions from '../product.actions';
+import * as fromProduct from '../product.reducer';
+import {AppState} from '../../../../../app.recuder';
+import {Observable} from 'rxjs';
 
 
 @Component({
   selector: 'diet-products',
   template: `
+      <div class="container">
+          <ul class="list-group">
+              <li *ngFor="let product of (getProductList() | async)">{{product.name}}</li>
+          </ul>
+      </div>
       <diet-product></diet-product>
   `,
   styleUrls: [ './products.component.scss' ],
@@ -16,15 +26,19 @@ export class ProductsComponent implements OnInit {
   products: Product[] = [];
   productToAdd: Product | undefined;
 
-  constructor(private productService: ProductService) {}
+  constructor(private productService: ProductService,
+              private store: Store<AppState>) {}
 
-  ngOnInit() {
-    this.downloadProducts();
+  ngOnInit(): void {
+    this.loadProducts();
   }
 
-  downloadProducts(): void {
-    this.productService.getProducts()
-      .subscribe(products => this.products = products || []);
+  loadProducts(): void {
+    this.store.dispatch(ProductActions.loadProducts());
+  }
+
+  getProductList(): Observable<Product[]> {
+    return this.store.select(fromProduct.selectAll);
   }
 
   delete(product: Product): void {
