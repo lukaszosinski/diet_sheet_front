@@ -37,6 +37,10 @@ export class DashboardComponent implements OnInit {
       navigationCallback: this.routingService.navigation.dashboard.products.list,
     },
     {
+      translationKey: 'DASHBOARD.NAVIGATION.ADD_PRODUCT',
+      navigationCallback: this.routingService.navigation.dashboard.products.details,
+    },
+    {
       translationKey: 'DASHBOARD.NAVIGATION.DAY_PLAN',
       navigationCallback: this.routingService.navigation.dashboard.dayPlan,
     },

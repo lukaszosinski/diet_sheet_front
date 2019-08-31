@@ -1,6 +1,6 @@
 import { Action, createFeatureSelector, createReducer, createSelector, on } from '@ngrx/store';
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
-import { Product } from './product.model';
+import {Product} from './product.model';
 import * as ProductActions from './product.actions';
 import * as fromApp from '../../../../app.recuder';
 
@@ -9,6 +9,7 @@ export const productsFeatureKey = 'products';
 export interface State extends EntityState<Product> {
   processing: {
     loadProducts: boolean;
+    createProduct: boolean;
   };
 }
 
@@ -17,14 +18,12 @@ export const adapter: EntityAdapter<Product> = createEntityAdapter<Product>();
 export const initialState: State = adapter.getInitialState({
   processing: {
     loadProducts: false,
+    createProduct: false,
   }
 });
 
 const productReducer = createReducer(
   initialState,
-  on(ProductActions.addProduct,
-    (state, action) => adapter.addOne(action.product, state)
-  ),
   on(ProductActions.upsertProduct,
     (state, action) => adapter.upsertOne(action.product, state)
   ),
@@ -57,6 +56,22 @@ const productReducer = createReducer(
   ),
   on(ProductActions.clearProducts,
     state => adapter.removeAll(state)
+  ),
+  on(ProductActions.createProduct,
+    (state) => ({
+      ...state, processing: {...state.processing, createProduct: true}
+    })
+  ),
+  on(ProductActions.createProductSuccess,
+    (state, action) => adapter.addOne(action.product, {
+      ...state,
+      processing: {...state.processing, createProduct: false}
+    })
+  ),
+  on(ProductActions.createProductError,
+    (state) => ({
+      ...state, processing: {...state.processing, createProduct: false}
+    })
   ),
 );
 

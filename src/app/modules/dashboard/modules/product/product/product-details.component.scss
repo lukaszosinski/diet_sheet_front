@@ -1,0 +1,52 @@
+@import "colors.scss";
+@import "layout.scss";
+
+.product-details-wrapper {
+  height: 100%;
+  padding: 0 3rem;
+  display: flex;
+  flex-direction: column;
+
+  & > * {
+    margin-bottom: 1rem;
+  }
+
+  .product-details-header {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .product-details-info {
+    flex: 1 1 auto;
+  }
+}
+
+.product-overview {
+  position: relative;
+  border-radius: 1rem;
+  background-color: #fcf6f6;
+  min-height: 40rem;
+  box-shadow: transparentize(#000000, 0.5) 1px 2px 5px 1px;
+  &:hover, &:focus {
+  }
+}
+
+.product-name-input {
+  background: transparent;
+  border-radius: 1rem;
+  border : 0.3rem solid $primaryColor;
+  box-shadow:  1px 2px 5px 1px transparentize(#000000, 0.5), transparentize(#000000, 0.5) 1px 1px 6px 1px inset;
+  text-align: center;
+  font-size: 1.75rem;
+  min-height: 4rem;
+  color: $primaryColor;
+    &::placeholder {
+      color: $primaryColor;
+    }
+}
+
+@media (max-width: $breakpoint-xs-max-width) {
+  .product-details-wrapper {
+    padding: 0 0.25rem;
+  }
+}

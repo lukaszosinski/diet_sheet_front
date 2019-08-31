@@ -1,0 +1,20 @@
+@mixin image-class($image-url) {
+  background-image: url($image-url);
+  background-size: contain;
+}
+
+.kcal-img {
+  @include image-class("src/assets/images/icons/kcal.png");
+}
+
+.carbs-img {
+  @include image-class("src/assets/images/icons/carbs.png");
+}
+
+.fat-img {
+  @include image-class("src/assets/images/icons/fat.png");
+}
+
+.proteins-img {
+  @include image-class("src/assets/images/icons/proteins.png");
+}

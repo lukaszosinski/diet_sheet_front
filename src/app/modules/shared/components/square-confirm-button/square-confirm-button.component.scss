@@ -1,0 +1,5 @@
+@import "mixins";
+
+.diet-square-confirm-button {
+  @include square-button-with-icon(4rem, "~src/assets/images/icons/check.png");
+}
