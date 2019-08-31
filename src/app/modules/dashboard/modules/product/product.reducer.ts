@@ -24,9 +24,6 @@ export const initialState: State = adapter.getInitialState({
 
 const productReducer = createReducer(
   initialState,
-  on(ProductActions.addProduct,
-    (state, action) => adapter.addOne(action.product, state)
-  ),
   on(ProductActions.upsertProduct,
     (state, action) => adapter.upsertOne(action.product, state)
   ),
@@ -77,7 +74,6 @@ const productReducer = createReducer(
     })
   ),
 );
-
 
 export function reducer(state: State | undefined, action: Action): State {
   return productReducer(state, action);

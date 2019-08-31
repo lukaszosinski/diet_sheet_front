@@ -9,13 +9,15 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 @Component({
   selector: 'diet-product',
   template: `
-      <div class="product-details-wrapper">
+      <div class="product-wrapper">
           <div class="product-buttons">
               <button (click)="createProduct()"><span>+</span></button>
               <button><span>x</span></button>
           </div>
           <form [formGroup]="form">
-              <input type="text" name="name" formControlName="name">
+              <div class="product-overview">
+                  <input type="text" class="product-name-input" name="name" formControlName="name" placeholder="Nowy produkt">
+              </div>
               <diet-product-summary [parentForm]="form"></diet-product-summary>
           </form>
       </div>
