@@ -1,0 +1,31 @@
+@import "colors";
+
+@mixin square-button($size) {
+  margin: 0.25rem;
+  height: $size;
+  width: $size;
+  border-radius: 25%;
+  background-color: $light;
+  box-shadow: 0.15rem 0.3rem 0.5rem 0 $light--shadow;
+  outline: none;
+
+  &:active {
+    background-color: $light--active;
+  }
+}
+
+@mixin square-button-with-icon($size, $icon-url) {
+  @include square-button($size);
+  padding: 15%;
+
+  &-icon {
+    height: 100%;
+    width: 100%;
+    background: url($icon-url);
+    background-size: cover;
+  }
+}
+
+@mixin shadow($elementSize) {
+  box-shadow: 0.015 * $elementSize 0.03 * $elementSize 0.5rem 0 $light--shadow,
+}

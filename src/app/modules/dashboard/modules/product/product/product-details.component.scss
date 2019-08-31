@@ -1,13 +1,27 @@
 @import "colors.scss";
-.product-wrapper {
-  margin-right: 3%;
-  margin-left: 3%;
+
+.product-details-wrapper {
+  height: 100%;
+  padding: 0 3rem 3rem;
+  display: flex;
+  flex-direction: column;
+
+  .product-details-header {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .product-details-info {
+    flex: 1 1 auto;
+  }
+
+  .product-details-prices-table {
+  }
+
+  .product-details-summary {
+  }
 }
 
-.product-buttons {
-  display: flex;
-  flex-direction: row-reverse;
-}
 .product-overview {
   position: relative;
   border-radius: 1rem;

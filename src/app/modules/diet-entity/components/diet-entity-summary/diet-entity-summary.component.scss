@@ -1,0 +1,53 @@
+@import "colors.scss";
+@import "mixins.scss";
+
+.summary-wrapper {
+  @include shadow(5rem);
+  display: flex;
+  background-color: $light;
+  min-height: 5rem;
+  border-radius: 2rem;
+  justify-content: space-around;
+  padding: 0.25rem 2rem;
+
+  .summary {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    color: $fontSecondary;
+    user-select: none;
+
+    .summary-label {
+      width: 8rem;
+      text-align: center;
+    }
+
+    .summary-quantity-input {
+      text-align: center;
+      line-height: 1rem;
+      font-size: 1rem;
+    }
+
+    .summary-quantity-input {
+      width: 2.5rem;
+      padding: 0.15rem 0;
+      border-radius: 0.5rem;
+      background-color: inherit;
+
+      &:hover, &:focus {
+        background-color: $light--hover;
+      }
+
+      &:not([disabled]) {
+        border: 1px solid $fontSecondary;
+      }
+    }
+
+    .summary-img {
+      margin: 0.25rem 0;
+      width: 3rem;
+      height: 3rem;
+    }
+  }
+}

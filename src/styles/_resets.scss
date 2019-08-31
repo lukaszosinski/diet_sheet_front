@@ -15,4 +15,16 @@ ul li {
 button {
   background: none;
   border: none;
+  outline: none;
+}
+
+input {
+  border: none;
+  outline: none;
+
+  &[type=number]::-webkit-inner-spin-button,
+  &[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
 }

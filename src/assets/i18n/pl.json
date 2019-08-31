@@ -6,6 +6,9 @@
   },
   "COMMON": {
     "EMAIL": "Email",
+    "NAME": "Nazwa",
+    "INGREDIENTS": "Składniki",
+    "QUANTITY": "Ilość",
     "PASSWORD": "Hasło",
     "DAY": {
       "0": "niedziela",
@@ -31,10 +34,18 @@
       "11": "grudzień"
     }
   },
+  "ENUM": {
+    "PRODUCT_UNIT": {
+      "100g": "100g",
+      "kg": "kilogram",
+      "unit": "sztuka"
+    }
+  },
   "DASHBOARD": {
     "NAVIGATION": {
       "MEALS": "Posiłki",
       "PRODUCTS": "Produkty",
+      "ADD_PRODUCT": "Dodaj produkt",
       "DAY_PLAN": "Plan dnia",
       "SIGN_OUT": "Wyloguj się"
     }
@@ -47,18 +58,22 @@
     "LOAD_DAYS_ERROR": "Wystąpił błąd podczas ładowania planu dnia",
     "UPDATE_DAY_ERROR": "Wystąpił błąd podczas aktualizacji dnia"
   },
+  "LANDING_PAGE": {
+    "WELCOME": "Witaj w DIET",
+    "SIGN_IN": "Zaloguj się",
+    "SIGN_UP": "Zarejestruj się",
+    "CONFIRM_PASSWORD": "Potwierdź hasło"
+  },
+  "PRODUCT": {
+    "DESCRIPTION_PLACEHOLDER": "Dodaj opis...",
+    "NAME_PLACEHOLDER": "Nazwa produktu"
+  },
   "SUMMARY": {
     "KCAL": "Kalorie",
     "PROTEINS": "Białko",
     "CARBS": "Węglowodany",
     "FAT": "Tłuszcz",
     "ROUGHAGE": "Błonnik"
-  },
-  "LANDING_PAGE": {
-    "WELCOME": "Witaj w DIET",
-    "SIGN_IN": "Zaloguj się",
-    "SIGN_UP": "Zarejestruj się",
-    "CONFIRM_PASSWORD": "Potwierdź hasło"
   },
   "VALIDATION_ERROR": {
     "required": "Pole wymagane",

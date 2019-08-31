@@ -15,6 +15,7 @@ export class RoutingService {
         go: this.goToDashboard.bind(this),
         products: {
           list: this.goToProductsList.bind(this),
+          details: this.goToProductsDetails.bind(this),
         },
         meals: {
           list: this.goToMealsList.bind(this),
@@ -48,6 +49,10 @@ export class RoutingService {
     return this.navigateByUrl('dashboard/products');
   }
 
+  private goToProductsDetails(productId: string = 'create'): Promise<boolean> {
+    return this.navigateByUrl(`dashboard/products/${productId}`);
+  }
+
   private goToMealsList(): Promise<boolean> {
     return this.navigateByUrl('dashboard/meals');
   }
@@ -65,6 +70,7 @@ export interface NavigationTree {
     }
     products: {
       list: NavigationCallback,
+      details: NavigationCallback,
     },
     dayPlan: NavigationCallback,
   };
