@@ -13,6 +13,7 @@ import { DietEntityItem } from './diet-entity-item';
                   </div>
               </div>
               <div class="diet-entity-item-table-row" *ngFor="let item of items">
+                  <div class="diet-entity-item-table-row-arrow"></div>
                   <div class="diet-entity-item-table-row-name">{{item.name}}</div>
                   <div class="diet-entity-item-table-row-quantity">{{item.quantity}}{{item.unit}}</div>
               </div>

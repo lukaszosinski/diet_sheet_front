@@ -1,5 +1,6 @@
 @import "colors.scss";
 @import 'layout.scss';
+@import 'mixins.scss';
 
 .day-plan-summary-wrapper {
   display: flex;
@@ -15,15 +16,7 @@
 }
 
 .summary-arrow {
-  background: url(~src/assets/images/icons/arrow.png) no-repeat;
-  height: 1.5rem;
-  width: 1.5rem;
-  background-size: contain;
-  outline: none;
-
-  &:hover {
-    filter: brightness(1.5);
-  }
+  @include arrow(1.5rem, 0, true);
 }
 
 .rotated-summary-arrow {

@@ -44,3 +44,19 @@
     @include inset-shadow($shadowRadio, darken($shadowColor, 20));
   }
 }
+
+// arrow points down by default
+@mixin arrow($size, $rotate: 0deg, $withHover: false) {
+  background: url(~src/assets/images/icons/arrow.png) no-repeat;
+  height: $size;
+  width: $size;
+  background-size: contain;
+  outline: none;
+  transform: rotate($rotate);
+
+  @if $withHover == true {
+    &:hover, &:focus {
+      filter: brightness(1.5);
+    }
+  }
+}
