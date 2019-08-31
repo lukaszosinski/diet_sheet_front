@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { concatMap, distinctUntilChanged, filter, map, tap } from 'rxjs/operators';
+import { concatMap, distinctUntilChanged, filter, map } from 'rxjs/operators';
 import { AppState } from '../../../../../app.recuder';
 import { Store } from '@ngrx/store';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -9,6 +9,8 @@ import { Meal } from '../meal.model';
 import { DietEntityInfoPlaceholderKeys, DietEntityItem } from '../../../../diet-entity';
 import * as MealActions from '../meal.actions';
 import * as fromMeals from '../meal.reducer';
+import { OnDestroyAbstract } from '../../../../shared/utils/abstract-injectables/on-destroy-abstract';
+import { takeUntilDestroy } from '../../../../shared/utils/rxjs-utils';
 
 
 @Component({
@@ -39,7 +41,7 @@ import * as fromMeals from '../meal.reducer';
   styleUrls: [ './meal-details.component.scss' ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MealDetailsComponent implements OnInit {
+export class MealDetailsComponent extends OnDestroyAbstract implements OnInit {
 
   readonly MEAL_PLACEHOLDER_KEYS: DietEntityInfoPlaceholderKeys = {
     name: 'MEAL.NAME_PLACEHOLDER',
@@ -52,6 +54,7 @@ export class MealDetailsComponent implements OnInit {
               private store: Store<AppState>,
               fb: FormBuilder,
   ) {
+    super();
     this.form = this.createForm(fb);
   }
 
@@ -84,8 +87,11 @@ export class MealDetailsComponent implements OnInit {
   }
 
   patchFormIfMealSelected(): void {
-    // unsubscribe
-    this.getSelectedMeal$().subscribe((meal) => this.form.patchValue(meal));
+    this.getSelectedMeal$()
+      .pipe(takeUntilDestroy(this))
+      .subscribe(
+        (meal) => this.form.patchValue(meal),
+      );
   }
 
   getSelectedMeal$(): Observable<Meal> {
@@ -93,9 +99,8 @@ export class MealDetailsComponent implements OnInit {
       .pipe(
         filter(id => !!id),
         concatMap((id) => this.store.select(fromMeals.selectMealById(id!))),
-        filter(meal => !!meal),
-        tap(console.log)
-      );
+        filter(meal => !!meal)
+      ) as Observable<Meal>;
   }
 
   getMode$(): Observable<MealDetailsComponentMode> {
