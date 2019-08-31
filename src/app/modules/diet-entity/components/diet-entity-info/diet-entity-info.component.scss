@@ -3,7 +3,7 @@
 @import "layout.scss";
 
 $font-size-medium: 1.5rem;
-$inputs-max-width: 68%;
+$inputs-max-width: 70%;
 
 .diet-entity-info {
   display: flex;
@@ -11,7 +11,7 @@ $inputs-max-width: 68%;
   border-radius: $default-border-radius;
   position: relative;
   background: $light url('src/assets/images/logo.svg') no-repeat right top;
-  background-size: 10rem 18rem;
+  background-size: 9rem 16rem;
   @include card(10rem);
 
   &-name {
@@ -76,7 +76,7 @@ $inputs-max-width: 68%;
       font-size: 1 * $font-size-medium;
     }
 
-    &-description {
+    &:not(&--short) &-description {
       width: auto;
     }
   }

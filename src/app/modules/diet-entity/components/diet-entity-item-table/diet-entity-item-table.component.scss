@@ -23,13 +23,27 @@
   }
 
   &-wrapper {
+    $row-width-0: 70%;
+    $row-width-1: 30%;
+
     width: 100%;
     display: flex;
     flex-direction: column;
 
     .diet-entity-item-table-header-row {
+      margin: 1rem 0 0.5rem;
       color: $primaryColor;
       font-size: 2rem;
+      display: flex;
+
+      &-0 {
+        width: $row-width-0;
+        margin: -0.25rem;
+      }
+
+      &-1 {
+        width: $row-width-1;
+      }
     }
 
     .diet-entity-item-table-row {
@@ -38,7 +52,7 @@
       font-size: 1.5rem;
 
       &-name {
-        width: 70%;
+        width: $row-width-0;
 
         &::before {
           content: '>';
@@ -48,7 +62,7 @@
       }
 
       &-quantity {
-        width: 30%;
+        width: $row-width-1;
       }
     }
   }

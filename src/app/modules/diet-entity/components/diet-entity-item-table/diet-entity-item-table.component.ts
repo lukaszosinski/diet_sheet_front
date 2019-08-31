@@ -9,7 +9,8 @@ import { DietEntityItem } from './diet-entity-item';
           <div class="diet-entity-item-table-wrapper">
               <div class="diet-entity-item-table-header-row">
                   <div *ngFor="let header of columnHeaders; let i = index"
-                       class="diet-entity-item-table-header-{{i}}">{{header}}</div>
+                       class="diet-entity-item-table-header-row-{{i}}">{{header}}:
+                  </div>
               </div>
               <div class="diet-entity-item-table-row" *ngFor="let item of items">
                   <div class="diet-entity-item-table-row-name">{{item.name}}</div>

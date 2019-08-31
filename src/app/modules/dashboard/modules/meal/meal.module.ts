@@ -8,6 +8,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { MealEffects } from './meal.effects';
 import { MealWithSummaryComponent } from './meal-with-summary/meal-with-summary.component';
 import { SummaryComponent } from './summary/summary.component';
+import { DietEntityModule } from '../../../diet-entity/diet-entity.module';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { SummaryComponent } from './summary/summary.component';
     SharedLazyModule,
     StoreModule.forFeature(fromMeal.mealsFeatureKey, fromMeal.reducer),
     EffectsModule.forFeature([ MealEffects ]),
+    DietEntityModule,
   ],
   exports: [
     MealWithSummaryComponent,

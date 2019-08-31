@@ -6,7 +6,7 @@ import { ProductUnitEnum } from '../../../dashboard/modules/product/product-unit
 @Component({
   selector: 'diet-entity-info',
   template: `
-      <div class="diet-entity-info" [formGroup]="infoFormGroup">
+      <div class="diet-entity-info" [formGroup]="infoFormGroup" [class.diet-entity-info--short]="!displayUnits">
           <input class="diet-entity-info-name" name="name" formControlName="name" [placeholder]="placeholderKeys.name | translate">
           <select *ngIf="displayUnits"
                   [value]="UNITS[0]"
