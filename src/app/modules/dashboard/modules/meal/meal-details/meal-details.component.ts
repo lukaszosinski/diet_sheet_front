@@ -4,14 +4,14 @@ import { Observable } from 'rxjs';
 import { concatMap, distinctUntilChanged, filter, map } from 'rxjs/operators';
 import { AppState } from '../../../../../app.recuder';
 import { Store } from '@ngrx/store';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormGroup } from '@angular/forms';
 import { Meal } from '../meal.model';
 import { DietEntityInfoPlaceholderKeys } from '../../../../diet-entity';
 import * as MealActions from '../meal.actions';
 import * as fromMeals from '../meal.reducer';
 import { OnDestroyAbstract } from '../../../../shared/utils/abstract-injectables/on-destroy-abstract';
 import { takeUntilDestroy } from '../../../../shared/utils/rxjs-utils';
-import { Ingredient } from '../../../../../api/models/ingredient';
+import { MealDetailsFormService } from './meal-details-form.service';
 
 
 @Component({
@@ -43,6 +43,9 @@ import { Ingredient } from '../../../../../api/models/ingredient';
   `,
   styleUrls: [ './meal-details.component.scss' ],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [
+    { provide: MealDetailsFormService, useClass: MealDetailsFormService }
+  ]
 })
 export class MealDetailsComponent extends OnDestroyAbstract implements OnInit {
 
@@ -55,39 +58,10 @@ export class MealDetailsComponent extends OnDestroyAbstract implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private store: Store<AppState>,
-              private fb: FormBuilder,
+              private formService: MealDetailsFormService
   ) {
     super();
-    this.form = this.createForm();
-  }
-
-  private createForm(): FormGroup {
-    const summaryForm = this.fb.group({
-      kcal: [ undefined, Validators.required ],
-      proteins: [ undefined, Validators.required ],
-      carbs: [ undefined, Validators.required ],
-      fat: [ undefined, Validators.required ]
-    });
-    summaryForm.disable();
-
-    return this.fb.group({
-      name: [ undefined, Validators.required ],
-      description: undefined,
-      unit: undefined,
-      summary: summaryForm,
-      ingredients: this.fb.array([
-        this.createIngredientForm()
-      ])
-    });
-  }
-
-  private createIngredientForm(ingredient?: Ingredient): FormGroup {
-    return this.fb.group({
-      product: [ ingredient && ingredient.product, Validators.required ],
-      amount: [ ingredient && ingredient.amount, Validators.required ],
-      name: [ ingredient && ingredient.product.name ],
-      unit: [ ingredient && ingredient.product.productUnit ]
-    });
+    this.form = this.formService.form;
   }
 
   ngOnInit(): void {
@@ -104,19 +78,7 @@ export class MealDetailsComponent extends OnDestroyAbstract implements OnInit {
   private patchFormIfMealSelected(): void {
     this.getSelectedMeal$()
       .pipe(takeUntilDestroy(this))
-      .subscribe(
-        (meal) => {
-          this.form.patchValue(meal);
-          this.patchIngredientForm(meal);
-        }
-      );
-  }
-
-  private patchIngredientForm(meal: Meal): void {
-    const ingredientForm = this.getIngredientsForm();
-    ingredientForm.clear();
-    meal.ingredients.map(ing => this.createIngredientForm(ing))
-      .forEach(ingredient => ingredientForm.push(ingredient));
+      .subscribe((meal) => this.formService.patchForm(meal));
   }
 
   getSelectedMeal$(): Observable<Meal> {
@@ -142,15 +104,15 @@ export class MealDetailsComponent extends OnDestroyAbstract implements OnInit {
   }
 
   getIngredientsForm(): FormArray {
-    return this.form.get('ingredients') as FormArray;
+    return this.formService.getIngredientsForm();
   }
 
   getSummaryForm(): FormGroup {
-    return this.form.get('summary') as FormGroup;
+    return this.formService.getSummaryForm();
   }
 
   onConfirmButtonClick(): void {
-    const meal: Meal = this.form.value;
+    const meal: Meal = this.formService.getMealFromValue();
     this.store.dispatch(MealActions.addMeal({ meal }));
   }
 
@@ -163,7 +125,7 @@ export class MealDetailsComponent extends OnDestroyAbstract implements OnInit {
   }
 
   onDeleteIngredientClick(i: number): void {
-    this.getIngredientsForm().removeAt(i);
+    this.formService.removeIngredient(i);
   }
 }
 

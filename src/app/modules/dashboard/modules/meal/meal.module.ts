@@ -26,7 +26,7 @@ import { DietEntityModule } from '../../../diet-entity/diet-entity.module';
   exports: [
     MealWithSummaryComponent,
     SummaryComponent,
-  ]
+  ],
 })
 export class MealModule {
 }

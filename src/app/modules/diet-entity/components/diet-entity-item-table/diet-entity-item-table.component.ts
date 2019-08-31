@@ -52,7 +52,7 @@ export class DietEntityItemTableComponent extends OnDestroyAbstract implements O
   }
 
   private getItem(i: number): DietEntityItem | undefined {
-    return this.itemsFormArray.value[i];
+    return this.itemsFormArray.getRawValue()[i];
   }
 
   getName(i: number): string {
@@ -62,7 +62,7 @@ export class DietEntityItemTableComponent extends OnDestroyAbstract implements O
 
   getUnit(i: number): string {
     const item = this.getItem(i);
-    return item && item.unit || '';
+    return item && item.unit || 'kg';
   }
 
   onDeleteClick(index: number): void {
