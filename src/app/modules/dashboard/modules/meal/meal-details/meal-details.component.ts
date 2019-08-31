@@ -1,16 +1,17 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { concatMap, distinctUntilChanged, filter, map } from 'rxjs/operators';
 import { AppState } from '../../../../../app.recuder';
 import { Store } from '@ngrx/store';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Meal } from '../meal.model';
-import { DietEntityInfoPlaceholderKeys, DietEntityItem } from '../../../../diet-entity';
+import { DietEntityInfoPlaceholderKeys } from '../../../../diet-entity';
 import * as MealActions from '../meal.actions';
 import * as fromMeals from '../meal.reducer';
 import { OnDestroyAbstract } from '../../../../shared/utils/abstract-injectables/on-destroy-abstract';
 import { takeUntilDestroy } from '../../../../shared/utils/rxjs-utils';
+import { Ingredient } from '../../../../../api/models/ingredient';
 
 
 @Component({
@@ -30,12 +31,14 @@ import { takeUntilDestroy } from '../../../../shared/utils/rxjs-utils';
                   class="meal-details-prices-table"
                   [tableTitle]="'MEAL.INGREDIENTS' | translate"
                   [columnHeaders]="['COMMON.NAME' | translate, 'COMMON.QUANTITY' | translate]"
-                  [items]="getEntityTableItems$() | async"
-                  (addButtonClick)="onAddProductPriceClick()">
+                  [itemsFormArray]="getIngredientsForm()"
+                  (addButtonClick)="onAddIngredientClick()"
+                  (deleteClick)="onDeleteIngredientClick($event)"
+          >
           </diet-entity-item-table>
           <diet-entity-summary
                   class="meal-details-summary"
-                  [summaryFormGroup]="getSummaryFormGroup()"></diet-entity-summary>
+                  [summaryFormGroup]="getSummaryForm()"></diet-entity-summary>
       </form>
   `,
   styleUrls: [ './meal-details.component.scss' ],
@@ -52,14 +55,14 @@ export class MealDetailsComponent extends OnDestroyAbstract implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private store: Store<AppState>,
-              fb: FormBuilder,
+              private fb: FormBuilder,
   ) {
     super();
-    this.form = this.createForm(fb);
+    this.form = this.createForm();
   }
 
-  private createForm(fb: FormBuilder): FormGroup {
-    const summaryForm = fb.group({
+  private createForm(): FormGroup {
+    const summaryForm = this.fb.group({
       kcal: [ undefined, Validators.required ],
       proteins: [ undefined, Validators.required ],
       carbs: [ undefined, Validators.required ],
@@ -67,11 +70,23 @@ export class MealDetailsComponent extends OnDestroyAbstract implements OnInit {
     });
     summaryForm.disable();
 
-    return fb.group({
+    return this.fb.group({
       name: [ undefined, Validators.required ],
       description: undefined,
       unit: undefined,
       summary: summaryForm,
+      ingredients: this.fb.array([
+        this.createIngredientForm()
+      ])
+    });
+  }
+
+  private createIngredientForm(ingredient?: Ingredient): FormGroup {
+    return this.fb.group({
+      product: [ ingredient && ingredient.product, Validators.required ],
+      amount: [ ingredient && ingredient.amount, Validators.required ],
+      name: [ ingredient && ingredient.product.name ],
+      unit: [ ingredient && ingredient.product.productUnit ]
     });
   }
 
@@ -80,18 +95,28 @@ export class MealDetailsComponent extends OnDestroyAbstract implements OnInit {
     this.patchFormIfMealSelected();
   }
 
-  loadMeal(): void {
+  private loadMeal(): void {
     this.getSelectedMealId$()
       .pipe(filter(mealId => !!mealId))
       .subscribe((id) => this.store.dispatch(MealActions.loadMeal({ id: id! })));
   }
 
-  patchFormIfMealSelected(): void {
+  private patchFormIfMealSelected(): void {
     this.getSelectedMeal$()
       .pipe(takeUntilDestroy(this))
       .subscribe(
-        (meal) => this.form.patchValue(meal),
+        (meal) => {
+          this.form.patchValue(meal);
+          this.patchIngredientForm(meal);
+        }
       );
+  }
+
+  private patchIngredientForm(meal: Meal): void {
+    const ingredientForm = this.getIngredientsForm();
+    ingredientForm.clear();
+    meal.ingredients.map(ing => this.createIngredientForm(ing))
+      .forEach(ingredient => ingredientForm.push(ingredient));
   }
 
   getSelectedMeal$(): Observable<Meal> {
@@ -116,18 +141,11 @@ export class MealDetailsComponent extends OnDestroyAbstract implements OnInit {
     );
   }
 
-  getEntityTableItems$(): Observable<DietEntityItem[]> {
-    return of([
-      { name: 'Kurczak', quantity: '5', unit: 'g' },
-      { name: 'Ziemniaki', quantity: '7', unit: 'g' },
-    ]);
+  getIngredientsForm(): FormArray {
+    return this.form.get('ingredients') as FormArray;
   }
 
-  onAddProductPriceClick(): void {
-    console.log('Add product price');
-  }
-
-  getSummaryFormGroup(): FormGroup {
+  getSummaryForm(): FormGroup {
     return this.form.get('summary') as FormGroup;
   }
 
@@ -138,6 +156,14 @@ export class MealDetailsComponent extends OnDestroyAbstract implements OnInit {
 
   onCancelButtonClick(): void {
     console.log('Cancel button clicked');
+  }
+
+  onAddIngredientClick(): void {
+    console.log('add ingredient');
+  }
+
+  onDeleteIngredientClick(i: number): void {
+    this.getIngredientsForm().removeAt(i);
   }
 }
 

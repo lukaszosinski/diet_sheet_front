@@ -60,3 +60,16 @@
     }
   }
 }
+
+@mixin cross-icon($size) {
+  background: transparent url(~src/assets/images/icons/X.png) no-repeat;
+  background-size: contain;
+  cursor: pointer;
+  height: 1rem;
+  width: 1rem;
+
+  &:focus, &:hover {
+    background-color: transparentize($primaryColor, 0.8);
+    border-radius: 50%;
+  }
+}
