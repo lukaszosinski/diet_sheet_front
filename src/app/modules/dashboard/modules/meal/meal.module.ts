@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { MealRoutingModule } from './meal-routing.module';
-import { MealsComponent } from './meals/meals.component';
 import { MealDetailsComponent } from './meal-details/meal-details.component';
 import { SharedLazyModule } from '../../../shared/shared-lazy.module';
 import { StoreModule } from '@ngrx/store';
@@ -12,7 +11,6 @@ import { SummaryComponent } from './summary/summary.component';
 
 @NgModule({
   declarations: [
-    MealsComponent,
     MealDetailsComponent,
     SummaryComponent,
     MealWithSummaryComponent,
