@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { DashboardNavBarData } from './dashboard-nav-bar/models/dashboard-nav-bar-data';
+import { Component, ViewEncapsulation } from '@angular/core';
+import { DashboardNavigationData } from './dashboard-nav-bar/models/dashboard-navigation-data';
 import { RoutingService } from '../shared/routing/routing.service';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -12,9 +12,8 @@ import * as DashboardActions from './dashboard.actions';
   template: `
       <div class="diet-dashboard">
           <div class="diet-dashboard-nav-bar-wrapper" [class.hidden]="!(shouldShowNavBar$ | async)">
-              <diet-dashboard-nav-bar [show]="shouldShowNavBar$ | async" [items]="navBarData"></diet-dashboard-nav-bar>
-              <diet-dashboard-nav-bar-trigger-button
-                      (triggered)="onNavBarTriggered()"
+              <diet-dashboard-nav-bar [show]="shouldShowNavBar$ | async" [items]="navigationData"></diet-dashboard-nav-bar>
+              <diet-dashboard-nav-bar-trigger-button (click)="onNavBarToggled()"
               ></diet-dashboard-nav-bar-trigger-button>
           </div>
           <div id="diet-dashboard-content-wrapper" class="diet-dashboard-content-wrapper">
@@ -25,9 +24,9 @@ import * as DashboardActions from './dashboard.actions';
   styleUrls: [ './dashboard.component.scss' ],
   encapsulation: ViewEncapsulation.None,
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent {
 
-  readonly navBarData: DashboardNavBarData[] = [
+  readonly navigationData: DashboardNavigationData[] = [
     {
       translationKey: 'DASHBOARD.NAVIGATION.MEALS',
       navigationCallback: this.routingService.navigation.dashboard.meals.list,
@@ -53,9 +52,7 @@ export class DashboardComponent implements OnInit {
     this.shouldShowNavBar$ = this.store.select(fromDashboard.selectShouldShowNavBar);
   }
 
-  ngOnInit(): void { }
-
-  onNavBarTriggered(): void {
+  onNavBarToggled(): void {
     this.store.dispatch(DashboardActions.triggerNavBar());
   }
 }

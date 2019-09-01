@@ -1,25 +1,36 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { DashboardNavBarData } from './models/dashboard-nav-bar-data';
+import { DashboardNavigationData } from './models/dashboard-navigation-data';
 import * as fromAuthorization from '../../authorization/authorization.actions';
 import { AppState } from '../../../app.recuder';
 import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'diet-dashboard-nav-bar',
-  templateUrl: './dashboard-nav-bar.component.html',
+  template: `
+      <div class="diet-dashboard-nav-bar" *ngIf="show">
+          <ul>
+              <li *ngFor="let item of items">
+                  <a (click)="redirect(item.navigationCallback)">
+                      {{item.translationKey | translate}}
+                  </a>
+              </li>
+          </ul>
+          <a (click)="signOut()">{{ 'DASHBOARD.NAVIGATION.SIGN_OUT' | translate }}</a>
+      </div>
+  `,
   styleUrls: [ './dashboard-nav-bar.component.scss' ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DashboardNavBarComponent implements OnInit {
 
-  @Input() items: DashboardNavBarData[] = [];
+  @Input() items: DashboardNavigationData[] = [];
   @Input() show = false;
 
   constructor(private store: Store<AppState>) { }
 
-  ngOnInit() { }
+  ngOnInit(): void { }
 
-  redirect(redirectCallback: () => Promise<boolean>) {
+  redirect(redirectCallback: () => Promise<boolean>): void {
     redirectCallback();
   }
 

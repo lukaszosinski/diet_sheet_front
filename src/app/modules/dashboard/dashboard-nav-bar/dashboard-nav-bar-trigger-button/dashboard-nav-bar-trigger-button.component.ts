@@ -1,21 +1,14 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
   selector: 'diet-dashboard-nav-bar-trigger-button',
-  templateUrl: './dashboard-nav-bar-trigger-button.component.html',
+  template: `
+      <button class="diet-dashboard-nav-bar-trigger-button">
+          x
+      </button>
+  `,
   styleUrls: [ './dashboard-nav-bar-trigger-button.component.scss' ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DashboardNavBarTriggerButtonComponent implements OnInit {
-
-  @Output() triggered: EventEmitter<void> = new EventEmitter<void>();
-
-  constructor() { }
-
-  ngOnInit() {
-  }
-
-  onClick(): void {
-    this.triggered.emit();
-  }
+export class DashboardNavBarTriggerButtonComponent {
 }
