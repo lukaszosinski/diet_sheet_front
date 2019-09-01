@@ -8,13 +8,15 @@ import { EffectsModule } from '@ngrx/effects';
 import { MealEffects } from './meal.effects';
 import { DietEntityModule } from '../../../diet-entity/diet-entity.module';
 import { ProductModule } from '../product/product.module';
-import { SelectMealDialogComponent } from '../day-plan/components/select-meal-dialog/select-meal-dialog.component';
+import { SelectMealDialogComponent } from './select-meal-dialog/select-meal-dialog.component';
 import { MatDialogModule } from '@angular/material';
+import { MealListComponent } from './meal-list/meal-list.component';
 
 @NgModule({
   declarations: [
     MealDetailsComponent,
     SelectMealDialogComponent,
+    MealListComponent,
   ],
   imports: [
     MealRoutingModule,

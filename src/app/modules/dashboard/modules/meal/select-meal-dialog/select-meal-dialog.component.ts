@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { Meal } from '../../../meal/meal.model';
+import { Meal } from '../meal.model';
 import { MatDialogRef } from '@angular/material';
-import * as MealActions from '../../../meal/meal.actions';
-import * as fromMeal from '../../../meal/meal.reducer';
-import { AppState } from '../../../../../../app.recuder';
+import * as MealActions from '../meal.actions';
+import * as fromMeal from '../meal.reducer';
+import { AppState } from '../../../../../app.recuder';
 
 @Component({
   selector: 'diet-select-meal-dialog',

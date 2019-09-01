@@ -12,7 +12,7 @@ import { MatDialog, MatDialogRef } from '@angular/material';
 import { Meal } from '../meal/meal.model';
 import { selectFirst } from '../../../shared/utils/ngrx-utils';
 import { Day } from '../../../../api/models/day';
-import { SelectMealDialogComponent } from './components/select-meal-dialog/select-meal-dialog.component';
+import { SelectMealDialogComponent } from '../meal/select-meal-dialog/select-meal-dialog.component';
 import { Summary } from '../../../diet-entity/summary.model';
 
 @Component({
