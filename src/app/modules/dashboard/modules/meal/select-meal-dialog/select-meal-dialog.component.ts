@@ -12,6 +12,8 @@ import { AppState } from '../../../../../app.recuder';
   template: `
       <diet-entity-with-summary-list [dietEntities]="meals$ | async"
                                      (entityClick)="onMealClick($event)"
+                                     (addEntity)="onAddMealClick()"
+                                     [addButtonTitle]="'MEAL.ADD_MEAL' | translate"
       ></diet-entity-with-summary-list>
   `,
   styleUrls: [ './select-meal-dialog.component.scss' ],
@@ -33,5 +35,10 @@ export class SelectMealDialogComponent implements OnInit {
 
   onMealClick(meal: Meal): void {
     this.dialogRef.close({ meal });
+  }
+
+  onAddMealClick(): void {
+    this.dialogRef.close();
+    console.log('Should redirect do create meal');
   }
 }

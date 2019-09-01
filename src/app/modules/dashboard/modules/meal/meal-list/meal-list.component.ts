@@ -10,15 +10,13 @@ import { RoutingService } from '../../../../shared/routing/routing.service';
 @Component({
   selector: 'diet-meal-list',
   template: `
-      <div class="diet-meal-list-content">
-          <div class="diet-meal-list-header">
-              <diet-add-button class="large" (click)="onAddMealClick()" [title]="'MEAL.ADD_MEAL' | translate"></diet-add-button>
-          </div>
-          <diet-entity-with-summary-list class="diet-entity-with-summary-list"
-                                         [dietEntities]="meals$ | async"
-                                         (entityClick)="onMealClick($event)"
-          ></diet-entity-with-summary-list>
-      </div>
+      <diet-entity-with-summary-list class="diet-entity-with-summary-list"
+                                     [dietEntities]="meals$ | async"
+                                     (entityClick)="onMealClick($event)"
+                                     (addEntity)="onAddMealClick()"
+                                     [addButtonTitle]="'MEAL.ADD_MEAL' | translate"
+      ></diet-entity-with-summary-list>
+
   `,
   styleUrls: [ './meal-list.component.scss' ],
   changeDetection: ChangeDetectionStrategy.OnPush

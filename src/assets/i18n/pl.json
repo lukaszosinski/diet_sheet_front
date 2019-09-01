@@ -86,6 +86,7 @@
     "INGREDIENTS": "Składniki"
   },
   "PRODUCT": {
+    "ADD_PRODUCT": "Dodaj produkt",
     "DESCRIPTION_PLACEHOLDER": "Dodaj opis...",
     "NAME_PLACEHOLDER": "Nazwa produktu",
     "PRICE": "Cena",
