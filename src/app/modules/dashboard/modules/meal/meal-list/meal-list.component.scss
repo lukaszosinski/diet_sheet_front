@@ -3,4 +3,12 @@
 
 .diet-meal-list-content {
   height: 100%;
+  padding: 0 3rem;
+
+  .diet-meal-list-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    margin-bottom: 1rem;
+  }
 }

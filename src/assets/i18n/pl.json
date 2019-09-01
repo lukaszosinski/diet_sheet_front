@@ -79,6 +79,7 @@
     "CONFIRM_PASSWORD": "Potwierdź hasło"
   },
   "MEAL": {
+    "ADD_MEAL": "Dodaj posiłek",
     "DESCRIPTION_PLACEHOLDER": "Dodaj opis...",
     "MEAL_LIST_TITLE": "Lista posiłków",
     "NAME_PLACEHOLDER": "Nazwa posiłku",

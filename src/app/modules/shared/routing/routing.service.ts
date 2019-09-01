@@ -15,10 +15,11 @@ export class RoutingService {
         go: this.goToDashboard.bind(this),
         products: {
           list: this.goToProductsList.bind(this),
-          details: this.goToProductsDetails.bind(this),
+          details: this.goToProductDetails.bind(this),
         },
         meals: {
           list: this.goToMealsList.bind(this),
+          details: this.goToMealDetails.bind(this),
         },
         dayPlan: this.goToDayPlan.bind(this),
         shoppingList: this.goToShoppingList.bind(this),
@@ -52,12 +53,16 @@ export class RoutingService {
     return this.navigateByUrl('dashboard/products');
   }
 
-  private goToProductsDetails(productId: string = 'create'): Promise<boolean> {
+  private goToProductDetails(productId: string = 'create'): Promise<boolean> {
     return this.navigateByUrl(`dashboard/products/${productId}`);
   }
 
   private goToMealsList(): Promise<boolean> {
     return this.navigateByUrl('dashboard/meals');
+  }
+
+  private goToMealDetails(mealId: string = 'create', skipLocationChange: boolean = false): Promise<boolean> {
+    return this.navigateByUrl(`dashboard/meals/${mealId}`, { skipLocationChange });
   }
 
   private goToDayPlan(): Promise<boolean> {
@@ -82,6 +87,7 @@ export interface NavigationTree {
     go: NavigationCallback,
     meals: {
       list: NavigationCallback,
+      details: NavigationCallback,
     }
     products: {
       list: NavigationCallback,
@@ -98,4 +104,4 @@ export interface NavigationTree {
   };
 }
 
-export type NavigationCallback = () => Promise<boolean>;
+export type NavigationCallback = (...args: any) => Promise<boolean>;
