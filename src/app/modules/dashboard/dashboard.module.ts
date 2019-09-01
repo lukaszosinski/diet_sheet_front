@@ -14,6 +14,7 @@ import { FridgeComponent } from './dashboard-navigation/fridge/fridge.component'
 import { DashboardNavigationService } from './dashboard-navigation/dashboard-navigation.service';
 
 
+
 @NgModule({
   declarations: [
     DashboardComponent,

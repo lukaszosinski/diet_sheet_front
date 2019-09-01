@@ -65,7 +65,7 @@ export class RoutingService {
   }
 
   private goToShoppingList(): Promise<boolean> {
-    return this.goToFridge();
+    return this.navigateByUrl('dashboard/shopping-list');
   }
 
   private goToSettings(): Promise<boolean> {
