@@ -13,8 +13,8 @@ import { EffectsModule } from '@ngrx/effects';
 import { DayPlanEffects } from './day-plan.effects';
 import { StatsMeterComponent } from './components/stats-metter/stats-meter.component';
 import { MatDialogModule } from '@angular/material';
-import { AddMealDialogComponent } from './components/add-meal-dialog/add-meal-dialog.component';
 import { MealModule } from '../meal/meal.module';
+import { DietEntityModule } from '../../../diet-entity/diet-entity.module';
 
 
 @NgModule({
@@ -23,7 +23,6 @@ import { MealModule } from '../meal/meal.module';
     DayPlanCalendarComponent,
     DayPlanMealComponent,
     DayPlanStatsComponent,
-    AddMealDialogComponent,
     StatsMeterComponent,
   ],
   imports: [
@@ -34,10 +33,8 @@ import { MealModule } from '../meal/meal.module';
     EffectsModule.forFeature([ DayPlanEffects ]),
     MatDialogModule,
     MealModule,
+    DietEntityModule,
   ],
-  entryComponents: [
-    AddMealDialogComponent,
-  ]
 })
 export class DayPlanModule {
 }

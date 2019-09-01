@@ -35,10 +35,11 @@
     }
   },
   "ENUM": {
-    "PRODUCT_UNIT": {
-      "100g": "100g",
-      "kg": "kilogram",
-      "unit": "sztuka"
+    "GRANULARITY": {
+      "HUNDRED_GRAMS": "100 gram",
+      "PIECE": "sztuka",
+      "HUNDRED_MILLILITERS": "100 mililitrów",
+      "KILOGRAM": "kilogram"
     }
   },
   "DASHBOARD": {
@@ -58,6 +59,15 @@
     "LOAD_DAYS_ERROR": "Wystąpił błąd podczas ładowania planu dnia",
     "UPDATE_DAY_ERROR": "Wystąpił błąd podczas aktualizacji dnia",
     "TOGGLE_SUMMARY": "Rozwiń/Schowaj podsumowanie"
+  },
+  "DIET_ENTITY": {
+    "UNIT": {
+      "HUNDRED_GRAMS": "g",
+      "PIECE": "szt.",
+      "HUNDRED_MILLILITERS": "ml",
+      "KILOGRAM": "kg",
+      "PLN": "zł"
+    }
   },
   "LANDING_PAGE": {
     "WELCOME": "Witaj w DIET",

@@ -1,0 +1,5 @@
+export enum GranularityEnum {
+  HUNDRED_GRAMS = 'HUNDRED_GRAMS',
+  PIECE = 'PIECE',
+  HUNDRED_MILLILITERS = 'HUNDRED_MILLILITERS',
+}

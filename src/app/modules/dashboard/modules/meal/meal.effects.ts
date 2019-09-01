@@ -36,8 +36,6 @@ export class MealEffects {
   updateMeal = createEffect(() => this.actions$.pipe(
     ofType(MealActions.updateMeal),
     mergeMap(({ meal }) => this.mealService.updateMeal(meal).pipe(
-      mergeMap(() => this.mealService.getMeal(String(meal.id))),
-      // TODO remove when api starts returning meal in the response
       map((receivedMeal) => MealActions.upsertMealSuccess({ meal: receivedMeal })),
       catchApiError(MealActions.upsertMealError)
     ))

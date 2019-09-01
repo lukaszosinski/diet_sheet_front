@@ -3,9 +3,8 @@ import { Product } from '../product.model';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../../../app.recuder';
 import * as ProductActions from '../product.actions';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { DietEntityInfoPlaceholderKeys, DietEntityItem } from '../../../../diet-entity';
-import { Observable, of } from 'rxjs';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { DietEntityInfoPlaceholderKeys } from '../../../../diet-entity';
 
 
 @Component({
@@ -26,7 +25,7 @@ import { Observable, of } from 'rxjs';
                   class="product-details-prices-table"
                   [tableTitle]="'PRODUCT.PRICE' | translate"
                   [columnHeaders]="['PRODUCT.SHOP' | translate]"
-                  [items]="getEntityTableItems$() | async"
+                  [itemsFormArray]="getPricesForm()"
                   (addButtonClick)="onAddProductPriceClick()">
           </diet-entity-item-table>
           <diet-entity-summary
@@ -60,15 +59,13 @@ export class ProductDetailsComponent {
         proteins: [ undefined, Validators.required ],
         carbs: [ undefined, Validators.required ],
         fat: [ undefined, Validators.required ]
-      })
+      }),
+      prices: this.fb.array([]),
     });
   }
 
-  getEntityTableItems$(): Observable<DietEntityItem[]> {
-    return of([
-      { name: 'Biedronka', quantity: '5', unit: 'zł/kg' },
-      { name: 'Lidl', quantity: '7', unit: 'zł/kg' },
-    ]);
+  getPricesForm(): FormArray {
+    return this.form.get('prices') as FormArray;
   }
 
   onAddProductPriceClick(): void {

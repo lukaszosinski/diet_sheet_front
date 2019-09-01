@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { DietEntityInfoPlaceholderKeys } from './diet-entity-info-placeholder-keys';
-import { ProductUnitEnum } from '../../../dashboard/modules/product/product-unit.enum';
+import { GranularityEnum } from '../../../dashboard/modules/product/granularity.enum';
 
 @Component({
   selector: 'diet-entity-info',
@@ -26,7 +26,7 @@ import { ProductUnitEnum } from '../../../dashboard/modules/product/product-unit
 })
 export class DietEntityInfoComponent {
 
-  readonly UNITS: ProductUnitEnum[] = Object.values(ProductUnitEnum);
+  readonly UNITS: GranularityEnum[] = Object.values(GranularityEnum);
 
   @Input() placeholderKeys?: DietEntityInfoPlaceholderKeys;
   @Input() displayUnits: boolean = false;

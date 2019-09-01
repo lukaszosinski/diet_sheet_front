@@ -6,15 +6,15 @@ import { StoreModule } from '@ngrx/store';
 import * as fromMeal from './meal.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { MealEffects } from './meal.effects';
-import { MealWithSummaryComponent } from './meal-with-summary/meal-with-summary.component';
-import { SummaryComponent } from './summary/summary.component';
 import { DietEntityModule } from '../../../diet-entity/diet-entity.module';
+import { ProductModule } from '../product/product.module';
+import { SelectMealDialogComponent } from '../day-plan/components/select-meal-dialog/select-meal-dialog.component';
+import { MatDialogModule } from '@angular/material';
 
 @NgModule({
   declarations: [
     MealDetailsComponent,
-    SummaryComponent,
-    MealWithSummaryComponent,
+    SelectMealDialogComponent,
   ],
   imports: [
     MealRoutingModule,
@@ -22,11 +22,12 @@ import { DietEntityModule } from '../../../diet-entity/diet-entity.module';
     StoreModule.forFeature(fromMeal.mealsFeatureKey, fromMeal.reducer),
     EffectsModule.forFeature([ MealEffects ]),
     DietEntityModule,
+    ProductModule,
+    MatDialogModule,
   ],
-  exports: [
-    MealWithSummaryComponent,
-    SummaryComponent,
-  ],
+  entryComponents: [
+    SelectMealDialogComponent
+  ]
 })
 export class MealModule {
 }

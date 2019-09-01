@@ -12,6 +12,9 @@ import * as fromMeals from '../meal.reducer';
 import { OnDestroyAbstract } from '../../../../shared/utils/abstract-injectables/on-destroy-abstract';
 import { takeUntilDestroy } from '../../../../shared/utils/rxjs-utils';
 import { MealDetailsFormService } from './meal-details-form.service';
+import { Product } from '../../product/product.model';
+import { MatDialog, MatDialogRef } from '@angular/material';
+import { SelectProductDialogComponent } from '../../product/select-product-dialog/select-product-dialog.component';
 
 
 @Component({
@@ -58,7 +61,8 @@ export class MealDetailsComponent extends OnDestroyAbstract implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private store: Store<AppState>,
-              private formService: MealDetailsFormService
+              private formService: MealDetailsFormService,
+              private dialog: MatDialog,
   ) {
     super();
     this.form = this.formService.form;
@@ -128,7 +132,13 @@ export class MealDetailsComponent extends OnDestroyAbstract implements OnInit {
   }
 
   onAddIngredientClick(): void {
-    console.log('add ingredient');
+    const dialogRef: MatDialogRef<SelectProductDialogComponent, { product: Product }> = this.dialog.open(SelectProductDialogComponent, {
+      width: '70vw',
+      height: '70vh'
+    });
+    dialogRef.afterClosed()
+      .pipe(filter(result => !!result))
+      .subscribe(result => this.formService.addIngredient({ product: result!.product }));
   }
 
   onDeleteIngredientClick(i: number): void {

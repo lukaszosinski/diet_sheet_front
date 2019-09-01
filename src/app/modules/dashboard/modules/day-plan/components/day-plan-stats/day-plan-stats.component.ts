@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { Summary } from '../../../../../../api/models/summary';
+import { Summary } from '../../../../../diet-entity/summary.model';
 
 @Component({
   selector: 'diet-day-plan-stats',

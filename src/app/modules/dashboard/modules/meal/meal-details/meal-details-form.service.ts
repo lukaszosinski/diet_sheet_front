@@ -26,9 +26,7 @@ export class MealDetailsFormService {
       description: undefined,
       unit: undefined,
       summary: summaryForm,
-      ingredients: this.fb.array([
-        this.createIngredientForm()
-      ])
+      ingredients: this.fb.array([])
     });
   }
 
@@ -37,7 +35,7 @@ export class MealDetailsFormService {
       product: [ ingredient && ingredient.product, Validators.required ],
       amount: [ ingredient && ingredient.amount, Validators.required ],
       name: [ ingredient && ingredient.product.name ],
-      unit: [ ingredient && ingredient.product.productUnit ]
+      unit: [ ingredient && ingredient.product.granularity ]
     });
     ingredientForm.get('name')!.disable();
     ingredientForm.get('unit')!.disable();
@@ -62,6 +60,10 @@ export class MealDetailsFormService {
 
   getSummaryForm(): FormGroup {
     return this.form.get('summary') as FormGroup;
+  }
+
+  addIngredient(ingredient: Partial<Ingredient>): void {
+    this.getIngredientsForm().push(this.createIngredientForm(ingredient as Ingredient));
   }
 
   removeIngredient(ingredientIndex: number): void {

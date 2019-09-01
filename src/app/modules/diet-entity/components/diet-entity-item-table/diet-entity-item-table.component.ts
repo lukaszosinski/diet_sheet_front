@@ -19,7 +19,7 @@ import { takeUntilDestroy } from '../../../shared/utils/rxjs-utils';
                       <div class="diet-entity-item-table-row-delete" (click)="onDeleteClick(i)"></div>
                       <div class="diet-entity-item-table-row-name">{{getName(i)}}</div>
                       <input type="number" class="diet-entity-item-table-row-quantity" formControlName="amount">
-                      <div class="diet-entity-item-table-row-unit">{{getUnit(i)}}</div>
+                      <div class="diet-entity-item-table-row-unit">{{'DIET_ENTITY.UNIT.' + getUnit(i) | translate}}</div>
                   </div>
               </ng-container>
           </div>
@@ -62,7 +62,7 @@ export class DietEntityItemTableComponent extends OnDestroyAbstract implements O
 
   getUnit(i: number): string {
     const item = this.getItem(i);
-    return item && item.unit || 'kg';
+    return item && item.unit || '';
   }
 
   onDeleteClick(index: number): void {
