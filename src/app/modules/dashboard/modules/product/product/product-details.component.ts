@@ -53,7 +53,7 @@ export class ProductDetailsComponent {
     this.form = this.fb.group({
       name: [ undefined, Validators.required ],
       description: undefined,
-      unit: undefined,
+      granularity: undefined,
       summary: this.fb.group({
         kcal: [ undefined, Validators.required ],
         proteins: [ undefined, Validators.required ],
