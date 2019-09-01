@@ -24,7 +24,6 @@ export class MealDetailsFormService {
     return this.fb.group({
       name: [ undefined, Validators.required ],
       description: undefined,
-      unit: undefined,
       summary: summaryForm,
       ingredients: this.fb.array([])
     });
