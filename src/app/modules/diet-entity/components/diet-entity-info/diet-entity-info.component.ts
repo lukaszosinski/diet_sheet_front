@@ -13,7 +13,7 @@ import { GranularityEnum } from '../../../dashboard/modules/product/granularity.
                   class="diet-entity-info-unit"
                   name="unit"
                   formControlName="unit">
-              <option *ngFor="let unit of UNITS" [value]="unit">{{'ENUM.PRODUCT_UNIT.' + unit | translate}}</option>
+              <option *ngFor="let unit of UNITS" [value]="unit">{{'ENUM.GRANULARITY.' + unit | translate}}</option>
           </select>
           <textarea class="diet-entity-info-description"
                     name="description"

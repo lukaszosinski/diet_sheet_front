@@ -22,11 +22,11 @@
   }
 
   &-name {
+    height: 2.4rem;
+    line-height: 1.2rem;
     margin: 0.25rem;
     color: $fontColor;
     text-align: center;
-    line-height: 1.2rem;
-    max-height: 2.4rem;
     word-break: break-word;
     overflow: hidden;
   }
