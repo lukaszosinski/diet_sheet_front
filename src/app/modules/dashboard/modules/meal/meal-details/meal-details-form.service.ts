@@ -69,7 +69,6 @@ export class MealDetailsFormService {
   }
 
   getMealFromValue(): Meal {
-    console.log(this.form.value);
     return this.form.value;
   }
 }

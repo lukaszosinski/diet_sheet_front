@@ -19,4 +19,12 @@ export class MealService {
     return this.http.get<Meal[]>(this.mealsUrl);
   }
 
+  addMeal(meal: Meal): Observable<Meal> {
+    return this.http.post<Meal>(this.mealsUrl, meal);
+  }
+
+  updateMeal(meal: Meal): Observable<void> {
+    const url = `${this.mealsUrl}/${meal.id}`;
+    return this.http.put<void>(url, meal);
+  }
 }

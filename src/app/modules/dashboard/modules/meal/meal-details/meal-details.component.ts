@@ -112,8 +112,15 @@ export class MealDetailsComponent extends OnDestroyAbstract implements OnInit {
   }
 
   onConfirmButtonClick(): void {
-    const meal: Meal = this.formService.getMealFromValue();
-    this.store.dispatch(MealActions.addMeal({ meal }));
+    this.getSelectedMealId$()
+      .subscribe((mealId) => {
+        const meal: Meal = this.formService.getMealFromValue();
+        if (!mealId) {
+          this.store.dispatch(MealActions.addMeal({ meal }));
+        } else {
+          this.store.dispatch(MealActions.updateMeal({ meal: { ...meal, id: Number(mealId) } }));
+        }
+      });
   }
 
   onCancelButtonClick(): void {
