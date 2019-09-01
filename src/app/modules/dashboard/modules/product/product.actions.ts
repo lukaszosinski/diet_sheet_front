@@ -27,3 +27,7 @@ export const deleteProduct = createAction('[Product] Delete Product', props<{ id
 export const deleteProducts = createAction('[Product] Delete Products', props<{ ids: string[] }>());
 
 export const clearProducts = createAction('[Product] Clear Products');
+
+export const createProduct = createAction('[Product] Create Product', props<{product: Product}>());
+export const createProductSuccess = createAction('[Product/API] Create Product SUCCESS', props<{ product: Product }>());
+export const createProductError = createApiErrorAction('[Product/API] Create Products ERROR', 'PRODUCTS.CREATE_ERROR');

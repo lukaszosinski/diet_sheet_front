@@ -1,8 +1,11 @@
-import { Summary } from '../../../../api/models/summary';
+import { GranularityEnum } from './granularity.enum';
+import { DietEntity } from '../../../diet-entity/diet-entity.model';
+import { Summary } from '../../../diet-entity/summary.model';
 
-export interface Product {
+export interface Product extends DietEntity {
   id?: number;
   name: string;
-  nutrients: Summary;
-  kcal: number;
+  summary: Summary;
+  description?: string;
+  granularity: GranularityEnum;
 }

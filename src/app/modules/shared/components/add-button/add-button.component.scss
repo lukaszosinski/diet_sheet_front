@@ -1,0 +1,32 @@
+@import "colors.scss";
+@import "mixins.scss";
+
+
+.diet-add-button {
+  @include square-button(3rem);
+
+  .diet-add-button-icon {
+    height: 100%;
+    width: 100%;
+    position: relative;
+
+    &::after, &::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      background-color: $primaryColor;
+      transform: translate(-50%, -50%);
+      box-shadow: 0.1rem 0.2rem 0.5rem 0 transparentize($primaryColor, 0.3);
+    }
+
+    &::after {
+      width: 50%;
+      height: 0.15rem;
+    }
+
+    &::before {
+      height: 50%;
+      width: 0.15rem;
+    }
+  }
+}

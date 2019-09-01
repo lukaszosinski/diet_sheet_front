@@ -9,7 +9,6 @@ import { environment } from '../environments/environment';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { metaReducers, reducers } from './app.recuder';
-import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { EffectsModule } from '@ngrx/effects';
 import { ApiModule } from './api/api.module';
 import { AuthorizationModule } from './modules/authorization/authorization.module';
@@ -37,7 +36,6 @@ import { ApiEffects } from './api/api.effects';
     }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     EffectsModule.forRoot([ ApiEffects ]),
-    StoreRouterConnectingModule.forRoot(),
     SharedModule,
   ],
   providers: [

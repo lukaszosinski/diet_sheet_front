@@ -1,0 +1,28 @@
+@import "colors.scss";
+@import "layout.scss";
+
+.meal-details-wrapper {
+  height: 100%;
+  padding: 0 3rem;
+  display: flex;
+  flex-direction: column;
+
+  & > * {
+    margin-bottom: 1rem;
+  }
+
+  .meal-details-header {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .meal-details-info {
+    flex: 1 1 auto;
+  }
+}
+
+@media (max-width: $breakpoint-xs-max-width) {
+  .meal-details-wrapper {
+    padding: 0 0.25rem;
+  }
+}

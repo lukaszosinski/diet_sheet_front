@@ -1,7 +1,8 @@
-import { Summary } from '../../../../api/models/summary';
 import { Ingredient } from '../../../../api/models/ingredient';
+import { DietEntity } from '../../../diet-entity/diet-entity.model';
+import { Summary } from '../../../diet-entity/summary.model';
 
-export interface Meal {
+export interface Meal extends DietEntity {
   id: number;
   name: string;
   summary: Summary;

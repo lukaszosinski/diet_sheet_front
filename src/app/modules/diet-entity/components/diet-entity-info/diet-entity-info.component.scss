@@ -1,0 +1,83 @@
+@import "colors.scss";
+@import "mixins.scss";
+@import "layout.scss";
+
+$font-size-medium: 1.5rem;
+$inputs-max-width: 70%;
+
+.diet-entity-info {
+  display: flex;
+  flex-direction: column;
+  border-radius: $default-border-radius;
+  position: relative;
+  background: $light url('src/assets/images/logo.svg') no-repeat right top;
+  background-size: 9rem 16rem;
+  @include card(10rem);
+
+  &-name {
+    $shadowRadio: 5rem;
+
+    width: $inputs-max-width;
+    height: 6rem;
+    padding: 0 1.5rem 1rem;
+    font-size: 1.75 * $font-size-medium;
+    color: $secondaryColor;
+    border: 0.35rem solid $primaryColor;
+    border-radius: $default-border-radius;
+    background-color: transparent;
+    @include inset-shadow-with-hover($shadowRadio);
+  }
+
+  &-unit {
+    $height: 3rem;
+
+    height: $height;
+    width: 15rem;
+    margin: 1.5rem 0.5rem;
+    padding: 0 1rem;
+    border-radius: $height / 2;
+    background-color: transparent;
+    border: 0.3rem solid $warnColor;
+    line-height: $font-size-medium;
+    font-size: $font-size-medium;
+    color: $fontColor;
+
+    &:hover, &:focus {
+      border-color: darken($warnColor, 10);
+      background-color: $light--hover;
+    }
+  }
+
+  &-description {
+    width: $inputs-max-width;
+    $line-height: $font-size-medium + 0.2rem;
+    height: 6 * $line-height;
+    line-height: $line-height;
+    font-size: $font-size-medium;
+    margin: 0 0.5rem 0.5rem;
+    padding: 0.5rem;
+    color: $fontColor;
+    border-radius: $default-border-radius;
+    background-color: transparent;
+    resize: none;
+
+    &::placeholder {
+      //color: $fontColor
+    }
+  }
+}
+
+
+@media (max-width: $breakpoint-xs-max-width) {
+  .diet-entity-info {
+    background-size: 8.5rem 13rem;
+
+    &-name {
+      font-size: 1 * $font-size-medium;
+    }
+
+    &:not(&--short) &-description {
+      width: auto;
+    }
+  }
+}

@@ -9,6 +9,7 @@ export const mealsFeatureKey = 'meals';
 export interface State extends EntityState<Meal> {
   processing: {
     loadMeals: boolean;
+    addMeal: boolean;
   };
 }
 
@@ -17,13 +18,20 @@ export const adapter: EntityAdapter<Meal> = createEntityAdapter<Meal>();
 export const initialState: State = adapter.getInitialState({
   processing: {
     loadMeals: false,
+    addMeal: false,
   }
 });
 
 const mealReducer = createReducer(
   initialState,
   on(MealActions.addMeal,
-    (state, action) => adapter.addOne(action.meal, state)
+    (state) => ({ ...state, processing: { ...state.processing, addMeal: true } })
+  ),
+  on(MealActions.upsertMealError,
+    (state) => ({ ...state, processing: { ...state.processing, addMeal: false } })
+  ),
+  on(MealActions.upsertMealSuccess,
+    (state, { meal }) => ({ ...adapter.upsertOne(meal, state), processing: { ...state.processing, addMeal: false } })
   ),
   on(MealActions.upsertMeal,
     (state, action) => adapter.upsertOne(action.meal, state)
@@ -34,9 +42,6 @@ const mealReducer = createReducer(
   on(MealActions.upsertMeals,
     (state, action) => adapter.upsertMany(action.meals, state)
   ),
-  on(MealActions.updateMeal,
-    (state, action) => adapter.updateOne(action.meal, state)
-  ),
   on(MealActions.updateMeals,
     (state, action) => adapter.updateMany(action.meals, state)
   ),
@@ -46,7 +51,9 @@ const mealReducer = createReducer(
   on(MealActions.deleteMeals,
     (state, action) => adapter.removeMany(action.ids, state)
   ),
-  on(MealActions.loadMeals,
+  on(
+    MealActions.loadMeal,
+    MealActions.loadMeals,
     (state) => ({ ...state, processing: { ...state.processing, loadMeals: true } })
   ),
   on(MealActions.loadMealsError,
@@ -70,3 +77,14 @@ export const selectAll = createSelector(
   selectMeal,
   adapter.getSelectors().selectAll
 );
+
+export const selectEntities = createSelector(
+  selectMeal,
+  adapter.getSelectors().selectEntities
+);
+
+export const selectMealById = (mealId: string) => createSelector(
+  selectEntities,
+  (entities) => entities[mealId]
+);
+

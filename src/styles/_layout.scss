@@ -18,6 +18,8 @@ $breakpoint-md-max-width: 1024px;
 $breakpoint-sm-max-width: 640px;
 $breakpoint-xs-max-width: 480px;
 
+$default-border-radius: 2rem;
+
 html {
   height: 100%;
   overflow: auto;
@@ -44,5 +46,9 @@ body {
 body {
   background: $backgroundColor;
   font-family: 'Roboto', sans-serif;
+  color: $fontColor;
+}
+
+input {
   color: $fontColor;
 }

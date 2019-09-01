@@ -1,5 +1,6 @@
 @import "colors.scss";
 @import "layout.scss";
+@import "mixins.scss";
 
 .diet-day-plan-meal-wrapper {
   position: relative;
@@ -41,20 +42,11 @@
 }
 
 .delete-meal-button {
-  background: transparent url(~src/assets/images/icons/X.png) no-repeat;
-  background-size: contain;
-  cursor: pointer;
-  height: 1.5rem;
-  width: 1.5rem;
+  @include cross-icon(1.5rem);
   position: absolute;
   top: 0.5rem;
   right: 0.5rem;
   outline: none;
-
-  &:focus, &:hover {
-    background-color: transparentize($primaryColor, 0.8);
-    border-radius: 50%;
-  }
 }
 
 .meal-checkbox {

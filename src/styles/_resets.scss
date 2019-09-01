@@ -6,6 +6,7 @@ html {
   box-sizing: inherit;
   margin: 0;
   padding: 0;
+  user-select: none;
 }
 
 ul li {
@@ -16,4 +17,18 @@ button {
   cursor: pointer;
   background: none;
   border: none;
+  outline: none;
+}
+
+input {
+  &[type=number]::-webkit-inner-spin-button,
+  &[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
+
+select, textarea, input {
+  border: none;
+  outline: none;
 }

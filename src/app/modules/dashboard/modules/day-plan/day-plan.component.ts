@@ -5,15 +5,15 @@ import { AppState } from '../../../../app.recuder';
 import * as fromDayPlan from './day-plan.reducer';
 import * as DayPlanActions from './day-plan.actions';
 import { addDays, getDay } from '../../../shared/utils/date-utils';
-import { Summary } from '../../../../api/models/summary';
 import { DayMeal } from '../../../../api/models/day-meal.model';
 import { combineLatest, filter, map } from 'rxjs/operators';
 import { DashboardScrollPositionService } from '../../dashboard-scroll-position.service';
 import { MatDialog, MatDialogRef } from '@angular/material';
-import { AddMealDialogComponent } from './components/add-meal-dialog/add-meal-dialog.component';
 import { Meal } from '../meal/meal.model';
 import { selectFirst } from '../../../shared/utils/ngrx-utils';
 import { Day } from '../../../../api/models/day';
+import { SelectMealDialogComponent } from './components/select-meal-dialog/select-meal-dialog.component';
+import { Summary } from '../../../diet-entity/summary.model';
 
 @Component({
   selector: 'diet-day-plan',
@@ -59,7 +59,7 @@ export class DayPlanComponent implements OnInit {
 
   constructor(private store: Store<AppState>,
               private dashboardScrollPosition: DashboardScrollPositionService,
-              private matDialog: MatDialog,
+              private dialog: MatDialog,
   ) {
   }
 
@@ -120,10 +120,6 @@ export class DayPlanComponent implements OnInit {
     return this.store.select(fromDayPlan.selectSelectedDate);
   }
 
-  shouldDisplayDayPlan(): Observable<boolean> {
-    return this.store.select(fromDayPlan.selectSelectedDayPlanExists);
-  }
-
   getSelectedDayPlanDayMeals(): Observable<DayMeal[] | undefined> {
     return this.store.select(fromDayPlan.selectSelectedDayPlanDayMeals);
   }
@@ -137,7 +133,7 @@ export class DayPlanComponent implements OnInit {
   }
 
   onAddMealButtonClick(): void {
-    const dialogRef: MatDialogRef<AddMealDialogComponent, { meal: Meal }> = this.matDialog.open(AddMealDialogComponent, {
+    const dialogRef: MatDialogRef<SelectMealDialogComponent, { meal: Meal }> = this.dialog.open(SelectMealDialogComponent, {
       width: '70vw',
       height: '70vh'
     });
