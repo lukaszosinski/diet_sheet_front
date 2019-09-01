@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { DashboardNavigationData } from './models/dashboard-navigation-data';
-import * as fromAuthorization from '../../authorization/authorization.actions';
-import { AppState } from '../../../app.recuder';
+import * as fromAuthorization from '../../../authorization/authorization.actions';
+import { AppState } from '../../../../app.recuder';
 import { Store } from '@ngrx/store';
+import { NavigationData } from '../navigation-data';
 
 @Component({
   selector: 'diet-dashboard-nav-bar',
@@ -23,7 +23,7 @@ import { Store } from '@ngrx/store';
 })
 export class DashboardNavBarComponent implements OnInit {
 
-  @Input() items: DashboardNavigationData[] = [];
+  @Input() items: NavigationData[] = [];
   @Input() show = false;
 
   constructor(private store: Store<AppState>) { }

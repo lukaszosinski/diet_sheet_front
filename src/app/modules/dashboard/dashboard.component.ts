@@ -1,11 +1,11 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { DashboardNavigationData } from './dashboard-nav-bar/models/dashboard-navigation-data';
-import { RoutingService } from '../shared/routing/routing.service';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import * as fromApp from '../../app.recuder';
 import * as fromDashboard from './dashboard.reducer';
 import * as DashboardActions from './dashboard.actions';
+import { DashboardNavigationService } from './dashboard-navigation/dashboard-navigation.service';
+import { NavigationData } from './dashboard-navigation/navigation-data';
 
 @Component({
   selector: 'diet-dashboard',
@@ -26,30 +26,14 @@ import * as DashboardActions from './dashboard.actions';
 })
 export class DashboardComponent {
 
-  readonly navigationData: DashboardNavigationData[] = [
-    {
-      translationKey: 'DASHBOARD.NAVIGATION.MEALS',
-      navigationCallback: this.routingService.navigation.dashboard.meals.list,
-    },
-    {
-      translationKey: 'DASHBOARD.NAVIGATION.PRODUCTS',
-      navigationCallback: this.routingService.navigation.dashboard.products.list,
-    },
-    {
-      translationKey: 'DASHBOARD.NAVIGATION.ADD_PRODUCT',
-      navigationCallback: this.routingService.navigation.dashboard.products.details,
-    },
-    {
-      translationKey: 'DASHBOARD.NAVIGATION.DAY_PLAN',
-      navigationCallback: this.routingService.navigation.dashboard.dayPlan,
-    },
-  ];
+  readonly navigationData: NavigationData[];
   readonly shouldShowNavBar$: Observable<boolean>;
 
-  constructor(private routingService: RoutingService,
-              private store: Store<fromApp.AppState>
+  constructor(private store: Store<fromApp.AppState>,
+              dashboardNavigationService: DashboardNavigationService
   ) {
     this.shouldShowNavBar$ = this.store.select(fromDashboard.selectShouldShowNavBar);
+    this.navigationData = dashboardNavigationService.getNavigationDataList();
   }
 
   onNavBarToggled(): void {

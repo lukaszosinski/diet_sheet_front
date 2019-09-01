@@ -1,4 +1,4 @@
-export interface DashboardNavigationData {
+export interface NavigationData {
   translationKey: string;
   navigationCallback: () => Promise<boolean>;
 }
