@@ -24,6 +24,18 @@ export class DashboardNavigationService {
       translationKey: 'DASHBOARD.NAVIGATION.DAY_PLAN',
       navigationCallback: this.routingService.navigation.dashboard.dayPlan,
     },
+    [DashboardNavigationDataEnum.SETTINGS]: {
+      translationKey: 'DASHBOARD.NAVIGATION.SETTINGS',
+      navigationCallback: this.routingService.navigation.dashboard.settings,
+    },
+    [DashboardNavigationDataEnum.SHOPPING_LIST]: {
+      translationKey: 'DASHBOARD.NAVIGATION.SHOPPING_LIST',
+      navigationCallback: this.routingService.navigation.dashboard.shoppingList,
+    },
+    [DashboardNavigationDataEnum.FRIDGE]: {
+      translationKey: 'DASHBOARD.NAVIGATION.FRIDGE',
+      navigationCallback: this.routingService.navigation.dashboard.fridge,
+    },
   };
 
   constructor(private routingService: RoutingService) {
