@@ -6,6 +6,7 @@ import { MatDialogRef } from '@angular/material';
 import * as MealActions from '../meal.actions';
 import * as fromMeal from '../meal.reducer';
 import { AppState } from '../../../../../app.recuder';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'diet-select-meal-dialog',
@@ -24,7 +25,8 @@ export class SelectMealDialogComponent implements OnInit {
   readonly meals$: Observable<Meal[]>;
 
   constructor(private store: Store<AppState>,
-              private dialogRef: MatDialogRef<SelectMealDialogComponent>
+              private dialogRef: MatDialogRef<SelectMealDialogComponent>,
+              private router: Router,
   ) {
     this.meals$ = this.store.select(fromMeal.selectAll);
   }
@@ -38,7 +40,8 @@ export class SelectMealDialogComponent implements OnInit {
   }
 
   onAddMealClick(): void {
+    const redirectUrl = this.router.url;
+    this.store.dispatch(MealActions.redirectToMealDetails({ redirectUrl }));
     this.dialogRef.close();
-    console.log('Should redirect do create meal');
   }
 }

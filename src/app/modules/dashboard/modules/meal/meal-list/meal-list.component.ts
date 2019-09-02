@@ -5,7 +5,7 @@ import { AppState } from '../../../../../app.recuder';
 import * as MealActions from '../meal.actions';
 import * as fromMeal from '../meal.reducer';
 import { Meal } from '../meal.model';
-import { RoutingService } from '../../../../shared/routing/routing.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'diet-meal-list',
@@ -26,7 +26,7 @@ export class MealListComponent implements OnInit {
   readonly meals$: Observable<Meal[]>;
 
   constructor(private store: Store<AppState>,
-              private routingService: RoutingService,
+              private router: Router,
   ) {
     this.meals$ = this.store.select(fromMeal.selectAll);
   }
@@ -44,6 +44,7 @@ export class MealListComponent implements OnInit {
   }
 
   private goToMealDetails(id?: number): void {
-    this.routingService.navigation.dashboard.meals.details(id);
+    const redirectUrl = id === undefined ? undefined : this.router.url;
+    this.store.dispatch(MealActions.redirectToMealDetails({ id, redirectUrl }));
   }
 }

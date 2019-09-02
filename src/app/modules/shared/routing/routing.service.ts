@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { NavigationExtras, Router, UrlTree } from '@angular/router';
+import { NavigationExtras, Params, Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -33,40 +33,40 @@ export class RoutingService {
     };
   }
 
-  private navigateByUrl(url: string | UrlTree, extras?: NavigationExtras): Promise<boolean> {
-    return this.router.navigateByUrl(url, extras);
+  private navigate(url: string[], extras?: NavigationExtras): Promise<boolean> {
+    return this.router.navigate(url, extras);
   }
 
   private goToLandingPage(): Promise<boolean> {
-    return this.navigateByUrl('landing-page');
+    return this.navigate([ 'landing-page' ]);
   }
 
   private goToSignUp(): Promise<boolean> {
-    return this.navigateByUrl('landing-page/sign-up');
+    return this.navigate([ 'landing-page/sign-up' ]);
   }
 
   private goToDashboard(): Promise<boolean> {
-    return this.navigateByUrl('dashboard');
+    return this.navigate([ 'dashboard' ]);
   }
 
   private goToProductsList(): Promise<boolean> {
-    return this.navigateByUrl('dashboard/products');
+    return this.navigate([ 'dashboard/products' ]);
   }
 
   private goToProductDetails(productId: string = 'create'): Promise<boolean> {
-    return this.navigateByUrl(`dashboard/products/${productId}`);
+    return this.navigate([ 'dashboard/products/', productId ]);
   }
 
   private goToMealsList(): Promise<boolean> {
-    return this.navigateByUrl('dashboard/meals');
+    return this.navigate([ 'dashboard/meals' ]);
   }
 
-  private goToMealDetails(mealId: string = 'create', skipLocationChange: boolean = false): Promise<boolean> {
-    return this.navigateByUrl(`dashboard/meals/${mealId}`, { skipLocationChange });
+  private goToMealDetails(mealId: string = 'create', skipLocationChange: boolean = false, redirectUrl?: string): Promise<boolean> {
+    return this.navigate([ 'dashboard/meals/', mealId ], { skipLocationChange, queryParams: { redirectUrl } });
   }
 
   private goToDayPlan(): Promise<boolean> {
-    return this.navigateByUrl('dashboard/day-plan');
+    return this.navigate([ 'dashboard/day-plan' ]);
   }
 
   private goToShoppingList(): Promise<boolean> {
@@ -78,7 +78,14 @@ export class RoutingService {
   }
 
   private goToFridge(): Promise<boolean> {
-    return this.navigateByUrl('dashboard');
+    return this.navigate([ 'dashboard' ]);
+  }
+
+  navigateByUrl(url: string, newQueryParams?: Params): Promise<boolean> {
+    const path = url.split('?')[0];
+    const urlQueryParams = this.router.parseUrl(url).queryParams;
+    const queryParams = { ...urlQueryParams, ...newQueryParams };
+    return this.router.navigate([ path ], { queryParams });
   }
 }
 
