@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { AppState } from '../../../../app.recuder';
 import * as fromDayPlan from './day-plan.reducer';
 import * as DayPlanActions from './day-plan.actions';
-import { addDays, getDay } from '../../../shared/utils/date-utils';
+import { addDays, getDay, parseFromIsoString } from '../../../shared/utils/date-utils';
 import { DayMeal } from '../../../../api/models/day-meal.model';
 import { combineLatest, filter, map } from 'rxjs/operators';
 import { DashboardScrollPositionService } from '../../dashboard-scroll-position.service';
@@ -14,6 +14,11 @@ import { selectFirst } from '../../../shared/utils/ngrx-utils';
 import { Day } from '../../../../api/models/day';
 import { SelectMealDialogComponent } from '../meal/select-meal-dialog/select-meal-dialog.component';
 import { Summary } from '../../../diet-entity/summary.model';
+import { OnDestroyAbstract } from '../../../shared/utils/abstract-injectables/on-destroy-abstract';
+import * as fromMeal from '../meal/meal.reducer';
+import * as MealActions from '../meal/meal.actions';
+import { ActivatedRoute } from '@angular/router';
+import { takeFirst } from '../../../shared/utils/rxjs-utils';
 
 @Component({
   selector: 'diet-day-plan',
@@ -50,24 +55,39 @@ import { Summary } from '../../../diet-entity/summary.model';
   styleUrls: [ './day-plan.component.scss' ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DayPlanComponent implements OnInit {
+export class DayPlanComponent extends OnDestroyAbstract implements OnInit {
 
-  private STATS_EXPAND_SCROLL_THRESHOLD_PX = 20;
+  static readonly SELECTED_DATE_PATH_PARAM = 'selectedDate';
+  private readonly STATS_EXPAND_SCROLL_THRESHOLD_PX = 20;
   private readonly PREVIOUS_DAYS_QUANTITY = 3;
   private readonly NEXT_DAYS_QUANTITY = 3;
-
 
   constructor(private store: Store<AppState>,
               private dashboardScrollPosition: DashboardScrollPositionService,
               private dialog: MatDialog,
+              private activatedRoute: ActivatedRoute,
   ) {
+    super();
   }
 
   ngOnInit(): void {
-    const day = new Date();
-    this.selectDay(day);
-    this.loadNearbyDays(day);
+    takeFirst(this.getSelectedDate()).subscribe(
+      selectedDate => this.initializeWithDate(this.getSelectedDateFromParams() || selectedDate)
+    );
+  }
 
+  private getSelectedDateFromParams(): Date | undefined {
+    const selectedDateString = this.activatedRoute.snapshot.params[DayPlanComponent.SELECTED_DATE_PATH_PARAM];
+    return !!selectedDateString ? parseFromIsoString(selectedDateString) : undefined;
+  }
+
+  private initializeWithDate(day?: Date): void {
+    if (!day) {
+      day = new Date();
+      this.selectDay(day);
+    }
+    this.loadNearbyDays(day);
+    this.addMealIfStored();
   }
 
   onNewDaySelected(day: Date): void {
@@ -84,6 +104,15 @@ export class DayPlanComponent implements OnInit {
     const fromDate = addDays(day, -this.PREVIOUS_DAYS_QUANTITY);
     const toDate = addDays(day, this.NEXT_DAYS_QUANTITY);
     this.store.dispatch(DayPlanActions.loadDays({ fromDate, toDate }));
+  }
+
+  private addMealIfStored(): void {
+    selectFirst(this.store, fromMeal.selectStoredMeal).subscribe(storedMeal => {
+      if (storedMeal) {
+        this.addDayMealToSelectedDay(storedMeal);
+        this.store.dispatch(MealActions.clearStoredMeal());
+      }
+    });
   }
 
   onDeleteDayMeal(dayMealToDelete: DayMeal): void {

@@ -2,7 +2,6 @@ import { createAction, props } from '@ngrx/store';
 import { Meal } from './meal.model';
 import { createApiErrorAction } from '../../../../api/api.actions';
 
-
 export const loadMeal = createAction('[Meal/API] Load Meal', props<{ id: string }>());
 
 export const loadMeals = createAction('[Meal/API] Load Meals');
@@ -25,5 +24,7 @@ export const redirectToMealDetails = createAction(
   '[Meal] Redirect to Meal details view',
   props<{ id?: number, skipLocationChange?: boolean, redirectUrl?: string }>()
 );
+
+export const clearStoredMeal = createAction('[Meal] Clear stored Meal');
 
 export const deleteMeal = createAction('[Meal] Delete Meal', props<{ id: string }>());

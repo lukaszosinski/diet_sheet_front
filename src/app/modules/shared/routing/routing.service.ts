@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { NavigationExtras, Params, Router } from '@angular/router';
+import { formatToIsoDate } from '../utils/date-utils';
 
 @Injectable({
   providedIn: 'root'
@@ -65,8 +66,9 @@ export class RoutingService {
     return this.navigate([ 'dashboard/meals/', mealId ], { skipLocationChange, queryParams: { redirectUrl } });
   }
 
-  private goToDayPlan(): Promise<boolean> {
-    return this.navigate([ 'dashboard/day-plan' ]);
+  private goToDayPlan(date: Date = new Date(), skipLocationChange: boolean = false): Promise<boolean> {
+    const selectedDateString = formatToIsoDate(date);
+    return this.navigate([ 'dashboard/day-plan', selectedDateString ], { skipLocationChange });
   }
 
   private goToShoppingList(): Promise<boolean> {

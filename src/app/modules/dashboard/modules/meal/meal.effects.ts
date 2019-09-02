@@ -4,10 +4,10 @@ import { map, mergeMap, tap } from 'rxjs/operators';
 import { catchApiError } from '../../../../api/api.actions';
 import { MealService } from '../../../../api/services/meal.service';
 import { RoutingService } from '../../../shared/routing/routing.service';
-import * as MealActions from './meal.actions';
 import { fromPromise } from 'rxjs/internal-compatibility';
 import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import * as MealActions from './meal.actions';
 
 
 @Injectable()
@@ -32,7 +32,7 @@ export class MealEffects {
   addMealAndRedirect$ = createEffect(() => this.actions$.pipe(
     ofType(MealActions.addMealAndRedirect),
     mergeMap(({ meal }) => this.mealService.addMeal(meal).pipe(
-      tap((receivedMeal) => this.redirect(receivedMeal.id)),
+      tap(() => this.redirect()),
       map((receivedMeal) => MealActions.upsertMealSuccess({ meal: receivedMeal })),
       catchApiError(MealActions.upsertMealError)
     ))
@@ -41,7 +41,7 @@ export class MealEffects {
   updateMealAndRedirect$ = createEffect(() => this.actions$.pipe(
     ofType(MealActions.updateMealAndRedirect),
     mergeMap(({ meal }) => this.mealService.updateMeal(meal).pipe(
-      tap((receivedMeal) => this.redirect(receivedMeal.id)),
+      tap(() => this.redirect()),
       map((receivedMeal) => MealActions.upsertMealSuccess({ meal: receivedMeal })),
       catchApiError(MealActions.upsertMealError)
     ))
@@ -65,10 +65,10 @@ export class MealEffects {
   ) {
   }
 
-  private redirect(createdMealId?: number): Observable<boolean> {
+  private redirect(): Observable<boolean> {
     const { redirectUrl } = this.activatedRoute.snapshot.queryParams;
     const redirectPromise = redirectUrl
-      ? this.routingService.navigateByUrl(redirectUrl, { createdMealId })
+      ? this.routingService.navigateByUrl(redirectUrl)
       : this.routingService.navigation.dashboard.meals.list();
     return fromPromise(redirectPromise);
   }

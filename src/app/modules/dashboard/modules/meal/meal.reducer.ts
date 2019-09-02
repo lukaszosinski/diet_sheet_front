@@ -11,6 +11,7 @@ export interface State extends EntityState<Meal> {
     loadMeals: boolean;
     upsertMeal: boolean;
   };
+  storedMeal?: Meal;
 }
 
 export const adapter: EntityAdapter<Meal> = createEntityAdapter<Meal>();
@@ -20,6 +21,7 @@ export const initialState: State = adapter.getInitialState({
     loadMeals: false,
     upsertMeal: false,
   },
+  storedMeal: undefined,
 });
 
 const mealReducer = createReducer(
@@ -33,7 +35,17 @@ const mealReducer = createReducer(
     (state) => ({ ...state, processing: { ...state.processing, upsertMeal: false } })
   ),
   on(MealActions.upsertMealSuccess,
-    (state, { meal }) => ({ ...adapter.upsertOne(meal, state), processing: { ...state.processing, upsertMeal: false } })
+    (state, { meal }) => {
+      const withUpsertedMeal = adapter.upsertOne(meal, state);
+      return {
+        ...withUpsertedMeal,
+        storedMeal: withUpsertedMeal.entities[meal.id],
+        processing: { ...state.processing, upsertMeal: false }
+      };
+    }
+  ),
+  on(MealActions.clearStoredMeal,
+    (state) => ({ ...state, storedMeal: undefined })
   ),
   on(MealActions.deleteMeal,
     (state, action) => adapter.removeOne(action.id, state)
@@ -71,4 +83,9 @@ export const selectEntities = createSelector(
 export const selectMealById = (mealId: string) => createSelector(
   selectEntities,
   (entities) => entities[mealId]
+);
+
+export const selectStoredMeal = createSelector(
+  selectMeal,
+  (state) => state.storedMeal
 );
