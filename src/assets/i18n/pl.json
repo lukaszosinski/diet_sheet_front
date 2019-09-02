@@ -81,13 +81,16 @@
   "MEAL": {
     "ADD_MEAL": "Dodaj posiłek",
     "DESCRIPTION_PLACEHOLDER": "Dodaj opis...",
+    "INGREDIENTS": "Składniki",
+    "LOAD_ERROR": "Nie udało się załadować posiłków",
     "MEAL_LIST_TITLE": "Lista posiłków",
-    "NAME_PLACEHOLDER": "Nazwa posiłku",
-    "INGREDIENTS": "Składniki"
+    "NAME_PLACEHOLDER": "Nazwa posiłku"
   },
   "PRODUCT": {
     "ADD_PRODUCT": "Dodaj produkt",
+    "CREATE_ERROR": "Nie udało się utworzyć produktu",
     "DESCRIPTION_PLACEHOLDER": "Dodaj opis...",
+    "LOAD_ERROR": "Nie udało się załadować produktów",
     "NAME_PLACEHOLDER": "Nazwa produktu",
     "PRICE": "Cena",
     "SHOP": "Sklep"

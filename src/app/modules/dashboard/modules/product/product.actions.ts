@@ -8,7 +8,7 @@ export const loadProducts = createAction('[Product/API] Load Products');
 
 export const loadProductsSuccess = createAction('[Product/API] Load Products SUCCESS', props<{ products: Product[] }>());
 
-export const loadProductsError = createApiErrorAction('[Product/API] Load Products ERROR', 'PRODUCTS.LOAD_ERROR');
+export const loadProductsError = createApiErrorAction('[Product/API] Load Products ERROR', 'PRODUCT.LOAD_ERROR');
 
 export const addProduct = createAction('[Product] Add Product', props<{ product: Product }>());
 
@@ -30,4 +30,4 @@ export const clearProducts = createAction('[Product] Clear Products');
 
 export const createProduct = createAction('[Product] Create Product', props<{product: Product}>());
 export const createProductSuccess = createAction('[Product/API] Create Product SUCCESS', props<{ product: Product }>());
-export const createProductError = createApiErrorAction('[Product/API] Create Products ERROR', 'PRODUCTS.CREATE_ERROR');
+export const createProductError = createApiErrorAction('[Product/API] Create Products ERROR', 'PRODUCT.CREATE_ERROR');
