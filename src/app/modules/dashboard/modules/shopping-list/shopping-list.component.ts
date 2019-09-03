@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../../../app.recuder';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
@@ -31,7 +31,9 @@ import {ShoppingList, ShoppingListItem} from './shopping-list.model';
         </div>
     </div>
   `,
-  styleUrls: ['./shopping-list.component.scss']
+  styleUrls: ['./shopping-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
+
 })
 export class ShoppingListComponent implements OnInit {
 
@@ -40,7 +42,8 @@ export class ShoppingListComponent implements OnInit {
   shoppingListItemsForm: FormArray = this.fb.array([]);
 
   constructor(private store: Store<AppState>,
-              private fb: FormBuilder) {
+              private fb: FormBuilder,
+              private changeDetector: ChangeDetectorRef) {
     this.initializeDateForm();
   }
 
@@ -81,6 +84,7 @@ export class ShoppingListComponent implements OnInit {
       shoppingList.items.map(item =>
         this.createShoppingListItemForm(item)
       ).forEach(formItem => this.shoppingListItemsForm.push(formItem));
+      this.changeDetector.markForCheck();
     }
   };
 
