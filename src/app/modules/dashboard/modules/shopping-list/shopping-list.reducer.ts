@@ -27,20 +27,20 @@ const shoppingListReducer = createReducer(
       ...state, currentShoppingList: shoppingList
     })
   ),
-  on(ShoppingListActions.saveShoppingList,
-    (state) => ({
-      ...state, saveShoppingList: true
+  on(ShoppingListActions.saveShoppingList, (state) => ({
+      ...state,
+      processing: {...state.processing, saveShoppingList: true}
     })
   ),
   on(ShoppingListActions.saveShoppingListSuccess, (state) => ({
       ...state,
-      processing: {...state.processing, saveShoppingList: true},
+      processing: {...state.processing, saveShoppingList: false},
       currentShoppingList: undefined
     })
   ),
   on(ShoppingListActions.saveShoppingListError, (state) => ({
       ...state,
-      processing: {...state.processing, saveShoppingList: true}
+      processing: {...state.processing, saveShoppingList: false}
     })
   ),
 );
