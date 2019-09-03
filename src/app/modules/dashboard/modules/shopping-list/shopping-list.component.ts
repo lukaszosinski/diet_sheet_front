@@ -1,61 +1,87 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../../../app.recuder';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {formatToDateInput, parseFromIsoString} from '../../../shared/utils/date-utils';
 import * as ShoppingListActions from './shopping-list.actions';
 import * as fromShoppingList from './shopping-list.reducer';
 import {Observable} from 'rxjs';
-import {ShoppingList} from './shopping-list.model';
+import {ShoppingList, ShoppingListItem} from './shopping-list.model';
 
 @Component({
   selector: 'diet-shopping-list',
   template: `
     <div class="shopping-list-wrapper">
-        <div class="date-inputs-container" [formGroup]="form">
+        <div class="date-inputs-container" [formGroup]="dateForm">
             <input type="date" name="stringFromDate" formControlName="stringFromDate" (change)="onDateChange()">
             <input type="date" name="stringToDate" formControlName="stringToDate" (change)="onDateChange()">
         </div>
         <div class="shopping-list-content">
-            <ul *ngIf="(shouldDisplayShoppingListContent() | async)" >
-                <li *ngFor="let item of (getCurrentShoppingList() | async).items">
-                    {{item.productName}}
-                    {{item.amount}}
+            <ul *ngIf="(shouldDisplayShoppingListContent() | async)" [formGroup]="shoppingListItemsForm">
+                <li *ngFor="let item of shoppingListItemsForm.controls; let i = index">
+                    <div [formGroupName]="i">
+                        <input type="text" formControlName="productName" value="{{getItem(i).productName}}">
+                        <input type="number" formControlName="amount" value="{{getItem(i).amount}}">
+                        <input type="text" formControlName="unit" value="{{getItem(i).unit}}">
+                        <input type="checkbox" formControlName="checked" value="{{getItem(i).checked}}">
+                    </div>
                 </li>
             </ul>
         </div>
     </div>
   `,
-  styleUrls: ['./shopping-list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./shopping-list.component.scss']
 })
 export class ShoppingListComponent implements OnInit {
 
-  form: FormGroup = this.fb.group({});
+  dateForm: FormGroup = this.fb.group({});
+
+  shoppingListItemsForm: FormArray = this.fb.array([]);
 
   constructor(private store: Store<AppState>,
               private fb: FormBuilder) {
-    this.initializeForm();
+    this.initializeDateForm();
   }
 
-  private initializeForm(): void {
-    this.form = this.fb.group({
+  private initializeDateForm(): void {
+    this.dateForm = this.fb.group({
       stringFromDate: formatToDateInput(new Date()),
       stringToDate: formatToDateInput(new Date()),
     });
   }
 
+  private createShoppingListItemForm(item?: ShoppingListItem): FormGroup {
+   return this.fb.group({
+      productName: [ item && item.productName, Validators.required ],
+      amount: [ item && item.amount, Validators.required ],
+      unit: [ item && item.unit, Validators.required ],
+      checked: [ item && item.checked, Validators.required ],
+    });
+  }
+
+  getItem(i: number): ShoppingListItem | undefined {
+    return this.shoppingListItemsForm.getRawValue()[i];
+  }
+
   ngOnInit(): void {
+    this.getCurrentShoppingList().subscribe(this.onCurrentShoppingListChange);
   }
 
   onDateChange(): void {
-      const {stringFromDate, stringToDate} = this.form.value;
+      const {stringFromDate, stringToDate} = this.dateForm.value;
       const fromDate = parseFromIsoString(stringFromDate);
       const toDate = parseFromIsoString(stringToDate);
-      console.log(fromDate.toISOString());
-      console.log(toDate.toISOString());
       this.store.dispatch(ShoppingListActions.generateShoppingList({fromDate, toDate}));
   }
+
+  onCurrentShoppingListChange = (shoppingList: ShoppingList | undefined) => {
+    if (!!shoppingList) {
+      this.shoppingListItemsForm.clear();
+      shoppingList.items.map(item =>
+        this.createShoppingListItemForm(item)
+      ).forEach(formItem => this.shoppingListItemsForm.push(formItem));
+    }
+  };
 
   getCurrentShoppingList(): Observable<ShoppingList | undefined> {
       return this.store.select(fromShoppingList.selectCurrentShoppingList);
