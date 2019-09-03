@@ -18,6 +18,14 @@ export class ShoppingListEffects {
     ))
   ));
 
+  saveShoppingList$ = createEffect(() => this.actions$.pipe(
+    ofType(ShoppingListActions.saveShoppingList),
+    mergeMap(({ shoppingList }) => this.shoppingList.saveShoppingList(shoppingList).pipe(
+      map(shoppingList => ShoppingListActions.saveShoppingListSuccess({ shoppingList })),
+      catchApiError(ShoppingListActions.saveShoppingListError)
+    ))
+  ));
+
 
   constructor(private actions$: Actions,
               private shoppingList: ShoppingListService) {}

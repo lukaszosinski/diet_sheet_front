@@ -8,10 +8,16 @@ export const shoppingListFeatureKey = 'shoppingList';
 
 export interface State {
   currentShoppingList?: ShoppingList;
+  processing: {
+    saveShoppingList: boolean
+  };
 }
 
 export const initialState: State = {
   currentShoppingList: undefined,
+  processing: {
+    saveShoppingList: false
+  }
 };
 
 const shoppingListReducer = createReducer(
@@ -19,6 +25,22 @@ const shoppingListReducer = createReducer(
   on(ShoppingListActions.generateShoppingListSuccess,
     (state, {shoppingList}) => ({
       ...state, currentShoppingList: shoppingList
+    })
+  ),
+  on(ShoppingListActions.saveShoppingList,
+    (state) => ({
+      ...state, saveShoppingList: true
+    })
+  ),
+  on(ShoppingListActions.saveShoppingListSuccess, (state) => ({
+      ...state,
+      processing: {...state.processing, saveShoppingList: true},
+      currentShoppingList: undefined
+    })
+  ),
+  on(ShoppingListActions.saveShoppingListError, (state) => ({
+      ...state,
+      processing: {...state.processing, saveShoppingList: true}
     })
   ),
 );

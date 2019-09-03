@@ -27,6 +27,7 @@ import {ShoppingList, ShoppingListItem} from './shopping-list.model';
                     </div>
                 </li>
             </ul>
+            <button (click)="onSaveButtonClick()">Save</button>
         </div>
     </div>
   `,
@@ -82,6 +83,15 @@ export class ShoppingListComponent implements OnInit {
       ).forEach(formItem => this.shoppingListItemsForm.push(formItem));
     }
   };
+
+  onSaveButtonClick(): void {
+    const {stringFromDate, stringToDate} = this.dateForm.value;
+    const shoppingListName = stringFromDate + '_' + stringToDate;
+    this.store.dispatch(ShoppingListActions.saveShoppingList({shoppingList: {
+        name: shoppingListName,
+        items: this.shoppingListItemsForm.value
+      }}));
+  }
 
   getCurrentShoppingList(): Observable<ShoppingList | undefined> {
       return this.store.select(fromShoppingList.selectCurrentShoppingList);

@@ -15,4 +15,8 @@ export class ShoppingListService {
     const params = { dateFrom: dateFrom.toISOString(), dateTo: dateTo.toISOString() };
     return this.http.get<ShoppingList>(this.baseUrl + 'shoppingListForDays', { params });
   }
+
+  saveShoppingList(shoppingList: ShoppingList): Observable<ShoppingList> {
+    return this.http.post<ShoppingList>(this.baseUrl + 'shoppingList', shoppingList);
+  }
 }
