@@ -96,6 +96,7 @@ li {
     width: 70%;
   }
 }
+
 .shopping-list-header{
   display: block;
   font-size: 2rem;
@@ -114,7 +115,6 @@ li {
 input[type="date"] {
   width: 15rem;
   margin: 0.25rem;
-  padding: 0 1rem;
   border-radius: 1.25rem;
   background-color: transparent;
   border: 0.25rem solid $warnColor;
@@ -129,7 +129,6 @@ input[type="date"] {
     display: none;
   }
 }
-
 
 .date-separator {
   font-size: 2rem;
