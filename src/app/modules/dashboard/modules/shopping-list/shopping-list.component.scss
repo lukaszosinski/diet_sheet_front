@@ -120,7 +120,16 @@ input[type="date"] {
   border: 0.25rem solid $warnColor;
   color: $fontColor;
   text-align: center;
+
+  &::-webkit-clear-button {
+    display: none;
+  }
+
+  &::-webkit-inner-spin-button {
+    display: none;
+  }
 }
+
 
 .date-separator {
   font-size: 2rem;
