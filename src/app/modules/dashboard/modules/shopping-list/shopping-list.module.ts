@@ -6,9 +6,8 @@ import {SharedLazyModule} from '../../../shared/shared-lazy.module';
 import {ShoppingListRoutingModule} from './shopping-list-routing.module';
 import {ShoppingListComponent} from './shopping-list.component';
 import {EffectsModule} from '@ngrx/effects';
-import {ShoppingListEffects} from '../shopping-list/shopping-list.effects';
-
-
+import {ShoppingListEffects} from './shopping-list.effects';
+import {SharedModule} from '../../../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -20,6 +19,7 @@ import {ShoppingListEffects} from '../shopping-list/shopping-list.effects';
     EffectsModule.forFeature([ ShoppingListEffects ]),
     ShoppingListRoutingModule,
     SharedLazyModule,
+    SharedModule
   ]
 })
 export class ShoppingListModule { }

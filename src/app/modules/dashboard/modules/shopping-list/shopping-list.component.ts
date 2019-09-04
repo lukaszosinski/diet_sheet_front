@@ -14,21 +14,33 @@ import {ShoppingList, ShoppingListItem} from './shopping-list.model';
     <div class="shopping-list-wrapper">
         <div class="date-inputs-container" [formGroup]="dateForm">
             <input type="date" name="stringFromDate" formControlName="stringFromDate" (change)="onDateChange()">
+            <div class="date-separator">-</div>
             <input type="date" name="stringToDate" formControlName="stringToDate" (change)="onDateChange()">
         </div>
-        <div class="shopping-list-content">
-            <ul *ngIf="(shouldDisplayShoppingListContent() | async)" [formGroup]="shoppingListItemsForm">
+        <div class="shopping-list-content"
+             *ngIf="shoppingListItemsForm.controls.length > 0"
+             [formGroup]="shoppingListItemsForm">
+            <ul>
+                <li>
+                    <span class="shopping-list-header" >{{'SHOPPING_LIST.SHOPPING_LIST' | translate}}:</span>
+                </li>
+                <li class="shopping-list-table-headers">
+                    <span>{{'SHOPPING_LIST.PRODUCT' | translate}}:</span>
+                    <span>{{'SHOPPING_LIST.AMOUNT' | translate}}:</span>
+                </li>
                 <li *ngFor="let item of shoppingListItemsForm.controls; let i = index">
-                    <div [formGroupName]="i">
-                        <input type="text" formControlName="productName" value="{{getItem(i).productName}}">
-                        <input type="number" formControlName="amount" value="{{getItem(i).amount}}">
-                        <input type="text" formControlName="unit" value="{{getItem(i).unit}}">
+                    <div [formGroupName]="i" class="shopping-list-item">
+                        <div class="container-with-underline">
+                            <input class="shopping-list-item-field-name" type="text" formControlName="productName" value="{{getItem(i).productName}}">
+                            <input class="shopping-list-item-field-amount" type="number" formControlName="amount" value="{{getItem(i).amount}}">
+                            <input class="shopping-list-item-field-unit" type="text" formControlName="unit" value="{{getItem(i).unit}}">
+                        </div>
                         <input type="checkbox" formControlName="checked" value="{{getItem(i).checked}}">
                     </div>
                 </li>
             </ul>
-            <button (click)="onSaveButtonClick()">Save</button>
         </div>
+        <button class="save-button" (click)="onSaveButtonClick()">{{"SHOPPING_LIST.SAVE" | translate}}</button>
     </div>
   `,
   styleUrls: ['./shopping-list.component.scss'],
@@ -37,14 +49,17 @@ import {ShoppingList, ShoppingListItem} from './shopping-list.model';
 })
 export class ShoppingListComponent implements OnInit {
 
-  dateForm: FormGroup = this.fb.group({});
+  INIT_EMPTY_SHOPPING_LIST_ITEMS: number = 8;
 
+  dateForm: FormGroup = this.fb.group({});
   shoppingListItemsForm: FormArray = this.fb.array([]);
+  updateMode: boolean = false;
 
   constructor(private store: Store<AppState>,
               private fb: FormBuilder,
               private changeDetector: ChangeDetectorRef) {
     this.initializeDateForm();
+    this.initializeShoppingListArrayFrom();
   }
 
   private initializeDateForm(): void {
@@ -52,6 +67,14 @@ export class ShoppingListComponent implements OnInit {
       stringFromDate: formatToDateInput(new Date()),
       stringToDate: formatToDateInput(new Date()),
     });
+  }
+
+  private initializeShoppingListArrayFrom(): void {
+    for (let i = 0; i < this.INIT_EMPTY_SHOPPING_LIST_ITEMS; i++) {
+      this.shoppingListItemsForm.push(
+        this.createShoppingListItemForm()
+      );
+    }
   }
 
   private createShoppingListItemForm(item?: ShoppingListItem): FormGroup {
@@ -68,7 +91,18 @@ export class ShoppingListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getCurrentShoppingList().subscribe(this.onCurrentShoppingListChange);
+    this.getCurrentShoppingList().subscribe(this.onCurrentShoppingListChange.bind(this));
+  }
+
+  onCurrentShoppingListChange(shoppingList: ShoppingList | undefined): void {
+    if (!!shoppingList) {
+      this.updateMode = shoppingList.id !== 0;
+      this.shoppingListItemsForm.clear();
+      shoppingList.items.map(item =>
+        this.createShoppingListItemForm(item)
+      ).forEach(formItem => this.shoppingListItemsForm.push(formItem));
+      this.changeDetector.markForCheck();
+    }
   }
 
   onDateChange(): void {
@@ -77,16 +111,6 @@ export class ShoppingListComponent implements OnInit {
       const toDate = parseFromIsoString(stringToDate);
       this.store.dispatch(ShoppingListActions.generateShoppingList({fromDate, toDate}));
   }
-
-  onCurrentShoppingListChange = (shoppingList: ShoppingList | undefined) => {
-    if (!!shoppingList) {
-      this.shoppingListItemsForm.clear();
-      shoppingList.items.map(item =>
-        this.createShoppingListItemForm(item)
-      ).forEach(formItem => this.shoppingListItemsForm.push(formItem));
-      this.changeDetector.markForCheck();
-    }
-  };
 
   onSaveButtonClick(): void {
     const {stringFromDate, stringToDate} = this.dateForm.value;
@@ -99,9 +123,5 @@ export class ShoppingListComponent implements OnInit {
 
   getCurrentShoppingList(): Observable<ShoppingList | undefined> {
       return this.store.select(fromShoppingList.selectCurrentShoppingList);
-  }
-
-  shouldDisplayShoppingListContent(): Observable<boolean> {
-      return this.store.select(fromShoppingList.selectShouldDisplayShoppingList);
   }
 }

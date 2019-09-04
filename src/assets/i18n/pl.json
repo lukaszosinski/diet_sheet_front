@@ -72,6 +72,14 @@
       "PLN": "zł"
     }
   },
+  "SHOPPING_LIST" : {
+    "GENERATE_ERROR": "Błąd podczas generowania listy zakupów",
+    "SAVE_ERROR": "Błąd podczas zapisywanie listy zakupów,",
+    "SHOPPING_LIST": "Lista zakupów",
+    "PRODUCT": "Produkt",
+    "AMOUNT": "Ilość",
+    "SAVE": "Zapisz listę"
+  },
   "LANDING_PAGE": {
     "WELCOME": "Witaj w DIET",
     "SIGN_IN": "Zaloguj się",

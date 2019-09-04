@@ -1,10 +1,141 @@
+@import "colors.scss";
+@import "mixins.scss";
+@import "layout.scss";
+
 .shopping-list-wrapper {
   display: flex;
   flex-direction: column;
 }
 
 .date-inputs-container {
+  position: relative;
   display: flex;
-  align-content: center;
   justify-content: center;
+  padding: 1rem;
+  margin-right: 5%;
+  margin-left: 5%;
+  border-radius: $default-border-radius;
+  box-shadow: transparentize($primaryColor, 0.5) 1px 2px 5px 1px;
+}
+
+.shopping-list-content {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  padding: 1rem;
+  margin-top: 1rem;
+  margin-right: 5%;
+  margin-left: 5%;
+  @include inset-shadow(2rem);
+  border-radius: $default-border-radius;
+  border: 0.25rem solid darken($secondaryColor, 15);
+  z-index: 10;
+
+  &::after {
+    content: "";
+    background: url('src/assets/images/logo.svg') no-repeat 50% 50%;
+    background-size: contain;
+    opacity: 0.2;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;
+  }
+
+}
+
+ul {
+  width: 100%;
+}
+
+li {
+  width: 100%;
+  margin: 0.5rem;
+}
+
+.shopping-list-item {
+  width: 100%;
+}
+
+.container-with-underline {
+  display: inline-flex;
+  width: 95%;
+  justify-content: flex-end;
+  border-bottom-width: 1px;
+  border-bottom-color: $fontSecondary;
+  border-bottom-style: solid;
+  background: transparent;
+
+  :first-child {
+    margin-right: auto;
+  }
+
+}
+
+.shopping-list-item-field {
+  &-unit {
+    background: transparent;
+    font-size: 1.5rem;
+    width: 10%;
+    text-align: center;
+    margin: 0.2rem
+  }
+  &-amount {
+    background: transparent;
+    font-size: 1.5rem;
+    width: 20%;
+    text-align: right;
+  }
+  &-name {
+    background: transparent;
+    font-size: 1.5rem;
+    width: 70%;
+  }
+}
+.shopping-list-header{
+  display: block;
+  font-size: 2rem;
+  color: $secondaryColor;
+  padding-bottom: 1.5rem;
+}
+
+.shopping-list-table-headers {
+  display: flex;
+  justify-content: space-between;
+  width: 85%;
+  font-size: 1.5rem;
+  color: $primaryColor;
+}
+
+input[type="date"] {
+  width: 15rem;
+  margin: 0.25rem;
+  padding: 0 1rem;
+  border-radius: 1.25rem;
+  background-color: transparent;
+  border: 0.25rem solid $warnColor;
+  color: $fontColor;
+  text-align: center;
+}
+
+.date-separator {
+  font-size: 2rem;
+  color: $fontColor;
+  text-align: center;
+}
+
+.save-button {
+  margin-left: auto;
+  margin-right: 5%;
+  margin-top: 1rem;
+  font-size: 1.25rem;
+  color: $secondaryColor;
+  border-radius: 1rem;
+  box-shadow: transparentize($primaryColor, 0.5) 1px 2px 5px 1px;
+  height: 3rem;
+  width: 8rem;
 }
