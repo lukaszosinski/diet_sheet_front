@@ -8,13 +8,13 @@ import { EffectsModule } from '@ngrx/effects';
 import { ProductEffects } from './product.effects';
 import { DietEntityModule } from '../../../diet-entity/diet-entity.module';
 import { ProductDetailsComponent } from './product/product-details.component';
-import { ProductsComponent } from './products/products.component';
 import { SelectProductDialogComponent } from './select-product-dialog/select-product-dialog.component';
+import { ProductListComponent } from './product-list/product-list.component';
 
 @NgModule({
   declarations: [
     ProductDetailsComponent,
-    ProductsComponent,
+    ProductListComponent,
     SelectProductDialogComponent,
   ],
   imports: [

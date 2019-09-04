@@ -57,7 +57,6 @@ export class MealEffects {
     tap(() => this.redirect())
   ), { dispatch: false });
 
-
   constructor(private actions$: Actions,
               private mealService: MealService,
               private routingService: RoutingService,
