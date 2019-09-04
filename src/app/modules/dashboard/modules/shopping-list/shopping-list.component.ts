@@ -31,9 +31,18 @@ import {ShoppingList, ShoppingListItem} from './shopping-list.model';
                 <li *ngFor="let item of shoppingListItemsForm.controls; let i = index">
                     <div [formGroupName]="i" class="shopping-list-item">
                         <div class="container-with-underline">
-                            <input class="shopping-list-item-field-name" type="text" formControlName="productName" value="{{getItem(i).productName}}">
-                            <input class="shopping-list-item-field-amount" type="number" formControlName="amount" value="{{getItem(i).amount}}">
-                            <input class="shopping-list-item-field-unit" type="text" formControlName="unit" value="{{getItem(i).unit}}">
+                            <input class="shopping-list-item-field-name"
+                                   type="text" formControlName="productName"
+                                   value="{{getItem(i).productName}}"
+                            >
+                            <input class="shopping-list-item-field-amount"
+                                   type="number" formControlName="amount"
+                                   value="{{getItem(i).amount}}"
+                            >
+                            <input class="shopping-list-item-field-unit"
+                                   type="text" formControlName="unit"
+                                   value="{{'DIET_ENTITY.UNIT.' + (getItem(i).unit ? getItem(i).unit : '') | translate}}"
+                            >
                         </div>
                         <input type="checkbox" formControlName="checked" value="{{getItem(i).checked}}">
                     </div>

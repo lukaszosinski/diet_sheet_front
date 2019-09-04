@@ -69,7 +69,8 @@
       "PIECE": "szt.",
       "HUNDRED_MILLILITERS": "ml",
       "KILOGRAM": "kg",
-      "PLN": "zł"
+      "PLN": "zł",
+      "" : ""
     }
   },
   "SHOPPING_LIST" : {
