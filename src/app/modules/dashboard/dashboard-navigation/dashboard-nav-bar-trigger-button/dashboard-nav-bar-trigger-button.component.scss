@@ -1,12 +1,17 @@
 @import "layout";
+@import "colors.scss";
 
 .diet-dashboard-nav-bar-trigger-button {
-  background: none;
-  border: none;
-  font-size: 1.5rem;
-  cursor: pointer;
+  background: url(~src/assets/images/icons/hamburger.png) no-repeat;
+  background-size: 70% 70%;
+  background-position: 50% 50%;
   width: $nav-bar-trigger-size;
   height: $nav-bar-trigger-size;
-  text-align: center;
-  vertical-align: center;
+  font-size: 1.5rem;
+  cursor: pointer;
+
+  &:hover {
+    border-radius: 50%;
+    background-color: $light--hover;
+  }
 }

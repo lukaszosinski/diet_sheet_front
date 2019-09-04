@@ -8,6 +8,18 @@ import { NavigationData } from './navigation-data';
 export class DashboardNavigationService {
 
   readonly navigationData: DashboardNavigationDataDictionary = {
+    [DashboardNavigationDataEnum.FRIDGE]: {
+      translationKey: 'DASHBOARD.NAVIGATION.FRIDGE',
+      navigationCallback: this.routingService.navigation.dashboard.fridge,
+    },
+    [DashboardNavigationDataEnum.DAY_PLAN]: {
+      translationKey: 'DASHBOARD.NAVIGATION.DAY_PLAN',
+      navigationCallback: this.routingService.navigation.dashboard.dayPlan,
+    },
+    [DashboardNavigationDataEnum.SHOPPING_LIST]: {
+      translationKey: 'DASHBOARD.NAVIGATION.SHOPPING_LIST',
+      navigationCallback: this.routingService.navigation.dashboard.shoppingList,
+    },
     [DashboardNavigationDataEnum.MEALS]: {
       translationKey: 'DASHBOARD.NAVIGATION.MEALS',
       navigationCallback: this.routingService.navigation.dashboard.meals.list,
@@ -16,29 +28,13 @@ export class DashboardNavigationService {
       translationKey: 'DASHBOARD.NAVIGATION.PRODUCTS',
       navigationCallback: this.routingService.navigation.dashboard.products.list,
     },
-    [DashboardNavigationDataEnum.ADD_PRODUCT]: {
-      translationKey: 'DASHBOARD.NAVIGATION.ADD_PRODUCT',
-      navigationCallback: this.routingService.navigation.dashboard.products.details,
-    },
-    [DashboardNavigationDataEnum.DAY_PLAN]: {
-      translationKey: 'DASHBOARD.NAVIGATION.DAY_PLAN',
-      navigationCallback: this.routingService.navigation.dashboard.dayPlan,
-    },
-    [DashboardNavigationDataEnum.SETTINGS]: {
-      translationKey: 'DASHBOARD.NAVIGATION.SETTINGS',
-      navigationCallback: this.routingService.navigation.dashboard.settings,
-    },
-    [DashboardNavigationDataEnum.SHOPPING_LIST]: {
-      translationKey: 'DASHBOARD.NAVIGATION.SHOPPING_LIST',
-      navigationCallback: this.routingService.navigation.dashboard.shoppingList,
-    },
     [DashboardNavigationDataEnum.MY_DIET]: {
       translationKey: 'DASHBOARD.NAVIGATION.MY_DIET',
       navigationCallback: () => Promise.resolve(false),
     },
-    [DashboardNavigationDataEnum.FRIDGE]: {
-      translationKey: 'DASHBOARD.NAVIGATION.FRIDGE',
-      navigationCallback: this.routingService.navigation.dashboard.fridge,
+    [DashboardNavigationDataEnum.SETTINGS]: {
+      translationKey: 'DASHBOARD.NAVIGATION.SETTINGS',
+      navigationCallback: this.routingService.navigation.dashboard.settings,
     },
   };
 

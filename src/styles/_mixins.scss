@@ -27,8 +27,12 @@
   }
 }
 
-@mixin card($elementSize, $shadowColor: $light--shadow) {
+@mixin shadow($elementSize: 5rem, $shadowColor: $light--shadow) {
   box-shadow: 0.015 * $elementSize 0.03 * $elementSize 0.5rem 0 $shadowColor;
+}
+
+@mixin card($elementSize: 5rem, $shadowColor: $light--shadow) {
+  @include shadow($elementSize, $shadowColor);
   border-radius: $default-border-radius;
 }
 
