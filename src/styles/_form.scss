@@ -1,6 +1,6 @@
 @import "colors.scss";
 
-$formMarginBottom: 1.25rem;
+$formMarginBottom: 1rem;
 $formMarginX: 0;
 $formMargin: 0 $formMarginX $formMarginBottom;
 
@@ -21,7 +21,7 @@ input.long-input {
   display: block;
   padding: 0.25rem 0.5rem;
 
-  height: 2rem;
+  height: 2.5rem;
   background: #fff;
   border: none;
   border-radius: 0.5rem;
