@@ -25,6 +25,8 @@ export const redirectToMealDetails = createAction(
   props<{ id?: number, skipLocationChange?: boolean, redirectUrl?: string }>()
 );
 
+export const requestMealStore = createAction('[Meal] Request Meal store');
+
 export const clearStoredMeal = createAction('[Meal] Clear stored Meal');
 
 export const deleteMeal = createAction('[Meal] Delete Meal', props<{ id: string }>());

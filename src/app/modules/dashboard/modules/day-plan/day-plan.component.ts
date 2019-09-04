@@ -18,7 +18,6 @@ import { OnDestroyAbstract } from '../../../shared/utils/abstract-injectables/on
 import * as fromMeal from '../meal/meal.reducer';
 import * as MealActions from '../meal/meal.actions';
 import { ActivatedRoute } from '@angular/router';
-import { takeFirst } from '../../../shared/utils/rxjs-utils';
 
 @Component({
   selector: 'diet-day-plan',
@@ -71,23 +70,15 @@ export class DayPlanComponent extends OnDestroyAbstract implements OnInit {
   }
 
   ngOnInit(): void {
-    takeFirst(this.getSelectedDate()).subscribe(
-      selectedDate => this.initializeWithDate(this.getSelectedDateFromParams() || selectedDate)
-    );
+    const selectedDate = this.getSelectedDateFromParams() || new Date();
+    this.selectDay(selectedDate);
+    this.loadNearbyDays(selectedDate);
+    this.addMealIfStored();
   }
 
   private getSelectedDateFromParams(): Date | undefined {
     const selectedDateString = this.activatedRoute.snapshot.params[DayPlanComponent.SELECTED_DATE_PATH_PARAM];
     return !!selectedDateString ? parseFromIsoString(selectedDateString) : undefined;
-  }
-
-  private initializeWithDate(day?: Date): void {
-    if (!day) {
-      day = new Date();
-      this.selectDay(day);
-    }
-    this.loadNearbyDays(day);
-    this.addMealIfStored();
   }
 
   onNewDaySelected(day: Date): void {
@@ -164,7 +155,8 @@ export class DayPlanComponent extends OnDestroyAbstract implements OnInit {
   onAddMealButtonClick(): void {
     const dialogRef: MatDialogRef<SelectMealDialogComponent, { meal: Meal }> = this.dialog.open(SelectMealDialogComponent, {
       width: '70vw',
-      height: '70vh'
+      height: '70vh',
+      data: { shouldStoreMeal: true }
     });
     dialogRef.afterClosed()
       .pipe(filter(m => !!m))

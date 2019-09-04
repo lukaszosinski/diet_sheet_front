@@ -1,12 +1,13 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Meal } from '../meal.model';
-import { MatDialogRef } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import * as MealActions from '../meal.actions';
 import * as fromMeal from '../meal.reducer';
 import { AppState } from '../../../../../app.recuder';
 import { Router } from '@angular/router';
+import { SelectMealDialogComponentData } from './select-meal-dialog-component-data';
 
 @Component({
   selector: 'diet-select-meal-dialog',
@@ -25,6 +26,7 @@ export class SelectMealDialogComponent implements OnInit {
   readonly meals$: Observable<Meal[]>;
 
   constructor(private store: Store<AppState>,
+              @Inject(MAT_DIALOG_DATA) private data: SelectMealDialogComponentData,
               private dialogRef: MatDialogRef<SelectMealDialogComponent>,
               private router: Router,
   ) {
@@ -41,7 +43,11 @@ export class SelectMealDialogComponent implements OnInit {
 
   onAddMealClick(): void {
     const redirectUrl = this.router.url;
+    if (this.data.shouldStoreMeal) {
+      this.store.dispatch(MealActions.requestMealStore());
+    }
     this.store.dispatch(MealActions.redirectToMealDetails({ redirectUrl }));
     this.dialogRef.close();
   }
 }
+
