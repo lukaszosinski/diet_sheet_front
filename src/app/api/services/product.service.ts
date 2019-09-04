@@ -13,27 +13,27 @@ const httpOptions = {
 @Injectable()
 export class ProductService {
 
-  private productsUrl = 'http://localhost:8080/product/';
+  private baseUrl = 'api/product/';
 
   constructor(private http: HttpClient) {}
 
   getProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>(this.productsUrl);
+    return this.http.get<Product[]>(this.baseUrl);
   }
 
   deleteProduct(product: Product | number): Observable<Product> {
     const id = typeof product === 'number' ? product : product.id;
-    const url = `${this.productsUrl}/${id}`;
+    const url = `${this.baseUrl}/${id}`;
     return this.http.delete<Product>(url, httpOptions);
   }
 
   updateProduct(product: Product): Observable<any> {
     const id = typeof product === 'number' ? product : product.id;
-    const url = `${this.productsUrl}/${id}`;
+    const url = `${this.baseUrl}/${id}`;
     return this.http.put<Product>(url, product, httpOptions);
   }
 
   createProduct(product: Product): Observable<Product> {
-    return this.http.post<Product>(this.productsUrl, product, httpOptions);
+    return this.http.post<Product>(this.baseUrl, product, httpOptions);
   }
 }

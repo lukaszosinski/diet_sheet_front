@@ -6,20 +6,20 @@ import { Day } from '../models/day';
 @Injectable()
 export class DaysService {
 
-  private dayUrl = 'http://localhost:8080/day';
+  private baseUrl = 'api/day';
 
   constructor(private http: HttpClient) {}
 
   getDaysInRange(dateFrom: Date, dateTo: Date): Observable<Day[]> {
     const params = { dateFrom: dateFrom.toISOString(), dateTo: dateTo.toISOString() };
-    return this.http.get<Day[]>(this.dayUrl, { params });
+    return this.http.get<Day[]>(this.baseUrl, { params });
   }
 
   putDay(day: Day): Observable<Day> {
-    return this.http.put<Day>(this.dayUrl + '/' + day.id.toString(), day);
+    return this.http.put<Day>(this.baseUrl + '/' + day.id.toString(), day);
   }
 
   createDay(day: Partial<Day>): Observable<Day> {
-    return this.http.post<Day>(this.dayUrl, day);
+    return this.http.post<Day>(this.baseUrl, day);
   }
 }
