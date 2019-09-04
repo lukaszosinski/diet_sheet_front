@@ -14,7 +14,6 @@ import {ShoppingList, ShoppingListItem} from './shopping-list.model';
     <div class="shopping-list-wrapper">
         <div class="date-inputs-container" [formGroup]="dateForm">
             <input type="date" name="stringFromDate" formControlName="stringFromDate" (change)="onDateChange()">
-            <div class="date-separator">-</div>
             <input type="date" name="stringToDate" formControlName="stringToDate" (change)="onDateChange()">
         </div>
         <div class="shopping-list-content"
@@ -79,6 +78,7 @@ export class ShoppingListComponent implements OnInit {
   }
 
   private initializeShoppingListArrayFrom(): void {
+    this.shoppingListItemsForm.clear();
     for (let i = 0; i < this.INIT_EMPTY_SHOPPING_LIST_ITEMS; i++) {
       this.shoppingListItemsForm.push(
         this.createShoppingListItemForm()
@@ -110,8 +110,10 @@ export class ShoppingListComponent implements OnInit {
       shoppingList.items.map(item =>
         this.createShoppingListItemForm(item)
       ).forEach(formItem => this.shoppingListItemsForm.push(formItem));
-      this.changeDetector.markForCheck();
+    } else {
+      this.initializeShoppingListArrayFrom();
     }
+    this.changeDetector.markForCheck();
   }
 
   onDateChange(): void {

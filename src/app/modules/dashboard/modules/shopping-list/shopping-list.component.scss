@@ -119,7 +119,10 @@ li {
 
 input[type="date"] {
   width: 15rem;
-  margin: 0.25rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  padding-top: 0.7rem;
+  padding-bottom: 0.7rem;
   border-radius: 1.25rem;
   background-color: transparent;
   border: 0.25rem solid $warnColor;
@@ -133,12 +136,6 @@ input[type="date"] {
   &::-webkit-inner-spin-button {
     display: none;
   }
-}
-
-.date-separator {
-  font-size: 2rem;
-  color: $fontColor;
-  text-align: center;
 }
 
 .save-button {
