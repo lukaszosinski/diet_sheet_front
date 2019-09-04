@@ -32,6 +32,10 @@ export class DashboardNavigationService {
       translationKey: 'DASHBOARD.NAVIGATION.SHOPPING_LIST',
       navigationCallback: this.routingService.navigation.dashboard.shoppingList,
     },
+    [DashboardNavigationDataEnum.MY_DIET]: {
+      translationKey: 'DASHBOARD.NAVIGATION.MY_DIET',
+      navigationCallback: () => Promise.resolve(false),
+    },
     [DashboardNavigationDataEnum.FRIDGE]: {
       translationKey: 'DASHBOARD.NAVIGATION.FRIDGE',
       navigationCallback: this.routingService.navigation.dashboard.fridge,

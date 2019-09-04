@@ -6,4 +6,5 @@ export enum DashboardNavigationDataEnum {
   SHOPPING_LIST = 'SHOPPING_LIST',
   SETTINGS = 'SETTINGS',
   DAY_PLAN = 'DAY_PLAN',
+  MY_DIET = 'MY_DIET',
 }
