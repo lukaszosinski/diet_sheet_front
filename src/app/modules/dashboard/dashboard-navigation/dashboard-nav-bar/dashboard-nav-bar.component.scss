@@ -11,3 +11,12 @@
   justify-content: space-between;
   background: white;
 }
+
+.diet-dashboard-nav-bar-item {
+  margin: 0.5rem 1rem;
+
+  &:hover, &:focus {
+    color: darken($primaryColor, 10);
+    text-decoration: underline;
+  }
+}
