@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { AppState } from '../../../../app.recuder';
 import * as fromDayPlan from './day-plan.reducer';
 import * as DayPlanActions from './day-plan.actions';
-import { addDays, getDay, parseFromIsoString } from '../../../shared/utils/date-utils';
+import { addDays, getDay, parseFromIsoDate } from '../../../shared/utils/date-utils';
 import { DayMeal } from '../../../../api/models/day-meal.model';
 import { combineLatest, filter, map } from 'rxjs/operators';
 import { DashboardScrollPositionService } from '../../dashboard-scroll-position.service';
@@ -17,7 +17,7 @@ import { Summary } from '../../../diet-entity/summary.model';
 import { OnDestroyAbstract } from '../../../shared/utils/abstract-injectables/on-destroy-abstract';
 import * as fromMeal from '../meal/meal.reducer';
 import * as MealActions from '../meal/meal.actions';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'diet-day-plan',
@@ -31,6 +31,7 @@ import { ActivatedRoute } from '@angular/router';
               <ul *ngIf="(shouldDisplayDayPlanMeals() | async)" class="diet-day-plan-meal-list">
                   <li *ngFor="let dayMeal of (getSelectedDayPlanDayMeals() | async)">
                       <diet-day-plan-meal
+                              (click)="onDayMealClick(dayMeal)"
                               [dayMeal]="dayMeal"
                               (deleteDayMeal)="onDeleteDayMeal(dayMeal)"
                               (mealEatenMarkChanged)="onMealEatenMarkChanged(dayMeal, $event)"></diet-day-plan-meal>
@@ -65,6 +66,7 @@ export class DayPlanComponent extends OnDestroyAbstract implements OnInit {
               private dashboardScrollPosition: DashboardScrollPositionService,
               private dialog: MatDialog,
               private activatedRoute: ActivatedRoute,
+              private router: Router,
   ) {
     super();
   }
@@ -78,7 +80,7 @@ export class DayPlanComponent extends OnDestroyAbstract implements OnInit {
 
   private getSelectedDateFromParams(): Date | undefined {
     const selectedDateString = this.activatedRoute.snapshot.params[DayPlanComponent.SELECTED_DATE_PATH_PARAM];
-    return !!selectedDateString ? parseFromIsoString(selectedDateString) : undefined;
+    return !!selectedDateString ? parseFromIsoDate(selectedDateString) : undefined;
   }
 
   onNewDaySelected(day: Date): void {
@@ -104,6 +106,10 @@ export class DayPlanComponent extends OnDestroyAbstract implements OnInit {
         this.store.dispatch(MealActions.clearStoredMeal());
       }
     });
+  }
+
+  onDayMealClick(dayMeal: DayMeal): void {
+    this.store.dispatch(MealActions.redirectToMealDetails({ id: dayMeal.meal.id, redirectUrl: this.router.url }));
   }
 
   onDeleteDayMeal(dayMealToDelete: DayMeal): void {

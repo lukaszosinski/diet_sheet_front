@@ -15,6 +15,7 @@
   border-radius: 1.25rem;
   box-shadow: transparentize($primaryColor, 0.5) 1px 2px 5px 1px;
   outline: none;
+  cursor: pointer;
 
   &:hover, &:focus {
     box-shadow: transparentize($primaryColor, 0.2) 1px 2px 5px 1px;
