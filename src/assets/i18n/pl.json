@@ -79,7 +79,9 @@
     "SHOPPING_LIST": "Lista zakupów",
     "PRODUCT": "Produkt",
     "AMOUNT": "Ilość",
-    "SAVE": "Zapisz listę"
+    "SAVE": "Zapisz listę",
+    "FROM_DATE": "OD",
+    "TO_DATE": "DO"
   },
   "LANDING_PAGE": {
     "WELCOME": "Witaj w DIET",
