@@ -120,15 +120,15 @@ export class MealDetailsComponent extends OnDestroyAbstract implements OnInit {
       .subscribe((mealId) => {
         const meal: Meal = this.formService.getMealFromValue();
         if (!mealId) {
-          this.store.dispatch(MealActions.addMeal({ meal }));
+          this.store.dispatch(MealActions.addMealAndRedirect({ meal }));
         } else {
-          this.store.dispatch(MealActions.updateMeal({ meal: { ...meal, id: Number(mealId) } }));
+          this.store.dispatch(MealActions.updateMealAndRedirect({ meal: { ...meal, id: Number(mealId) } }));
         }
       });
   }
 
   onCancelButtonClick(): void {
-    console.log('Cancel button clicked');
+    this.store.dispatch(MealActions.redirectFromMealDetails({}));
   }
 
   onAddIngredientClick(): void {

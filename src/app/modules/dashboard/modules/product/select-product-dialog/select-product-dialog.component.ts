@@ -10,8 +10,11 @@ import * as ProductActions from '../product.actions';
 @Component({
   selector: 'diet-select-product-dialog',
   template: `
-      <diet-entity-with-summary-list [dietEntities]="products$ | async"
+      <diet-entity-with-summary-list class="diet-entity-with-summary-list"
+                                     [dietEntities]="products$ | async"
                                      (entityClick)="onProductClick($event)"
+                                     (addEntity)="onAddProductClick()"
+                                     [addButtonTitle]="'PRODUCT.ADD_PRODUCT' | translate"
       ></diet-entity-with-summary-list>
   `,
   styleUrls: [ './select-product-dialog.component.scss' ],
@@ -33,5 +36,9 @@ export class SelectProductDialogComponent implements OnInit {
 
   onProductClick(product: Product): void {
     this.dialogRef.close({ product });
+  }
+
+  onAddProductClick(): void {
+    console.log('Should redirect to create product');
   }
 }

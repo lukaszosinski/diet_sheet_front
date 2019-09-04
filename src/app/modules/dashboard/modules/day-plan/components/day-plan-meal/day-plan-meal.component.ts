@@ -9,13 +9,18 @@ import { DayMeal } from '../../../../../../api/models/day-meal.model';
           <input class="meal-checkbox" type="checkbox"
                  [checked]="dayMeal.eaten"
                  (change)="onEatenChange()"
+                 noClickPropagation
                  title="{{'DAY_PLAN.MARK_MEAL_AS_EATEN' | translate}}"
           />
           <div class="meal-content">
               <div class="meal-content-name">{{dayMeal.meal.name}}</div>
               <diet-summary [summary]="dayMeal.meal.summary"></diet-summary>
           </div>
-          <button class="delete-meal-button" (click)="onDeleteButtonClick()" title="{{'DAY_PLAN.DELETE_MEAL' | translate}}"></button>
+          <button class="delete-meal-button"
+                  (click)="onDeleteButtonClick()"
+                  noClickPropagation
+                  title="{{'DAY_PLAN.DELETE_MEAL' | translate}}">
+          </button>
       </div>
   `,
   styleUrls: [ './day-plan-meal.component.scss' ],

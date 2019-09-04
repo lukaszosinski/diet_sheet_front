@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { debounceTime, map, mergeMap, withLatestFrom } from 'rxjs/operators';
+import { debounceTime, map, mergeMap, tap, withLatestFrom } from 'rxjs/operators';
 import { DaysService } from '../../../../api/services/days.service';
 import { catchApiError } from '../../../../api/api.actions';
 import { AppState } from '../../../../app.recuder';
@@ -8,6 +8,7 @@ import { Store } from '@ngrx/store';
 import { EMPTY } from 'rxjs';
 import * as fromDayPlan from './day-plan.reducer';
 import * as DayPlanActions from './day-plan.actions';
+import { RoutingService } from '../../../shared/routing/routing.service';
 
 
 @Injectable()
@@ -76,9 +77,19 @@ export class DayPlanEffects {
     })
   ));
 
+  selectDay$ = createEffect(() => this.actions$.pipe(
+    ofType(DayPlanActions.selectDay),
+    tap(({ date }) => this.addSelectedDatePathParam(date))
+  ), { dispatch: false });
+
   constructor(private actions$: Actions,
               private daysService: DaysService,
-              private store: Store<AppState>
+              private store: Store<AppState>,
+              private routingService: RoutingService,
   ) {}
+
+  private addSelectedDatePathParam(date: Date): void {
+    this.routingService.navigation.dashboard.dayPlan(date, false);
+  }
 
 }
