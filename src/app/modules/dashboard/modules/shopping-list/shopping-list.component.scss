@@ -68,7 +68,7 @@ li {
 
 .container-with-underline {
   display: inline-flex;
-  width: 95%;
+  width: 90%;
   justify-content: flex-end;
   border-bottom-width: 1px;
   border-bottom-color: $fontSecondary;
@@ -112,7 +112,7 @@ li {
 .shopping-list-table-headers {
   display: flex;
   justify-content: space-between;
-  width: 85%;
+  width: 80%;
   font-size: 1.5rem;
   color: $primaryColor;
 }

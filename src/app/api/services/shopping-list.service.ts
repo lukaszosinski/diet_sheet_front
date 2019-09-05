@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import {environment} from '../../../environments/environment';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {ShoppingList} from '../../modules/dashboard/modules/shopping-list/shopping-list.model';
@@ -7,7 +6,7 @@ import {ShoppingList} from '../../modules/dashboard/modules/shopping-list/shoppi
 @Injectable()
 export class ShoppingListService {
 
-  private readonly baseUrl = environment.apiUrl;
+  private readonly baseUrl = '/api/';
 
   constructor(private http: HttpClient) { }
 
