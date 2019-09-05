@@ -4,6 +4,16 @@ import {ShoppingList} from './shopping-list.model';
 
 export const loadShoppingLists = createAction('[ShoppingList] Load ShoppingLists');
 
+export const loadShoppingListsSuccess = createAction(
+  '[ShoppingList/API] Load shopping lists SUCCESS',
+  props<{ shoppingLists: ShoppingList[] }>()
+);
+
+export const loadShoppingListsError = createApiErrorAction(
+  '[Product/API] Load shopping lists ERROR',
+  'SHOPPING_LIST.LOAD_ERROR'
+);
+
 export const generateShoppingList = createAction('[ShoppingList] Generate shopping list', props<{ fromDate: Date, toDate: Date }>());
 
 export const generateShoppingListSuccess = createAction(

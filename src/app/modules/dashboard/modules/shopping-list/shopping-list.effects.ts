@@ -10,6 +10,14 @@ import {ShoppingListService} from '../../../../api/services/shopping-list.servic
 @Injectable()
 export class ShoppingListEffects {
 
+  loadShoppingLists$ = createEffect(() => this.actions$.pipe(
+    ofType(ShoppingListActions.loadShoppingLists),
+    mergeMap(() => this.shoppingList.getShoppingLists().pipe(
+      map(shoppingLists => ShoppingListActions.loadShoppingListsSuccess({ shoppingLists })),
+      catchApiError(ShoppingListActions.loadShoppingListsError)
+    ))
+  ));
+
   generateShoppingList$ = createEffect(() => this.actions$.pipe(
     ofType(ShoppingListActions.generateShoppingList),
     mergeMap(({ fromDate, toDate }) => this.shoppingList.generateShoppingListForDateRange(fromDate, toDate).pipe(

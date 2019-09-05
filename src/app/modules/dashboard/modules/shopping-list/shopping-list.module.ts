@@ -8,10 +8,12 @@ import {ShoppingListComponent} from './shopping-list.component';
 import {EffectsModule} from '@ngrx/effects';
 import {ShoppingListEffects} from './shopping-list.effects';
 import {SharedModule} from '../../../shared/shared.module';
+import { SavedShoppingListsComponent } from './saved-shopping-lists/saved-shopping-lists.component';
 
 @NgModule({
   declarations: [
-    ShoppingListComponent
+    ShoppingListComponent,
+    SavedShoppingListsComponent
   ],
   imports: [
     CommonModule,
