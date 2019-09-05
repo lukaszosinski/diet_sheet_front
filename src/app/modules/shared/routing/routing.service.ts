@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { NavigationExtras, Router, UrlTree } from '@angular/router';
+import { NavigationExtras, Params, Router } from '@angular/router';
+import { formatToIsoDate } from '../utils/date-utils';
 
 @Injectable({
   providedIn: 'root'
@@ -15,10 +16,11 @@ export class RoutingService {
         go: this.goToDashboard.bind(this),
         products: {
           list: this.goToProductsList.bind(this),
-          details: this.goToProductsDetails.bind(this),
+          details: this.goToProductDetails.bind(this),
         },
         meals: {
           list: this.goToMealsList.bind(this),
+          details: this.goToMealDetails.bind(this),
         },
         dayPlan: this.goToDayPlan.bind(this),
         shoppingList: this.goToShoppingList.bind(this),
@@ -32,36 +34,41 @@ export class RoutingService {
     };
   }
 
-  private navigateByUrl(url: string | UrlTree, extras?: NavigationExtras): Promise<boolean> {
-    return this.router.navigateByUrl(url, extras);
+  private navigate(url: string[], extras?: NavigationExtras): Promise<boolean> {
+    return this.router.navigate(url, extras);
   }
 
   private goToLandingPage(): Promise<boolean> {
-    return this.navigateByUrl('landing-page');
+    return this.navigate([ 'landing-page' ]);
   }
 
   private goToSignUp(): Promise<boolean> {
-    return this.navigateByUrl('landing-page/sign-up');
+    return this.navigate([ 'landing-page/sign-up' ]);
   }
 
   private goToDashboard(): Promise<boolean> {
-    return this.navigateByUrl('dashboard');
+    return this.navigate([ 'dashboard' ]);
   }
 
   private goToProductsList(): Promise<boolean> {
-    return this.navigateByUrl('dashboard/products');
+    return this.navigate([ 'dashboard/products' ]);
   }
 
-  private goToProductsDetails(productId: string = 'create'): Promise<boolean> {
-    return this.navigateByUrl(`dashboard/products/${productId}`);
+  private goToProductDetails(productId: string = 'create'): Promise<boolean> {
+    return this.navigate([ 'dashboard/products/', productId ]);
   }
 
   private goToMealsList(): Promise<boolean> {
-    return this.navigateByUrl('dashboard/meals');
+    return this.navigate([ 'dashboard/meals' ]);
   }
 
-  private goToDayPlan(): Promise<boolean> {
-    return this.navigateByUrl('dashboard/day-plan');
+  private goToMealDetails(mealId: string = 'create', skipLocationChange: boolean = false, redirectUrl?: string): Promise<boolean> {
+    return this.navigate([ 'dashboard/meals/', mealId ], { skipLocationChange, queryParams: { redirectUrl } });
+  }
+
+  private goToDayPlan(date: Date = new Date(), skipLocationChange: boolean = false): Promise<boolean> {
+    const selectedDateString = formatToIsoDate(date);
+    return this.navigate([ 'dashboard/day-plan', selectedDateString ], { skipLocationChange });
   }
 
   private goToShoppingList(): Promise<boolean> {
@@ -73,7 +80,14 @@ export class RoutingService {
   }
 
   private goToFridge(): Promise<boolean> {
-    return this.navigateByUrl('dashboard');
+    return this.navigate([ 'dashboard' ]);
+  }
+
+  navigateByUrl(url: string, newQueryParams?: Params): Promise<boolean> {
+    const path = url.split('?')[0];
+    const urlQueryParams = this.router.parseUrl(url).queryParams;
+    const queryParams = { ...urlQueryParams, ...newQueryParams };
+    return this.router.navigate([ path ], { queryParams });
   }
 }
 
@@ -82,6 +96,7 @@ export interface NavigationTree {
     go: NavigationCallback,
     meals: {
       list: NavigationCallback,
+      details: NavigationCallback,
     }
     products: {
       list: NavigationCallback,
@@ -98,4 +113,4 @@ export interface NavigationTree {
   };
 }
 
-export type NavigationCallback = () => Promise<boolean>;
+export type NavigationCallback = (...args: any) => Promise<boolean>;

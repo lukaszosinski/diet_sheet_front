@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddButtonComponent } from './components/add-button/add-button.component';
 import { SquareCancelButtonComponent } from './components/square-cancel-button/square-cancel-button.component';
 import { SquareConfirmButtonComponent } from './components/square-confirm-button/square-confirm-button.component';
+import { NoClickBubblingDirective } from './directives/no-click-bubbling.directive';
 
 const components: any[] = [
   AddButtonComponent,
@@ -13,9 +14,14 @@ const components: any[] = [
   SquareConfirmButtonComponent,
 ];
 
+const directives: any[] = [
+  NoClickBubblingDirective,
+];
+
 @NgModule({
   declarations: [
     ...components,
+    ...directives,
   ],
   imports: [
     CommonModule,
@@ -29,6 +35,7 @@ const components: any[] = [
     FormsModule,
     ReactiveFormsModule,
     ...components,
+    ...directives,
   ]
 })
 export class SharedLazyModule {

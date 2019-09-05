@@ -4,7 +4,8 @@ import { DayPlanComponent } from './day-plan.component';
 
 
 const routes: Routes = [
-  { path: '', component: DayPlanComponent }
+  { path: `:${DayPlanComponent.SELECTED_DATE_PATH_PARAM}`, component: DayPlanComponent },
+  { path: ``, component: DayPlanComponent }
 ];
 
 @NgModule({

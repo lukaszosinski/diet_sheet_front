@@ -14,11 +14,15 @@ $html-font-size-md: 15px;
 $html-font-size-sm: 14px;
 $html-font-size-xs: 13px;
 
+$font-size-medium: 1.5rem;
+
 $breakpoint-md-max-width: 1024px;
 $breakpoint-sm-max-width: 640px;
 $breakpoint-xs-max-width: 480px;
 
 $default-border-radius: 2rem;
+
+$header-width: 70%;
 
 html {
   height: 100%;

@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from '../../../environments/environment';
 import { User } from '../models/user.model';
 
 @Injectable()
 export class AuthorizationService {
 
-  private readonly baseUrl = environment.apiUrl;
+  private readonly baseUrl = '/api/';
 
   constructor(private http: HttpClient) { }
 

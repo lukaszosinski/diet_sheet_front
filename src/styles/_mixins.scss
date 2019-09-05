@@ -27,8 +27,12 @@
   }
 }
 
-@mixin card($elementSize, $shadowColor: $light--shadow) {
+@mixin shadow($elementSize: 5rem, $shadowColor: $light--shadow) {
   box-shadow: 0.015 * $elementSize 0.03 * $elementSize 0.5rem 0 $shadowColor;
+}
+
+@mixin card($elementSize: 5rem, $shadowColor: $light--shadow) {
+  @include shadow($elementSize, $shadowColor);
   border-radius: $default-border-radius;
 }
 
@@ -72,4 +76,15 @@
     background-color: transparentize($primaryColor, 0.8);
     border-radius: 50%;
   }
+}
+
+@mixin card-with-border($width, $border-color: $primaryColor, $color: $secondaryColor, $shadow-ratio: 5rem) {
+  width: $width;
+  height: 6rem;
+  padding: 0 1.5rem 1rem;
+  font-size: 1.75 * $font-size-medium;
+  color: $color;
+  border: 0.35rem solid $primaryColor;
+  border-radius: $default-border-radius;
+  background-color: transparent;
 }

@@ -9,13 +9,15 @@ import { NavigationData } from '../navigation-data';
   template: `
       <div class="diet-dashboard-nav-bar" *ngIf="show">
           <ul>
-              <li *ngFor="let item of items">
+              <li *ngFor="let item of items" class="diet-dashboard-nav-bar-item">
                   <a (click)="redirect(item.navigationCallback)">
                       {{item.translationKey | translate}}
                   </a>
               </li>
           </ul>
-          <a (click)="signOut()">{{ 'DASHBOARD.NAVIGATION.SIGN_OUT' | translate }}</a>
+          <div class="diet-dashboard-nav-bar-item">
+              <a class="diet-dashboard-nav-bar-sign-out" (click)="signOut()">{{ 'DASHBOARD.NAVIGATION.SIGN_OUT' | translate }}</a>
+          </div>
       </div>
   `,
   styleUrls: [ './dashboard-nav-bar.component.scss' ],

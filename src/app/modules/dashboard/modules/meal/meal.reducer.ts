@@ -9,8 +9,10 @@ export const mealsFeatureKey = 'meals';
 export interface State extends EntityState<Meal> {
   processing: {
     loadMeals: boolean;
-    addMeal: boolean;
+    upsertMeal: boolean;
   };
+  shouldStoreMeal: boolean;
+  storedMeal?: Meal;
 }
 
 export const adapter: EntityAdapter<Meal> = createEntityAdapter<Meal>();
@@ -18,38 +20,40 @@ export const adapter: EntityAdapter<Meal> = createEntityAdapter<Meal>();
 export const initialState: State = adapter.getInitialState({
   processing: {
     loadMeals: false,
-    addMeal: false,
-  }
+    upsertMeal: false,
+  },
+  shouldStoreMeal: false,
+  storedMeal: undefined,
 });
 
 const mealReducer = createReducer(
   initialState,
-  on(MealActions.addMeal,
-    (state) => ({ ...state, processing: { ...state.processing, addMeal: true } })
+  on(
+    MealActions.addMealAndRedirect,
+    MealActions.updateMealAndRedirect,
+    (state) => ({ ...state, processing: { ...state.processing, upsertMeal: true } })
   ),
   on(MealActions.upsertMealError,
-    (state) => ({ ...state, processing: { ...state.processing, addMeal: false } })
+    (state) => ({ ...state, processing: { ...state.processing, upsertMeal: false } })
   ),
   on(MealActions.upsertMealSuccess,
-    (state, { meal }) => ({ ...adapter.upsertOne(meal, state), processing: { ...state.processing, addMeal: false } })
+    (state, { meal }) => {
+      const withUpsertedMeal = adapter.upsertOne(meal, state);
+      return {
+        ...withUpsertedMeal,
+        storedMeal: state.shouldStoreMeal ? withUpsertedMeal.entities[meal.id] : undefined,
+        processing: { ...state.processing, upsertMeal: false }
+      };
+    }
   ),
-  on(MealActions.upsertMeal,
-    (state, action) => adapter.upsertOne(action.meal, state)
+  on(MealActions.clearStoredMeal,
+    (state) => ({ ...state, storedMeal: undefined })
   ),
-  on(MealActions.addMeals,
-    (state, action) => adapter.addMany(action.meals, state)
-  ),
-  on(MealActions.upsertMeals,
-    (state, action) => adapter.upsertMany(action.meals, state)
-  ),
-  on(MealActions.updateMeals,
-    (state, action) => adapter.updateMany(action.meals, state)
+  on(MealActions.requestMealStore,
+    (state) => ({ ...state, shouldStoreMeal: true })
   ),
   on(MealActions.deleteMeal,
     (state, action) => adapter.removeOne(action.id, state)
-  ),
-  on(MealActions.deleteMeals,
-    (state, action) => adapter.removeMany(action.ids, state)
   ),
   on(
     MealActions.loadMeal,
@@ -62,9 +66,7 @@ const mealReducer = createReducer(
   on(MealActions.loadMealsSuccess,
     (state, action) => ({ ...adapter.upsertMany(action.meals, state), processing: { ...state.processing, loadMeals: false } })
   ),
-  on(MealActions.clearMeals,
-    state => adapter.removeAll(state)
-  ),
+  on(MealActions.redirectToMealDetails, (state, { id }) => ({ ...state, selectedMealId: id })),
 );
 
 export function reducer(state: State | undefined, action: Action): State {
@@ -88,3 +90,7 @@ export const selectMealById = (mealId: string) => createSelector(
   (entities) => entities[mealId]
 );
 
+export const selectStoredMeal = createSelector(
+  selectMeal,
+  (state) => state.storedMeal
+);

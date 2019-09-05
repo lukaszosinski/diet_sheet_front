@@ -2,13 +2,14 @@
 
 .diet-entity-with-summary-list-content {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(10.5rem, 12.5rem));
-  grid-template-rows: repeat(auto-fill, 8rem);
+  grid-template-columns: repeat(auto-fit, minmax(10.5rem, 12.5rem));
+  grid-template-rows: 5rem repeat(auto-fit, 8rem);
   grid-gap: 0.75rem;
   justify-content: space-around;
 
-  .diet-entity-with-summary-list-item-content {
-    width: 100%;
-    height: 100%;
+  .diet-meal-list-header {
+    display: flex;
+    justify-content: flex-end;
+    grid-column: 1/-1;
   }
 }

@@ -6,16 +6,11 @@ import { DashboardNavigationDataEnum } from '../dashboard-navigation-data.enum';
 @Component({
   selector: 'diet-fridge',
   template: `
-      Witaj w lodówce heh
       <div class="diet-fridge-wrapper">
           <div class="diet-fridge">
               <div class="diet-fridge-meals"
                    [title]="getTitle(DashboardNavigationDataEnum.MEALS) | translate"
                    (click)="onNavigationClick(DashboardNavigationDataEnum.MEALS)"
-              ></div>
-              <div class="diet-fridge-products"
-                   [title]="getTitle(DashboardNavigationDataEnum.PRODUCTS) | translate"
-                   (click)="onNavigationClick(DashboardNavigationDataEnum.PRODUCTS)"
               ></div>
               <div class="diet-fridge-calendar"
                    [title]="getTitle(DashboardNavigationDataEnum.DAY_PLAN) | translate"
@@ -25,11 +20,21 @@ import { DashboardNavigationDataEnum } from '../dashboard-navigation-data.enum';
                    [title]="getTitle(DashboardNavigationDataEnum.SHOPPING_LIST) | translate"
                    (click)="onNavigationClick(DashboardNavigationDataEnum.SHOPPING_LIST)"
               ></div>
+              <div class="diet-fridge-my-diet"
+                   [title]="getTitle(DashboardNavigationDataEnum.MY_DIET) | translate"
+              ></div>
               <div class="diet-fridge-settings"
                    [title]="getTitle(DashboardNavigationDataEnum.SETTINGS) | translate"
                    (click)="onNavigationClick(DashboardNavigationDataEnum.SETTINGS)"
               ></div>
           </div>
+          <div class="diet-fridge-wrapper-products"
+               [title]="getTitle(DashboardNavigationDataEnum.PRODUCTS) | translate"
+               (click)="onNavigationClick(DashboardNavigationDataEnum.PRODUCTS)"
+          ></div>
+          <div class="diet-fridge-wrapper-plant"></div>
+          <div class="diet-fridge-wrapper-pan"></div>
+          <div class="diet-fridge-wrapper-cabinet"></div>
       </div>
   `,
   styleUrls: [ './fridge.component.scss' ],

@@ -82,6 +82,6 @@ export class ProductDetailsComponent {
   }
 
   onCancelButtonClick(): void {
-    console.log('Cancel button clicked');
+    this.store.dispatch(ProductActions.redirectFromProductDetails({}));
   }
 }

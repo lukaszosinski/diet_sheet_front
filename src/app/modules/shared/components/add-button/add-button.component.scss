@@ -1,6 +1,11 @@
 @import "colors.scss";
 @import "mixins.scss";
 
+:host.large {
+  .diet-add-button {
+    @include square-button(4rem);
+  }
+}
 
 .diet-add-button {
   @include square-button(3rem);

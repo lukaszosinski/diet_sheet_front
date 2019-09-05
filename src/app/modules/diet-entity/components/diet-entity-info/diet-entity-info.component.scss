@@ -3,7 +3,7 @@
 @import "layout.scss";
 
 $font-size-medium: 1.5rem;
-$inputs-max-width: 70%;
+$inputs-max-width: $header-width;
 
 .diet-entity-info {
   display: flex;
@@ -15,17 +15,8 @@ $inputs-max-width: 70%;
   @include card(10rem);
 
   &-name {
-    $shadowRadio: 5rem;
-
-    width: $inputs-max-width;
-    height: 6rem;
-    padding: 0 1.5rem 1rem;
-    font-size: 1.75 * $font-size-medium;
-    color: $secondaryColor;
-    border: 0.35rem solid $primaryColor;
-    border-radius: $default-border-radius;
-    background-color: transparent;
-    @include inset-shadow-with-hover($shadowRadio);
+    @include card-with-border($inputs-max-width);
+    @include inset-shadow-with-hover(5rem);
   }
 
   &-unit {

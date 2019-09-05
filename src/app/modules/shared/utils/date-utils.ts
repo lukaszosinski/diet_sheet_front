@@ -14,7 +14,7 @@ export function addDays(date: Date, daysQuantity: number): Date {
   return newDate;
 }
 
-export function parseFromIsoString(date: string): Date {
+export function parseFromIsoString_v2(date: string): Date {
   const [ year, month, day ]: number[] = date.split('-').map(str => Number(str));
   return new Date(year, month - 1, day + 1);
 }
@@ -23,6 +23,18 @@ export function formatToDateInput(date: Date): string {
   return date.toISOString().substring(0, 10);
 }
 
-export function formatToIsoDate(date: Date): string {
+export function formatToIsoDate_v2(date: Date): string {
   return date.toISOString().substring(0, 10);
+}
+
+export function parseFromIsoDate(date: string): Date {
+  const [ year, month, day ] = date.split('-').map(str => Number(str));
+  return new Date(year, month - 1, day);
+}
+
+export function formatToIsoDate(date: Date): string {
+  return [ date.getFullYear(), date.getMonth() + 1, date.getDate() ]
+    .map(datePart => String(datePart))
+    .map(datePart => datePart.length > 1 ? datePart : '0' + datePart)
+    .join('-');
 }
