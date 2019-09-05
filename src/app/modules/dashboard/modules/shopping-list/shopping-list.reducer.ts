@@ -8,19 +8,21 @@ export const shoppingListFeatureKey = 'shoppingList';
 
 export interface State {
   currentShoppingList?: ShoppingList;
-  loadedShoppingList: ShoppingList[];
+  loadedShoppingLists: ShoppingList[];
   processing: {
     saveShoppingList: boolean,
-    loadShoppingLists: boolean
+    loadShoppingLists: boolean,
+    loadShoppingList: boolean
   };
 }
 
 export const initialState: State = {
   currentShoppingList: undefined,
-  loadedShoppingList: [],
+  loadedShoppingLists: [],
   processing: {
     saveShoppingList: false,
-    loadShoppingLists: false
+    loadShoppingLists: false,
+    loadShoppingList: false
   }
 };
 
@@ -49,18 +51,34 @@ const shoppingListReducer = createReducer(
   ),
   on(ShoppingListActions.loadShoppingLists, (state) => ({
       ...state,
-      processing: {...state.processing, loadedShoppingList: true}
+      processing: {...state.processing, loadShoppingLists: true}
     })
   ),
   on(ShoppingListActions.loadShoppingListsSuccess, (state, {shoppingLists}) => ({
       ...state,
-      loadedShoppingList: shoppingLists,
-      processing: {...state.processing, loadedShoppingList: false}
+      loadedShoppingLists: shoppingLists,
+      processing: {...state.processing, loadShoppingLists: false}
     })
   ),
   on(ShoppingListActions.loadShoppingListsError, (state) => ({
       ...state,
-      processing: {...state.processing, loadedShoppingList: false}
+      processing: {...state.processing, loadShoppingLists: false}
+    })
+  ),
+  on(ShoppingListActions.loadShoppingList, (state) => ({
+      ...state,
+      processing: {...state.processing, loadShoppingList: true}
+    })
+  ),
+  on(ShoppingListActions.loadShoppingListSuccess, (state, {shoppingList}) => ({
+      ...state,
+      currentShoppingList: shoppingList,
+      processing: {...state.processing, loadShoppingList: false}
+    })
+  ),
+  on(ShoppingListActions.loadShoppingListError, (state) => ({
+      ...state,
+      processing: {...state.processing, loadShoppingList: false}
     })
   ),
 );
@@ -83,5 +101,5 @@ export const selectShouldDisplayShoppingList = createSelector(
 
 export const selectLoadedShoppingLists = createSelector(
   selectShoppingList,
-  (state) => state.loadedShoppingList
+  (state) => state.loadedShoppingLists
 );

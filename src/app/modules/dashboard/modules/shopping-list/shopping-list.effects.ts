@@ -18,6 +18,14 @@ export class ShoppingListEffects {
     ))
   ));
 
+  loadShoppingList$ = createEffect(() => this.actions$.pipe(
+    ofType(ShoppingListActions.loadShoppingList),
+    mergeMap(({id}) => this.shoppingList.getShoppingList(id).pipe(
+      map(shoppingList => ShoppingListActions.loadShoppingListSuccess({ shoppingList })),
+      catchApiError(ShoppingListActions.loadShoppingListError)
+    ))
+  ));
+
   generateShoppingList$ = createEffect(() => this.actions$.pipe(
     ofType(ShoppingListActions.generateShoppingList),
     mergeMap(({ fromDate, toDate }) => this.shoppingList.generateShoppingListForDateRange(fromDate, toDate).pipe(

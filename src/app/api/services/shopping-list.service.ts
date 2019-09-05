@@ -14,6 +14,11 @@ export class ShoppingListService {
     return this.http.get<ShoppingList[]>(this.baseUrl + 'shoppingList');
   }
 
+  getShoppingList(id: number): Observable<ShoppingList> {
+    const url = `${this.baseUrl}shoppingList/${id}`;
+    return this.http.get<ShoppingList>(url);
+  }
+
   generateShoppingListForDateRange(dateFrom: Date, dateTo: Date): Observable<ShoppingList> {
     const params = { dateFrom: dateFrom.toISOString(), dateTo: dateTo.toISOString() };
     return this.http.get<ShoppingList>(this.baseUrl + 'shoppingListForDays', { params });

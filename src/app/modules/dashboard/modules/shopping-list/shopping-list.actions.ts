@@ -10,7 +10,19 @@ export const loadShoppingListsSuccess = createAction(
 );
 
 export const loadShoppingListsError = createApiErrorAction(
-  '[Product/API] Load shopping lists ERROR',
+  '[Product/API] Load shopping list ERROR',
+  'SHOPPING_LIST.LOAD_ERROR'
+);
+
+export const loadShoppingList = createAction('[ShoppingList] Load ShoppingList', props<{id: number}>());
+
+export const loadShoppingListSuccess = createAction(
+  '[ShoppingList/API] Load shopping list SUCCESS',
+  props<{ shoppingList: ShoppingList }>()
+);
+
+export const loadShoppingListError = createApiErrorAction(
+  '[Product/API] Load shopping list ERROR',
   'SHOPPING_LIST.LOAD_ERROR'
 );
 

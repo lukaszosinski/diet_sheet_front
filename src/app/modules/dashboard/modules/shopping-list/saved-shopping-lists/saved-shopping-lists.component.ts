@@ -11,7 +11,7 @@ import {ShoppingList} from '../shopping-list.model';
   template: `
       <ul>
           <li *ngFor="let shoppingList of (getLoadedShoppingLists() | async)">
-                {{shoppingList.id}}
+              <div (click)="onShoppingListClick(shoppingList.id)">{{shoppingList.id}}</div>
           </li>
       </ul>
   `,
@@ -28,6 +28,10 @@ export class SavedShoppingListsComponent implements OnInit {
 
   getLoadedShoppingLists(): Observable<ShoppingList[]> {
     return this.store.select(fromShoppingList.selectLoadedShoppingLists);
+  }
+
+  onShoppingListClick(id: number): void {
+    this.store.dispatch(ShoppingListActions.loadShoppingList({id}));
   }
 
 }
