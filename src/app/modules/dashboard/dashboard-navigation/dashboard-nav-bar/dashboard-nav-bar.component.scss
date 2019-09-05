@@ -16,6 +16,7 @@
 
 .diet-dashboard-nav-bar-item {
   margin: 0.5rem 1rem;
+  cursor: pointer;
 
   &:hover, &:focus {
     color: darken($primaryColor, 10);
