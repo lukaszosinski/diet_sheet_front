@@ -14,7 +14,7 @@ import {distinctUntilChanged, map} from 'rxjs/operators';
   selector: 'diet-shopping-list',
   template: `
     <div class="shopping-list-wrapper">
-        <div class="date-inputs-container" [formGroup]="dateForm">
+        <div *ngIf="!updateMode" class="date-inputs-container" [formGroup]="dateForm">
             <input type="date" name="stringFromDate" formControlName="stringFromDate" (change)="onDateChange()">
             <input type="date" name="stringToDate" formControlName="stringToDate" (change)="onDateChange()">
         </div>
@@ -80,6 +80,7 @@ export class ShoppingListComponent implements OnInit {
         this.store.dispatch(ShoppingListActions.loadShoppingList({id: +shoppingListId}));
       } else {
         this.initializeShoppingListArrayFrom();
+        this.updateMode = false;
       }
     });
   }
@@ -141,12 +142,25 @@ export class ShoppingListComponent implements OnInit {
   }
 
   onSaveButtonClick(): void {
-    const {stringFromDate, stringToDate} = this.dateForm.value;
-    const shoppingListName = stringFromDate + '_' + stringToDate;
-    this.store.dispatch(ShoppingListActions.saveShoppingList({shoppingList: {
-        name: shoppingListName,
-        items: this.shoppingListItemsForm.value
-      }}));
+    if (!this.updateMode) {
+      const {stringFromDate, stringToDate} = this.dateForm.value;
+      const shoppingListName = stringFromDate + '_' + stringToDate;
+      this.store.dispatch(ShoppingListActions.saveShoppingList({shoppingList: {
+          name: shoppingListName,
+          items: this.shoppingListItemsForm.value
+        }
+      }));
+    } else {
+      this.getSelectedShoppingListId$().subscribe(shoppingListId => {
+        if (!!shoppingListId) {
+          this.store.dispatch(ShoppingListActions.updateShoppingList({shoppingList: {
+              id: +shoppingListId,
+              items: this.shoppingListItemsForm.value
+            }
+          }));
+        }
+      });
+    }
   }
 
   getCurrentShoppingList(): Observable<ShoppingList | undefined> {

@@ -11,6 +11,7 @@ export interface State {
   loadedShoppingLists: ShoppingList[];
   processing: {
     saveShoppingList: boolean,
+    updateShoppingList: boolean,
     loadShoppingLists: boolean,
     loadShoppingList: boolean
   };
@@ -21,6 +22,7 @@ export const initialState: State = {
   loadedShoppingLists: [],
   processing: {
     saveShoppingList: false,
+    updateShoppingList: false,
     loadShoppingLists: false,
     loadShoppingList: false
   }
@@ -47,6 +49,21 @@ const shoppingListReducer = createReducer(
   on(ShoppingListActions.saveShoppingListError, (state) => ({
       ...state,
       processing: {...state.processing, saveShoppingList: false}
+    })
+  ),
+  on(ShoppingListActions.updateShoppingList, (state) => ({
+      ...state,
+      processing: {...state.processing, updateShoppingList: true}
+    })
+  ),
+  on(ShoppingListActions.updateShoppingListSuccess, (state) => ({
+      ...state,
+      processing: {...state.processing, updateShoppingList: false}
+    })
+  ),
+  on(ShoppingListActions.updateShoppingListError, (state) => ({
+      ...state,
+      processing: {...state.processing, updateShoppingList: false}
     })
   ),
   on(ShoppingListActions.loadShoppingLists, (state) => ({

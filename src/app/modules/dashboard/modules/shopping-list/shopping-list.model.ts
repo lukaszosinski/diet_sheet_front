@@ -1,6 +1,6 @@
 export interface ShoppingList {
   id?: number;
-  name: string;
+  name?: string;
   items: ShoppingListItem[];
 }
 

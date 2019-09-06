@@ -50,4 +50,16 @@ export const saveShoppingListError = createApiErrorAction(
   'SHOPPING_LIST.SAVE_ERROR'
 );
 
+export const updateShoppingList = createAction('[ShoppingList] UPDATE Shopping list', props<{ shoppingList: ShoppingList }>());
+
+export const updateShoppingListSuccess = createAction(
+  '[ShoppingList/API] UPDATE Shopping list SUCCESS',
+  props<{ shoppingList: ShoppingList }>()
+);
+
+export const updateShoppingListError = createApiErrorAction(
+  '[Product/API] UPDATE Shopping list ERROR',
+  'SHOPPING_LIST.SAVE_ERROR'
+);
+
 export const openShoppingList = createAction('[ShoppingList] Open Shopping list', props<{ shoppingListId: number }>());

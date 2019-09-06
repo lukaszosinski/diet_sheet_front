@@ -27,4 +27,8 @@ export class ShoppingListService {
   saveShoppingList(shoppingList: ShoppingList): Observable<ShoppingList> {
     return this.http.post<ShoppingList>(this.baseUrl + 'shoppingList', shoppingList);
   }
+
+  updateShoppingList(shoppingList: ShoppingList): Observable<ShoppingList> {
+    return this.http.put<ShoppingList>(this.baseUrl + 'shoppingList' + '/' + shoppingList.id, shoppingList);
+  }
 }

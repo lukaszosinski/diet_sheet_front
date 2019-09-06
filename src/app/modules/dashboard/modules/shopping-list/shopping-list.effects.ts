@@ -43,6 +43,14 @@ export class ShoppingListEffects {
     ))
   ));
 
+  updateShoppingList$ = createEffect(() => this.actions$.pipe(
+    ofType(ShoppingListActions.updateShoppingList),
+    mergeMap(({ shoppingList }) => this.shoppingList.updateShoppingList(shoppingList).pipe(
+      map(shoppingList => ShoppingListActions.updateShoppingListSuccess({ shoppingList })),
+      catchApiError(ShoppingListActions.updateShoppingListError)
+    ))
+  ));
+
  openShoppingList$ = createEffect(() => this.actions$.pipe(
     ofType(ShoppingListActions.openShoppingList),
     tap(({ shoppingListId }) => this.goToShoppingList(shoppingListId))
