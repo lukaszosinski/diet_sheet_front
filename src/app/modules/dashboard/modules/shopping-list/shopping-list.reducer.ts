@@ -40,10 +40,10 @@ const shoppingListReducer = createReducer(
       processing: {...state.processing, saveShoppingList: true}
     })
   ),
-  on(ShoppingListActions.saveShoppingListSuccess, (state) => ({
+  on(ShoppingListActions.saveShoppingListSuccess, (state, {shoppingList}) => ({
       ...state,
       processing: {...state.processing, saveShoppingList: false},
-      currentShoppingList: undefined
+      currentShoppingList: shoppingList
     })
   ),
   on(ShoppingListActions.saveShoppingListError, (state) => ({

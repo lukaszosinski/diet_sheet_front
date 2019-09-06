@@ -15,8 +15,14 @@ import {distinctUntilChanged, map} from 'rxjs/operators';
   template: `
     <div class="shopping-list-wrapper">
         <div *ngIf="!updateMode" class="date-inputs-container" [formGroup]="dateForm">
-            <input type="date" name="stringFromDate" formControlName="stringFromDate" (change)="onDateChange()">
-            <input type="date" name="stringToDate" formControlName="stringToDate" (change)="onDateChange()">
+            <div class="date-input">
+                <div class="date-header">{{'SHOPPING_LIST.FROM_DATE' | translate}}:</div>
+                <input type="date" name="stringFromDate" formControlName="stringFromDate" (change)="onDateChange()">
+            </div>
+            <div class="date-input">
+                <div class="date-header">{{'SHOPPING_LIST.TO_DATE' | translate}}:</div>
+                <input type="date" name="stringToDate" formControlName="stringToDate" (change)="onDateChange()">
+            </div>
         </div>
         <div class="shopping-list-content"
              *ngIf="shoppingListItemsForm.controls.length > 0"
@@ -144,7 +150,7 @@ export class ShoppingListComponent implements OnInit {
   onSaveButtonClick(): void {
     if (!this.updateMode) {
       const {stringFromDate, stringToDate} = this.dateForm.value;
-      const shoppingListName = stringFromDate + '_' + stringToDate;
+      const shoppingListName = stringFromDate + ':' + stringToDate;
       this.store.dispatch(ShoppingListActions.saveShoppingList({shoppingList: {
           name: shoppingListName,
           items: this.shoppingListItemsForm.value

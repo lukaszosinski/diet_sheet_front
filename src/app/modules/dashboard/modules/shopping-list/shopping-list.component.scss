@@ -8,19 +8,23 @@
 
 .shopping-list-wrapper {
   display: flex;
+  align-content: center;
   flex-direction: column;
   height: 100%;
+  width: 100%;
 }
 
 .date-inputs-container {
-  position: relative;
   display: flex;
+  align-items: center;
+  align-content: center;
   justify-content: center;
   padding: 1rem;
   margin-right: 5%;
   margin-left: 5%;
   border-radius: $default-border-radius;
   box-shadow: transparentize($primaryColor, 0.5) 1px 2px 5px 1px;
+  width: 90%;
 }
 
 .shopping-list-content {
@@ -38,6 +42,7 @@
   border-radius: $default-border-radius;
   border: 0.25rem solid darken($secondaryColor, 15);
   z-index: 10;
+  width: 90%;
 
   &::after {
     content: "";
@@ -103,6 +108,27 @@ li {
   }
 }
 
+.date-header {
+  width: 100%;
+  padding: 0.25rem 0.25rem 0.25rem 1rem;
+  color: $secondaryColor;
+}
+
+.date-input {
+  position: relative;
+  flex-direction: column;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+  @media(max-width: 480px) {
+    margin: 0.15rem;
+  }
+
+}
+
 .shopping-list-header{
   display: block;
   font-size: 2rem;
@@ -119,11 +145,9 @@ li {
 }
 
 input[type="date"] {
-  width: 15rem;
-  margin-left: 1rem;
-  margin-right: 1rem;
-  padding-top: 0.7rem;
-  padding-bottom: 0.7rem;
+  width: 100%;
+  padding-top: 0.4rem;
+  padding-bottom: 0.4rem;
   border-radius: 1.25rem;
   background-color: transparent;
   border: 0.25rem solid $warnColor;
