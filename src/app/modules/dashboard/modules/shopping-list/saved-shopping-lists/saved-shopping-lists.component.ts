@@ -31,7 +31,7 @@ export class SavedShoppingListsComponent implements OnInit {
   }
 
   onShoppingListClick(id: number): void {
-    this.store.dispatch(ShoppingListActions.loadShoppingList({id}));
+    this.store.dispatch(ShoppingListActions.openShoppingList({shoppingListId: id}));
   }
 
 }

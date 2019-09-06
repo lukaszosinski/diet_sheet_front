@@ -5,8 +5,9 @@ import {SavedShoppingListsComponent} from './saved-shopping-lists/saved-shopping
 
 
 const routes: Routes = [
-  { path: 'details', component: ShoppingListComponent },
-  { path: '', component: SavedShoppingListsComponent}
+  {path: 'create', component: ShoppingListComponent },
+  {path: ':shoppingListId', component: ShoppingListComponent},
+  {path: '', component: SavedShoppingListsComponent}
 ];
 
 @NgModule({

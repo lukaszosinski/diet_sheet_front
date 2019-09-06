@@ -49,3 +49,5 @@ export const saveShoppingListError = createApiErrorAction(
   '[Product/API] SAVE Shopping list ERROR',
   'SHOPPING_LIST.SAVE_ERROR'
 );
+
+export const openShoppingList = createAction('[ShoppingList] Open Shopping list', props<{ shoppingListId: number }>());

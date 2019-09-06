@@ -7,6 +7,8 @@ import * as ShoppingListActions from './shopping-list.actions';
 import * as fromShoppingList from './shopping-list.reducer';
 import {Observable} from 'rxjs';
 import {ShoppingList, ShoppingListItem} from './shopping-list.model';
+import {ActivatedRoute} from '@angular/router';
+import {distinctUntilChanged, map} from 'rxjs/operators';
 
 @Component({
   selector: 'diet-shopping-list',
@@ -65,9 +67,21 @@ export class ShoppingListComponent implements OnInit {
 
   constructor(private store: Store<AppState>,
               private fb: FormBuilder,
-              private changeDetector: ChangeDetectorRef) {
+              private changeDetector: ChangeDetectorRef,
+              private route: ActivatedRoute) {
     this.initializeDateForm();
     this.initializeShoppingListArrayFrom();
+  }
+
+  ngOnInit(): void {
+    this.getCurrentShoppingList().subscribe(this.onCurrentShoppingListChange.bind(this));
+    this.getSelectedShoppingListId$().subscribe(shoppingListId => {
+      if (!!shoppingListId) {
+        this.store.dispatch(ShoppingListActions.loadShoppingList({id: +shoppingListId}));
+      } else {
+        this.initializeShoppingListArrayFrom();
+      }
+    });
   }
 
   private initializeDateForm(): void {
@@ -99,8 +113,11 @@ export class ShoppingListComponent implements OnInit {
     return this.shoppingListItemsForm.getRawValue()[i];
   }
 
-  ngOnInit(): void {
-    this.getCurrentShoppingList().subscribe(this.onCurrentShoppingListChange.bind(this));
+  getSelectedShoppingListId$(): Observable<string | undefined> {
+    return this.route.params.pipe(
+      distinctUntilChanged(),
+      map(({ shoppingListId }) => shoppingListId)
+    );
   }
 
   onCurrentShoppingListChange(shoppingList: ShoppingList | undefined): void {
