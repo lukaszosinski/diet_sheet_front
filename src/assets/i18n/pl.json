@@ -50,7 +50,8 @@
       "MY_DIET": "Moja dieta",
       "PRODUCTS": "Produkty",
       "SETTINGS": "Ustawienia",
-      "SHOPPING_LIST": "Lista zakupów",
+      "SHOPPING_LIST": "Nowa lista zakupów",
+      "SAVED_SHOPPING_LISTS": "Listy zakupów",
       "SIGN_OUT": "Wyloguj się"
     }
   },
@@ -69,8 +70,19 @@
       "PIECE": "szt.",
       "HUNDRED_MILLILITERS": "ml",
       "KILOGRAM": "kg",
-      "PLN": "zł"
+      "PLN": "zł",
+      "" : ""
     }
+  },
+  "SHOPPING_LIST" : {
+    "GENERATE_ERROR": "Błąd podczas generowania listy zakupów",
+    "SAVE_ERROR": "Błąd podczas zapisywania listy zakupów",
+    "SHOPPING_LIST": "Lista zakupów",
+    "PRODUCT": "Produkt",
+    "AMOUNT": "Ilość",
+    "SAVE": "Zapisz listę",
+    "FROM_DATE": "OD",
+    "TO_DATE": "DO"
   },
   "LANDING_PAGE": {
     "WELCOME": "Witaj w DIET",

@@ -8,6 +8,7 @@ const routes: Routes = [
   {
     path: '', component: DashboardComponent, children: [
       { path: '', component: FridgeComponent },
+      { path: 'shopping-list', loadChildren: () => import('./modules/shopping-list/shopping-list.module').then(m => m.ShoppingListModule) },
       { path: 'products', loadChildren: () => import('./modules/product/product.module').then(m => m.ProductModule) },
       { path: 'meals', loadChildren: () => import('./modules/meal/meal.module').then(m => m.MealModule) },
       { path: 'day-plan', loadChildren: () => import('./modules/day-plan/day-plan.module').then(m => m.DayPlanModule) },

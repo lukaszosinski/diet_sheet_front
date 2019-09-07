@@ -5,6 +5,7 @@ import * as fromAuthorization from './modules/authorization/authorization.reduce
 import * as fromDayPlan from './modules/dashboard/modules/day-plan/day-plan.reducer';
 import * as fromMeal from './modules/dashboard/modules/meal/meal.reducer';
 import * as fromProduct from './modules/dashboard/modules/product/product.reducer';
+import * as fromShoppingList from './modules/dashboard/modules/shopping-list/shopping-list.reducer';
 
 
 export interface AppState {
@@ -13,6 +14,7 @@ export interface AppState {
   [fromDayPlan.dayPlanFeatureKey]?: fromDayPlan.State;
   [fromMeal.mealsFeatureKey]?: fromMeal.State;
   [fromProduct.productsFeatureKey]?: fromProduct.State;
+  [fromShoppingList.shoppingListFeatureKey]?: fromShoppingList.State;
 }
 
 export const reducers: ActionReducerMap<AppState> = {

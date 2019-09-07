@@ -18,7 +18,11 @@ export class DashboardNavigationService {
     },
     [DashboardNavigationDataEnum.SHOPPING_LIST]: {
       translationKey: 'DASHBOARD.NAVIGATION.SHOPPING_LIST',
-      navigationCallback: this.routingService.navigation.dashboard.shoppingList,
+      navigationCallback: this.routingService.navigation.dashboard.shoppingList.details,
+    },
+    [DashboardNavigationDataEnum.SAVED_SHOPPING_LISTS]: {
+      translationKey: 'DASHBOARD.NAVIGATION.SAVED_SHOPPING_LISTS',
+      navigationCallback: this.routingService.navigation.dashboard.shoppingList.list,
     },
     [DashboardNavigationDataEnum.MEALS]: {
       translationKey: 'DASHBOARD.NAVIGATION.MEALS',
