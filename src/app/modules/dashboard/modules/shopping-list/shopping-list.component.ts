@@ -2,7 +2,7 @@ import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@an
 import {Store} from '@ngrx/store';
 import {AppState} from '../../../../app.recuder';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {formatToDateInput, parseFromIsoString} from '../../../shared/utils/date-utils';
+import {formatToDateInput, parseFromIsoDate} from '../../../shared/utils/date-utils';
 import * as ShoppingListActions from './shopping-list.actions';
 import * as fromShoppingList from './shopping-list.reducer';
 import {Observable} from 'rxjs';
@@ -137,8 +137,8 @@ export class ShoppingListComponent implements OnInit {
 
   onDateChange(): void {
       const {stringFromDate, stringToDate} = this.dateForm.value;
-      const fromDate = parseFromIsoString(stringFromDate);
-      const toDate = parseFromIsoString(stringToDate);
+      const fromDate = parseFromIsoDate(stringFromDate);
+      const toDate = parseFromIsoDate(stringToDate);
       this.store.dispatch(ShoppingListActions.generateShoppingList({fromDate, toDate}));
   }
 

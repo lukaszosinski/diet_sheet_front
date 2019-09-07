@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {ShoppingList} from '../../modules/dashboard/modules/shopping-list/shopping-list.model';
+import {formatToIsoDate} from '../../modules/shared/utils/date-utils';
 
 @Injectable()
 export class ShoppingListService {
@@ -20,7 +21,7 @@ export class ShoppingListService {
   }
 
   generateShoppingListForDateRange(dateFrom: Date, dateTo: Date): Observable<ShoppingList> {
-    const params = { dateFrom: dateFrom.toISOString(), dateTo: dateTo.toISOString() };
+    const params = { dateFrom: formatToIsoDate(dateFrom) , dateTo: formatToIsoDate(dateTo) };
     return this.http.get<ShoppingList>(this.baseUrl + 'shoppingListForDays', { params });
   }
 

@@ -14,11 +14,6 @@ export function addDays(date: Date, daysQuantity: number): Date {
   return newDate;
 }
 
-export function parseFromIsoString(date: string): Date {
-  const [ year, month, day ]: number[] = date.split('-').map(str => Number(str));
-  return new Date(year, month - 1, day + 1);
-}
-
 export function formatToDateInput(date: Date): string {
   return date.toISOString().substring(0, 10);
 }
