@@ -98,7 +98,7 @@ export class ShoppingListComponent implements OnInit {
       stringToDate: formatToDateInput(new Date()),
     });
   }
-  private patchShoppingListArrayFrom(shoppingListItems?: any[]): void {
+  private patchShoppingListArrayFrom(shoppingListItems?: ShoppingListItem[]): void {
     this.shoppingListItemsForm.clear();
     (shoppingListItems || new Array(this.INIT_EMPTY_SHOPPING_LIST_ITEMS).fill(undefined))
       .map((item) => this.createShoppingListItemForm(item))
