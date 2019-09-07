@@ -17,7 +17,7 @@ import { takeUntilDestroy } from '../../../shared/utils/rxjs-utils';
               <ng-container *ngFor="let item of itemsFormArray.controls; let i = index">
                   <div [formGroupName]="i" class="diet-entity-item-table-row">
                       <div class="diet-entity-item-table-row-delete" (click)="onDeleteClick(i)"></div>
-                      <div class="diet-entity-item-table-row-name">{{getName(i)}}</div>
+                      <input class="diet-entity-item-table-row-name" formControlName="name">
                       <input type="number" class="diet-entity-item-table-row-quantity" formControlName="amount">
                       <div class="diet-entity-item-table-row-unit">{{'DIET_ENTITY.UNIT.' + getUnit(i) | translate}}</div>
                   </div>
@@ -53,11 +53,6 @@ export class DietEntityItemTableComponent extends OnDestroyAbstract implements O
 
   private getItem(i: number): DietEntityItem | undefined {
     return this.itemsFormArray.getRawValue()[i];
-  }
-
-  getName(i: number): string {
-    const item = this.getItem(i);
-    return item && item.name || '';
   }
 
   getUnit(i: number): string {
