@@ -134,14 +134,11 @@ $cabin-z-index: $fridge-z-index - 2;
 
 @include fridge-wrapper-styles(100vh);
 
-@media (max-height: 850px) and (orientation: landscape) {
-  @include fridge-wrapper-styles(850px);
-
-  @media (max-width: $breakpoint-sm-max-width) {
-    @include fridge-wrapper-styles($breakpoint-sm-max-width);
+@media (orientation: landscape) {
+  @media (min-width: 850px) and (max-height: 850px) {
+    @include fridge-wrapper-styles(850px);
   }
-
-  @media (max-width: $breakpoint-xs-max-width) {
-    @include fridge-wrapper-styles($breakpoint-xs-max-width);
+  @media (max-width: 850px) {
+    @include fridge-wrapper-styles(100vw)
   }
 }
