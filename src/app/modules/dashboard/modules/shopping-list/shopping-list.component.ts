@@ -98,20 +98,11 @@ export class ShoppingListComponent implements OnInit {
       stringToDate: formatToDateInput(new Date()),
     });
   }
-
-  private patchShoppingListArrayFrom(shoppingListItems?: ShoppingListItem[]): void {
+  private patchShoppingListArrayFrom(shoppingListItems?: any[]): void {
     this.shoppingListItemsForm.clear();
-    if (!!shoppingListItems) {
-      shoppingListItems.map(item =>
-        this.createShoppingListItemForm(item)
-      ).forEach(formItem => this.shoppingListItemsForm.push(formItem));
-    } else {
-      for (let i = 0; i < this.INIT_EMPTY_SHOPPING_LIST_ITEMS; i++) {
-        this.shoppingListItemsForm.push(
-          this.createShoppingListItemForm()
-        );
-      }
-    }
+    (shoppingListItems || new Array(this.INIT_EMPTY_SHOPPING_LIST_ITEMS).fill(undefined))
+      .map((item) => this.createShoppingListItemForm(item))
+      .forEach((formControl) => this.shoppingListItemsForm.push(formControl));
   }
 
   private createShoppingListItemForm(item?: ShoppingListItem): FormGroup {
@@ -161,7 +152,7 @@ export class ShoppingListComponent implements OnInit {
         }
       }));
     } else {
-      this.getSelectedShoppingListId$().subscribe(shoppingListId => {
+      this.getSelectedShoppingListId$().pipe(first()).subscribe(shoppingListId => {
         if (!!shoppingListId) {
           this.store.dispatch(ShoppingListActions.updateShoppingList({shoppingList: {
               id: +shoppingListId,
