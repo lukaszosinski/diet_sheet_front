@@ -64,68 +64,84 @@ $cabin-z-index: $fridge-z-index - 2;
   }
 }
 
-.diet-fridge-wrapper {
-  min-height: 100vh;
-  min-width: 100%;
-  background: transparent url(~src/assets/images/fridge/fridge-background.png) no-repeat 50%;
-  background-size: cover;
-  position: relative;
-  overflow: hidden;
-
-  @include fridge-styles(85vh, 39vh);
-
-  & > * {
-    position: absolute;
-    background-size: contain;
-  }
-
-  &-products {
-    bottom: 84.25vh;
-    right: 45%;
-    height: 12vh;
-    width: 27vh;
-    transform: translate(50%);
-    z-index: $products-z-index;
-    background: transparent url(~src/assets/images/fridge/recipy-books.png) no-repeat;
-    cursor: pointer;
-  }
-
-  &-plant {
-    left: 5vh;
-    top: 20vh;
-    width: 16vh;
-    height: 20vh;
-    background: transparent url(~src/assets/images/fridge/plant.png) no-repeat;
-  }
-
-  &-pan {
-    left: -5vh;
-    top: 42vh;
-    width: 30vh;
-    height: 32vh;
-    z-index: $pan-z-index;
-    background: transparent url(~src/assets/images/fridge/pan.png) no-repeat;
-  }
-
-  &-cabinet {
-    left: 0;
-    bottom: 0;
-    width: 40vh;
-    height: 30vh;
-    z-index: $cabin-z-index;
-    background: transparent url(~src/assets/images/fridge/cabinet.png) no-repeat;
-  }
-}
-
-@media (max-width: $breakpoint-sm-max-width) {
+@mixin fridge-wrapper-styles($wrapperHeight) {
   .diet-fridge-wrapper {
+    min-height: $wrapperHeight;
+    min-width: 100%;
+    background: transparent url(~src/assets/images/fridge/fridge-background.png) no-repeat 50%;
+    background-size: cover;
+    position: relative;
+    overflow: hidden;
+
+    @include fridge-styles(0.85 * $wrapperHeight, 0.39 * $wrapperHeight);
+
+    & > * {
+      position: absolute;
+      background-size: contain;
+    }
+
+    &-products {
+      bottom: 0.8425 * $wrapperHeight;
+      right: 45%;
+      height: 0.12 * $wrapperHeight;
+      width: 0.27 * $wrapperHeight;
+      transform: translate(50%);
+      z-index: $products-z-index;
+      background: transparent url(~src/assets/images/fridge/recipy-books.png) no-repeat;
+      cursor: pointer;
+    }
 
     &-plant {
-      left: -5vh;
+      left: 0.05 * $wrapperHeight;
+      top: 0.20 * $wrapperHeight;
+      width: 0.16 * $wrapperHeight;
+      height: 0.20 * $wrapperHeight;
+      background: transparent url(~src/assets/images/fridge/plant.png) no-repeat;
     }
 
     &-pan {
-      left: -8vh;
+      left: -0.05 * $wrapperHeight;
+      top: 0.42 * $wrapperHeight;
+      width: 0.30 * $wrapperHeight;
+      height: 0.32 * $wrapperHeight;
+      z-index: $pan-z-index;
+      background: transparent url(~src/assets/images/fridge/pan.png) no-repeat;
     }
+
+    &-cabinet {
+      left: 0;
+      bottom: 0;
+      width: 0.40 * $wrapperHeight;
+      height: 0.30 * $wrapperHeight;
+      z-index: $cabin-z-index;
+      background: transparent url(~src/assets/images/fridge/cabinet.png) no-repeat;
+    }
+  }
+
+  @media (max-width: $breakpoint-sm-max-width) {
+    .diet-fridge-wrapper {
+
+      &-plant {
+        left: -0.05 * $wrapperHeight;
+      }
+
+      &-pan {
+        left: -0.08 * $wrapperHeight;
+      }
+    }
+  }
+}
+
+@include fridge-wrapper-styles(100vh);
+
+@media (max-height: 850px) and (orientation: landscape) {
+  @include fridge-wrapper-styles(850px);
+
+  @media (max-width: $breakpoint-sm-max-width) {
+    @include fridge-wrapper-styles($breakpoint-sm-max-width);
+  }
+
+  @media (max-width: $breakpoint-xs-max-width) {
+    @include fridge-wrapper-styles($breakpoint-xs-max-width);
   }
 }
