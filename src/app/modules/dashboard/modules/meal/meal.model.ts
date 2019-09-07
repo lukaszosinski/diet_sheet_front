@@ -6,5 +6,5 @@ export interface Meal extends DietEntity {
   id: number;
   name: string;
   summary: Summary;
-  ingredients: Ingredient[];
+  ingredients?: Ingredient[];
 }

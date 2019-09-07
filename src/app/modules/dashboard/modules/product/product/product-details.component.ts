@@ -5,6 +5,7 @@ import { AppState } from '../../../../../app.recuder';
 import * as ProductActions from '../product.actions';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DietEntityInfoPlaceholderKeys } from '../../../../diet-entity';
+import { GranularityEnum } from '../granularity.enum';
 
 
 @Component({
@@ -53,7 +54,7 @@ export class ProductDetailsComponent {
     this.form = this.fb.group({
       name: [ undefined, Validators.required ],
       description: undefined,
-      granularity: undefined,
+      granularity: GranularityEnum.HUNDRED_GRAMS,
       summary: this.fb.group({
         kcal: [ undefined, Validators.required ],
         proteins: [ undefined, Validators.required ],

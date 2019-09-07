@@ -42,11 +42,12 @@ export class MealDetailsFormService {
   }
 
   patchForm(meal: Meal): void {
-    this.form.patchValue(meal);
-    this.patchIngredientForm(meal);
+    const mealWithUpdatedIngredients = { ...meal, ingredients: meal.ingredients || [] };
+    this.form.patchValue(mealWithUpdatedIngredients);
+    this.patchIngredientForm(mealWithUpdatedIngredients);
   }
 
-  private patchIngredientForm(meal: Meal): void {
+  private patchIngredientForm(meal: Meal & { ingredients: Ingredient[] }): void {
     const ingredientForm = this.getIngredientsForm();
     ingredientForm.clear();
     meal.ingredients.map(ing => this.createIngredientForm(ing))

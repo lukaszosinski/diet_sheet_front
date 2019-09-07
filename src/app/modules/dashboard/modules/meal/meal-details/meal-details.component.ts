@@ -70,7 +70,7 @@ export class MealDetailsComponent extends OnDestroyAbstract implements OnInit {
 
   ngOnInit(): void {
     this.loadMeal();
-    this.patchFormIfMealSelected();
+    this.patchFormOnMealSelected();
   }
 
   private loadMeal(): void {
@@ -79,7 +79,7 @@ export class MealDetailsComponent extends OnDestroyAbstract implements OnInit {
       .subscribe((id) => this.store.dispatch(MealActions.loadMeal({ id: id! })));
   }
 
-  private patchFormIfMealSelected(): void {
+  private patchFormOnMealSelected(): void {
     this.getSelectedMeal$()
       .pipe(takeUntilDestroy(this))
       .subscribe((meal) => this.formService.patchForm(meal));
