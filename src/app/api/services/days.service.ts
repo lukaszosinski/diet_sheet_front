@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Day } from '../models/day';
+import {formatToIsoDate} from '../../modules/shared/utils/date-utils';
 
 @Injectable()
 export class DaysService {
@@ -11,7 +12,7 @@ export class DaysService {
   constructor(private http: HttpClient) {}
 
   getDaysInRange(dateFrom: Date, dateTo: Date): Observable<Day[]> {
-    const params = { dateFrom: dateFrom.toISOString(), dateTo: dateTo.toISOString() };
+    const params = { dateFrom: formatToIsoDate(dateFrom), dateTo: formatToIsoDate(dateTo) };
     return this.http.get<Day[]>(this.baseUrl, { params });
   }
 

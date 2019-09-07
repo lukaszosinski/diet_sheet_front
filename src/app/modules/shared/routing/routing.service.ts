@@ -23,7 +23,10 @@ export class RoutingService {
           details: this.goToMealDetails.bind(this),
         },
         dayPlan: this.goToDayPlan.bind(this),
-        shoppingList: this.goToShoppingList.bind(this),
+        shoppingList: {
+          details: this.goToShoppingList.bind(this),
+          list: this.goToSavedShoppingLists.bind(this),
+        },
         settings: this.goToSettings.bind(this),
         fridge: this.goToFridge.bind(this),
       },
@@ -71,8 +74,12 @@ export class RoutingService {
     return this.navigate([ 'dashboard/day-plan', selectedDateString ], { skipLocationChange });
   }
 
-  private goToShoppingList(): Promise<boolean> {
-    return this.goToFridge();
+  private goToShoppingList(shoppingListId: string = 'create'): Promise<boolean> {
+    return this.navigate(['dashboard/shopping-list', shoppingListId]);
+  }
+
+  private goToSavedShoppingLists(): Promise<boolean> {
+    return this.navigate(['dashboard/shopping-list']);
   }
 
   private goToSettings(): Promise<boolean> {
@@ -103,7 +110,10 @@ export interface NavigationTree {
       details: NavigationCallback,
     },
     dayPlan: NavigationCallback,
-    shoppingList: NavigationCallback,
+    shoppingList: {
+      list: NavigationCallback,
+      details: NavigationCallback,
+    },
     settings: NavigationCallback,
     fridge: NavigationCallback,
   };
