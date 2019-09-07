@@ -76,7 +76,7 @@
   },
   "SHOPPING_LIST" : {
     "GENERATE_ERROR": "Błąd podczas generowania listy zakupów",
-    "SAVE_ERROR": "Błąd podczas zapisywanie listy zakupów,",
+    "SAVE_ERROR": "Błąd podczas zapisywania listy zakupów",
     "SHOPPING_LIST": "Lista zakupów",
     "PRODUCT": "Produkt",
     "AMOUNT": "Ilość",
