@@ -85,7 +85,7 @@ export class MealDetailsComponent extends OnDestroyAbstract implements OnInit {
       .subscribe((meal) => this.formService.patchForm(meal));
   }
 
-  getSelectedMeal$(): Observable<Meal> {
+  private getSelectedMeal$(): Observable<Meal> {
     return this.getSelectedMealId$()
       .pipe(
         filter(id => !!id),
@@ -94,13 +94,7 @@ export class MealDetailsComponent extends OnDestroyAbstract implements OnInit {
       ) as Observable<Meal>;
   }
 
-  getMode$(): Observable<MealDetailsComponentMode> {
-    return this.getSelectedMealId$().pipe(
-      map((mealId) => !!mealId ? MealDetailsComponentMode.EDIT : MealDetailsComponentMode.CREATE)
-    );
-  }
-
-  getSelectedMealId$(): Observable<string | undefined> {
+  private getSelectedMealId$(): Observable<string | undefined> {
     return this.route.params.pipe(
       distinctUntilChanged(),
       map(({ mealId }) => mealId)
@@ -144,9 +138,4 @@ export class MealDetailsComponent extends OnDestroyAbstract implements OnInit {
   onDeleteIngredientClick(i: number): void {
     this.formService.removeIngredient(i);
   }
-}
-
-enum MealDetailsComponentMode {
-  EDIT = 'edit',
-  CREATE = 'create',
 }

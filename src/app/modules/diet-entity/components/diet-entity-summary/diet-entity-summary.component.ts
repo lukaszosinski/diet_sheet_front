@@ -12,12 +12,12 @@ import { FormGroup } from '@angular/forms';
               <div class="summary-label">{{'SUMMARY.KCAL' | translate}}</div>
           </div>
           <div class="summary">
-              <input type="number" class="summary-quantity-input" name="proteins" formControlName="proteins">
+              <input type="number" class="summary-quantity-input" name="carbs" formControlName="carbs">
               <div class="summary-img carbs-img"></div>
               <div class="summary-label">{{'SUMMARY.CARBS' | translate}}</div>
           </div>
           <div class="summary">
-              <input type="number" class="summary-quantity-input" name="carbs" formControlName="carbs">
+              <input type="number" class="summary-quantity-input" name="proteins" formControlName="proteins">
               <div class="summary-img proteins-img"></div>
               <div class="summary-label">{{'SUMMARY.PROTEINS' | translate}}</div>
           </div>
@@ -26,8 +26,6 @@ import { FormGroup } from '@angular/forms';
               <div class="summary-img fat-img"></div>
               <div class="summary-label">{{'SUMMARY.FAT' | translate}}</div>
           </div>
-      </div>
-      <div class="product-summary-wrapper" [formGroup]="summaryFormGroup">
       </div>
   `,
   styleUrls: [ './diet-entity-summary.component.scss' ],

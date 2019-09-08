@@ -13,6 +13,14 @@ import * as ProductActions from './product.actions';
 @Injectable()
 export class ProductEffects {
 
+  loadProduct$ = createEffect(() => this.actions$.pipe(
+    ofType(ProductActions.loadProduct),
+    mergeMap(({ id }) => this.productService.getProduct(id).pipe(
+      map((product) => ProductActions.loadProductsSuccess({ products: [ product ] })),
+      catchApiError(ProductActions.loadProductsError)
+    ))
+  ));
+
   loadProducts$ = createEffect(() => this.actions$.pipe(
     ofType(ProductActions.loadProducts),
     mergeMap(() => this.productService.getProducts().pipe(
@@ -21,11 +29,21 @@ export class ProductEffects {
     ))
   ));
 
-  createProduct$ = createEffect(() => this.actions$.pipe(
-    ofType(ProductActions.createProduct),
-    mergeMap(({product}) => this.productService.createProduct(product).pipe(
-      map((productResponse) => ProductActions.createProductSuccess({ product: productResponse })),
-      catchApiError(ProductActions.createProductError)
+  createProductAndRedirect$ = createEffect(() => this.actions$.pipe(
+    ofType(ProductActions.createProductAndRedirect),
+    mergeMap(({ product }) => this.productService.createProduct(product).pipe(
+      map((receivedProduct) => ProductActions.upsertProductSuccess({ product: receivedProduct })),
+      tap(() => this.redirect()),
+      catchApiError(ProductActions.upsertProductError)
+    ))
+  ));
+
+  updateProductAndRedirect$ = createEffect(() => this.actions$.pipe(
+    ofType(ProductActions.updateProductAndRedirect),
+    mergeMap(({ product }) => this.productService.updateProduct(product).pipe(
+      map((receivedProduct) => ProductActions.upsertProductSuccess({ product: receivedProduct })),
+      tap(() => this.redirect()),
+      catchApiError(ProductActions.upsertProductError)
     ))
   ));
 

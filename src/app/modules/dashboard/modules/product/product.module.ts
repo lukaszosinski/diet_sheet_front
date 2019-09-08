@@ -7,7 +7,7 @@ import * as fromProduct from './product.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { ProductEffects } from './product.effects';
 import { DietEntityModule } from '../../../diet-entity/diet-entity.module';
-import { ProductDetailsComponent } from './product/product-details.component';
+import { ProductDetailsComponent } from './product-details/product-details.component';
 import { SelectProductDialogComponent } from './select-product-dialog/select-product-dialog.component';
 import { ProductListComponent } from './product-list/product-list.component';
 
