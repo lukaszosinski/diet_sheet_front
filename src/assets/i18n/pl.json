@@ -5,16 +5,10 @@
     "SIGN_OUT_ERROR": "Wystapił błąd podczas wylogowania"
   },
   "COMMON": {
-    "APPLE": "Jabłko",
-    "BREAD": "Pieczywo",
-    "CARROT": "Marchew",
     "EMAIL": "Email",
-    "MILK": "Mleko",
     "NAME": "Nazwa",
     "INGREDIENTS": "Składniki",
     "PASSWORD": "Hasło",
-    "RICE": "Ryż",
-    "SALAD": "Sałata",
     "QUANTITY": "Ilość",
     "DAY": {
       "0": "niedziela",
