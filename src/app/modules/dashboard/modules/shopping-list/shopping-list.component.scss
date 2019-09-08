@@ -151,6 +151,7 @@ ul {
     padding: 0 0.5rem;
     border-radius: 0.75rem;
     border: 1px transparent solid;
+    color: $fontColor;
 
     &:hover {
       border: 1px $light--active solid;
@@ -242,7 +243,7 @@ input[type="date"] {
 }
 
 @media (max-width: $breakpoint-xs-max-width) {
-  $input-length-amount: 2rem;
+  $input-length-amount: 2.5rem;
   .shopping-list-details-container {
     .shopping-list-name-form {
       padding-bottom: 1rem;

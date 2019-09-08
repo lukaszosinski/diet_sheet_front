@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../../app.recuder';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -38,12 +38,12 @@ import { GranularityEnum } from '../product/granularity.enum';
           </div>
           <div class="shopping-list-content" [formGroup]="shoppingListForm">
               <div class="shopping-list-header">{{'SHOPPING_LIST.SHOPPING_LIST' | translate}}:</div>
-              <ul formArrayName="items">
+              <ul>
                   <li class="shopping-list-table-headers">
                       <span>{{'SHOPPING_LIST.PRODUCT' | translate}}:</span>
                       <span class="shopping-list-table-headers-quantity">{{'SHOPPING_LIST.AMOUNT' | translate}}:</span>
                   </li>
-                  <li *ngFor="let item of getShoppingListItemsFormArray().controls; let i = index">
+                  <li formArrayName="items" *ngFor="let item of getShoppingListItemsFormArray().controls; let i = index">
                       <div [formGroupName]="i" class="shopping-list-item">
                           <div class="shopping-list-item-field">
                               <input class="shopping-list-item-field-name" formControlName="productName">
@@ -77,7 +77,9 @@ export class ShoppingListComponent extends OnDestroyAbstract implements OnInit {
 
   constructor(private store: Store<AppState>,
               private fb: FormBuilder,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private changeDetectorRef: ChangeDetectorRef,
+  ) {
     super();
     this.clearGeneratedShoppingList();
     this.generateShoppingListForm = this.createGenerateShoppingListForm();
@@ -113,7 +115,7 @@ export class ShoppingListComponent extends OnDestroyAbstract implements OnInit {
       productName: [ item && item.productName ],
       amount: [ item && item.amount ],
       unit: [ item && item.unit ],
-      checked: [ item && item.checked ],
+      checked: [ item && item.checked || false ],
     });
   }
 
@@ -150,6 +152,7 @@ export class ShoppingListComponent extends OnDestroyAbstract implements OnInit {
       this.shoppingListForm.patchValue(patchValue);
       this.patchShoppingListArrayFrom(patchValue.items);
     }
+    this.changeDetectorRef.markForCheck();
   }
 
   private getShoppingListPatchValue(shoppingList: Partial<ShoppingList>): ShoppingList {
