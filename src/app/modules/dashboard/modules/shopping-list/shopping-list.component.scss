@@ -4,7 +4,9 @@
 
 $input-length-amount: 4rem;
 $input-length-unit: 3rem;
-$input-length-checkbox: 1rem;
+$input-length-checkbox: 2.5rem;
+$item-field-margin-right: 0.75rem;
+
 
 .shopping-list-wrapper {
   display: flex;
@@ -87,7 +89,7 @@ $input-length-checkbox: 1rem;
 
   &::before {
     content: "";
-    background: url('src/assets/images/logo.svg') no-repeat 50% 50%;
+    background: url('~src/assets/images/logo.svg') no-repeat 50% 50%;
     background-size: contain;
     opacity: 0.2;
     position: absolute;
@@ -122,6 +124,7 @@ ul {
   border: 0 $fontSecondary solid;
   border-bottom-width: 1px;
   display: flex;
+  margin-right: $item-field-margin-right;
 
   & > * {
     font-size: 1.4rem;
@@ -151,8 +154,35 @@ ul {
     }
   }
 
-  &-checked {
-    width: $input-length-checkbox;
+  &-checkbox {
+    cursor: pointer;
+
+    input {
+      display: none;
+    }
+
+    div {
+      position: relative;
+      width: $input-length-checkbox;
+      height: $input-length-checkbox;
+    }
+
+    input:checked + div {
+      background: url("~src/assets/images/icons/check.png");
+      background-size: contain;
+    }
+
+    div::before {
+      $padding: 10%;
+      content: '';
+      position: absolute;
+      top: $padding;
+      right: $padding;
+      bottom: -2%;
+      left: -2%;
+      border-radius: 40%;
+      border: 2px solid $fontSecondary;
+    }
   }
 }
 
@@ -170,7 +200,7 @@ ul {
   color: $primaryColor;
 
   &-quantity {
-    width: $input-length-amount + $input-length-unit + $input-length-checkbox;
+    width: $input-length-amount + $input-length-unit + $input-length-checkbox + $item-field-margin-right;
   }
 }
 
@@ -240,7 +270,7 @@ input[type="date"] {
     }
 
     .shopping-list-table-headers-quantity {
-      width: $input-length-amount + $input-length-unit + $input-length-checkbox;
+      width: $input-length-amount + $input-length-unit + $input-length-checkbox + $item-field-margin-right;
     }
   }
 }

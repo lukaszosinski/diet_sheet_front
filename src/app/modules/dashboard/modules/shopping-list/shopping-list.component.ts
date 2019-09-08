@@ -52,7 +52,10 @@ import { GranularityEnum } from '../product/granularity.enum';
                                   <option *ngFor="let unit of UNITS" [value]="unit">{{'DIET_ENTITY.UNIT.' + unit | translate}}</option>
                               </select>
                           </div>
-                          <input class="shopping-list-item-field-checked" type="checkbox" formControlName="checked">
+                          <label class="shopping-list-item-field-checkbox">
+                              <input type="checkbox" formControlName="checked">
+                              <div></div>
+                          </label>
                       </div>
                   </li>
               </ul>
@@ -107,10 +110,10 @@ export class ShoppingListComponent extends OnDestroyAbstract implements OnInit {
 
   private createShoppingListItemFormGroup(item?: ShoppingListItem): FormGroup {
     return this.fb.group({
-      productName: [ item && item.productName, Validators.required ],
-      amount: [ item && item.amount, Validators.required ],
-      unit: [ item && item.unit, Validators.required ],
-      checked: [ item && item.checked, Validators.required ],
+      productName: [ item && item.productName ],
+      amount: [ item && item.amount ],
+      unit: [ item && item.unit ],
+      checked: [ item && item.checked ],
     });
   }
 
@@ -199,15 +202,23 @@ export class ShoppingListComponent extends OnDestroyAbstract implements OnInit {
   }
 
   onSaveButtonClick(): void {
-    this.getSelectedShoppingListId$()
-      .pipe(first())
-      .subscribe(id => {
-        const shoppingList = this.shoppingListForm.value;
-        if (!!id) {
-          this.store.dispatch(ShoppingListActions.updateShoppingList({ ...shoppingList, id }));
-        } else {
-          this.store.dispatch(ShoppingListActions.saveShoppingList({ shoppingList }));
-        }
-      });
+    if (this.shoppingListForm.valid) {
+      this.getSelectedShoppingListId$()
+        .pipe(first())
+        .subscribe(id => {
+          const shoppingList = this.getShoppingListFormValue();
+          if (!!id) {
+            this.store.dispatch(ShoppingListActions.updateShoppingList({ shoppingList: { ...shoppingList, id } }));
+          } else {
+            this.store.dispatch(ShoppingListActions.saveShoppingList({ shoppingList }));
+          }
+        });
+    }
+  }
+
+  private getShoppingListFormValue(): ShoppingList {
+    const value: ShoppingList = this.shoppingListForm.value;
+    const items = value.items.filter(item => !!item.productName);
+    return { ...value, items };
   }
 }
