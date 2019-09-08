@@ -24,6 +24,8 @@ $input-length-checkbox: 1rem;
   width: 100%;
 
   .shopping-list-name-form {
+    padding-bottom: 2rem;
+
     .shopping-list-name {
       @include card-with-border(75%);
       @include inset-shadow-with-hover(5rem);
@@ -31,7 +33,7 @@ $input-length-checkbox: 1rem;
   }
 
   .shopping-list-details-dates {
-    padding: 2rem;
+    padding: 0 2rem 2rem;
     display: flex;
 
     .date-input-container {
@@ -54,7 +56,16 @@ $input-length-checkbox: 1rem;
         color: $secondaryColor;
       }
     }
+  }
 
+  &--update-mode {
+    .shopping-list-name-form {
+      padding: 0 !important;
+
+      .shopping-list-name {
+        width: 100%;
+      }
+    }
   }
 }
 
@@ -113,11 +124,13 @@ ul {
   display: flex;
 
   & > * {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
   }
 
   &-name {
     flex: 1 1 auto;
+    width: 5rem;
+    padding-right: 0.5rem;
   }
 
   &-amount {
@@ -181,7 +194,7 @@ input[type="date"] {
 }
 
 .save-button {
-  margin: 1rem 5% 1rem auto;
+  margin: 1rem 0 1rem auto;
   font-size: 1.25rem;
   color: $secondaryColor;
   border-radius: 1rem;
@@ -193,3 +206,42 @@ input[type="date"] {
     box-shadow: transparentize($primaryColor, 0.2) 1px 2px 5px 1px;
   }
 }
+
+@media (max-width: $breakpoint-xs-max-width) {
+  $input-length-amount: 2rem;
+  .shopping-list-details-container {
+    .shopping-list-name-form {
+      padding-bottom: 1rem;
+
+      .shopping-list-name {
+        width: 100%;
+        font-size: 1.5rem;
+      }
+    }
+
+    .shopping-list-details-dates {
+      padding-left: 0.5rem;
+      padding-right: 0.5rem;
+      padding-bottom: 1rem;
+    }
+  }
+
+  .shopping-list-content {
+    padding: 1rem;
+
+    .shopping-list-item-field {
+      & > * {
+        font-size: 1rem;
+      }
+
+      &-amount {
+        width: $input-length-amount;
+      }
+    }
+
+    .shopping-list-table-headers-quantity {
+      width: $input-length-amount + $input-length-unit + $input-length-checkbox;
+    }
+  }
+}
+

@@ -18,11 +18,14 @@ import { GranularityEnum } from '../product/granularity.enum';
   selector: 'diet-shopping-list',
   template: `
       <div class="shopping-list-wrapper">
-          <div *ngIf="isCreateMode$() | async" class="shopping-list-details-container" [formGroup]="generateShoppingListForm">
+          <div class="shopping-list-details-container"
+               [class.shopping-list-details-container--update-mode]="!(isCreateMode$() | async)"
+               [formGroup]="generateShoppingListForm"
+          >
               <div class="shopping-list-name-form" [formGroup]="shoppingListForm">
                   <input class="shopping-list-name" formControlName="name" placeholder="{{'SHOPPING_LIST.NAME_PLACEHOLDER' | translate}}">
               </div>
-              <div class="shopping-list-details-dates">
+              <div class="shopping-list-details-dates" *ngIf="isCreateMode$() | async">
                   <div class="date-input-container">
                       <div class="date-header">{{'SHOPPING_LIST.FROM_DATE' | translate}}:</div>
                       <input type="date" name="stringFromDate" formControlName="stringFromDate">
@@ -140,10 +143,16 @@ export class ShoppingListComponent extends OnDestroyAbstract implements OnInit {
       this.shoppingListForm.reset();
       this.patchShoppingListArrayFrom();
     } else {
-      const name = shoppingList.name ? shoppingList.name : this.shoppingListForm.value.name;
-      this.shoppingListForm.patchValue({ ...shoppingList, name });
-      this.patchShoppingListArrayFrom(shoppingList.items);
+      const patchValue = this.getShoppingListPatchValue(shoppingList);
+      this.shoppingListForm.patchValue(patchValue);
+      this.patchShoppingListArrayFrom(patchValue.items);
     }
+  }
+
+  private getShoppingListPatchValue(shoppingList: Partial<ShoppingList>): ShoppingList {
+    const name = shoppingList.name || this.shoppingListForm.value.name;
+    const items = shoppingList.items || [];
+    return { ...shoppingList, name, items };
   }
 
   private patchShoppingListArrayFrom(shoppingListItems?: ShoppingListItem[]): void {
