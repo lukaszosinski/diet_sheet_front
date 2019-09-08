@@ -23,29 +23,9 @@ import { ShoppingList } from '../shopping-list.model';
               >
                   <div class="shopping-list-name">{{shoppingList.name}}</div>
                   <ol class="shopping-list-items">
-                      <li>
-                          <div>100g</div>
-                          <div>{{'COMMON.CARROT' | translate}}</div>
-                      </li>
-                      <li>
-                          <div>400g</div>
-                          <div>{{'COMMON.RICE' | translate}}</div>
-                      </li>
-                      <li>
-                          <div>150g</div>
-                          <div>{{'COMMON.SALAD' | translate}}</div>
-                      </li>
-                      <li>
-                          <div>500ml</div>
-                          <div>{{'COMMON.MILK' | translate}}</div>
-                      </li>
-                      <li>
-                          <div>600g</div>
-                          <div>{{'COMMON.BREAD' | translate}}</div>
-                      </li>
-                      <li>
-                          <div>200g</div>
-                          <div>{{'COMMON.APPLE' | translate}}</div>
+                      <li *ngFor="let item of shoppingList.items">
+                          <div>{{item.amount}}{{getUnitTranslationKey(item.unit) | translate}}</div>
+                          <div>{{item.productName}}</div>
                       </li>
                   </ol>
               </li>
@@ -73,5 +53,9 @@ export class SavedShoppingListsComponent implements OnInit {
 
   onAddShoppingListClick(): void {
     this.store.dispatch(ShoppingListActions.openShoppingList({}));
+  }
+
+  getUnitTranslationKey(unit: string): string {
+    return unit ? 'DIET_ENTITY.UNIT.' + unit : '';
   }
 }
