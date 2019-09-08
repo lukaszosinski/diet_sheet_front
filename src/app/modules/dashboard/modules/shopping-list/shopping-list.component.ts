@@ -211,9 +211,9 @@ export class ShoppingListComponent extends OnDestroyAbstract implements OnInit {
         .subscribe(id => {
           const shoppingList = this.getShoppingListFormValue();
           if (!!id) {
-            this.store.dispatch(ShoppingListActions.updateShoppingList({ shoppingList: { ...shoppingList, id } }));
+            this.store.dispatch(ShoppingListActions.updateShoppingListAndRedirect({ shoppingList: { ...shoppingList, id } }));
           } else {
-            this.store.dispatch(ShoppingListActions.saveShoppingList({ shoppingList }));
+            this.store.dispatch(ShoppingListActions.saveShoppingListAndRedirect({ shoppingList }));
           }
         });
     }

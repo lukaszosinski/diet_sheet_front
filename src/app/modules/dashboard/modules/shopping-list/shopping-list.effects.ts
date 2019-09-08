@@ -34,18 +34,20 @@ export class ShoppingListEffects {
     ))
   ));
 
-  saveShoppingList$ = createEffect(() => this.actions$.pipe(
-    ofType(ShoppingListActions.saveShoppingList),
+  saveShoppingListAndRedirect$ = createEffect(() => this.actions$.pipe(
+    ofType(ShoppingListActions.saveShoppingListAndRedirect),
     mergeMap((action) => this.shoppingList.saveShoppingList(action.shoppingList).pipe(
       map(shoppingList => ShoppingListActions.upsertShoppingListSuccess({ shoppingList })),
+      tap(() => this.redirectFromShoppingList()),
       catchApiError(ShoppingListActions.upsertShoppingListError)
     ))
   ));
 
-  updateShoppingList$ = createEffect(() => this.actions$.pipe(
-    ofType(ShoppingListActions.updateShoppingList),
+  updateShoppingListAndRedirect$ = createEffect(() => this.actions$.pipe(
+    ofType(ShoppingListActions.updateShoppingListAndRedirect),
     mergeMap((action) => this.shoppingList.updateShoppingList(action.shoppingList).pipe(
       map(shoppingList => ShoppingListActions.upsertShoppingListSuccess({ shoppingList })),
+      tap(() => this.redirectFromShoppingList()),
       catchApiError(ShoppingListActions.upsertShoppingListError)
     ))
   ));
@@ -66,4 +68,7 @@ export class ShoppingListEffects {
     this.routingService.navigation.dashboard.shoppingList.details(shoppingListId);
   }
 
+  private redirectFromShoppingList(): void {
+    this.routingService.navigation.dashboard.shoppingList.list();
+  }
 }

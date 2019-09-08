@@ -19,9 +19,9 @@ export const generateShoppingListSuccess = createAction('[ShoppingList/API] Gene
 
 export const generateShoppingListError = createApiErrorAction('[Product/API] Generate shopping list ERROR', 'SHOPPING_LIST.GENERATE_ERROR');
 
-export const saveShoppingList = createAction('[ShoppingList/API] SAVE Shopping list', props<{ shoppingList: ShoppingList }>());
+export const saveShoppingListAndRedirect = createAction('[ShoppingList/API] SAVE Shopping list and redirect on success', props<{ shoppingList: ShoppingList }>());
 
-export const updateShoppingList = createAction('[ShoppingList/API] UPDATE Shopping list', props<{ shoppingList: ShoppingList }>());
+export const updateShoppingListAndRedirect = createAction('[ShoppingList/API] UPDATE Shopping list and redirect on success', props<{ shoppingList: ShoppingList }>());
 
 export const upsertShoppingListSuccess = createAction('[ShoppingList/API] UPSERT Shopping list SUCCESS', props<{ shoppingList: ShoppingList }>());
 
