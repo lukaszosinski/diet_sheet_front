@@ -9,11 +9,48 @@ import { ShoppingList } from '../shopping-list.model';
 @Component({
   selector: 'diet-saved-shopping-lists',
   template: `
-      <ul>
-          <li *ngFor="let shoppingList of (getLoadedShoppingLists() | async)">
-              <div (click)="onShoppingListClick(shoppingList.id)">{{shoppingList.id}}</div>
-          </li>
-      </ul>
+      <div class="diet-saved-shopping-lists-content">
+          <div class="diet-saved-shopping-lists-header">
+              <diet-add-button class="large" (click)="onAddShoppingListClick()"
+                               [title]="'SHOPPING_LIST.ADD_SHOPPING_LIST' | translate"></diet-add-button>
+          </div>
+          <ul class="diet-saved-shopping-lists-list">
+              <li *ngFor="let shoppingList of (getLoadedShoppingLists() | async)"
+                  tabindex="0"
+                  class="shopping-list"
+                  (click)="onShoppingListClick(shoppingList.id)"
+                  (keyup.space)="onShoppingListClick(shoppingList.id)"
+              >
+                  <div class="shopping-list-name">{{shoppingList.name}}</div>
+                  <ol class="shopping-list-items">
+                      <li>
+                          <div>100g</div>
+                          <div>{{'COMMON.CARROT' | translate}}</div>
+                      </li>
+                      <li>
+                          <div>400g</div>
+                          <div>{{'COMMON.RICE' | translate}}</div>
+                      </li>
+                      <li>
+                          <div>150g</div>
+                          <div>{{'COMMON.SALAD' | translate}}</div>
+                      </li>
+                      <li>
+                          <div>500ml</div>
+                          <div>{{'COMMON.MILK' | translate}}</div>
+                      </li>
+                      <li>
+                          <div>600g</div>
+                          <div>{{'COMMON.BREAD' | translate}}</div>
+                      </li>
+                      <li>
+                          <div>200g</div>
+                          <div>{{'COMMON.APPLE' | translate}}</div>
+                      </li>
+                  </ol>
+              </li>
+          </ul>
+      </div>
   `,
   styleUrls: [ './saved-shopping-lists.component.scss' ],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -34,4 +71,7 @@ export class SavedShoppingListsComponent implements OnInit {
     this.store.dispatch(ShoppingListActions.openShoppingList({ shoppingListId: id }));
   }
 
+  onAddShoppingListClick(): void {
+    this.store.dispatch(ShoppingListActions.openShoppingList({}));
+  }
 }

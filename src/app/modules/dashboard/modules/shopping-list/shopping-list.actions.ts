@@ -27,4 +27,4 @@ export const upsertShoppingListSuccess = createAction('[ShoppingList/API] UPSERT
 
 export const upsertShoppingListError = createApiErrorAction('[ShoppingList/API] UPSERT Shopping list ERROR', 'SHOPPING_LIST.SAVE_ERROR');
 
-export const openShoppingList = createAction('[ShoppingList] Open Shopping list', props<{ shoppingListId: number }>());
+export const openShoppingList = createAction('[ShoppingList] Open Shopping list', props<{ shoppingListId?: number }>());

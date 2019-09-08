@@ -5,11 +5,17 @@
     "SIGN_OUT_ERROR": "Wystapił błąd podczas wylogowania"
   },
   "COMMON": {
+    "APPLE": "Jabłko",
+    "BREAD": "Pieczywo",
+    "CARROT": "Marchew",
     "EMAIL": "Email",
+    "MILK": "Mleko",
     "NAME": "Nazwa",
     "INGREDIENTS": "Składniki",
-    "QUANTITY": "Ilość",
     "PASSWORD": "Hasło",
+    "RICE": "Ryż",
+    "SALAD": "Sałata",
+    "QUANTITY": "Ilość",
     "DAY": {
       "0": "niedziela",
       "1": "poniedziałek",
@@ -50,7 +56,6 @@
       "MY_DIET": "Moja dieta",
       "PRODUCTS": "Produkty",
       "SETTINGS": "Ustawienia",
-      "SHOPPING_LIST": "Nowa lista zakupów",
       "SAVED_SHOPPING_LISTS": "Listy zakupów",
       "SIGN_OUT": "Wyloguj się"
     }
@@ -71,10 +76,11 @@
       "HUNDRED_MILLILITERS": "ml",
       "KILOGRAM": "kg",
       "PLN": "zł",
-      "" : ""
+      "": ""
     }
   },
-  "SHOPPING_LIST" : {
+  "SHOPPING_LIST": {
+    "ADD_SHOPPING_LIST": "Dodaj listę zakupów",
     "AMOUNT": "Ilość",
     "FROM_DATE": "OD",
     "GENERATE_ERROR": "Błąd podczas generowania listy zakupów",

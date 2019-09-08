@@ -62,7 +62,7 @@ export class ShoppingListEffects {
 
   }
 
-  private goToShoppingList(shoppingListId: number): void {
+  private goToShoppingList(shoppingListId?: number): void {
     this.routingService.navigation.dashboard.shoppingList.details(shoppingListId);
   }
 

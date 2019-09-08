@@ -1,0 +1,92 @@
+@import "layout.scss";
+@import "colors.scss";
+@import "mixins.scss";
+
+.diet-saved-shopping-lists-content {
+  padding: 0 3rem;
+  display: flex;
+  flex-direction: column;
+
+  .diet-saved-shopping-lists-header {
+    display: flex;
+    margin-bottom: 1rem;
+    justify-content: flex-end;
+  }
+
+  .diet-saved-shopping-lists-list {
+    $shopping-list-height: 13rem;
+    $shopping-list-width: 10rem;
+
+    display: grid;
+    grid-template-columns: repeat(auto-fit, $shopping-list-width);
+    grid-template-rows: repeat(auto-fit, $shopping-list-height);
+    grid-gap: 1.5rem;
+    justify-content: space-around;
+
+    .shopping-list {
+      background-size: cover;
+      color: darken($secondaryColor, 5);
+      height: $shopping-list-height;
+      width: $shopping-list-width;
+      background: $light url("~src/assets/images/notepad-sheet.jpeg");
+      font-family: 'Chilanka', cursive;
+      overflow: hidden;
+      outline: none;
+      @include shadow(5rem, darken($light--hover, 10));
+
+      &:hover, &:focus {
+        @include shadow(5rem);
+      }
+
+      &-name {
+        margin: 1rem;
+        text-align: center;
+      }
+
+      &-items {
+        padding-left: 25%;
+        font-size: 0.5rem;
+        width: 100%;
+
+        li {
+          padding: 0.2rem 0;
+          list-style: decimal;
+          color: $fontColor;
+
+          div {
+            display: inline-block;
+
+            &:nth-child(1) {
+              width: 25%;
+            }
+          }
+        }
+      }
+    }
+  }
+
+}
+
+
+@media (max-width: $breakpoint-xs-max-width) {
+  .meal-details-wrapper {
+    padding: 0 0.25rem;
+  }
+
+  .diet-saved-shopping-lists-content {
+    .diet-saved-shopping-lists-list {
+      $shopping-list-height: 11rem;
+      $shopping-list-width: 8rem;
+
+      grid-template-columns: repeat(auto-fit, $shopping-list-width);
+      grid-template-rows: repeat(auto-fit, $shopping-list-height);
+      grid-gap: 1rem;
+      justify-content: space-around;
+
+      .shopping-list {
+        height: $shopping-list-height;
+        width: $shopping-list-width;
+      }
+    }
+  }
+}
