@@ -2,9 +2,9 @@
 @import "mixins.scss";
 @import "layout.scss";
 
-:host {
-  //height: 100% !important;
-}
+$input-length-amount: 4rem;
+$input-length-unit: 3rem;
+$input-length-checkbox: 1rem;
 
 .shopping-list-wrapper {
   display: flex;
@@ -12,124 +12,138 @@
   flex-direction: column;
   height: 100%;
   width: 100%;
+  padding: 0 5%;
 }
 
-.date-inputs-container {
-  display: flex;
+.shopping-list-details-container {
   align-items: center;
   align-content: center;
   justify-content: center;
-  padding: 1rem;
-  margin-right: 5%;
-  margin-left: 5%;
   border-radius: $default-border-radius;
   box-shadow: transparentize($primaryColor, 0.5) 1px 2px 5px 1px;
-  width: 90%;
+  width: 100%;
+
+  .shopping-list-name-form {
+    .shopping-list-name {
+      @include card-with-border(75%);
+      @include inset-shadow-with-hover(5rem);
+    }
+  }
+
+  .shopping-list-details-dates {
+    padding: 2rem;
+    display: flex;
+
+    .date-input-container {
+      position: relative;
+      flex-direction: column;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      width: 100%;
+      margin-left: 1.5rem;
+      margin-right: 1.5rem;
+      @media(max-width: 480px) {
+        margin: 0.15rem;
+      }
+
+      .date-header {
+        background-color: transparent;
+        width: 100%;
+        padding: 0 0 0.25rem 1rem;
+        color: $secondaryColor;
+      }
+    }
+
+  }
 }
 
 .shopping-list-content {
-  flex-grow: 1;
   position: relative;
+  flex-grow: 1;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  align-content: center;
-  padding: 1rem;
+  flex-direction: column;
+  padding: 1.5rem 3rem;
   margin-top: 1rem;
-  margin-right: 5%;
-  margin-left: 5%;
   @include inset-shadow(2rem);
   border-radius: $default-border-radius;
   border: 0.25rem solid darken($secondaryColor, 15);
-  z-index: 10;
-  width: 90%;
+  width: 100%;
 
-  &::after {
+  & > * {
+    z-index: 1;
+  }
+
+  &::before {
     content: "";
     background: url('src/assets/images/logo.svg') no-repeat 50% 50%;
     background-size: contain;
     opacity: 0.2;
+    position: absolute;
     top: 0;
     left: 0;
     bottom: 0;
     right: 0;
-    position: absolute;
-    z-index: -1;
+    z-index: 0;
   }
 
 }
 
 ul {
   width: 100%;
+
+  li {
+    display: flex;
+    margin: 0.5rem 0;
+  }
 }
 
-li {
-  width: 100%;
-  margin: 0.5rem;
-}
 
 .shopping-list-item {
+  display: flex;
   width: 100%;
-}
-
-.container-with-underline {
-  display: inline-flex;
-  width: 90%;
-  justify-content: flex-end;
-  border-bottom-width: 1px;
-  border-bottom-color: $fontSecondary;
-  border-bottom-style: solid;
-  background: transparent;
-
-  :first-child {
-    margin-right: auto;
-  }
-
+  align-items: center;
 }
 
 .shopping-list-item-field {
-  &-unit {
-    background: transparent;
-    font-size: 1.5rem;
-    text-align: left;
-    margin-left: 0.3rem;
-    width: 3rem;
-  }
-  &-amount {
-    background: transparent;
-    font-size: 1.5rem;
-    width: 5rem;
-    text-align: right;
-  }
-  &-name {
-    background: transparent;
-    font-size: 1.5rem;
-    width: 100%;
-  }
-}
-
-.date-header {
-  width: 100%;
-  padding: 0 0 0.25rem 1rem;
-  color: $secondaryColor;
-}
-
-.date-input {
-  position: relative;
-  flex-direction: column;
+  flex: 1 1 auto;
+  justify-content: flex-end;
+  border: 0 $fontSecondary solid;
+  border-bottom-width: 1px;
   display: flex;
-  justify-content: space-around;
-  align-items: center;
-  width: 100%;
-  margin-left: 1.5rem;
-  margin-right: 1.5rem;
-  @media(max-width: 480px) {
-    margin: 0.15rem;
+
+  & > * {
+    font-size: 1.5rem;
   }
 
+  &-name {
+    flex: 1 1 auto;
+  }
+
+  &-amount {
+    width: $input-length-amount;
+  }
+
+  &-unit {
+    width: $input-length-unit;
+    appearance: none;
+    cursor: pointer;
+    padding: 0 0.5rem;
+    border-radius: 0.75rem;
+    border: 1px transparent solid;
+
+    &:hover {
+      border: 1px $light--active solid;
+      background-color: $light--hover;
+    }
+  }
+
+  &-checked {
+    width: $input-length-checkbox;
+  }
 }
 
-.shopping-list-header{
+.shopping-list-header {
   display: block;
   font-size: 2rem;
   color: $secondaryColor;
@@ -139,9 +153,12 @@ li {
 .shopping-list-table-headers {
   display: flex;
   justify-content: space-between;
-  width: 85%;
   font-size: 1.5rem;
   color: $primaryColor;
+
+  &-quantity {
+    width: $input-length-amount + $input-length-unit + $input-length-checkbox;
+  }
 }
 
 input[type="date"] {
