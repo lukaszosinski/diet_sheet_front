@@ -1,29 +1,28 @@
 import { Injectable } from '@angular/core';
-import {Actions, createEffect, ofType} from '@ngrx/effects';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as ShoppingListActions from '../shopping-list/shopping-list.actions';
-import {map, mergeMap, tap} from 'rxjs/operators';
-import {catchApiError} from '../../../../api/api.actions';
-import {ShoppingListService} from '../../../../api/services/shopping-list.service';
-import {RoutingService} from '../../../shared/routing/routing.service';
-
+import { map, mergeMap, tap } from 'rxjs/operators';
+import { catchApiError } from '../../../../api/api.actions';
+import { ShoppingListService } from '../../../../api/services/shopping-list.service';
+import { RoutingService } from '../../../shared/routing/routing.service';
 
 
 @Injectable()
 export class ShoppingListEffects {
+
+  loadShoppingList$ = createEffect(() => this.actions$.pipe(
+    ofType(ShoppingListActions.loadShoppingList),
+    mergeMap(({ id }) => this.shoppingList.getShoppingList(id).pipe(
+      map(shoppingList => ShoppingListActions.loadShoppingListsSuccess({ shoppingLists: [ shoppingList ] })),
+      catchApiError(ShoppingListActions.loadShoppingListsError)
+    ))
+  ));
 
   loadShoppingLists$ = createEffect(() => this.actions$.pipe(
     ofType(ShoppingListActions.loadShoppingLists),
     mergeMap(() => this.shoppingList.getShoppingLists().pipe(
       map(shoppingLists => ShoppingListActions.loadShoppingListsSuccess({ shoppingLists })),
       catchApiError(ShoppingListActions.loadShoppingListsError)
-    ))
-  ));
-
-  loadShoppingList$ = createEffect(() => this.actions$.pipe(
-    ofType(ShoppingListActions.loadShoppingList),
-    mergeMap(({id}) => this.shoppingList.getShoppingList(id).pipe(
-      map(shoppingList => ShoppingListActions.loadShoppingListSuccess({ shoppingList })),
-      catchApiError(ShoppingListActions.loadShoppingListError)
     ))
   ));
 
@@ -37,17 +36,17 @@ export class ShoppingListEffects {
 
   saveShoppingList$ = createEffect(() => this.actions$.pipe(
     ofType(ShoppingListActions.saveShoppingList),
-    mergeMap(({ shoppingList }) => this.shoppingList.saveShoppingList(shoppingList).pipe(
-      map(shoppingList => ShoppingListActions.saveShoppingListSuccess({ shoppingList })),
-      catchApiError(ShoppingListActions.saveShoppingListError)
+    mergeMap((action) => this.shoppingList.saveShoppingList(action.shoppingList).pipe(
+      map(shoppingList => ShoppingListActions.upsertShoppingListSuccess({ shoppingList })),
+      catchApiError(ShoppingListActions.upsertShoppingListError)
     ))
   ));
 
   updateShoppingList$ = createEffect(() => this.actions$.pipe(
     ofType(ShoppingListActions.updateShoppingList),
-    mergeMap(({ shoppingList }) => this.shoppingList.updateShoppingList(shoppingList).pipe(
-      map(shoppingList => ShoppingListActions.updateShoppingListSuccess({ shoppingList })),
-      catchApiError(ShoppingListActions.updateShoppingListError)
+    mergeMap((action) => this.shoppingList.updateShoppingList(action.shoppingList).pipe(
+      map(shoppingList => ShoppingListActions.upsertShoppingListSuccess({ shoppingList })),
+      catchApiError(ShoppingListActions.upsertShoppingListError)
     ))
   ));
 

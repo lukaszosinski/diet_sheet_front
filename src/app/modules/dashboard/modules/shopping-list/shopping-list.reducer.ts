@@ -1,103 +1,53 @@
-import {Action, createFeatureSelector, createReducer, createSelector, on} from '@ngrx/store';
+import { Action, createFeatureSelector, createReducer, createSelector, on } from '@ngrx/store';
 import * as fromApp from '../../../../app.recuder';
-import {ShoppingList} from './shopping-list.model';
 import * as ShoppingListActions from '../shopping-list/shopping-list.actions';
+import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
+import { ShoppingList } from './shopping-list.model';
 
 
 export const shoppingListFeatureKey = 'shoppingList';
 
-export interface State {
-  currentShoppingList?: ShoppingList;
-  loadedShoppingLists: ShoppingList[];
+export interface State extends EntityState<ShoppingList> {
+  generatedShoppingList?: ShoppingList;
   processing: {
-    saveShoppingList: boolean,
-    updateShoppingList: boolean,
+    upsertShoppingList: boolean,
     loadShoppingLists: boolean,
-    loadShoppingList: boolean
   };
 }
 
-export const initialState: State = {
-  currentShoppingList: undefined,
-  loadedShoppingLists: [],
+export const adapter: EntityAdapter<ShoppingList> = createEntityAdapter<ShoppingList>();
+
+export const initialState: State = adapter.getInitialState({
+  generatedShoppingList: undefined,
   processing: {
-    saveShoppingList: false,
-    updateShoppingList: false,
+    upsertShoppingList: false,
     loadShoppingLists: false,
-    loadShoppingList: false
   }
-};
+});
 
 const shoppingListReducer = createReducer(
   initialState,
   on(ShoppingListActions.generateShoppingListSuccess,
-    (state, {shoppingList}) => ({
-      ...state, currentShoppingList: shoppingList
+    (state, { shoppingList }) => ({ ...state, generatedShoppingList: shoppingList })),
+  on(ShoppingListActions.saveShoppingList, (state) => ({ ...state, processing: { ...state.processing, upsertShoppingList: true } })),
+  on(ShoppingListActions.updateShoppingList, (state) => ({ ...state, processing: { ...state.processing, upsertShoppingList: true } })),
+  on(ShoppingListActions.upsertShoppingListSuccess, (state, { shoppingList }) => ({
+    ...adapter.upsertOne(shoppingList, state),
+    processing: { ...state.processing, upsertShoppingList: false },
     })
   ),
-  on(ShoppingListActions.saveShoppingList, (state) => ({
-      ...state,
-      processing: {...state.processing, saveShoppingList: true}
+  on(ShoppingListActions.upsertShoppingListError, (state) => ({
+    ...state,
+    processing: { ...state.processing, upsertShoppingList: false }
+  })),
+  on(ShoppingListActions.loadShoppingLists, (state) => ({ ...state, processing: { ...state.processing, loadShoppingLists: true } })),
+  on(ShoppingListActions.loadShoppingListsSuccess, (state, { shoppingLists }) => ({
+    ...adapter.upsertMany(shoppingLists, state),
+    processing: { ...state.processing, loadShoppingLists: false }
     })
   ),
-  on(ShoppingListActions.saveShoppingListSuccess, (state, {shoppingList}) => ({
-      ...state,
-      processing: {...state.processing, saveShoppingList: false},
-      currentShoppingList: shoppingList
-    })
-  ),
-  on(ShoppingListActions.saveShoppingListError, (state) => ({
-      ...state,
-      processing: {...state.processing, saveShoppingList: false}
-    })
-  ),
-  on(ShoppingListActions.updateShoppingList, (state) => ({
-      ...state,
-      processing: {...state.processing, updateShoppingList: true}
-    })
-  ),
-  on(ShoppingListActions.updateShoppingListSuccess, (state) => ({
-      ...state,
-      processing: {...state.processing, updateShoppingList: false}
-    })
-  ),
-  on(ShoppingListActions.updateShoppingListError, (state) => ({
-      ...state,
-      processing: {...state.processing, updateShoppingList: false}
-    })
-  ),
-  on(ShoppingListActions.loadShoppingLists, (state) => ({
-      ...state,
-      processing: {...state.processing, loadShoppingLists: true}
-    })
-  ),
-  on(ShoppingListActions.loadShoppingListsSuccess, (state, {shoppingLists}) => ({
-      ...state,
-      loadedShoppingLists: shoppingLists,
-      processing: {...state.processing, loadShoppingLists: false}
-    })
-  ),
-  on(ShoppingListActions.loadShoppingListsError, (state) => ({
-      ...state,
-      processing: {...state.processing, loadShoppingLists: false}
-    })
-  ),
-  on(ShoppingListActions.loadShoppingList, (state) => ({
-      ...state,
-      processing: {...state.processing, loadShoppingList: true}
-    })
-  ),
-  on(ShoppingListActions.loadShoppingListSuccess, (state, {shoppingList}) => ({
-      ...state,
-      currentShoppingList: shoppingList,
-      processing: {...state.processing, loadShoppingList: false}
-    })
-  ),
-  on(ShoppingListActions.loadShoppingListError, (state) => ({
-      ...state,
-      processing: {...state.processing, loadShoppingList: false}
-    })
-  ),
+  on(ShoppingListActions.loadShoppingListsError, (state) => ({ ...state, processing: { ...state.processing, loadShoppingLists: false } })),
+  on(ShoppingListActions.loadShoppingList, (state) => ({ ...state, processing: { ...state.processing, loadShoppingLists: true } })),
 );
 
 export function reducer(state: State | undefined, action: Action): State {
@@ -106,17 +56,22 @@ export function reducer(state: State | undefined, action: Action): State {
 
 export const selectShoppingList = createFeatureSelector<fromApp.AppState, State>(shoppingListFeatureKey);
 
-export const selectCurrentShoppingList = createSelector(
+export const selectGeneratedShoppingList = createSelector(
   selectShoppingList,
-  (state) => state.currentShoppingList ? state.currentShoppingList : undefined
+  (state) => state.generatedShoppingList
 );
 
-export const selectShouldDisplayShoppingList = createSelector(
+export const selectAll = createSelector(
   selectShoppingList,
-  (state) => !!state.currentShoppingList
+  adapter.getSelectors().selectAll
 );
 
-export const selectLoadedShoppingLists = createSelector(
+export const selectEntities = createSelector(
   selectShoppingList,
-  (state) => state.loadedShoppingLists
+  adapter.getSelectors().selectEntities
+);
+
+export const selectShoppingListById = (id: number) => createSelector(
+  selectEntities,
+  (entities) => entities[id]
 );

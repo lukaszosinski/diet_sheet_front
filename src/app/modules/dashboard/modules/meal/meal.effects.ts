@@ -32,8 +32,8 @@ export class MealEffects {
   addMealAndRedirect$ = createEffect(() => this.actions$.pipe(
     ofType(MealActions.addMealAndRedirect),
     mergeMap(({ meal }) => this.mealService.addMeal(meal).pipe(
-      tap(() => this.redirect()),
       map((receivedMeal) => MealActions.upsertMealSuccess({ meal: receivedMeal })),
+      tap(() => this.redirect()),
       catchApiError(MealActions.upsertMealError)
     ))
   ));
@@ -41,8 +41,8 @@ export class MealEffects {
   updateMealAndRedirect$ = createEffect(() => this.actions$.pipe(
     ofType(MealActions.updateMealAndRedirect),
     mergeMap(({ meal }) => this.mealService.updateMeal(meal).pipe(
-      tap(() => this.redirect()),
       map((receivedMeal) => MealActions.upsertMealSuccess({ meal: receivedMeal })),
+      tap(() => this.redirect()),
       catchApiError(MealActions.upsertMealError)
     ))
   ));

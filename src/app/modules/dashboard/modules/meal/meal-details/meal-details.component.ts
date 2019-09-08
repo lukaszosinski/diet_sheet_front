@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { concatMap, distinctUntilChanged, filter, map } from 'rxjs/operators';
@@ -9,7 +9,6 @@ import { Meal } from '../meal.model';
 import { DietEntityInfoPlaceholderKeys } from '../../../../diet-entity';
 import * as MealActions from '../meal.actions';
 import * as fromMeals from '../meal.reducer';
-import { OnDestroyAbstract } from '../../../../shared/utils/abstract-injectables/on-destroy-abstract';
 import { takeUntilDestroy } from '../../../../shared/utils/rxjs-utils';
 import { MealDetailsFormService } from './meal-details-form.service';
 import { Product } from '../../product/product.model';
@@ -50,7 +49,7 @@ import { SelectProductDialogComponent } from '../../product/select-product-dialo
     { provide: MealDetailsFormService, useClass: MealDetailsFormService }
   ]
 })
-export class MealDetailsComponent extends OnDestroyAbstract implements OnInit {
+export class MealDetailsComponent implements OnInit, OnDestroy {
 
   readonly MEAL_PLACEHOLDER_KEYS: DietEntityInfoPlaceholderKeys = {
     name: 'MEAL.NAME_PLACEHOLDER',
@@ -64,7 +63,6 @@ export class MealDetailsComponent extends OnDestroyAbstract implements OnInit {
               private formService: MealDetailsFormService,
               private dialog: MatDialog,
   ) {
-    super();
     this.form = this.formService.form;
   }
 
@@ -137,5 +135,9 @@ export class MealDetailsComponent extends OnDestroyAbstract implements OnInit {
 
   onDeleteIngredientClick(i: number): void {
     this.formService.removeIngredient(i);
+  }
+
+  ngOnDestroy(): void {
+    this.store.dispatch(MealActions.cancelMealStoreRequest());
   }
 }

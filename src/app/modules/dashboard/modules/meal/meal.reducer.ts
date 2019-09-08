@@ -52,6 +52,9 @@ const mealReducer = createReducer(
   on(MealActions.requestMealStore,
     (state) => ({ ...state, shouldStoreMeal: true })
   ),
+  on(MealActions.cancelMealStoreRequest,
+    (state) => ({ ...state, shouldStoreMeal: true })
+  ),
   on(MealActions.deleteMeal,
     (state, action) => adapter.removeOne(action.id, state)
   ),

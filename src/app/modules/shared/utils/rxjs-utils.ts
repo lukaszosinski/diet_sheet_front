@@ -8,7 +8,7 @@ export function takeUntilDestroy<T>(component: OnDestroy & { onDestroy$?: Subjec
   component.ngOnDestroy = () => {
     component.onDestroy$!.next();
     component.onDestroy$!.complete();
-    return currentOnDestroy();
+    return currentOnDestroy.call(component);
   };
   return takeUntil(component.onDestroy$);
 }

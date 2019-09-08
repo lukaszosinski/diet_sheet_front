@@ -75,13 +75,14 @@
     }
   },
   "SHOPPING_LIST" : {
+    "AMOUNT": "Ilość",
+    "FROM_DATE": "OD",
     "GENERATE_ERROR": "Błąd podczas generowania listy zakupów",
+    "NAME_PLACEHOLDER": "Nazwa listy...",
+    "PRODUCT": "Produkt",
+    "SAVE": "Zapisz listę",
     "SAVE_ERROR": "Błąd podczas zapisywania listy zakupów",
     "SHOPPING_LIST": "Lista zakupów",
-    "PRODUCT": "Produkt",
-    "AMOUNT": "Ilość",
-    "SAVE": "Zapisz listę",
-    "FROM_DATE": "OD",
     "TO_DATE": "DO"
   },
   "LANDING_PAGE": {

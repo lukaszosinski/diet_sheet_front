@@ -2,9 +2,11 @@
 @import "mixins.scss";
 @import "layout.scss";
 
-:host {
-  //height: 100% !important;
-}
+$input-length-amount: 4rem;
+$input-length-unit: 3rem;
+$input-length-checkbox: 2.5rem;
+$item-field-margin-right: 0.75rem;
+
 
 .shopping-list-wrapper {
   display: flex;
@@ -12,124 +14,184 @@
   flex-direction: column;
   height: 100%;
   width: 100%;
+  padding: 0 5%;
 }
 
-.date-inputs-container {
-  display: flex;
+.shopping-list-details-container {
   align-items: center;
   align-content: center;
   justify-content: center;
-  padding: 1rem;
-  margin-right: 5%;
-  margin-left: 5%;
   border-radius: $default-border-radius;
   box-shadow: transparentize($primaryColor, 0.5) 1px 2px 5px 1px;
-  width: 90%;
+  width: 100%;
+
+  .shopping-list-name-form {
+    padding-bottom: 2rem;
+
+    .shopping-list-name {
+      @include card-with-border(75%);
+      @include inset-shadow-with-hover(5rem);
+    }
+  }
+
+  .shopping-list-details-dates {
+    padding: 0 2rem 2rem;
+    display: flex;
+
+    .date-input-container {
+      position: relative;
+      flex-direction: column;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      width: 100%;
+      margin-left: 1.5rem;
+      margin-right: 1.5rem;
+      @media(max-width: 480px) {
+        margin: 0.15rem;
+      }
+
+      .date-header {
+        background-color: transparent;
+        width: 100%;
+        padding: 0 0 0.25rem 1rem;
+        color: $secondaryColor;
+      }
+
+      input {
+        font-size: 1.25rem;
+      }
+    }
+  }
+
+  &--update-mode {
+    .shopping-list-name-form {
+      padding: 0 !important;
+
+      .shopping-list-name {
+        width: 100%;
+      }
+    }
+  }
 }
 
 .shopping-list-content {
-  flex-grow: 1;
   position: relative;
+  flex-grow: 1;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  align-content: center;
-  padding: 1rem;
+  flex-direction: column;
+  padding: 1.5rem 3rem;
   margin-top: 1rem;
-  margin-right: 5%;
-  margin-left: 5%;
   @include inset-shadow(2rem);
   border-radius: $default-border-radius;
   border: 0.25rem solid darken($secondaryColor, 15);
-  z-index: 10;
-  width: 90%;
+  width: 100%;
 
-  &::after {
+  & > * {
+    z-index: 1;
+  }
+
+  &::before {
     content: "";
-    background: url('src/assets/images/logo.svg') no-repeat 50% 50%;
+    background: url('~src/assets/images/logo.svg') no-repeat 50% 50%;
     background-size: contain;
     opacity: 0.2;
+    position: absolute;
     top: 0;
     left: 0;
     bottom: 0;
     right: 0;
-    position: absolute;
-    z-index: -1;
+    z-index: 0;
   }
 
 }
 
 ul {
   width: 100%;
+
+  li {
+    display: flex;
+    margin: 0.5rem 0;
+  }
 }
 
-li {
-  width: 100%;
-  margin: 0.5rem;
-}
 
 .shopping-list-item {
+  display: flex;
   width: 100%;
-}
-
-.container-with-underline {
-  display: inline-flex;
-  width: 90%;
-  justify-content: flex-end;
-  border-bottom-width: 1px;
-  border-bottom-color: $fontSecondary;
-  border-bottom-style: solid;
-  background: transparent;
-
-  :first-child {
-    margin-right: auto;
-  }
-
+  align-items: center;
 }
 
 .shopping-list-item-field {
-  &-unit {
-    background: transparent;
-    font-size: 1.5rem;
-    text-align: left;
-    margin-left: 0.3rem;
-    width: 3rem;
-  }
-  &-amount {
-    background: transparent;
-    font-size: 1.5rem;
-    width: 5rem;
-    text-align: right;
-  }
-  &-name {
-    background: transparent;
-    font-size: 1.5rem;
-    width: 100%;
-  }
-}
-
-.date-header {
-  width: 100%;
-  padding: 0 0 0.25rem 1rem;
-  color: $secondaryColor;
-}
-
-.date-input {
-  position: relative;
-  flex-direction: column;
+  flex: 1 1 auto;
+  justify-content: flex-end;
+  border: 0 $fontSecondary solid;
+  border-bottom-width: 1px;
   display: flex;
-  justify-content: space-around;
-  align-items: center;
-  width: 100%;
-  margin-left: 1.5rem;
-  margin-right: 1.5rem;
-  @media(max-width: 480px) {
-    margin: 0.15rem;
+  margin-right: $item-field-margin-right;
+
+  & > * {
+    font-size: 1.4rem;
   }
 
+  &-name {
+    flex: 1 1 auto;
+    width: 5rem;
+    padding-right: 0.5rem;
+  }
+
+  &-amount {
+    width: $input-length-amount;
+  }
+
+  &-unit {
+    width: $input-length-unit;
+    appearance: none;
+    cursor: pointer;
+    padding: 0 0.5rem;
+    border-radius: 0.75rem;
+    border: 1px transparent solid;
+    color: $fontColor;
+
+    &:hover {
+      border: 1px $light--active solid;
+      background-color: $light--hover;
+    }
+  }
+
+  &-checkbox {
+    cursor: pointer;
+
+    input {
+      display: none;
+    }
+
+    div {
+      position: relative;
+      width: $input-length-checkbox;
+      height: $input-length-checkbox;
+    }
+
+    input:checked + div {
+      background: url("~src/assets/images/icons/check.png");
+      background-size: contain;
+    }
+
+    div::before {
+      $padding: 10%;
+      content: '';
+      position: absolute;
+      top: $padding;
+      right: $padding;
+      bottom: -2%;
+      left: -2%;
+      border-radius: 40%;
+      border: 2px solid $fontSecondary;
+    }
+  }
 }
 
-.shopping-list-header{
+.shopping-list-header {
   display: block;
   font-size: 2rem;
   color: $secondaryColor;
@@ -139,9 +201,12 @@ li {
 .shopping-list-table-headers {
   display: flex;
   justify-content: space-between;
-  width: 85%;
   font-size: 1.5rem;
   color: $primaryColor;
+
+  &-quantity {
+    width: $input-length-amount + $input-length-unit + $input-length-checkbox + $item-field-margin-right;
+  }
 }
 
 input[type="date"] {
@@ -164,7 +229,7 @@ input[type="date"] {
 }
 
 .save-button {
-  margin: 1rem 5% 1rem auto;
+  margin: 1rem 0 1rem auto;
   font-size: 1.25rem;
   color: $secondaryColor;
   border-radius: 1rem;
@@ -176,3 +241,46 @@ input[type="date"] {
     box-shadow: transparentize($primaryColor, 0.2) 1px 2px 5px 1px;
   }
 }
+
+@media (max-width: $breakpoint-xs-max-width) {
+  $input-length-amount: 2.5rem;
+  .shopping-list-details-container {
+    .shopping-list-name-form {
+      padding-bottom: 1rem;
+
+      .shopping-list-name {
+        width: 100%;
+        font-size: 1.5rem;
+      }
+    }
+
+    .shopping-list-details-dates {
+      padding-left: 0.5rem;
+      padding-right: 0.5rem;
+      padding-bottom: 1rem;
+
+      input {
+        font-size: 1rem;
+      }
+    }
+  }
+
+  .shopping-list-content {
+    padding: 1rem;
+
+    .shopping-list-item-field {
+      & > * {
+        font-size: 1rem;
+      }
+
+      &-amount {
+        width: $input-length-amount;
+      }
+    }
+
+    .shopping-list-table-headers-quantity {
+      width: $input-length-amount + $input-length-unit + $input-length-checkbox + $item-field-margin-right;
+    }
+  }
+}
+
