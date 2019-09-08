@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import * as fromAuthorization from '../../../authorization/authorization.actions';
 import { AppState } from '../../../../app.recuder';
 import { Store } from '@ngrx/store';
 import { NavigationData } from '../navigation-data';
+import * as fromAuthorization from '../../../authorization/authorization.actions';
+import * as fromDashboard from '../../../dashboard/dashboard.actions';
 
 @Component({
   selector: 'diet-dashboard-nav-bar',
@@ -33,7 +34,8 @@ export class DashboardNavBarComponent implements OnInit {
   ngOnInit(): void { }
 
   redirect(redirectCallback: () => Promise<boolean>): void {
-    redirectCallback();
+    redirectCallback()
+      .then(() => this.store.dispatch(fromDashboard.triggerNavBar()));
   }
 
   signOut(): void {
