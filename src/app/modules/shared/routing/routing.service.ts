@@ -83,7 +83,7 @@ export class RoutingService {
   }
 
   private goToSettings(): Promise<boolean> {
-    return this.goToFridge();
+    return this.navigate([ 'dashboard/settings' ]);
   }
 
   private goToFridge(): Promise<boolean> {
