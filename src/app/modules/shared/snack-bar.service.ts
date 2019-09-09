@@ -9,10 +9,8 @@ export class SnackBarService {
   ) {
   }
 
-  open(messageKey: string, action: string = ''): MatSnackBarRef<SimpleSnackBar> {
-    const config: MatSnackBarConfig = {
-      duration: 3000,
-    };
-    return this.snackBar.open(this.translate.instant(messageKey), action, config);
+  open(messageKey: string, actionKey: string = '', duration: number = 3000): MatSnackBarRef<SimpleSnackBar> {
+    const config: MatSnackBarConfig = { duration };
+    return this.snackBar.open(this.translate.instant(messageKey), this.translate.instant(actionKey).toUpperCase(), config);
   }
 }

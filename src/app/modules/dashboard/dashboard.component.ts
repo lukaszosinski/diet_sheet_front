@@ -1,9 +1,10 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import * as fromApp from '../../app.recuder';
 import * as fromDashboard from './dashboard.reducer';
 import * as DashboardActions from './dashboard.actions';
+import * as SettingsActions from './../settings/settings.actions';
 import { DashboardNavigationService } from './dashboard-navigation/dashboard-navigation.service';
 import { NavigationData } from './dashboard-navigation/navigation-data';
 
@@ -24,7 +25,7 @@ import { NavigationData } from './dashboard-navigation/navigation-data';
   styleUrls: [ './dashboard.component.scss' ],
   encapsulation: ViewEncapsulation.None,
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
 
   readonly navigationData: NavigationData[];
   readonly shouldShowNavBar$: Observable<boolean>;
@@ -34,6 +35,10 @@ export class DashboardComponent {
   ) {
     this.shouldShowNavBar$ = this.store.select(fromDashboard.selectShouldShowNavBar);
     this.navigationData = dashboardNavigationService.getNavigationDataList();
+  }
+
+  ngOnInit(): void {
+    this.store.dispatch(SettingsActions.loadDietLimits());
   }
 
   onNavBarToggled(): void {

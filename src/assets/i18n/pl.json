@@ -108,6 +108,11 @@
     "PRICE": "Cena",
     "SHOP": "Sklep"
   },
+  "SETTINGS": {
+    "DIET_LIMITS_NOT_FOUND": "Nie posiadasz jeszcze ustawień diety",
+    "LOAD_DIET_LIMITS_ERROR": "Nie udało się załadować limitów diety",
+    "SET_DIET_LIMITS": "Ustaw"
+  },
   "SUMMARY": {
     "KCAL": "Kalorie",
     "PROTEINS": "Białko",

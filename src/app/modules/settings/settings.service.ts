@@ -12,28 +12,28 @@ export class SettingsService {
 
   constructor(private http: HttpClient) {}
 
-  getUserData(id: number): Observable<UserData> {
-    return this.http.get<UserData>(`${this.baseUrl}/${id}`);
+  getUserData(): Observable<UserData> {
+    return this.http.get<UserData>(`${this.baseUrl}/data`);
   }
 
   updateUserData(userData: UserData): Observable<UserData> {
-    return this.http.put<UserData>(`${this.baseUrl}/${userData.id}`, userData);
+    return this.http.put<UserData>(`${this.baseUrl}/data`, userData);
   }
 
-  getUserPreferences(id: number): Observable<UserPreferences> {
-    return this.http.get<UserPreferences>(`${this.baseUrl}/${id}`);
+  getUserPreferences(): Observable<UserPreferences> {
+    return this.http.get<UserPreferences>(`${this.baseUrl}/preferences`);
   }
 
   updateUserPreferences(userPreferences: UserPreferences): Observable<UserPreferences> {
-    return this.http.put<UserPreferences>(`${this.baseUrl}/${userPreferences.id}`, userPreferences);
+    return this.http.put<UserPreferences>(`${this.baseUrl}/preferences`, userPreferences);
   }
 
-  getUserDietLimits(id: number): Observable<DietLimits> {
-    return this.http.get<DietLimits>(`${this.baseUrl}/${id}`);
+  getUserDietLimits(): Observable<DietLimits> {
+    return this.http.get<DietLimits>(`${this.baseUrl}/dietLimits`);
   }
 
   updateUserDietLimits(dietLimits: DietLimits): Observable<DietLimits> {
-    return this.http.put<DietLimits>(`${this.baseUrl}/${dietLimits.id}`, dietLimits);
+    return this.http.put<DietLimits>(`${this.baseUrl}/dietLimits`, dietLimits);
   }
 
 }
