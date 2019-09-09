@@ -29,8 +29,14 @@ const shoppingListReducer = createReducer(
   initialState,
   on(ShoppingListActions.generateShoppingListSuccess,
     (state, { shoppingList }) => ({ ...state, generatedShoppingList: shoppingList })),
-  on(ShoppingListActions.saveShoppingList, (state) => ({ ...state, processing: { ...state.processing, upsertShoppingList: true } })),
-  on(ShoppingListActions.updateShoppingList, (state) => ({ ...state, processing: { ...state.processing, upsertShoppingList: true } })),
+  on(ShoppingListActions.saveShoppingListAndRedirect, (state) => ({
+    ...state,
+    processing: { ...state.processing, upsertShoppingList: true }
+  })),
+  on(ShoppingListActions.updateShoppingListAndRedirect, (state) => ({
+    ...state,
+    processing: { ...state.processing, upsertShoppingList: true }
+  })),
   on(ShoppingListActions.upsertShoppingListSuccess, (state, { shoppingList }) => ({
     ...adapter.upsertOne(shoppingList, state),
     processing: { ...state.processing, upsertShoppingList: false },

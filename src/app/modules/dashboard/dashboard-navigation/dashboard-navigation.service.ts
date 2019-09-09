@@ -16,10 +16,6 @@ export class DashboardNavigationService {
       translationKey: 'DASHBOARD.NAVIGATION.DAY_PLAN',
       navigationCallback: this.routingService.navigation.dashboard.dayPlan,
     },
-    [DashboardNavigationDataEnum.SHOPPING_LIST]: {
-      translationKey: 'DASHBOARD.NAVIGATION.SHOPPING_LIST',
-      navigationCallback: this.routingService.navigation.dashboard.shoppingList.details,
-    },
     [DashboardNavigationDataEnum.SAVED_SHOPPING_LISTS]: {
       translationKey: 'DASHBOARD.NAVIGATION.SAVED_SHOPPING_LISTS',
       navigationCallback: this.routingService.navigation.dashboard.shoppingList.list,
