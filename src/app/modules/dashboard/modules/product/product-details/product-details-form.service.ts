@@ -24,7 +24,7 @@ export class ProductDetailsFormService {
         carbs: [ undefined, Validators.required ],
         fat: [ undefined, Validators.required ]
       }),
-      prices: this.fb.array([ this.createPriceForm() ]),
+      prices: this.fb.array([]),
     });
   }
 
