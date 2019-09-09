@@ -24,7 +24,7 @@ export class ProductDetailsFormService {
         carbs: [ undefined, Validators.required ],
         fat: [ undefined, Validators.required ]
       }),
-      prices: this.fb.array([]),
+      prices: this.fb.array([ this.createPriceForm() ]),
     });
   }
 
@@ -69,6 +69,9 @@ export class ProductDetailsFormService {
   }
 
   getProductFromValue(): Product {
-    return this.form.value;
+    const product = this.form.value;
+    return {...product, prices: this.getPriceArrayForm().controls.filter(
+      control => control.valid).map(control => control.value)
+    };
   }
 }
