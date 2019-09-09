@@ -39,11 +39,12 @@ export class ProductDetailsFormService {
   }
 
   patchForm(product: Product): void {
-    this.form.patchValue(product);
-    this.patchPricesForm(product.prices);
+    const productWithUpdatedPriceList = { ...product, prices: product.prices || [] };
+    this.form.patchValue(productWithUpdatedPriceList);
+    this.patchPricesForm(productWithUpdatedPriceList.prices);
   }
 
-  private patchPricesForm(prices: Price[] = []): void {
+  private patchPricesForm(prices: Price[]): void {
     const priceArrayForm = this.getPriceArrayForm();
     priceArrayForm.clear();
     prices
@@ -63,11 +64,14 @@ export class ProductDetailsFormService {
     this.getPriceArrayForm().push(this.createPriceForm());
   }
 
-  removeIngredient(index: number): void {
+  removePriceForm(index: number): void {
     this.getPriceArrayForm().removeAt(index);
   }
 
   getProductFromValue(): Product {
-    return this.form.value;
+    const product = this.form.value;
+    return {...product, prices: this.getPriceArrayForm().controls.filter(
+      control => control.valid).map(control => control.value)
+    };
   }
 }
