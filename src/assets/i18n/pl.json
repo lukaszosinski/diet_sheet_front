@@ -40,6 +40,30 @@
       "PIECE": "sztuka",
       "HUNDRED_MILLILITERS": "100 mililitrów",
       "KILOGRAM": "kilogram"
+    },
+    "SEX": {
+      "MALE": "MALE",
+      "FEMALE": "FEMALE",
+      "UNDEFINED": "UNDEFINED"
+    },
+    "BMIStatusEnum": {
+      "OBESITY": "Otyłość",
+      "UNDERWEIGHT": "Niedowaga",
+      "CORRECT_WEIGHT": "Prawidłowa waga",
+      "OVERWEIGHT": "Gruby że ja pierd**e"
+    },
+    "PhysicalActivityEnum": {
+      "VERY_LOW": "Bardzo niska",
+      "LOW": "Niska",
+      "MEDIUM": "Średnia",
+      "HIGH": "Wysoka",
+      "VERY_HIGH": "Bardzo wysoka"
+    },
+    "DietLimitsCalculationStrategyEnum": {
+      "KEEP_WEIGHT": "Utrzymanie wagi",
+      "LOSE_WEIGHT": "Utrata wagi",
+      "BUILD_MASS": "Podniesienie wagi",
+      "MANUAL": "Własne ustawienia"
     }
   },
   "DASHBOARD": {
@@ -111,6 +135,8 @@
   "SETTINGS": {
     "DIET_LIMITS_NOT_FOUND": "Nie posiadasz jeszcze ustawień diety",
     "LOAD_DIET_LIMITS_ERROR": "Nie udało się załadować limitów diety",
+    "LOAD_PREFERENCES_ERROR": "Nie udało się załadować preferencji użytkownika",
+    "LOAD_USER_DATA_ERROR": "Nie udało się załadować danych użytkownika",
     "SET_DIET_LIMITS": "Ustaw"
   },
   "SUMMARY": {
