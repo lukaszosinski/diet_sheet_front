@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 
-import { catchError, map, mergeMap, tap } from 'rxjs/operators';
+import { catchError, flatMap, map, mergeMap, tap } from 'rxjs/operators';
 
 import * as SettingsActions from './settings.actions';
 import { SettingsService } from './settings.service';
@@ -47,6 +47,30 @@ export class SettingsEffects {
       catchApiError(SettingsActions.loadPreferencesError)
     ))
   ));
+
+  updatePreferencesAndUserData$ = createEffect(() => this.actions$.pipe(
+    ofType(SettingsActions.updatePreferencesAndUserData),
+    mergeMap((action) => this.settingsService.updateUserPreferences(action.preferences).pipe(
+      flatMap((preferences) => [
+        SettingsActions.updatePreferencesSuccess({ preferences }),
+        SettingsActions.updateUserData({ userData: action.userData })
+      ]),
+      catchApiError(SettingsActions.updatePreferencesAndUserDataError)
+    ))
+  ));
+
+  updateUserData$ = createEffect(() => this.actions$.pipe(
+    ofType(SettingsActions.updateUserData),
+    mergeMap((action) => this.settingsService.updateUserData(action.userData).pipe(
+      flatMap((userData) => [
+        SettingsActions.updateUserDataSuccess({ userData }),
+        SettingsActions.loadDietLimits(),
+      ]),
+      catchApiError(SettingsActions.updatePreferencesAndUserDataError)
+    ))
+  ));
+
+
   constructor(private actions$: Actions,
               private settingsService: SettingsService,
               private snackBarService: SnackBarService,

@@ -10,6 +10,7 @@
     "INGREDIENTS": "Składniki",
     "QUANTITY": "Ilość",
     "PASSWORD": "Hasło",
+    "SAVE": "Zapisz",
     "DAY": {
       "0": "niedziela",
       "1": "poniedziałek",
@@ -50,7 +51,7 @@
       "OBESITY": "Otyłość",
       "UNDERWEIGHT": "Niedowaga",
       "CORRECT_WEIGHT": "Prawidłowa waga",
-      "OVERWEIGHT": "Gruby że ja pierd**e"
+      "OVERWEIGHT": "Nadwaga"
     },
     "PhysicalActivityEnum": {
       "VERY_LOW": "Bardzo niska",

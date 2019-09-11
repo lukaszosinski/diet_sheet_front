@@ -49,7 +49,7 @@ import { UserPreferences } from './models/user-preferences.model';
 
           <div class="diet-limits" *ngIf="shouldDisplayDietLimits() | async">
               <diet-input [label]="'SETTINGS.LABELS.bmiStatus' | translate"
-                          [value]="getBMIStatus() | async"
+                          [value]="'ENUM.BMIStatusEnum.' + (getBMIStatus() | async) | translate"
                           [readonly]="true"
               ></diet-input>
               <div class="diet-limits-form" [formGroup]="dietLimitsForm">
@@ -58,6 +58,12 @@ import { UserPreferences } from './models/user-preferences.model';
                   <div class="diet-limits-form-label">{{'SETTINGS.LABELS.maxLimits' | translate}}:</div>
                   <diet-entity-summary class="diet-limits-form-max" [summaryFormGroup]="getMaxLimitsForm()"></diet-entity-summary>
               </div>
+          </div>
+
+          <div class="diet-settings-bottom-actions">
+              <diet-button (click)="onSaveUserDataClick()">
+                  {{'COMMON.SAVE' | translate}}
+              </diet-button>
           </div>
       </div>
   `,
@@ -179,5 +185,11 @@ export class SettingsComponent extends OnDestroyAbstract implements OnInit {
 
   shouldDisplayDietLimits(): Observable<boolean> {
     return this.getBMIStatus().pipe(map(Boolean));
+  }
+
+  onSaveUserDataClick(): void {
+    const preferences: UserPreferences = this.userPreferencesForm.value;
+    const userData: UserData = this.userDataForm.value;
+    this.store.dispatch(SettingsActions.updatePreferencesAndUserData({ userData, preferences }));
   }
 }

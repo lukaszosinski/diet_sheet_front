@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ElementRef, forwardRef, Input, Renderer2 } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, forwardRef, Input, Renderer2 } from '@angular/core';
 import { DefaultValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
@@ -6,7 +6,7 @@ import { DefaultValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
   template: `
       <mat-form-field appearance="outline" [class.readonly]="readonly">
           <mat-label>{{label}}</mat-label>
-          <input [type]="type" matInput (change)="onChange($event)" (blur)="onTouched()" [value]="value">
+          <input [type]="type" matInput (change)="onChange($event.target.value)" (blur)="onTouched()" [value]="value">
       </mat-form-field>
   `,
   styleUrls: [ './input.component.scss' ],
@@ -22,7 +22,15 @@ export class InputComponent extends DefaultValueAccessor {
   @Input() readonly: boolean = false;
   @Input() value: string = '';
 
-  constructor(renderer: Renderer2, elementRef: ElementRef) {
+  constructor(private changeDetectorRef: ChangeDetectorRef,
+              renderer: Renderer2,
+              elementRef: ElementRef,
+  ) {
     super(renderer, elementRef, false);
+  }
+
+  writeValue(value: string): void {
+    this.value = value;
+    this.changeDetectorRef.markForCheck();
   }
 }

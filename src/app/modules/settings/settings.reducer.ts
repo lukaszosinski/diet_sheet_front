@@ -15,6 +15,8 @@ export interface State {
     loadUserPreferences: boolean;
     loadDietLimits: boolean;
     loadUserData: boolean;
+    updateUserData: boolean;
+    updatePreferences: boolean;
   };
 }
 
@@ -23,6 +25,8 @@ export const initialState: State = {
     loadUserPreferences: false,
     loadDietLimits: false,
     loadUserData: false,
+    updateUserData: false,
+    updatePreferences: false,
   }
 };
 
@@ -51,7 +55,31 @@ const settingsReducer = createReducer(
     userData,
     processing: { ...state.processing, loadUserData: false }
   })),
-  on(SettingsActions.loadUserDataError, state => ({ ...state, processing: { ...state.processing, loadUserData: false } }))
+  on(SettingsActions.loadUserDataError, state => ({ ...state, processing: { ...state.processing, loadUserData: false } })),
+
+  on(SettingsActions.updatePreferencesAndUserData, state => ({
+    ...state,
+    processing: { ...state.processing, updateUserData: true, updatePreferences: true }
+  })),
+  on(SettingsActions.updateUserData, state => ({
+    ...state,
+    processing: { ...state.processing, updateUserData: true }
+  })),
+  on(SettingsActions.updatePreferencesAndUserDataError, state => ({
+    ...state,
+    processing: { ...state.processing, updateUserData: false, updatePreferences: false }
+  })),
+
+  on(SettingsActions.updateUserDataSuccess, (state, { userData }) => ({
+    ...state,
+    userData,
+    processing: { ...state.processing, updateUserData: false }
+  })),
+  on(SettingsActions.updatePreferencesSuccess, (state, { preferences }) => ({
+    ...state,
+    preferences,
+    processing: { ...state.processing, updatePreferences: false }
+  })),
 );
 
 export function reducer(state: State | undefined, action: Action): State {

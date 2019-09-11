@@ -4,6 +4,7 @@ import { DietLimits } from './models/diet-limits.model';
 import { UserPreferences } from './models/user-preferences.model';
 import { UserData } from './models/user-data.model';
 
+
 export const loadDietLimits = createAction('[Settings/API] Load diet limits');
 
 export const loadDietLimitsSuccess = createAction('[Settings/API] Load diet limits SUCCESS', props<{ dietLimits: DietLimits }>());
@@ -26,6 +27,22 @@ export const loadUserDataSuccess = createAction('[Settings/API] Load user data S
 
 export const loadUserDataError = createApiErrorAction('[Settings/API] Load user data ERROR', 'SETTINGS.LOAD_USER_DATA_ERROR');
 
+
+export const updatePreferencesAndUserData = createAction(
+  '[Settings/API] update Preferences and UserData', props<{ userData: UserData; preferences: UserPreferences }>()
+);
+
+export const updatePreferencesAndUserDataError = createApiErrorAction(
+  '[Settings/API] update Preferences and UserData ERROR', 'SETTINGS.UPDATE_SETTINGS_ERROR'
+);
+
+export const updateUserData = createAction('[Settings/API] Update UserData', props<{ userData: UserData }>());
+
+export const updateUserDataSuccess = createAction('[Settings/API] Update UserData SUCCESS', props<{ userData: UserData }>());
+
+export const updatePreferencesSuccess = createAction(
+  '[Settings/API] Update Preferences SUCCESS', props<{ preferences: UserPreferences }>()
+);
 
 
 

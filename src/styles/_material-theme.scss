@@ -99,7 +99,16 @@ $diet-theme-custom: map-merge($diet-theme, (foreground: $diet-theme-background))
 @include mat-core();
 @include angular-material-theme($diet-theme);
 
+
+// mat-form-field with appearance outline
 .mat-form-field-appearance-outline .mat-form-field-outline-thick,
 .mat-form-field-appearance-outline .mat-form-field-outline {
   color: $primaryColor;
+}
+
+
+// mat-select
+.mat-option:not(.mat-option-disabled),
+.mat-select .mat-select-value {
+  color: $fontColor;
 }

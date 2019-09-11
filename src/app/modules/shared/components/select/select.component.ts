@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ElementRef, forwardRef, Input, Renderer2 } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, forwardRef, Input, Renderer2 } from '@angular/core';
 import { DefaultValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
@@ -6,7 +6,10 @@ import { DefaultValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
   template: `
       <mat-form-field appearance="outline">
           <mat-label>{{label}}</mat-label>
-          <mat-select value="{{value}}" (change)="onChange($event)" (blur)="onTouched()" [disabled]="isDisabled">
+          <mat-select [value]="value"
+                      (selectionChange)="onChange($event.value)"
+                      (blur)="onTouched()"
+                      [disabled]="isDisabled">
               <mat-option *ngIf="optional" [value]="undefined"></mat-option>
               <mat-option *ngFor="let option of getOptions()" [value]="option">
                   {{i18nKeyPrefix + option | translate}}
@@ -29,7 +32,10 @@ export class SelectComponent extends DefaultValueAccessor {
   value?: string;
   isDisabled: boolean = false;
 
-  constructor(renderer: Renderer2, elementRef: ElementRef) {
+  constructor(private changeDetectorRef: ChangeDetectorRef,
+              renderer: Renderer2,
+              elementRef: ElementRef,
+  ) {
     super(renderer, elementRef, false);
   }
 
@@ -39,6 +45,7 @@ export class SelectComponent extends DefaultValueAccessor {
 
   writeValue(value: string): void {
     this.value = value;
+    this.changeDetectorRef.markForCheck();
   }
 
   setDisabledState(isDisabled: boolean): void {
