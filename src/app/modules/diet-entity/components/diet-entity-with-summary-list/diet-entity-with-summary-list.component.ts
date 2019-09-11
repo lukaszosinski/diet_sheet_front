@@ -10,6 +10,7 @@ import { DietEntity } from '../../diet-entity.model';
           </div>
           <ng-container *ngFor="let entity of dietEntities">
               <diet-entity-with-summary class="diet-entity-with-summary"
+                      [isEditable]="!entity.public"
                       [dietEntity]="entity"
                       (click)="onEntityClick(entity)"
               ></diet-entity-with-summary>
