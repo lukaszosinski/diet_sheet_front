@@ -63,7 +63,7 @@
       "KEEP_WEIGHT": "Utrzymanie wagi",
       "LOSE_WEIGHT": "Utrata wagi",
       "BUILD_MASS": "Podniesienie wagi",
-      "MANUAL": "Własne ustawienia"
+      "MANUAL": "Własne ustawienia diety"
     }
   },
   "DASHBOARD": {
@@ -149,7 +149,8 @@
       "bmiStatus": "Twoje BMI",
       "physicalActivity": "Aktywność fizyczna",
       "minLimits": "Potrzebujesz prznajmniej",
-      "maxLimits": "Nie powinieneś spożywać więcej niż"
+      "maxLimits": "Nie powinieneś spożywać więcej niż",
+      "strategyEnum": "Cel"
     }
   },
   "SUMMARY": {

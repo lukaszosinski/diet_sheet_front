@@ -7,6 +7,7 @@ import { DefaultValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
       <mat-form-field appearance="outline">
           <mat-label>{{label}}</mat-label>
           <mat-select value="{{value}}" (change)="onChange($event)" (blur)="onTouched()" [disabled]="isDisabled">
+              <mat-option *ngIf="optional" [value]="undefined"></mat-option>
               <mat-option *ngFor="let option of getOptions()" [value]="option">
                   {{i18nKeyPrefix + option | translate}}
               </mat-option>
@@ -24,6 +25,7 @@ export class SelectComponent extends DefaultValueAccessor {
   @Input() optionsEnum!: { [key: string]: string };
   @Input() i18nKeyPrefix!: string;
   @Input() label?: string;
+  @Input() optional: boolean = false;
   value?: string;
   isDisabled: boolean = false;
 

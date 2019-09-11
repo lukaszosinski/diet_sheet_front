@@ -69,3 +69,8 @@ export const selectUserData = createSelector(
   selectSettings,
   (state: State) => state.userData
 );
+
+export const selectUserPreferences = createSelector(
+  selectSettings,
+  (state: State) => state.preferences
+);
