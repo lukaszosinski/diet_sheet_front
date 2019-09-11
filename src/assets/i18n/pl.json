@@ -139,9 +139,8 @@
     "LOAD_PREFERENCES_ERROR": "Nie udało się załadować preferencji użytkownika",
     "LOAD_USER_DATA_ERROR": "Nie udało się załadować danych użytkownika",
     "SET_DIET_LIMITS": "Ustaw",
-    "AGE_PLACEHOLDER": "Wiek",
-    "HEIGHT_PLACEHOLDER": "Wzrost",
-    "WEIGHT_PLACEHOLDER": "Waga",
+    "UPDATE_DIET_LIMITS_ERROR": "Nie udało się ustawić limitów diety",
+    "UPDATE_SETTINGS_ERROR": "Nie udało się zmienić danych",
     "LABELS": {
       "age": "Wiek",
       "height": "Wzrost",

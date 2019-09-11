@@ -17,6 +17,7 @@ export interface State {
     loadUserData: boolean;
     updateUserData: boolean;
     updatePreferences: boolean;
+    updateDietLimits: boolean;
   };
 }
 
@@ -27,6 +28,7 @@ export const initialState: State = {
     loadUserData: false,
     updateUserData: false,
     updatePreferences: false,
+    updateDietLimits: false,
   }
 };
 
@@ -80,6 +82,17 @@ const settingsReducer = createReducer(
     preferences,
     processing: { ...state.processing, updatePreferences: false }
   })),
+
+  on(SettingsActions.updateSettings, (state) => ({
+    ...state,
+    processing: { ...state.processing, updateDietLimits: true, updateUserData: true, updatePreferences: true }
+  })),
+  on(SettingsActions.updateDietLimitsSuccess, (state, { dietLimits }) => ({
+    ...state,
+    dietLimits,
+    processing: { ...state.processing, updateDietLimits: false }
+  })),
+  on(SettingsActions.updateDietLimitsError, (state) => ({ ...state, processing: { ...state.processing, updateDietLimits: false } })),
 );
 
 export function reducer(state: State | undefined, action: Action): State {

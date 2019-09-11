@@ -45,5 +45,19 @@ export const updatePreferencesSuccess = createAction(
 );
 
 
+export const updateSettings = createAction(
+  '[Settings/API] Update Settings', props<{ dietLimits: DietLimits, userData: UserData, preferences: UserPreferences }>()
+);
+
+export const updateDietLimitsSuccess = createAction('[Settings/API] Update Settings SUCCESS', props<{ dietLimits: DietLimits }>());
+
+export const updateDietLimitsError = createApiErrorAction(
+  '[Settings/API] Update Preferences DietLimits', 'SETTINGS.UPDATE_DIET_LIMITS_ERROR'
+);
+
+
+
+
+
 
 

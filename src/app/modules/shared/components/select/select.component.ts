@@ -6,7 +6,7 @@ import { DefaultValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
   template: `
       <mat-form-field appearance="outline">
           <mat-label>{{label}}</mat-label>
-          <mat-select [value]="value"
+          <mat-select [(value)]="value"
                       (selectionChange)="onChange($event.value)"
                       (blur)="onTouched()"
                       [disabled]="isDisabled">

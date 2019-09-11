@@ -2,8 +2,6 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@
 import { Store } from '@ngrx/store';
 import { AppState } from '../../app.recuder';
 import { Observable } from 'rxjs';
-import * as fromSettings from './settings.reducer';
-import * as SettingsActions from './settings.actions';
 import { SexEnum } from './models/sex.enum';
 import { PhysicalActivityEnum } from './models/physical-activity.enum';
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -15,6 +13,10 @@ import { OnDestroyAbstract } from '../shared/utils/abstract-injectables/on-destr
 import { BMIStatusEnum } from './models/bmi-status.enum';
 import { DietLimitsCalculationStrategyEnum } from './models/diet-limits-calculation-strategy.enum';
 import { UserPreferences } from './models/user-preferences.model';
+import { selectFirst } from '../shared/utils/ngrx-utils';
+import { summaryEquals } from '../diet-entity/summary.model';
+import * as fromSettings from './settings.reducer';
+import * as SettingsActions from './settings.actions';
 
 @Component({
   selector: 'diet-settings',
@@ -188,8 +190,37 @@ export class SettingsComponent extends OnDestroyAbstract implements OnInit {
   }
 
   onSaveUserDataClick(): void {
-    const preferences: UserPreferences = this.userPreferencesForm.value;
-    const userData: UserData = this.userDataForm.value;
-    this.store.dispatch(SettingsActions.updatePreferencesAndUserData({ userData, preferences }));
+    const dietLimits = { ...this.dietLimitsForm.value, id: 333 };
+    this.areDietLimitsChanged(dietLimits).subscribe((areLimitsChanged) => {
+      const userData: UserData = this.userDataForm.value;
+      if (areLimitsChanged) {
+        this.setManualStrategy();
+        const preferences: UserPreferences = this.userPreferencesForm.value;
+        this.store.dispatch(SettingsActions.updateSettings({ dietLimits, userData, preferences }));
+      } else {
+        const preferences: UserPreferences = this.userPreferencesForm.value;
+        this.store.dispatch(SettingsActions.updatePreferencesAndUserData({ userData, preferences }));
+      }
+    });
+  }
+
+  private areDietLimitsChanged(dietLimits: DietLimits): Observable<boolean> {
+    return selectFirst(this.store, fromSettings.selectDietLimits).pipe(
+      map((savedDietLimits) => {
+        if (!savedDietLimits) {
+          return true;
+        }
+        return !summaryEquals(dietLimits.maxLimits, savedDietLimits.maxLimits)
+          || !summaryEquals(dietLimits.minLimits, savedDietLimits.minLimits);
+      })
+    );
+  }
+
+  private setManualStrategy(): void {
+    this.userPreferencesForm.patchValue({
+      strategyEnum: DietLimitsCalculationStrategyEnum.MANUAL,
+    });
+    this.changeDetectorRef.markForCheck();
+    console.log(this.userPreferencesForm.value);
   }
 }

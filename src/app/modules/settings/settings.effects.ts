@@ -71,6 +71,18 @@ export class SettingsEffects {
   ));
 
 
+  updateSettings$ = createEffect(() => this.actions$.pipe(
+    ofType(SettingsActions.updateSettings),
+    mergeMap((action) => this.settingsService.updateUserDietLimits(action.dietLimits).pipe(
+      flatMap((dietLimits) => [
+        SettingsActions.updatePreferencesAndUserData({ userData: action.userData, preferences: action.preferences }),
+        SettingsActions.updateDietLimitsSuccess({ dietLimits }),
+      ]),
+      catchApiError(SettingsActions.updateDietLimitsError)
+    ))
+  ));
+
+
   constructor(private actions$: Actions,
               private settingsService: SettingsService,
               private snackBarService: SnackBarService,
