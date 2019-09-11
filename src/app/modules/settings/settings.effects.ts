@@ -31,6 +31,22 @@ export class SettingsEffects {
     tap(() => this.showDietLimitsNotFoundMessage())
   ), { dispatch: false });
 
+
+  loadUserData$ = createEffect(() => this.actions$.pipe(
+    ofType(SettingsActions.loadUserData),
+    mergeMap(() => this.settingsService.getUserData().pipe(
+      map((userData) => SettingsActions.loadUserDataSuccess({ userData })),
+      catchApiError(SettingsActions.loadUserDataError)
+    ))
+  ));
+
+  loadPreferences$ = createEffect(() => this.actions$.pipe(
+    ofType(SettingsActions.loadPreferences),
+    mergeMap(() => this.settingsService.getUserPreferences().pipe(
+      map((preferences) => SettingsActions.loadPreferencesSuccess({ preferences })),
+      catchApiError(SettingsActions.loadPreferencesError)
+    ))
+  ));
   constructor(private actions$: Actions,
               private settingsService: SettingsService,
               private snackBarService: SnackBarService,

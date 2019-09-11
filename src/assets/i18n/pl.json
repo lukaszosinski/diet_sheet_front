@@ -41,10 +41,10 @@
       "HUNDRED_MILLILITERS": "100 mililitrów",
       "KILOGRAM": "kilogram"
     },
-    "SEX": {
-      "MALE": "MALE",
-      "FEMALE": "FEMALE",
-      "UNDEFINED": "UNDEFINED"
+    "SexEnum": {
+      "MALE": "Mężczyzna",
+      "FEMALE": "Kobieta",
+      "UNDEFINED": ""
     },
     "BMIStatusEnum": {
       "OBESITY": "Otyłość",
@@ -137,7 +137,20 @@
     "LOAD_DIET_LIMITS_ERROR": "Nie udało się załadować limitów diety",
     "LOAD_PREFERENCES_ERROR": "Nie udało się załadować preferencji użytkownika",
     "LOAD_USER_DATA_ERROR": "Nie udało się załadować danych użytkownika",
-    "SET_DIET_LIMITS": "Ustaw"
+    "SET_DIET_LIMITS": "Ustaw",
+    "AGE_PLACEHOLDER": "Wiek",
+    "HEIGHT_PLACEHOLDER": "Wzrost",
+    "WEIGHT_PLACEHOLDER": "Waga",
+    "LABELS": {
+      "age": "Wiek",
+      "height": "Wzrost",
+      "weight": "Waga",
+      "sex": "Płeć",
+      "bmiStatus": "Twoje BMI",
+      "physicalActivity": "Aktywność fizyczna",
+      "minLimits": "Potrzebujesz prznajmniej",
+      "maxLimits": "Nie powinieneś spożywać więcej niż"
+    }
   },
   "SUMMARY": {
     "KCAL": "Kalorie",

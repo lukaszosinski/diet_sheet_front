@@ -8,6 +8,7 @@ import { SettingsEffects } from './settings.effects';
 import { SettingsService } from './settings.service';
 import { Routes } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
+import { DietEntityModule } from '../diet-entity/diet-entity.module';
 
 
 @NgModule({
@@ -17,6 +18,7 @@ import { SharedModule } from '../shared/shared.module';
     SharedModule,
     StoreModule.forFeature(fromSettings.settingsFeatureKey, fromSettings.reducer),
     EffectsModule.forFeature([ SettingsEffects ]),
+    DietEntityModule,
   ],
   providers: [
     SettingsService,

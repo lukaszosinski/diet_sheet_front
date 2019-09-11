@@ -11,6 +11,7 @@ export class SnackBarService {
 
   open(messageKey: string, actionKey: string = '', duration: number = 3000): MatSnackBarRef<SimpleSnackBar> {
     const config: MatSnackBarConfig = { duration };
-    return this.snackBar.open(this.translate.instant(messageKey), this.translate.instant(actionKey).toUpperCase(), config);
+    const action = actionKey ? this.translate.instant(actionKey).toUpperCase() : actionKey;
+    return this.snackBar.open(this.translate.instant(messageKey), action, config);
   }
 }

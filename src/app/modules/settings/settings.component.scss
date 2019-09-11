@@ -1,0 +1,42 @@
+@import "mixins";
+
+.diet-settings-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .user-data-form {
+    .user-data-form-header {
+      color: $primaryColor;
+      margin: 1rem 0;
+    }
+
+    width: 80%;
+    @include card(10rem);
+    background-color: $light;
+    padding: 2rem;
+    margin-bottom: 1rem;
+  }
+}
+
+.diet-limits-form {
+  @include diet-form;
+}
+
+.diet-limits {
+  width: 80%;
+  padding: 2rem;
+  @include inset-shadow(10rem);
+  border-radius: $default-border-radius;
+  border: 0.35rem solid darken($secondaryColor, 15);
+
+  .diet-limits-form-label {
+    margin-top: 0.5rem;
+    color: darken($secondaryColor, 15);
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+}

@@ -1,0 +1,105 @@
+@import '~@angular/material/theming';
+@import "colors";
+
+$primary-color-palette: (
+  50: lighten($primaryColor, 25),
+  100: lighten($primaryColor, 20),
+  200: lighten($primaryColor, 15),
+  300: lighten($primaryColor, 10),
+  400: lighten($primaryColor, 5),
+  500: $primaryColor,
+  600: darken($primaryColor, 5),
+  700: darken($primaryColor, 10),
+  800: darken($primaryColor, 15),
+  900: darken($primaryColor, 20),
+  A100: #lighten ($primaryColor, 25),
+  A200: lighten($primaryColor, 15),
+  A400: darken($primaryColor, 5),
+  A700: darken($primaryColor, 20),
+  contrast: (
+    50: $fontColor,
+    100: $fontColor,
+    200: $fontColor,
+    300: $fontColor,
+    400: $fontColor,
+    500: $light,
+    600: $light,
+    700: $light,
+    800: $light,
+    900: $light,
+    A100: $light,
+    A200: $light,
+    A400: $light,
+    A700: $light,
+  )
+);
+
+$accent-color-palette: (
+  50: lighten($secondaryColor, 25),
+  100: lighten($secondaryColor, 20),
+  200: lighten($secondaryColor, 15),
+  300: lighten($secondaryColor, 10),
+  400: lighten($secondaryColor, 5),
+  500: $secondaryColor,
+  600: darken($secondaryColor, 5),
+  700: darken($secondaryColor, 10),
+  800: darken($secondaryColor, 15),
+  900: darken($secondaryColor, 20),
+  A100: #lighten ($secondaryColor, 25),
+  A200: lighten($secondaryColor, 15),
+  A400: darken($secondaryColor, 5),
+  A700: darken($secondaryColor, 20),
+  contrast: (
+    50: $fontColor,
+    100: $fontColor,
+    200: $fontColor,
+    300: $fontColor,
+    400: $fontColor,
+    500: $light,
+    600: $light,
+    700: $light,
+    800: $light,
+    900: $light,
+    A100: $light,
+    A200: $light,
+    A400: $light,
+    A700: $light,
+  )
+);
+
+
+$diet-theme-background: (
+  base: $fontColor,
+  divider: rgba($fontColor, 0.12),
+  dividers: rgba($fontColor, 0.12),
+  disabled: rgba($fontColor, 0.38),
+  disabled-button: rgba($fontColor, 0.26),
+  disabled-text: rgba($fontColor, 0.38),
+  elevation: $fontColor,
+  hint-text: rgba($fontColor, 0.38),
+  secondary-text: rgba($fontColor, 0.54),
+  icon: rgba($fontColor, 0.54),
+  icons: rgba($fontColor, 0.54),
+  text: rgba($fontColor, 0.87),
+  slider-min: rgba($fontColor, 0.87),
+  slider-off: rgba($fontColor, 0.26),
+  slider-off-active: rgba($fontColor, 0.38),
+);
+
+$primary-palette: mat-palette($primary-color-palette);
+
+$accent-palette: mat-palette($accent-color-palette);
+
+$warn-palette: mat-palette($mat-red);
+
+$diet-theme: mat-light-theme($primary-palette, $accent-palette, $warn-palette);
+
+$diet-theme-custom: map-merge($diet-theme, (foreground: $diet-theme-background));
+
+@include mat-core();
+@include angular-material-theme($diet-theme);
+
+.mat-form-field-appearance-outline .mat-form-field-outline-thick,
+.mat-form-field-appearance-outline .mat-form-field-outline {
+  color: $primaryColor;
+}
