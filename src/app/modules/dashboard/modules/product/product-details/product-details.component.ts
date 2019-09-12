@@ -17,10 +17,13 @@ import { OnDestroyAbstract } from '../../../../shared/utils/abstract-injectables
 @Component({
   selector: 'diet-product-details',
   template: `
-      <form class="product-details-wrapper" [formGroup]="form">
+      <form class="product-details-wrapper" [formGroup]="getForm()">
           <div class="product-details-header">
               <diet-square-cancel-button (click)="onCancelButtonClick()"></diet-square-cancel-button>
-              <diet-square-confirm-button (click)="onConfirmButtonClick()"></diet-square-confirm-button>
+              <diet-square-confirm-button
+                      (click)="onConfirmButtonClick()"
+                      *ngIf="shouldBeEditable">
+              </diet-square-confirm-button>
           </div>
           <diet-entity-info
                   class="product-details-info"
@@ -38,7 +41,8 @@ import { OnDestroyAbstract } from '../../../../shared/utils/abstract-injectables
           </diet-entity-item-table>
           <diet-entity-summary
                   class="product-details-summary"
-                  [summaryFormGroup]="getSummaryFormGroup()"></diet-entity-summary>
+                  [summaryFormGroup]="getSummaryFormGroup()">
+          </diet-entity-summary>
       </form>
   `,
   styleUrls: [ './product-details.component.scss' ],
@@ -48,6 +52,8 @@ import { OnDestroyAbstract } from '../../../../shared/utils/abstract-injectables
   ]
 })
 export class ProductDetailsComponent extends OnDestroyAbstract implements OnInit {
+
+  shouldBeEditable: boolean = true;
 
   readonly PRODUCT_PLACEHOLDER_KEYS: DietEntityInfoPlaceholderKeys = {
     name: 'PRODUCT.NAME_PLACEHOLDER',
@@ -84,7 +90,10 @@ export class ProductDetailsComponent extends OnDestroyAbstract implements OnInit
   private patchFormOnProductSelected(): void {
     this.getSelectedProduct$()
       .pipe(takeUntilDestroy(this))
-      .subscribe((product) => this.formService.patchForm(product));
+      .subscribe((product) => {
+        this.shouldBeEditable = !product.public;
+        this.formService.patchForm(product);
+      });
   }
 
   private getSelectedProduct$(): Observable<Product> {
@@ -96,8 +105,17 @@ export class ProductDetailsComponent extends OnDestroyAbstract implements OnInit
       ) as Observable<Product>;
   }
 
+  getForm(): FormGroup {
+    if (!this.shouldBeEditable) {
+      this.form.disable();
+    }
+    return this.form;
+  }
+
   getPricesForm(): FormArray {
-    return this.formService.getPriceArrayForm();
+    return this.shouldBeEditable ?
+      this.formService.getPriceArrayForm() :
+      this.formService.getDisabledPriceArrayForm();
   }
 
   onAddPriceClick(): void {
@@ -109,7 +127,9 @@ export class ProductDetailsComponent extends OnDestroyAbstract implements OnInit
   }
 
   getSummaryFormGroup(): FormGroup {
-    return this.formService.getSummaryForm();
+    return this.shouldBeEditable ?
+      this.formService.getSummaryForm() :
+      this.formService.getDisabledSummaryForm();
   }
 
   onConfirmButtonClick(): void {

@@ -23,7 +23,11 @@ import { takeUntilDestroy } from '../../../shared/utils/rxjs-utils';
                   </div>
               </ng-container>
           </div>
-          <diet-add-button class="diet-entity-item-table-add-item" (click)="onAddButtonClick($event)"></diet-add-button>
+          <diet-add-button
+                  *ngIf="!itemsFormArray.disabled"
+                  class="diet-entity-item-table-add-item"
+                  (click)="onAddButtonClick($event)">
+          </diet-add-button>
       </div>
   `,
   styleUrls: [ './diet-entity-item-table.component.scss' ],
