@@ -19,7 +19,7 @@ import { SelectProductDialogComponent } from '../../product/select-product-dialo
 @Component({
   selector: 'diet-meal-details',
   template: `
-      <form class="meal-details-wrapper" [formGroup]="form">
+      <form class="meal-details-wrapper" [formGroup]="getForm()">
           <div class="meal-details-header">
               <diet-square-cancel-button (click)="onCancelButtonClick()"></diet-square-cancel-button>
               <diet-square-confirm-button (click)="onConfirmButtonClick()"></diet-square-confirm-button>
@@ -27,7 +27,7 @@ import { SelectProductDialogComponent } from '../../product/select-product-dialo
           <diet-entity-info
                   class="meal-details-info"
                   [placeholderKeys]="MEAL_PLACEHOLDER_KEYS"
-                  [infoFormGroup]="form">
+                  [infoFormGroup]="getForm()">
           </diet-entity-info>
           <diet-entity-item-table
                   class="meal-details-prices-table"
@@ -50,6 +50,8 @@ import { SelectProductDialogComponent } from '../../product/select-product-dialo
   ]
 })
 export class MealDetailsComponent implements OnInit, OnDestroy {
+
+  shouldBeEditable: boolean = true;
 
   readonly MEAL_PLACEHOLDER_KEYS: DietEntityInfoPlaceholderKeys = {
     name: 'MEAL.NAME_PLACEHOLDER',
@@ -80,7 +82,10 @@ export class MealDetailsComponent implements OnInit, OnDestroy {
   private patchFormOnMealSelected(): void {
     this.getSelectedMeal$()
       .pipe(takeUntilDestroy(this))
-      .subscribe((meal) => this.formService.patchForm(meal));
+      .subscribe((meal) => {
+        this.shouldBeEditable = !meal.public;
+        this.formService.patchForm(meal);
+      });
   }
 
   private getSelectedMeal$(): Observable<Meal> {
@@ -99,8 +104,17 @@ export class MealDetailsComponent implements OnInit, OnDestroy {
     );
   }
 
+  getForm(): FormGroup {
+    if (!this.shouldBeEditable) {
+      this.form.disable();
+    }
+    return this.form;
+  }
+
   getIngredientsForm(): FormArray {
-    return this.formService.getIngredientsForm();
+    return this.shouldBeEditable ?
+      this.formService.getIngredientsForm() :
+      this.formService.getDisabledIngredientsForm();
   }
 
   getSummaryForm(): FormGroup {

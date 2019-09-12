@@ -58,6 +58,12 @@ export class MealDetailsFormService {
     return this.form.get('ingredients') as FormArray;
   }
 
+  getDisabledIngredientsForm(): FormArray {
+    const ingredientsForm = this.getIngredientsForm();
+    ingredientsForm.disable();
+    return ingredientsForm;
+  }
+
   getSummaryForm(): FormGroup {
     return this.form.get('summary') as FormGroup;
   }

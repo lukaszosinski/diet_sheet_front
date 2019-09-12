@@ -29,7 +29,7 @@ import { OnDestroyAbstract } from '../../../../shared/utils/abstract-injectables
                   class="product-details-info"
                   [placeholderKeys]="PRODUCT_PLACEHOLDER_KEYS"
                   [displayUnits]="true"
-                  [infoFormGroup]="form">
+                  [infoFormGroup]="getForm()">
           </diet-entity-info>
           <diet-entity-item-table
                   class="product-details-prices-table"
