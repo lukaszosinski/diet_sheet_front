@@ -22,7 +22,10 @@ import { SelectProductDialogComponent } from '../../product/select-product-dialo
       <form class="meal-details-wrapper" [formGroup]="getForm()">
           <div class="meal-details-header">
               <diet-square-cancel-button (click)="onCancelButtonClick()"></diet-square-cancel-button>
-              <diet-square-confirm-button (click)="onConfirmButtonClick()"></diet-square-confirm-button>
+              <diet-square-confirm-button
+                      (click)="onConfirmButtonClick()"
+                      *ngIf="shouldBeEditable">
+              </diet-square-confirm-button>
           </div>
           <diet-entity-info
                   class="meal-details-info"
