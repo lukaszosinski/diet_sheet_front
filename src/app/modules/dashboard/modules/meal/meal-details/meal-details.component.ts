@@ -19,18 +19,18 @@ import { SelectProductDialogComponent } from '../../product/select-product-dialo
 @Component({
   selector: 'diet-meal-details',
   template: `
-      <form class="meal-details-wrapper" [formGroup]="getForm()">
+      <form class="meal-details-wrapper" [formGroup]="form">
           <div class="meal-details-header">
               <diet-square-cancel-button (click)="onCancelButtonClick()"></diet-square-cancel-button>
               <diet-square-confirm-button
                       (click)="onConfirmButtonClick()"
-                      *ngIf="shouldBeEditable">
+                      *ngIf="!form.disabled">
               </diet-square-confirm-button>
           </div>
           <diet-entity-info
                   class="meal-details-info"
                   [placeholderKeys]="MEAL_PLACEHOLDER_KEYS"
-                  [infoFormGroup]="getForm()">
+                  [infoFormGroup]="form">
           </diet-entity-info>
           <diet-entity-item-table
                   class="meal-details-prices-table"
@@ -53,8 +53,6 @@ import { SelectProductDialogComponent } from '../../product/select-product-dialo
   ]
 })
 export class MealDetailsComponent implements OnInit, OnDestroy {
-
-  shouldBeEditable: boolean = true;
 
   readonly MEAL_PLACEHOLDER_KEYS: DietEntityInfoPlaceholderKeys = {
     name: 'MEAL.NAME_PLACEHOLDER',
@@ -86,8 +84,10 @@ export class MealDetailsComponent implements OnInit, OnDestroy {
     this.getSelectedMeal$()
       .pipe(takeUntilDestroy(this))
       .subscribe((meal) => {
-        this.shouldBeEditable = !meal.public;
         this.formService.patchForm(meal);
+        if (meal.public) {
+          this.form.disable();
+        }
       });
   }
 
@@ -107,17 +107,8 @@ export class MealDetailsComponent implements OnInit, OnDestroy {
     );
   }
 
-  getForm(): FormGroup {
-    if (!this.shouldBeEditable) {
-      this.form.disable();
-    }
-    return this.form;
-  }
-
   getIngredientsForm(): FormArray {
-    return this.shouldBeEditable ?
-      this.formService.getIngredientsForm() :
-      this.formService.getDisabledIngredientsForm();
+    return this.formService.getIngredientsForm();
   }
 
   getSummaryForm(): FormGroup {

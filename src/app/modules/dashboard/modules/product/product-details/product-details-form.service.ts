@@ -60,18 +60,6 @@ export class ProductDetailsFormService {
     return this.form.get('summary') as FormGroup;
   }
 
-  getDisabledPriceArrayForm(): FormArray {
-    const priceArrayForm = this.getPriceArrayForm();
-    priceArrayForm.disable();
-    return priceArrayForm;
-  }
-
-  getDisabledSummaryForm(): FormGroup {
-    const summaryForm = this.getSummaryForm();
-    summaryForm.disable();
-    return summaryForm;
-  }
-
   addPriceForm(): void {
     this.getPriceArrayForm().push(this.createPriceForm());
   }
@@ -82,8 +70,9 @@ export class ProductDetailsFormService {
 
   getProductFromValue(): Product {
     const product = this.form.value;
-    return {...product, prices: this.getPriceArrayForm().controls.filter(
-      control => control.valid).map(control => control.value)
+    return {
+      ...product, prices: this.getPriceArrayForm().controls.filter(
+        control => control.valid).map(control => control.value)
     };
   }
 }

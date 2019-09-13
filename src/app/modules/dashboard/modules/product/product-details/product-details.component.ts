@@ -17,19 +17,19 @@ import { OnDestroyAbstract } from '../../../../shared/utils/abstract-injectables
 @Component({
   selector: 'diet-product-details',
   template: `
-      <form class="product-details-wrapper" [formGroup]="getForm()">
+      <form class="product-details-wrapper" [formGroup]="form">
           <div class="product-details-header">
               <diet-square-cancel-button (click)="onCancelButtonClick()"></diet-square-cancel-button>
               <diet-square-confirm-button
                       (click)="onConfirmButtonClick()"
-                      *ngIf="shouldBeEditable">
+                      *ngIf="!form.disabled">
               </diet-square-confirm-button>
           </div>
           <diet-entity-info
                   class="product-details-info"
                   [placeholderKeys]="PRODUCT_PLACEHOLDER_KEYS"
                   [displayUnits]="true"
-                  [infoFormGroup]="getForm()">
+                  [infoFormGroup]="form">
           </diet-entity-info>
           <diet-entity-item-table
                   class="product-details-prices-table"
@@ -53,12 +53,11 @@ import { OnDestroyAbstract } from '../../../../shared/utils/abstract-injectables
 })
 export class ProductDetailsComponent extends OnDestroyAbstract implements OnInit {
 
-  shouldBeEditable: boolean = true;
-
   readonly PRODUCT_PLACEHOLDER_KEYS: DietEntityInfoPlaceholderKeys = {
     name: 'PRODUCT.NAME_PLACEHOLDER',
     description: 'PRODUCT.DESCRIPTION_PLACEHOLDER',
   };
+
   readonly form: FormGroup;
 
   constructor(private store: Store<AppState>,
@@ -91,8 +90,10 @@ export class ProductDetailsComponent extends OnDestroyAbstract implements OnInit
     this.getSelectedProduct$()
       .pipe(takeUntilDestroy(this))
       .subscribe((product) => {
-        this.shouldBeEditable = !product.public;
         this.formService.patchForm(product);
+        if (product.public) {
+          this.form.disable();
+        }
       });
   }
 
@@ -105,17 +106,8 @@ export class ProductDetailsComponent extends OnDestroyAbstract implements OnInit
       ) as Observable<Product>;
   }
 
-  getForm(): FormGroup {
-    if (!this.shouldBeEditable) {
-      this.form.disable();
-    }
-    return this.form;
-  }
-
   getPricesForm(): FormArray {
-    return this.shouldBeEditable ?
-      this.formService.getPriceArrayForm() :
-      this.formService.getDisabledPriceArrayForm();
+    return this.formService.getPriceArrayForm();
   }
 
   onAddPriceClick(): void {
@@ -127,9 +119,7 @@ export class ProductDetailsComponent extends OnDestroyAbstract implements OnInit
   }
 
   getSummaryFormGroup(): FormGroup {
-    return this.shouldBeEditable ?
-      this.formService.getSummaryForm() :
-      this.formService.getDisabledSummaryForm();
+    return this.formService.getSummaryForm();
   }
 
   onConfirmButtonClick(): void {
