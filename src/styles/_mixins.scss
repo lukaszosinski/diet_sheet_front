@@ -49,7 +49,7 @@
   }
 }
 
-// arrow points down by default
+// arrow points up by default
 @mixin arrow($size, $rotate: 0deg, $withHover: false) {
   background: url(~src/assets/images/icons/arrow.png) no-repeat;
   height: $size;

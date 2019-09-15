@@ -2,8 +2,6 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { AppState } from '../../../../app.recuder';
-import * as fromDayPlan from './day-plan.reducer';
-import * as DayPlanActions from './day-plan.actions';
 import { addDays, getDay, parseFromIsoDate } from '../../../shared/utils/date-utils';
 import { DayMeal } from '../../../../api/models/day-meal.model';
 import { combineLatest, filter, map } from 'rxjs/operators';
@@ -15,9 +13,13 @@ import { Day } from '../../../../api/models/day';
 import { SelectMealDialogComponent } from '../meal/select-meal-dialog/select-meal-dialog.component';
 import { Summary } from '../../../diet-entity/summary.model';
 import { OnDestroyAbstract } from '../../../shared/utils/abstract-injectables/on-destroy-abstract';
+import { ActivatedRoute, Router } from '@angular/router';
+import { DietLimits } from '../../../settings/models/diet-limits.model';
+import * as fromDayPlan from './day-plan.reducer';
+import * as DayPlanActions from './day-plan.actions';
 import * as fromMeal from '../meal/meal.reducer';
 import * as MealActions from '../meal/meal.actions';
-import { ActivatedRoute, Router } from '@angular/router';
+import * as fromSettings from '../../../settings/settings.reducer';
 
 @Component({
   selector: 'diet-day-plan',
@@ -48,8 +50,9 @@ import { ActivatedRoute, Router } from '@angular/router';
                                [isExpanded]="shouldExpandStats() | async"
                                (toggleExpansion)="onToggleExpansion()"
                                [summary]="getSelectedDayPlanSummary() | async"
-                               [eatenMealsSummary]="getSelectedDayPlanEatenMealsSummary() | async">
-          </diet-day-plan-stats>
+                               [eatenMealsSummary]="getSelectedDayPlanEatenMealsSummary() | async"
+                               [dietLimits]="getDietLimits$() | async"
+          ></diet-day-plan-stats>
       </div>
   `,
   styleUrls: [ './day-plan.component.scss' ],
@@ -156,6 +159,10 @@ export class DayPlanComponent extends OnDestroyAbstract implements OnInit {
 
   getSelectedDayPlanEatenMealsSummary(): Observable<Summary | undefined> {
     return this.store.select(fromDayPlan.selectSelectedDayPlanEatenMealsSummary);
+  }
+
+  getDietLimits$(): Observable<DietLimits | undefined> {
+    return this.store.select(fromSettings.selectDietLimits);
   }
 
   onAddMealButtonClick(): void {

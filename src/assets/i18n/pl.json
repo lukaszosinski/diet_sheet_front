@@ -6,6 +6,8 @@
   },
   "COMMON": {
     "EMAIL": "Email",
+    "MIN_VALUE": "Minimalna wartość",
+    "MAX_VALUE": "Maksymalna wartość",
     "NAME": "Nazwa",
     "INGREDIENTS": "Składniki",
     "PASSWORD": "Hasło",

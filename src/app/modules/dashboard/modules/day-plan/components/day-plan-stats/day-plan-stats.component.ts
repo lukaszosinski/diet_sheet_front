@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { Summary } from '../../../../../diet-entity/summary.model';
+import { DietLimits } from '../../../../../settings/models/diet-limits.model';
 
 @Component({
   selector: 'diet-day-plan-stats',
@@ -12,8 +13,10 @@ import { Summary } from '../../../../../diet-entity/summary.model';
           </button>
           <diet-stats-meter *ngFor="let meterData of metersData"
                             class="diet-stats-meter"
-                            [value]="eatenMealsSummary[meterData.propertyName]"
-                            [max]="summary[meterData.propertyName]"
+                            [value]="getValue(meterData.propertyName)"
+                            [total]="getTotalValue(meterData.propertyName)"
+                            [lowValue]="getLowValue(meterData.propertyName)"
+                            [highValue]="getHighValue(meterData.propertyName)"
                             [meterName]="meterData.translationKey | translate"
                             [unit]="meterData.unit"
           ></diet-stats-meter>
@@ -34,11 +37,28 @@ export class DayPlanStatsComponent {
 
   @Input() isExpanded: boolean = false;
   @Input() summary!: Summary;
-  @Input() eatenMealsSummary?: Summary;
+  @Input() dietLimits?: DietLimits;
+  @Input() eatenMealsSummary!: Summary;
   @Output() toggleExpansion: EventEmitter<void> = new EventEmitter();
 
   onArrowClick(): void {
     this.toggleExpansion.emit();
+  }
+
+  getValue(propertyName: keyof Summary): number {
+    return this.eatenMealsSummary[propertyName]!;
+  }
+
+  getLowValue(propertyName: keyof Summary): number | undefined {
+    return this.dietLimits && this.dietLimits.minLimits[propertyName];
+  }
+
+  getTotalValue(propertyName: keyof Summary): number {
+    return this.summary[propertyName]!;
+  }
+
+  getHighValue(propertyName: keyof Summary): number | undefined {
+    return this.dietLimits && this.dietLimits.maxLimits[propertyName] || undefined;
   }
 }
 

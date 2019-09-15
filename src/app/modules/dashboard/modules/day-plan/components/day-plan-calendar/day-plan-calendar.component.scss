@@ -15,12 +15,11 @@ $selected-day-size: 11rem;
   &-arrow-right {
     content: "";
     border-top: 0.75 * $list-arrow-size solid transparent;
-    border-bottom: 0.75* $list-arrow-size solid transparent;
+    border-bottom: 0.75 * $list-arrow-size solid transparent;
     outline: none;
   }
 
   &-arrow-left {
-
     border-right: $list-arrow-size solid $fontColor;
 
     &:focus, :hover {
