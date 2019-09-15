@@ -10,6 +10,7 @@
     "INGREDIENTS": "Składniki",
     "PASSWORD": "Hasło",
     "QUANTITY": "Ilość",
+    "SAVE": "Zapisz",
     "DAY": {
       "0": "niedziela",
       "1": "poniedziałek",
@@ -40,6 +41,30 @@
       "PIECE": "sztuka",
       "HUNDRED_MILLILITERS": "100 mililitrów",
       "KILOGRAM": "kilogram"
+    },
+    "SexEnum": {
+      "MALE": "Mężczyzna",
+      "FEMALE": "Kobieta",
+      "UNDEFINED": ""
+    },
+    "BMIStatusEnum": {
+      "OBESITY": "Otyłość",
+      "UNDERWEIGHT": "Niedowaga",
+      "CORRECT_WEIGHT": "Prawidłowa waga",
+      "OVERWEIGHT": "Nadwaga"
+    },
+    "PhysicalActivityEnum": {
+      "VERY_LOW": "Bardzo niska",
+      "LOW": "Niska",
+      "MEDIUM": "Średnia",
+      "HIGH": "Wysoka",
+      "VERY_HIGH": "Bardzo wysoka"
+    },
+    "DietLimitsCalculationStrategyEnum": {
+      "KEEP_WEIGHT": "Utrzymanie wagi",
+      "LOSE_WEIGHT": "Utrata wagi",
+      "BUILD_MASS": "Podniesienie wagi",
+      "MANUAL": "Własne ustawienia diety"
     }
   },
   "DASHBOARD": {
@@ -107,6 +132,26 @@
     "NAME_PLACEHOLDER": "Nazwa produktu",
     "PRICE": "Cena",
     "SHOP": "Sklep"
+  },
+  "SETTINGS": {
+    "DIET_LIMITS_NOT_FOUND": "Nie posiadasz jeszcze ustawień diety",
+    "LOAD_DIET_LIMITS_ERROR": "Nie udało się załadować limitów diety",
+    "LOAD_PREFERENCES_ERROR": "Nie udało się załadować preferencji użytkownika",
+    "LOAD_USER_DATA_ERROR": "Nie udało się załadować danych użytkownika",
+    "SET_DIET_LIMITS": "Ustaw",
+    "UPDATE_DIET_LIMITS_ERROR": "Nie udało się ustawić limitów diety",
+    "UPDATE_SETTINGS_ERROR": "Nie udało się zmienić danych",
+    "LABELS": {
+      "age": "Wiek",
+      "height": "Wzrost",
+      "weight": "Waga",
+      "sex": "Płeć",
+      "bmiStatus": "Twoje BMI",
+      "physicalActivity": "Aktywność fizyczna",
+      "minLimits": "Potrzebujesz prznajmniej",
+      "maxLimits": "Nie powinieneś spożywać więcej niż",
+      "strategyEnum": "Cel"
+    }
   },
   "SUMMARY": {
     "KCAL": "Kalorie",

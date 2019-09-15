@@ -12,6 +12,7 @@ import * as fromDashboard from './dashboard.reducer';
 import { DashboardScrollPositionService } from './dashboard-scroll-position.service';
 import { FridgeComponent } from './dashboard-navigation/fridge/fridge.component';
 import { DashboardNavigationService } from './dashboard-navigation/dashboard-navigation.service';
+import { SettingsModule } from '../settings/settings.module';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { DashboardNavigationService } from './dashboard-navigation/dashboard-nav
     DashboardRoutingModule,
     SharedLazyModule,
     StoreModule.forFeature(fromDashboard.dashboardFeatureKey, fromDashboard.reducer),
+    SettingsModule,
   ],
   providers: [
     DashboardNavigationService,

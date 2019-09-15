@@ -12,7 +12,7 @@ export class ApiEffects {
   showApiErrorMessage$ = createEffect(() => this.actions$.pipe(
     map((action: Partial<ApiAction>) => action.errorMessageKey),
     filter((errorMessageKey) => !!errorMessageKey),
-    tap((errorMessageKey: string | undefined) => this.snackBar.open(errorMessageKey as string))
+    tap((errorMessageKey) => this.snackBar.open(errorMessageKey!))
   ), { dispatch: false });
 
   constructor(private actions$: Actions,
