@@ -7,11 +7,11 @@ import { Price } from '../price.model';
 @Injectable()
 export class ProductDetailsFormService {
 
+  readonly form: FormGroup;
+
   constructor(private fb: FormBuilder) {
     this.form = this.createForm();
   }
-
-  readonly form: FormGroup;
 
   private createForm(): FormGroup {
     return this.fb.group({

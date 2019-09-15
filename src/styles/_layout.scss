@@ -24,6 +24,10 @@ $default-border-radius: 2rem;
 
 $header-width: 70%;
 
+$formMarginBottom: 1rem;
+$formMarginX: 0;
+$formMargin: 0 $formMarginX $formMarginBottom;
+
 html {
   height: 100%;
   overflow: auto;

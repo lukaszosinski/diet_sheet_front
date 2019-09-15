@@ -88,3 +88,16 @@
   border-radius: $default-border-radius;
   background-color: transparent;
 }
+
+@mixin diet-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  & > * {
+    width: 100%;
+    margin: $formMargin;
+  }
+}
