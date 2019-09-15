@@ -1,6 +1,10 @@
 @mixin image-class($image-url) {
-  background-image: url($image-url);
+  background: url($image-url) no-repeat;
   background-size: contain;
+}
+
+.pen-img {
+  @include image-class("src/assets/images/icons/pen.png");
 }
 
 .kcal-img {

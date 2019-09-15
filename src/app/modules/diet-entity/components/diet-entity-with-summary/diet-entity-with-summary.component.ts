@@ -5,6 +5,7 @@ import { DietEntity } from '../../diet-entity.model';
   selector: 'diet-entity-with-summary',
   template: `
       <div class="diet-entity-content" tabindex="0" (keyup.space)="onClick($event)">
+          <div *ngIf="isEditable" class="pen-icon pen-img"></div>
           <div class="diet-entity-content-name">{{dietEntity.name}}</div>
           <diet-summary [summary]="dietEntity.summary" [wrap]="true" [theme]="'alternative'"></diet-summary>
       </div>
@@ -13,6 +14,7 @@ import { DietEntity } from '../../diet-entity.model';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DietEntityWithSummaryComponent {
+  @Input() isEditable!: boolean;
   @Input() dietEntity!: DietEntity;
   @Output() click: EventEmitter<Event> = new EventEmitter<Event>();
 

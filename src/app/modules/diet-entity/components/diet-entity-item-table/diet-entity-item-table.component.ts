@@ -16,14 +16,18 @@ import { takeUntilDestroy } from '../../../shared/utils/rxjs-utils';
               </div>
               <ng-container *ngFor="let item of itemsFormArray.controls; let i = index">
                   <div [formGroupName]="i" class="diet-entity-item-table-row">
-                      <div class="diet-entity-item-table-row-delete" (click)="onDeleteClick(i)"></div>
+                      <div *ngIf="!itemsFormArray.disabled" class="diet-entity-item-table-row-delete" (click)="onDeleteClick(i)"></div>
                       <input class="diet-entity-item-table-row-name" formControlName="name">
                       <input type="number" class="diet-entity-item-table-row-quantity" formControlName="amount">
                       <div class="diet-entity-item-table-row-unit">{{'DIET_ENTITY.UNIT.' + getUnit(i) | translate}}</div>
                   </div>
               </ng-container>
           </div>
-          <diet-add-button class="diet-entity-item-table-add-item" (click)="onAddButtonClick($event)"></diet-add-button>
+          <diet-add-button
+                  *ngIf="!itemsFormArray.disabled"
+                  class="diet-entity-item-table-add-item"
+                  (click)="onAddButtonClick($event)">
+          </diet-add-button>
       </div>
   `,
   styleUrls: [ './diet-entity-item-table.component.scss' ],

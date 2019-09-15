@@ -20,7 +20,10 @@ import { OnDestroyAbstract } from '../../../../shared/utils/abstract-injectables
       <form class="product-details-wrapper" [formGroup]="form">
           <div class="product-details-header">
               <diet-square-cancel-button (click)="onCancelButtonClick()"></diet-square-cancel-button>
-              <diet-square-confirm-button (click)="onConfirmButtonClick()"></diet-square-confirm-button>
+              <diet-square-confirm-button
+                      (click)="onConfirmButtonClick()"
+                      *ngIf="!form.disabled">
+              </diet-square-confirm-button>
           </div>
           <diet-entity-info
                   class="product-details-info"
@@ -38,7 +41,8 @@ import { OnDestroyAbstract } from '../../../../shared/utils/abstract-injectables
           </diet-entity-item-table>
           <diet-entity-summary
                   class="product-details-summary"
-                  [summaryFormGroup]="getSummaryFormGroup()"></diet-entity-summary>
+                  [summaryFormGroup]="getSummaryFormGroup()">
+          </diet-entity-summary>
       </form>
   `,
   styleUrls: [ './product-details.component.scss' ],
@@ -53,6 +57,7 @@ export class ProductDetailsComponent extends OnDestroyAbstract implements OnInit
     name: 'PRODUCT.NAME_PLACEHOLDER',
     description: 'PRODUCT.DESCRIPTION_PLACEHOLDER',
   };
+
   readonly form: FormGroup;
 
   constructor(private store: Store<AppState>,
@@ -84,7 +89,12 @@ export class ProductDetailsComponent extends OnDestroyAbstract implements OnInit
   private patchFormOnProductSelected(): void {
     this.getSelectedProduct$()
       .pipe(takeUntilDestroy(this))
-      .subscribe((product) => this.formService.patchForm(product));
+      .subscribe((product) => {
+        this.formService.patchForm(product);
+        if (product.public) {
+          this.form.disable();
+        }
+      });
   }
 
   private getSelectedProduct$(): Observable<Product> {

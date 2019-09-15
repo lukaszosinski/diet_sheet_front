@@ -22,7 +22,10 @@ import { SelectProductDialogComponent } from '../../product/select-product-dialo
       <form class="meal-details-wrapper" [formGroup]="form">
           <div class="meal-details-header">
               <diet-square-cancel-button (click)="onCancelButtonClick()"></diet-square-cancel-button>
-              <diet-square-confirm-button (click)="onConfirmButtonClick()"></diet-square-confirm-button>
+              <diet-square-confirm-button
+                      (click)="onConfirmButtonClick()"
+                      *ngIf="!form.disabled">
+              </diet-square-confirm-button>
           </div>
           <diet-entity-info
                   class="meal-details-info"
@@ -80,7 +83,12 @@ export class MealDetailsComponent implements OnInit, OnDestroy {
   private patchFormOnMealSelected(): void {
     this.getSelectedMeal$()
       .pipe(takeUntilDestroy(this))
-      .subscribe((meal) => this.formService.patchForm(meal));
+      .subscribe((meal) => {
+        this.formService.patchForm(meal);
+        if (meal.public) {
+          this.form.disable();
+        }
+      });
   }
 
   private getSelectedMeal$(): Observable<Meal> {
