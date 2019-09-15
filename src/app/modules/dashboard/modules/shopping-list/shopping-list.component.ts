@@ -172,7 +172,7 @@ export class ShoppingListComponent extends OnDestroyAbstract implements OnInit {
   private getShoppingListItemsWithCorrectedLength(shoppingListItems: ShoppingListItem[] = []): (ShoppingListItem | undefined)[] {
     return [
       ...shoppingListItems,
-      ...new Array(this.MIN_SHOPPING_LIST_ITEMS_LENGTH - shoppingListItems.length).fill(undefined)
+      ...new Array(Math.max(this.MIN_SHOPPING_LIST_ITEMS_LENGTH - shoppingListItems.length, 0)).fill(undefined)
     ];
   }
 
