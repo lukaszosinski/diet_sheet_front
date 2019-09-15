@@ -93,21 +93,34 @@ export class SettingsComponent extends OnDestroyAbstract implements OnInit {
   }
 
   ngOnInit(): void {
+    this.loadDietLimits();
+    this.loadUserData();
+    this.loadPreferences();
+  }
+
+  private loadUserData(): void {
     this.store.dispatch(SettingsActions.loadUserData());
-    this.store.dispatch(SettingsActions.loadPreferences());
-    this.selectDietLimits()
-      .subscribe((dietLimits) => {
-        this.dietLimitsForm.patchValue(dietLimits);
-        this.changeDetectorRef.markForCheck();
-      });
     this.selectUserData()
       .subscribe((userData) => {
         this.userDataForm.patchValue(userData);
         this.changeDetectorRef.markForCheck();
       });
+  }
+
+  private loadPreferences(): void {
+    this.store.dispatch(SettingsActions.loadPreferences());
     this.selectUserPreferences()
       .subscribe((preferences) => {
         this.userPreferencesForm.patchValue(preferences);
+        this.changeDetectorRef.markForCheck();
+      });
+  }
+
+  private loadDietLimits(): void {
+    this.store.dispatch(SettingsActions.loadDietLimits());
+    this.selectDietLimits()
+      .subscribe((dietLimits) => {
+        this.dietLimitsForm.patchValue(dietLimits);
         this.changeDetectorRef.markForCheck();
       });
   }
@@ -190,7 +203,7 @@ export class SettingsComponent extends OnDestroyAbstract implements OnInit {
   }
 
   onSaveUserDataClick(): void {
-    const dietLimits = { ...this.dietLimitsForm.value, id: 333 };
+    const dietLimits = this.dietLimitsForm.value;
     this.areDietLimitsChanged(dietLimits).subscribe((areLimitsChanged) => {
       const userData: UserData = this.userDataForm.value;
       if (areLimitsChanged) {
