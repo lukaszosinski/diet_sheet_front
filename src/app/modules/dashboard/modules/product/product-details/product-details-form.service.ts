@@ -70,9 +70,9 @@ export class ProductDetailsFormService {
 
   getProductFromValue(): Product {
     const product = this.form.value;
-    return {
-      ...product, prices: this.getPriceArrayForm().controls.filter(
-        control => control.valid).map(control => control.value)
-    };
+    const prices = this.getPriceArrayForm().controls
+      .filter(control => control.valid)
+      .map(control => control.value);
+    return { ...product, prices };
   }
 }
