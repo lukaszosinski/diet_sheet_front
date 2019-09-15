@@ -17,8 +17,8 @@ import { DashboardNavigationDataEnum } from '../dashboard-navigation-data.enum';
                    (click)="onNavigationClick(DashboardNavigationDataEnum.DAY_PLAN)"
               ></div>
               <div class="diet-fridge-shopping-list"
-                   [title]="getTitle(DashboardNavigationDataEnum.SHOPPING_LIST) | translate"
-                   (click)="onNavigationClick(DashboardNavigationDataEnum.SHOPPING_LIST)"
+                   [title]="getTitle(DashboardNavigationDataEnum.SAVED_SHOPPING_LISTS) | translate"
+                   (click)="onNavigationClick(DashboardNavigationDataEnum.SAVED_SHOPPING_LISTS)"
               ></div>
               <div class="diet-fridge-my-diet"
                    [title]="getTitle(DashboardNavigationDataEnum.MY_DIET) | translate"

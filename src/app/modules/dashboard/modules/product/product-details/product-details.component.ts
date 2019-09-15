@@ -33,7 +33,8 @@ import { OnDestroyAbstract } from '../../../../shared/utils/abstract-injectables
                   [tableTitle]="'PRODUCT.PRICE' | translate"
                   [columnHeaders]="['PRODUCT.SHOP' | translate]"
                   [itemsFormArray]="getPricesForm()"
-                  (addButtonClick)="onAddPriceClick()">
+                  (addButtonClick)="onAddPriceClick()"
+                  (deleteClick)="onDeletePriceClick($event)">
           </diet-entity-item-table>
           <diet-entity-summary
                   class="product-details-summary"
@@ -101,6 +102,10 @@ export class ProductDetailsComponent extends OnDestroyAbstract implements OnInit
 
   onAddPriceClick(): void {
     this.formService.addPriceForm();
+  }
+
+  onDeletePriceClick(i: number): void {
+    this.formService.removePriceForm(i);
   }
 
   getSummaryFormGroup(): FormGroup {
