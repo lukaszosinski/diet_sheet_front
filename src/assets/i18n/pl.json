@@ -5,6 +5,7 @@
     "SIGN_OUT_ERROR": "Wystapił błąd podczas wylogowania"
   },
   "COMMON": {
+    "APP_NAME": "PanTree",
     "EMAIL": "Email",
     "MIN_VALUE": "Minimalna wartość",
     "MAX_VALUE": "Maksymalna wartość",
@@ -113,7 +114,6 @@
     "TO_DATE": "DO"
   },
   "LANDING_PAGE": {
-    "WELCOME": "Witaj w DIET",
     "SIGN_IN": "Zaloguj się",
     "SIGN_UP": "Zarejestruj się",
     "CONFIRM_PASSWORD": "Potwierdź hasło"

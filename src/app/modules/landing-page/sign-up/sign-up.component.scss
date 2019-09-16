@@ -5,6 +5,13 @@
   align-items: center;
   height: 100%;
 
+  img {
+    width: 10rem;
+    height: 20rem;
+    margin-bottom: 1rem;
+    transform: rotate(5deg);
+  }
+
   form {
     max-width: 20rem;
   }

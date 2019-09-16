@@ -3,15 +3,14 @@
 
 :host {
   $height: 0.75rem;
-  $topOffset: $height + ($formMarginBottom - $height) * 0.6;
   color: $dangerColor;
   margin: 0;
   font-size: $height;
   line-height: $height;
   position: relative;
-  top: -$topOffset;
+  top: -$height;
 
   &.ng-touched.ng-invalid {
-    margin-bottom: -$height;
+    margin-bottom: $formMarginBottom - $height;
   }
 }
