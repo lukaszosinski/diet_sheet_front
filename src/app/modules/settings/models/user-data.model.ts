@@ -4,7 +4,7 @@ import { PhysicalActivityEnum } from './physical-activity.enum';
 
 export interface UserData {
   id?: number;
-  age: number;
+  birthDate: number;
   height: number;
   weight: number;
   sex: SexEnum;

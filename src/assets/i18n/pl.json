@@ -144,7 +144,7 @@
     "UPDATE_DIET_LIMITS_ERROR": "Nie udało się ustawić limitów diety",
     "UPDATE_SETTINGS_ERROR": "Nie udało się zmienić danych",
     "LABELS": {
-      "age": "Wiek",
+      "birthDate": "Data urodzenia",
       "height": "Wzrost",
       "weight": "Waga",
       "sex": "Płeć",

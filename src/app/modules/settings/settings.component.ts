@@ -25,7 +25,8 @@ import * as SettingsActions from './settings.actions';
           <div class="diet-settings-card">
               <div class="user-data-form" [formGroup]="userDataForm">
                   <h1 class="user-data-form-header">Dane użytkownika</h1>
-                  <diet-input [type]="'number'" [label]="'SETTINGS.LABELS.age' | translate" formControlName="age"></diet-input>
+                  <diet-date-input [startView]="'multi-year'" [label]="'SETTINGS.LABELS.birthDate' | translate"
+                                   formControlName="birthDate"></diet-date-input>
                   <diet-input [type]="'number'" [label]="'SETTINGS.LABELS.height' | translate" formControlName="height"></diet-input>
                   <diet-input [type]="'number'" [label]="'SETTINGS.LABELS.weight' | translate" formControlName="weight"></diet-input>
                   <diet-select [optionsEnum]="SexEnum"
@@ -127,7 +128,7 @@ export class SettingsComponent extends OnDestroyAbstract implements OnInit {
 
   private createUserDataForm(): FormGroup {
     return this.fb.group({
-      age: undefined,
+      birthDate: undefined,
       height: undefined,
       weight: undefined,
       sex: SexEnum.UNDEFINE,
@@ -234,6 +235,5 @@ export class SettingsComponent extends OnDestroyAbstract implements OnInit {
       strategyEnum: DietLimitsCalculationStrategyEnum.MANUAL,
     });
     this.changeDetectorRef.markForCheck();
-    console.log(this.userPreferencesForm.value);
   }
 }
