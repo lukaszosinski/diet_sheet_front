@@ -57,17 +57,17 @@ export class StatsMeterComponent implements AfterViewInit, OnChanges {
     if (this.lowValue) {
       this.meterElement.nativeElement.low = this.lowValue;
     }
-    if (this.shouldDisplayValueElements) {
-      this.setValueElementsPositions();
-    }
+    this.setValueElementsPositions();
   }
 
   private setValueElementsPositions(): void {
-    const meterWidth = this.meterElement.nativeElement.clientWidth;
-    const minValueElement = this.minValueElement.nativeElement;
-    const maxValueElement = this.maxValueElement.nativeElement;
-    this.setValueElementPosition(minValueElement, meterWidth * this.lowValue! / this.max - minValueElement.offsetWidth / 2 - 2);
-    this.setValueElementPosition(maxValueElement, meterWidth * this.highValue! / this.max - maxValueElement.offsetWidth / 2 - 2);
+    if (this.shouldDisplayValueElements) {
+      const meterWidth = this.meterElement.nativeElement.clientWidth;
+      const minValueElement = this.minValueElement.nativeElement;
+      const maxValueElement = this.maxValueElement.nativeElement;
+      this.setValueElementPosition(minValueElement, meterWidth * this.lowValue! / this.max - minValueElement.offsetWidth / 2 - 2);
+      this.setValueElementPosition(maxValueElement, meterWidth * this.highValue! / this.max - maxValueElement.offsetWidth / 2 - 2);
+    }
   }
 
   private setValueElementPosition(arrow: HTMLDivElement, leftOffset: number): void {
@@ -75,7 +75,9 @@ export class StatsMeterComponent implements AfterViewInit, OnChanges {
   }
 
   ngOnChanges(): void {
-
+    if (!!this.minValueElement && !!this.maxValueElement) {
+      this.setValueElementsPositions();
+    }
   }
 
   get max(): number {
