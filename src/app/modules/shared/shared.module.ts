@@ -7,7 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ValidationMessageComponent } from './components/validation-error/validation-message.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { SelectComponent } from './components/select/select.component';
-import { MatFormFieldModule, MatInputModule, MatSelectModule } from '@angular/material';
+import { MatButtonModule, MatFormFieldModule, MatInputModule, MatSelectModule } from '@angular/material';
 import { InputComponent } from './components/input/input.component';
 
 const components: any[] = [
@@ -24,6 +24,7 @@ const modules: any[] = [
   MatFormFieldModule,
   MatInputModule,
   MatSelectModule,
+  MatButtonModule,
 ];
 
 @NgModule({

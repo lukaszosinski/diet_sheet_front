@@ -71,11 +71,6 @@
   cursor: pointer;
   height: 1rem;
   width: 1rem;
-
-  &:focus, &:hover {
-    background-color: transparentize($primaryColor, 0.8);
-    border-radius: 50%;
-  }
 }
 
 @mixin card-with-border($width, $border-color: $primaryColor, $color: $secondaryColor, $shadow-ratio: 5rem) {

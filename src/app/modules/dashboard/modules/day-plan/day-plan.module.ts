@@ -15,6 +15,7 @@ import { StatsMeterComponent } from './components/stats-metter/stats-meter.compo
 import { MatDialogModule } from '@angular/material';
 import { MealModule } from '../meal/meal.module';
 import { DietEntityModule } from '../../../diet-entity/diet-entity.module';
+import { SharedModule } from '../../../shared/shared.module';
 
 
 @NgModule({
@@ -34,6 +35,7 @@ import { DietEntityModule } from '../../../diet-entity/diet-entity.module';
     MatDialogModule,
     MealModule,
     DietEntityModule,
+    SharedModule,
   ],
 })
 export class DayPlanModule {
