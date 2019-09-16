@@ -31,7 +31,7 @@ import * as fromSettings from '../../../settings/settings.reducer';
           ></diet-day-plan-calendar>
           <div class="diet-day-plan-meals">
               <ul *ngIf="(shouldDisplayDayPlanMeals() | async)" class="diet-day-plan-meal-list">
-                  <li *ngFor="let dayMeal of (getSelectedDayPlanDayMeals() | async)">
+                  <li *ngFor="let dayMeal of (getSelectedDayPlanDayMeals() | async); trackBy: getDayMealId">
                       <diet-day-plan-meal
                               (click)="onDayMealClick(dayMeal)"
                               [dayMeal]="dayMeal"
@@ -163,6 +163,10 @@ export class DayPlanComponent extends OnDestroyAbstract implements OnInit {
 
   getDietLimits$(): Observable<DietLimits | undefined> {
     return this.store.select(fromSettings.selectDietLimits);
+  }
+
+  getDayMealId(dayMeal: DayMeal): number {
+    return dayMeal.id;
   }
 
   onAddMealButtonClick(): void {
