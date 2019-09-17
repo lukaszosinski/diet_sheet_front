@@ -35,35 +35,38 @@ $selected-day-size: 11rem;
     }
   }
 
-  &-redirect-button,
+  &-button,
   &-list-item {
     box-shadow: 0.1rem 0.2rem 0.5rem 0 $light--shadow;
   }
 
-  &-redirect-button {
+  &-button-wrapper {
     position: absolute;
     top: -$calendar-margin;
     right: 0;
-    height: 2rem;
-    display: flex;
-    align-items: center;
-    border-radius: 240px / 180px;
-    padding: 0 0.75rem;
-    background: $warnColor;
 
-    &:focus, &:hover {
-      outline: none;
-      background: darken($warnColor, 5);
-    }
+    .calendar-button {
+      height: 2rem;
+      display: flex;
+      align-items: center;
+      border-radius: 240px / 180px;
+      padding: 0 0.75rem;
+      background: $warnColor;
 
-    &::after {
-      margin-left: 0.75rem;
-      content: "";
-      width: 0;
-      height: 0;
-      border-left: 0.5rem solid transparent;
-      border-right: 0.5rem solid transparent;
-      border-top: 0.75rem solid $fontColor;
+      &:focus, &:hover {
+        outline: none;
+        background: darken($warnColor, 5);
+      }
+
+      &::after {
+        margin-left: 0.75rem;
+        content: "";
+        width: 0;
+        height: 0;
+        border-left: 0.5rem solid transparent;
+        border-right: 0.5rem solid transparent;
+        border-top: 0.75rem solid $fontColor;
+      }
     }
   }
 
@@ -137,7 +140,7 @@ $selected-day-size: 11rem;
   .calendar {
     margin-top: 2 * $calendar-margin;
 
-    &-redirect-button {
+    &-button {
       top: -2*$calendar-margin;
       font-size: 0.75rem;
     }
