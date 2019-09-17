@@ -8,7 +8,7 @@ import { OnDestroyAbstract } from '../../../shared/utils/abstract-injectables/on
   selector: 'diet-entity-full-summary',
   template: `
       <div class="summary-wrapper" [formGroup]="form">
-          <h1>{{'SUMMARY.NUTRITIONAL_VALUE' | translate}}</h1>
+          <h1 [class.title-hidden]="!showTitle">{{'SUMMARY.NUTRITIONAL_VALUE' | translate}}</h1>
           <div class="summary-input-wrapper">
               <diet-input *ngFor="let formControlName of formControlNames"
                           [label]="'SUMMARY.LABEL.' + formControlName | translate"
@@ -25,6 +25,7 @@ import { OnDestroyAbstract } from '../../../shared/utils/abstract-injectables/on
 export class DietEntityFullSummaryComponent extends OnDestroyAbstract {
 
   @Input() readonly: boolean = false;
+  @Input() showTitle: boolean = true;
 
   @Input() set summary(summary: Summary) {
     this.form.patchValue(summary, { emitEvent: false });

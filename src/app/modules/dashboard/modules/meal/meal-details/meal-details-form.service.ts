@@ -41,7 +41,6 @@ export class MealDetailsFormService {
     });
   }
 
-
   private createIngredientForm(ingredient?: Ingredient): FormGroup {
     const ingredientForm = this.fb.group({
       product: [ ingredient && ingredient.product, Validators.required ],

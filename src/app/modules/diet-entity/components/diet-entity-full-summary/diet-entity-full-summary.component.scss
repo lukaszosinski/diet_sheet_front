@@ -10,6 +10,11 @@
     color: $primaryColor;
     margin-bottom: 1rem;
     font-weight: 400;
+
+    &.title-hidden {
+      visibility: hidden;
+      font-size: 0;
+    }
   }
 }
 

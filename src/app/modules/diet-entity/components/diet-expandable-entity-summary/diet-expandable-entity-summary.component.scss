@@ -1,0 +1,20 @@
+@import "layout.scss";
+
+.diet-expandable-summary-wrapper {
+  position: relative;
+
+  .diet-meal-summary-toggle {
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin: 0.5rem;
+  }
+}
+
+@media (max-width: $breakpoint-xs-max-width) {
+  .diet-expandable-summary-wrapper {
+    .diet-meal-summary-toggle {
+      margin: 0.25rem;
+    }
+  }
+}

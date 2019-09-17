@@ -57,9 +57,15 @@ import * as SettingsActions from './settings.actions';
               ></diet-input>
               <div class="diet-limits-form" [formGroup]="dietLimitsForm">
                   <div class="diet-limits-form-label">{{'SETTINGS.LABELS.minLimits' | translate}}:</div>
-                  <diet-entity-summary class="diet-limits-form-min" [summaryFormGroup]="getMinLimitsForm()"></diet-entity-summary>
+                  <diet-expandable-entity-summary-summary class="diet-limits-form-min"
+                                                          [showTitle]="false"
+                                                          [summaryFormGroup]="getMinLimitsForm()"
+                  ></diet-expandable-entity-summary-summary>
                   <div class="diet-limits-form-label">{{'SETTINGS.LABELS.maxLimits' | translate}}:</div>
-                  <diet-entity-summary class="diet-limits-form-max" [summaryFormGroup]="getMaxLimitsForm()"></diet-entity-summary>
+                  <diet-expandable-entity-summary-summary class="diet-limits-form-max"
+                                                          [showTitle]="false"
+                                                          [summaryFormGroup]="getMaxLimitsForm()"
+                  ></diet-expandable-entity-summary-summary>
               </div>
           </div>
 

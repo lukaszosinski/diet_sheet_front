@@ -42,24 +42,9 @@ import { Summary } from '../../../../diet-entity/summary.model';
                   (deleteClick)="onDeleteIngredientClick($event)"
           >
           </diet-entity-item-table>
-          <div class="diet-meal-summary-wrapper">
-              <button mat-icon-button
-                      class="diet-meal-summary-toggle"
-                      (click)="toggleSummaryExpanded()"
-                      [title]="(isSummaryExpanded ? 'COMMON.LESS' : 'COMMON.MORE') | translate"
-              >
-                  <mat-icon>{{isSummaryExpanded ? 'unfold_less' : 'unfold_more'}}</mat-icon>
-              </button>
-              <diet-entity-summary *ngIf="!isSummaryExpanded"
-                                   [summaryFormGroup]="getSummaryForm()">
-              </diet-entity-summary>
-              <diet-entity-full-summary *ngIf="isSummaryExpanded"
-                                        [readonly]="true"
-                                        [summary]="getSummaryForm().value"
-                                        (valueChange)="onSummaryChange($event)"
-              ></diet-entity-full-summary>
-          </div>
-
+          <diet-expandable-entity-summary-summary [summaryFormGroup]="getSummaryForm()"
+                                                  [readonly]="true"
+          ></diet-expandable-entity-summary-summary>
       </form>
   `,
   styleUrls: [ './meal-details.component.scss' ],
