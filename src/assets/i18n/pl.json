@@ -9,7 +9,9 @@
     "EMAIL": "Email",
     "MIN_VALUE": "Minimalna wartość",
     "MAX_VALUE": "Maksymalna wartość",
+    "MORE": "Więcej",
     "NAME": "Nazwa",
+    "LESS": "Mniej",
     "INGREDIENTS": "Składniki",
     "PASSWORD": "Hasło",
     "QUANTITY": "Ilość",
@@ -160,7 +162,22 @@
     "PROTEINS": "Białko",
     "CARBS": "Węglowodany",
     "FAT": "Tłuszcz",
-    "ROUGHAGE": "Błonnik"
+    "NUTRITIONAL_VALUE": "Wartości odżywcze",
+    "ROUGHAGE": "Błonnik",
+    "LABEL": {
+      "kcal": "Kalorie",
+      "proteins": "Białko",
+      "carbs": "Węglowodany",
+      "sugar": "Cukier",
+      "fat": "Tłuszcz",
+      "saturatedFat": "Tłuszcze nasycone",
+      "salt": "Sól",
+      "roughage": "Błonnik",
+      "potassium": "Potas",
+      "calcium": "Wapń",
+      "vitaminD": "Witamina D",
+      "vitaminC": "Witamina C"
+    }
   },
   "VALIDATION_ERROR": {
     "required": "Pole wymagane",

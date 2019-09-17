@@ -13,12 +13,7 @@ export class MealDetailsFormService {
   }
 
   private createForm(): FormGroup {
-    const summaryForm = this.fb.group({
-      kcal: [ undefined, Validators.required ],
-      proteins: [ undefined, Validators.required ],
-      carbs: [ undefined, Validators.required ],
-      fat: [ undefined, Validators.required ]
-    });
+    const summaryForm = this.createSummaryForm();
     summaryForm.disable();
 
     return this.fb.group({
@@ -28,6 +23,24 @@ export class MealDetailsFormService {
       ingredients: this.fb.array([])
     });
   }
+
+  private createSummaryForm(): FormGroup {
+    return this.fb.group({
+      kcal: [ undefined, [ Validators.required ] ],
+      proteins: [ undefined, [ Validators.required ] ],
+      carbs: [ undefined, [ Validators.required ] ],
+      sugar: [ undefined, [ Validators.required ] ],
+      fat: [ undefined, [ Validators.required ] ],
+      saturatedFat: [ undefined, [ Validators.required ] ],
+      salt: [ undefined, [ Validators.required ] ],
+      roughage: [ undefined, [ Validators.required ] ],
+      potassium: [ undefined, [ Validators.required ] ],
+      calcium: [ undefined, [ Validators.required ] ],
+      vitaminD: [ undefined, [ Validators.required ] ],
+      vitaminC: [ undefined, [ Validators.required ] ],
+    });
+  }
+
 
   private createIngredientForm(ingredient?: Ingredient): FormGroup {
     const ingredientForm = this.fb.group({

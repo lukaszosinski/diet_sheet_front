@@ -6,6 +6,8 @@ import { SharedLazyModule } from '../shared/shared-lazy.module';
 import { DietEntityWithSummaryComponent } from './components/diet-entity-with-summary/diet-entity-with-summary.component';
 import { SummaryComponent } from './components/summary/summary.component';
 import { DietEntityWithSummaryListComponent } from './components/diet-entity-with-summary-list/diet-entity-with-summary-list.component';
+import { DietEntityFullSummaryComponent } from './components/diet-entity-full-summary/diet-entity-full-summary.component';
+import { SharedModule } from '../shared/shared.module';
 
 const components: any[] = [
   DietEntityInfoComponent,
@@ -19,12 +21,15 @@ const components: any[] = [
 @NgModule({
   declarations: [
     ...components,
+    DietEntityFullSummaryComponent,
   ],
   imports: [
     SharedLazyModule,
+    SharedModule,
   ],
   exports: [
     ...components,
+    DietEntityFullSummaryComponent,
   ],
   providers: []
 })

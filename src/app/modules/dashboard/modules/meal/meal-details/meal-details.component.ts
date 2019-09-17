@@ -14,6 +14,7 @@ import { MealDetailsFormService } from './meal-details-form.service';
 import { Product } from '../../product/product.model';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { SelectProductDialogComponent } from '../../product/select-product-dialog/select-product-dialog.component';
+import { Summary } from '../../../../diet-entity/summary.model';
 
 
 @Component({
@@ -41,9 +42,24 @@ import { SelectProductDialogComponent } from '../../product/select-product-dialo
                   (deleteClick)="onDeleteIngredientClick($event)"
           >
           </diet-entity-item-table>
-          <diet-entity-summary
-                  class="meal-details-summary"
-                  [summaryFormGroup]="getSummaryForm()"></diet-entity-summary>
+          <div class="diet-meal-summary-wrapper">
+              <button mat-icon-button
+                      class="diet-meal-summary-toggle"
+                      (click)="toggleSummaryExpanded()"
+                      [title]="(isSummaryExpanded ? 'COMMON.LESS' : 'COMMON.MORE') | translate"
+              >
+                  <mat-icon>{{isSummaryExpanded ? 'unfold_less' : 'unfold_more'}}</mat-icon>
+              </button>
+              <diet-entity-summary *ngIf="!isSummaryExpanded"
+                                   [summaryFormGroup]="getSummaryForm()">
+              </diet-entity-summary>
+              <diet-entity-full-summary *ngIf="isSummaryExpanded"
+                                        [readonly]="true"
+                                        [summary]="getSummaryForm().value"
+                                        (valueChange)="onSummaryChange($event)"
+              ></diet-entity-full-summary>
+          </div>
+
       </form>
   `,
   styleUrls: [ './meal-details.component.scss' ],
@@ -60,6 +76,7 @@ export class MealDetailsComponent implements OnInit, OnDestroy {
   };
 
   readonly form: FormGroup;
+  isSummaryExpanded: boolean = false;
 
   constructor(private route: ActivatedRoute,
               private store: Store<AppState>,
@@ -147,5 +164,13 @@ export class MealDetailsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.store.dispatch(MealActions.cancelMealStoreRequest());
+  }
+
+  onSummaryChange(summary: Summary): void {
+    this.getSummaryForm().patchValue(summary);
+  }
+
+  toggleSummaryExpanded(): void {
+    this.isSummaryExpanded = !this.isSummaryExpanded;
   }
 }

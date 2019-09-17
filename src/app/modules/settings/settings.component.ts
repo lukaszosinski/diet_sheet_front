@@ -148,8 +148,15 @@ export class SettingsComponent extends OnDestroyAbstract implements OnInit {
       kcal: undefined,
       proteins: undefined,
       carbs: undefined,
+      sugar: undefined,
       fat: undefined,
+      saturatedFat: undefined,
+      salt: undefined,
       roughage: undefined,
+      potassium: undefined,
+      calcium: undefined,
+      vitaminD: undefined,
+      vitaminC: undefined,
     });
   }
 
