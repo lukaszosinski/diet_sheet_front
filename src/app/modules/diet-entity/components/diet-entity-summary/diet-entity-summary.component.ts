@@ -9,22 +9,22 @@ import { FormGroup } from '@angular/forms';
           <div class="summary">
               <input type="number" class="summary-quantity-input" name="kcal" formControlName="kcal">
               <div class="summary-img kcal-img"></div>
-              <div class="summary-label">{{'SUMMARY.KCAL' | translate}}</div>
+              <div class="summary-label">{{'SUMMARY.kcal' | translate}}</div>
           </div>
           <div class="summary">
               <input type="number" class="summary-quantity-input" name="carbs" formControlName="carbs">
               <div class="summary-img carbs-img"></div>
-              <div class="summary-label">{{'SUMMARY.CARBS' | translate}}</div>
+              <div class="summary-label">{{'SUMMARY.carbs' | translate}}</div>
           </div>
           <div class="summary">
               <input type="number" class="summary-quantity-input" name="proteins" formControlName="proteins">
               <div class="summary-img proteins-img"></div>
-              <div class="summary-label">{{'SUMMARY.PROTEINS' | translate}}</div>
+              <div class="summary-label">{{'SUMMARY.proteins' | translate}}</div>
           </div>
           <div class="summary">
               <input type="number" class="summary-quantity-input" name="fat" formControlName="fat">
               <div class="summary-img fat-img"></div>
-              <div class="summary-label">{{'SUMMARY.FAT' | translate}}</div>
+              <div class="summary-label">{{'SUMMARY.fat' | translate}}</div>
           </div>
       </div>
   `,

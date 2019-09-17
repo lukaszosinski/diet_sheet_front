@@ -51,9 +51,16 @@
   }
 }
 
-
 @media (max-width: $breakpoint-xs-max-width) {
-  .summary-label {
-    display: none;
+  .summary-wrapper {
+    .summary {
+      .summary-label {
+        display: none;
+      }
+
+      .summary-quantity-input {
+        width: 3.5rem;
+      }
+    }
   }
 }

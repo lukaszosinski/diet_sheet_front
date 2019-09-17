@@ -50,3 +50,22 @@
     font-weight: 600;
   }
 }
+
+
+@media (max-width: $breakpoint-xs-max-width) {
+  .diet-settings-content {
+
+    & > * {
+      width: 95%;
+      margin-bottom: 0.5rem;
+    }
+
+    .diet-settings-card {
+      padding: 0.5rem;
+    }
+  }
+
+  .diet-limits {
+    padding: 0.5rem;
+  }
+}
