@@ -29,10 +29,18 @@ import { DietLimits } from '../../../../../settings/models/diet-limits.model';
 export class DayPlanStatsComponent {
 
   readonly metersData: Readonly<MeterData>[] = [
-    { propertyName: 'kcal', unit: 'kcal', translationKey: 'SUMMARY.KCAL' },
-    { propertyName: 'proteins', unit: 'g', translationKey: 'SUMMARY.PROTEINS' },
-    { propertyName: 'carbs', unit: 'g', translationKey: 'SUMMARY.CARBS' },
-    { propertyName: 'fat', unit: 'g', translationKey: 'SUMMARY.FAT' },
+    { propertyName: 'kcal', unit: 'kcal', translationKey: 'SUMMARY.kcal' },
+    { propertyName: 'proteins', unit: 'g', translationKey: 'SUMMARY.proteins' },
+    { propertyName: 'carbs', unit: 'g', translationKey: 'SUMMARY.carbs' },
+    { propertyName: 'fat', unit: 'g', translationKey: 'SUMMARY.fat' },
+    { propertyName: 'sugar', unit: 'g', translationKey: 'SUMMARY.sugar' },
+    { propertyName: 'saturatedFat', unit: 'g', translationKey: 'SUMMARY.saturatedFat' },
+    { propertyName: 'salt', unit: 'mg', translationKey: 'SUMMARY.salt' },
+    { propertyName: 'roughage', unit: 'g', translationKey: 'SUMMARY.roughage' },
+    { propertyName: 'potassium', unit: 'mg', translationKey: 'SUMMARY.potassium' },
+    { propertyName: 'calcium', unit: 'mg', translationKey: 'SUMMARY.calcium' },
+    { propertyName: 'vitaminD', unit: 'µg', translationKey: 'SUMMARY.vitaminD' },
+    { propertyName: 'vitaminC', unit: 'µg', translationKey: 'SUMMARY.vitaminC' },
   ];
 
   @Input() isExpanded: boolean = false;
@@ -65,5 +73,5 @@ export class DayPlanStatsComponent {
 interface MeterData {
   translationKey: string;
   propertyName: keyof Summary;
-  unit: 'g' | 'kcal';
+  unit: 'g' | 'kcal' | 'mg' | 'µg';
 }
