@@ -8,7 +8,7 @@ import { translateModuleConfig } from './config/translate-module-config';
 import { environment } from '../environments/environment';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { metaReducers, reducers } from './app.recuder';
+import { metaReducers, reducerProvider, REDUCERS_TOKEN } from './app.recuder';
 import { EffectsModule } from '@ngrx/effects';
 import { ApiModule } from './api/api.module';
 import { AuthorizationModule } from './modules/authorization/authorization.module';
@@ -27,7 +27,7 @@ import { ApiEffects } from './api/api.effects';
     BrowserAnimationsModule,
     ApiModule.forRoot(),
     TranslateModule.forRoot(translateModuleConfig),
-    StoreModule.forRoot(reducers, {
+    StoreModule.forRoot(REDUCERS_TOKEN, {
       metaReducers,
       runtimeChecks: {
         strictStateImmutability: true,
@@ -39,6 +39,7 @@ import { ApiEffects } from './api/api.effects';
     SharedModule,
   ],
   providers: [
+    reducerProvider,
     ApiModule.getServiceProviders(),
   ],
   bootstrap: [ AppComponent ]

@@ -14,6 +14,7 @@ import { MealDetailsFormService } from './meal-details-form.service';
 import { Product } from '../../product/product.model';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { SelectProductDialogComponent } from '../../product/select-product-dialog/select-product-dialog.component';
+import { Summary } from '../../../../diet-entity/summary.model';
 
 
 @Component({
@@ -41,9 +42,9 @@ import { SelectProductDialogComponent } from '../../product/select-product-dialo
                   (deleteClick)="onDeleteIngredientClick($event)"
           >
           </diet-entity-item-table>
-          <diet-entity-summary
-                  class="meal-details-summary"
-                  [summaryFormGroup]="getSummaryForm()"></diet-entity-summary>
+          <diet-expandable-entity-summary-summary [summaryFormGroup]="getSummaryForm()"
+                                                  [readonly]="true"
+          ></diet-expandable-entity-summary-summary>
       </form>
   `,
   styleUrls: [ './meal-details.component.scss' ],
@@ -60,6 +61,7 @@ export class MealDetailsComponent implements OnInit, OnDestroy {
   };
 
   readonly form: FormGroup;
+  isSummaryExpanded: boolean = false;
 
   constructor(private route: ActivatedRoute,
               private store: Store<AppState>,
@@ -147,5 +149,13 @@ export class MealDetailsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.store.dispatch(MealActions.cancelMealStoreRequest());
+  }
+
+  onSummaryChange(summary: Summary): void {
+    this.getSummaryForm().patchValue(summary);
+  }
+
+  toggleSummaryExpanded(): void {
+    this.isSummaryExpanded = !this.isSummaryExpanded;
   }
 }

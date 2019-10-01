@@ -7,6 +7,7 @@ import * as fromMeal from './modules/dashboard/modules/meal/meal.reducer';
 import * as fromProduct from './modules/dashboard/modules/product/product.reducer';
 import * as fromShoppingList from './modules/dashboard/modules/shopping-list/shopping-list.reducer';
 import * as fromSettings from './modules/settings/settings.reducer';
+import { InjectionToken } from '@angular/core';
 
 
 export interface AppState {
@@ -22,5 +23,7 @@ export interface AppState {
 export const reducers: ActionReducerMap<AppState> = {
   [fromAuthorization.authorizationFeatureKey]: fromAuthorization.reducer,
 };
+export const REDUCERS_TOKEN = new InjectionToken<ActionReducerMap<AppState>>('App Reducers');
+export const reducerProvider = { provide: REDUCERS_TOKEN, useValue: reducers };
 // https://ngrx.io/guide/store/metareducers
 export const metaReducers: MetaReducer<AppState>[] = !environment.production ? [] : [];

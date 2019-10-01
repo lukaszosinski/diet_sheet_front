@@ -29,7 +29,7 @@
     }
 
     .summary-quantity-input {
-      width: 2.5rem;
+      width: 4rem;
       padding: 0.15rem 0;
       border-radius: 0.5rem;
       background-color: inherit;
@@ -51,9 +51,16 @@
   }
 }
 
-
 @media (max-width: $breakpoint-xs-max-width) {
-  .summary-label {
-    display: none;
+  .summary-wrapper {
+    .summary {
+      .summary-label {
+        display: none;
+      }
+
+      .summary-quantity-input {
+        width: 3.5rem;
+      }
+    }
   }
 }

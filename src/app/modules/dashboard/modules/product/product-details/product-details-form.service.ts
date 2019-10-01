@@ -18,13 +18,25 @@ export class ProductDetailsFormService {
       name: [ undefined, Validators.required ],
       description: undefined,
       granularity: GranularityEnum.HUNDRED_GRAMS,
-      summary: this.fb.group({
-        kcal: [ undefined, Validators.required ],
-        proteins: [ undefined, Validators.required ],
-        carbs: [ undefined, Validators.required ],
-        fat: [ undefined, Validators.required ]
-      }),
+      summary: this.createSummaryForm(),
       prices: this.fb.array([ this.createPriceForm() ]),
+    });
+  }
+
+  private createSummaryForm(): FormGroup {
+    return this.fb.group({
+      kcal: [ undefined, [ Validators.required ] ],
+      proteins: [ undefined, [ Validators.required ] ],
+      carbs: [ undefined, [ Validators.required ] ],
+      sugar: [ undefined, [ Validators.required ] ],
+      fat: [ undefined, [ Validators.required ] ],
+      saturatedFat: [ undefined, [ Validators.required ] ],
+      salt: [ undefined, [ Validators.required ] ],
+      roughage: [ undefined, [ Validators.required ] ],
+      potassium: [ undefined, [ Validators.required ] ],
+      calcium: [ undefined, [ Validators.required ] ],
+      vitaminD: [ undefined, [ Validators.required ] ],
+      vitaminC: [ undefined, [ Validators.required ] ],
     });
   }
 

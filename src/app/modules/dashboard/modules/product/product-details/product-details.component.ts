@@ -12,6 +12,7 @@ import * as fromProducts from '../../product/product.reducer';
 import { ProductDetailsFormService } from './product-details-form.service';
 import { ActivatedRoute } from '@angular/router';
 import { OnDestroyAbstract } from '../../../../shared/utils/abstract-injectables/on-destroy-abstract';
+import { Summary } from '../../../../diet-entity/summary.model';
 
 
 @Component({
@@ -39,10 +40,9 @@ import { OnDestroyAbstract } from '../../../../shared/utils/abstract-injectables
                   (addButtonClick)="onAddPriceClick()"
                   (deleteClick)="onDeletePriceClick($event)">
           </diet-entity-item-table>
-          <diet-entity-summary
-                  class="product-details-summary"
-                  [summaryFormGroup]="getSummaryFormGroup()">
-          </diet-entity-summary>
+          <diet-entity-full-summary [summary]="getSummaryFormGroup().value"
+                                    (valueChange)="onSummaryChange($event)"
+          ></diet-entity-full-summary>
       </form>
   `,
   styleUrls: [ './product-details.component.scss' ],
@@ -136,5 +136,9 @@ export class ProductDetailsComponent extends OnDestroyAbstract implements OnInit
 
   onCancelButtonClick(): void {
     this.store.dispatch(ProductActions.redirectFromProductDetails({}));
+  }
+
+  onSummaryChange(summary: Summary): void {
+    this.getSummaryFormGroup().patchValue(summary);
   }
 }

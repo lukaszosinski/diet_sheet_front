@@ -28,7 +28,7 @@ export class DietEntityInfoComponent {
 
   readonly UNITS: GranularityEnum[] = Object.values(GranularityEnum);
 
-  @Input() placeholderKeys?: DietEntityInfoPlaceholderKeys;
+  @Input() placeholderKeys!: DietEntityInfoPlaceholderKeys;
   @Input() displayUnits: boolean = false;
-  @Input() infoFormGroup?: FormGroup;
+  @Input() infoFormGroup!: FormGroup;
 }

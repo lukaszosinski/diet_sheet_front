@@ -13,16 +13,16 @@ import { matchingPasswordsValidator } from '../../shared/validators';
       <img src="assets/images/logo.svg" alt="PanTry logo">
       <form class="diet-form" [formGroup]="form">
           <input class="long-input" type="email" formControlName="email" autocomplete="email" placeholder="{{'COMMON.EMAIL' | translate}}">
-          <diet-validation-message formControlName="email" [errors]="form.get('email').errors"></diet-validation-message>
+          <diet-validation-message formControlName="email" [errors]="form.get('email')?.errors"></diet-validation-message>
 
           <input class="long-input" type="password" formControlName="password" autocomplete="new-password"
                  placeholder="{{'COMMON.PASSWORD' | translate}}">
-          <diet-validation-message formControlName="password" [errors]="form.get('password').errors"></diet-validation-message>
+          <diet-validation-message formControlName="password" [errors]="form.get('password')?.errors"></diet-validation-message>
 
           <input class="long-input" type="password" formControlName="confirmPassword" autocomplete="new-password"
                  placeholder="{{'LANDING_PAGE.CONFIRM_PASSWORD' | translate}}">
           <diet-validation-message formControlName="confirmPassword"
-                                   [errors]="form.get('confirmPassword').errors"></diet-validation-message>
+                                   [errors]="form.get('confirmPassword')?.errors"></diet-validation-message>
 
           <diet-button (click)="signUp()"
                        [disabled]="(state | async).processing.signUp">
