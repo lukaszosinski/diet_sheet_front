@@ -8,11 +8,11 @@
   justify-content: center;
   align-items: center;
 
-
-  h1 {
-    text-align: center;
-    color: $primaryColor;
-    margin-bottom: 1rem;
+  img {
+    width: 10rem;
+    height: 20rem;
+    margin-bottom: 2rem;
+    transform: rotate(5deg);
   }
 
   .diet-landing-page-authorization {

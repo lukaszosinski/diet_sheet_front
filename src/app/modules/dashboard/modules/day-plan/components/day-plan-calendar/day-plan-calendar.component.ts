@@ -1,12 +1,20 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { addDays } from '../../../../../shared/utils/date-utils';
 import { fromEvent } from 'rxjs';
+import { Moment } from 'moment';
+import { MatDatepickerInputEvent } from '@angular/material';
 
 @Component({
   selector: 'diet-day-plan-calendar',
   template: `
       <div class="calendar">
-          <button type="button" class="calendar-redirect-button">{{'DAY_PLAN.CALENDAR' | translate | uppercase }}</button>
+          <div class="calendar-button-wrapper">
+              <button type="button" class="calendar-button" (click)="datepicker.open()">
+                  {{'DAY_PLAN.CALENDAR' | translate | uppercase }}
+              </button>
+              <input [hidden]="true" [matDatepicker]="datepicker" (dateChange)="onCalendarButtonDateChange($event)">
+              <mat-datepicker #datepicker [touchUi]="true"></mat-datepicker>
+          </div>
           <button class="calendar-arrow-left" (click)="onLeftArrowClick()"></button>
           <ul class="calendar-list">
               <li class="calendar-list-item"
@@ -36,8 +44,7 @@ export class DayPlanCalendarComponent implements OnInit {
   @Input() selectedDate?: Date;
   @Output() newDaySelected: EventEmitter<Date> = new EventEmitter<Date>();
 
-  constructor(private changeDetectorRef: ChangeDetectorRef) {
-  }
+  constructor(private changeDetectorRef: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     fromEvent(window, 'resize')
@@ -102,6 +109,11 @@ export class DayPlanCalendarComponent implements OnInit {
   }
 
   onSideListItemClick(day: Date): void {
+    this.newDaySelected.emit(day);
+  }
+
+  onCalendarButtonDateChange(event: MatDatepickerInputEvent<unknown>): void {
+    const day = (event.value as Moment).startOf('day').toDate();
     this.newDaySelected.emit(day);
   }
 }

@@ -53,6 +53,11 @@
         position: relative;
         left: -1.5rem;
         margin-right: -1rem;
+
+        &:focus, &:hover {
+          background-color: transparentize($primaryColor, 0.8);
+          border-radius: 50%;
+        }
       }
 
       &-name {

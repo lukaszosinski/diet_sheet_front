@@ -5,7 +5,7 @@ import { RoutingService } from '../shared/routing/routing.service';
   selector: 'diet-landing-page',
   template: `
       <div class="diet-landing-page-content">
-          <h1>{{'LANDING_PAGE.WELCOME' | translate}}</h1>
+          <img src="assets/images/logo.svg" alt="PanTry logo">
           <div class="diet-landing-page-authorization">
               <diet-sign-in></diet-sign-in>
               <diet-button type="button" class="diet-button-secondary"

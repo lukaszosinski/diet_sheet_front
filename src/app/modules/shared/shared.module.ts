@@ -7,14 +7,26 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ValidationMessageComponent } from './components/validation-error/validation-message.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { SelectComponent } from './components/select/select.component';
-import { MatFormFieldModule, MatInputModule, MatSelectModule } from '@angular/material';
+import {
+  MAT_DATE_FORMATS,
+  MAT_DATE_LOCALE,
+  MatButtonModule,
+  MatDatepickerModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatSelectModule
+} from '@angular/material';
 import { InputComponent } from './components/input/input.component';
+import { DateInputComponent } from './components/date-input/date-input.component';
+import { MomentDateModule } from '@angular/material-moment-adapter';
+import { DEFAULT_FORMAT } from './date-formats';
 
 const components: any[] = [
   DietButtonComponent,
   ValidationMessageComponent,
   SelectComponent,
   InputComponent,
+  DateInputComponent,
 ];
 
 const modules: any[] = [
@@ -24,6 +36,9 @@ const modules: any[] = [
   MatFormFieldModule,
   MatInputModule,
   MatSelectModule,
+  MatButtonModule,
+  MatDatepickerModule,
+  MomentDateModule,
 ];
 
 @NgModule({
@@ -41,6 +56,8 @@ const modules: any[] = [
   ],
   providers: [
     SnackBarService,
+    { provide: MAT_DATE_FORMATS, useValue: DEFAULT_FORMAT },
+    { provide: MAT_DATE_LOCALE, useValue: 'pl-PL' },
   ]
 })
 export class SharedModule {

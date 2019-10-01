@@ -15,7 +15,6 @@
   border-radius: 1.25rem;
   box-shadow: transparentize($primaryColor, 0.5) 1px 2px 5px 1px;
   outline: none;
-  cursor: pointer;
 
   &:hover, &:focus {
     box-shadow: transparentize($primaryColor, 0.2) 1px 2px 5px 1px;
@@ -43,11 +42,29 @@
 }
 
 .delete-meal-button {
-  @include cross-icon(1.5rem);
   position: absolute;
-  top: 0.5rem;
-  right: 0.5rem;
+  top: 0.15rem;
+  right: 0.15rem;
   outline: none;
+  display: flex;
+  justify-content: center;
+}
+
+.delete-meal-icon {
+  @include cross-icon(1.5rem);
+}
+
+.meal-checkbox-button {
+  position: absolute;
+  top: 50%;
+  left: 0.5rem;
+  transform: translate(50%, -50%);
+  display: flex;
+  justify-content: center;
+
+  .mat-button-wrapper {
+    display: flex;
+  }
 }
 
 .meal-checkbox {
@@ -60,10 +77,6 @@
   border: 0.22rem solid $secondaryColor;
   outline: none;
   cursor: pointer;
-  position: absolute;
-  top: 50%;
-  left: 0.5rem;
-  transform: translate(50%, -50%);
 
   &:focus, &:hover {
     background-color: lighten($warnColor, 30);
